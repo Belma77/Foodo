@@ -21,6 +21,7 @@ namespace backend.Services.Impl
         {
             this.userRepository = userRepository;
             this._mapper = mapper;
+            Console.WriteLine("dsad");
         }
 
         public void register(User user)
