@@ -25,6 +25,7 @@ namespace backend.Services.Impl
 
         public void register(User user)
         {
+            Console.WriteLine("dasds");
             byte[] salt = new byte[128 / 8];
             using (var rngCsp = new RNGCryptoServiceProvider())
             {
