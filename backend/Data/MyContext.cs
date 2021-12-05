@@ -1,5 +1,6 @@
 ﻿using Data.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace Data
@@ -17,6 +18,11 @@ namespace Data
 
         public DbSet<Courier> couriers { get; set; }
 
-
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>()
+                .HasIndex(u => u.email)
+                .IsUnique();
+        }
     }
 }

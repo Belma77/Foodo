@@ -9,13 +9,22 @@ namespace Data.Models.Entities
 {
     public class Product
     {
+        public Product(string name, string description, double price)
+        {
+            this.name = name;
+            this.description = description;
+            this.price = price;
+        }
+
         [Key]
         public int Id { get; set; }
 
-        private string name { get; set; }
+        public string name { get; private set; }
 
-        private string description { get; set; }
+        public string description { get; private set; }
 
-        private double price { get; set; }
+        public double price { get; private set; }
+
+        
     }
 }
