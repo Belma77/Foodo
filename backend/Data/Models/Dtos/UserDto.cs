@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,7 @@ namespace Data.Models.Dtos
         public int Id { get; set; }
 
         public string email { get; set; }
+
+        public UserRole role { get; set; }
     }
 }

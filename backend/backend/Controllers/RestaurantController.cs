@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using backend.interceptors;
+using backend.Services;
 using Data.Models.Dtos;
 using Data.Models.Entities;
+using Data.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,28 +11,40 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using static backend.Utils.AuthConstants;
+using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
 
 namespace backend.Controllers
 {
     [ApiController]
     [Route("restaurant")]
-    public class RestaurantController : Controller
+    [Authorize(UserRole.RESTAURANT)]
+    public class RestaurantController : BaseUserController
     {
         private readonly IMapper _mapper;
+        private readonly IProductService _productService;
 
-        public RestaurantController(IMapper mapper)
+        public RestaurantController(IMapper mapper, IUserService userService,
+                                    IProductService productService): base(userService)
         {
+            this._productService = productService;
             this._mapper = mapper;
         }
 
         [HttpPost]
-        [Route("add")]
-        [AuthFilter]
-        public IActionResult Login()
+        [Route("register")]
+        [AllowAnonymous]
+        public IActionResult Register([FromBody] Restaurant user)
         {
-            User user = JsonSerializer.Deserialize<User>(Request.Headers[USER_TYPED_KEY]);
-            UserDto userDto = _mapper.Map<UserDto>(user);
-            return Ok(userDto);
+            userService.register(user);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public IActionResult addProduct([FromBody] Product product)
+        {
+            this._productService.create(product);
+            return Ok();
         }
     }
 }

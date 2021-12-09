@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Data.Models.Entities
 {
-    public class Consumer : User
+    public class Customer : User
     {
-        public Consumer(string email, string password) : base(email, password)
+        public Customer() { }
+
+        public Customer(string email, string password) : base(email, password)
         {
         }
 

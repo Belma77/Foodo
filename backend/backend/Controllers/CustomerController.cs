@@ -1,35 +1,33 @@
 ﻿using backend.Services;
-using backend.Services.Impl;
 using Data.Models.Entities;
+using Data.Models.Enums;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
 
 namespace backend.Controllers
 {
+    [Route("customer")]
     [ApiController]
-    [Route("user")]
-    public class UserController : Controller
+    [Authorize(UserRole.CUSTOMER)]
+    public class CustomerController : ControllerBase
     {
         private readonly IUserService userService;
 
-        public UserController(IUserService userService)
+        public CustomerController(IUserService userService)
         {
             this.userService = userService;
         }
 
         [HttpPost]
-        [Route("login")]
-        public IActionResult Login([FromBody] User user)
-        {
-            return Ok(userService.login(user));
-        }
-
-        [HttpPost]
         [Route("register")]
-        public IActionResult Register([FromBody] User user)
+        [AllowAnonymous]
+        public IActionResult Register([FromBody] Restaurant user)
         {
             userService.register(user);
             return Ok();

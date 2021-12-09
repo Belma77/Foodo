@@ -9,11 +9,14 @@ namespace Data.Models.Entities
 {
     public class Product
     {
-        public Product(string name, string description, double price)
+        public Product() { }
+
+        public Product(string name, string description, double price, Category category)
         {
             this.name = name;
             this.description = description;
             this.price = price;
+            this.category = category;
         }
 
         [Key]
@@ -24,6 +27,8 @@ namespace Data.Models.Entities
         public string description { get; private set; }
 
         public double price { get; private set; }
+
+        public Category category { get; set; }
 
         
     }

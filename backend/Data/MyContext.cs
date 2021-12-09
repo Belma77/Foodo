@@ -1,7 +1,9 @@
 ﻿using Data.Models.Entities;
+using Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 
 namespace Data
 {
@@ -12,9 +14,11 @@ namespace Data
 
         public DbSet<Product> products { get; set; }
 
+        public DbSet<Category> categories{ get; set; }
+
         public DbSet<User> users { get; set; }
 
-        public DbSet<Consumer> consumer { get; set; }
+        public DbSet<Customer> consumer { get; set; }
 
         public DbSet<Courier> couriers { get; set; }
 
@@ -23,6 +27,19 @@ namespace Data
             builder.Entity<User>()
                 .HasIndex(u => u.email)
                 .IsUnique();
+
+            builder.Entity<User>()
+            .HasDiscriminator<int>("discriminator")
+            .HasValue<Customer>(((int)UserRole.CUSTOMER))
+            .HasValue<Courier>(((int)UserRole.COURIER))
+            .HasValue<Restaurant>(((int)UserRole.RESTAURANT));
+
+            builder.Entity<Category>()
+                .HasData(
+                   new { id = 1, name = "Breakfast"},
+                   new { id = 2, name = "Pasta" },
+                   new { id = 3, name = "Pizza" }
+                );
         }
     }
 }
