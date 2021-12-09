@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace Data.Models.Entities
 {
-    public class User
-    {
+    public abstract class User { 
+
+        public User() { }
+
         public User(string email, string password)
         {
             this.email = email;
@@ -23,9 +26,9 @@ namespace Data.Models.Entities
 
         public string password { get; set; }
 
+        public UserRole role { get; set; }
+
         public byte[] StoredSalt { get; set; }
-
-
 
     }
 }

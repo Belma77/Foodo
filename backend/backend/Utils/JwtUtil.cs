@@ -22,6 +22,7 @@ namespace backend.Utils
         {
             var claims = new[] {
             new Claim(nameof (user), JsonSerializer.Serialize(user)),
+            new Claim(ClaimTypes.Role, JsonSerializer.Serialize(user.role)),
             new Claim(ClaimTypes.NameIdentifier,
             Guid.NewGuid().ToString())
         };
@@ -57,11 +58,11 @@ namespace backend.Utils
             return true;
         }
 
-        public static User getUserFromToken(string token)
+        public static Restaurant getUserFromToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var payload = tokenHandler.ReadJwtToken(token).Payload;
-            User user = JsonSerializer.Deserialize<User>(payload.Claims.First(c => c.Type == USER_TYPED_KEY).Value);
+            Restaurant user = JsonSerializer.Deserialize<Restaurant>(payload.Claims.First(c => c.Type == USER_TYPED_KEY).Value);
 
             if(user != null)
             {

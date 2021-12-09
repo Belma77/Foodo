@@ -13,8 +13,8 @@ namespace Data.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
+            CreateMap<Restaurant, UserDto>();
+            CreateMap<UserDto, Restaurant>();
         }
     }
 }

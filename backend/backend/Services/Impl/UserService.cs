@@ -3,6 +3,7 @@ using backend.Repositories;
 using backend.Utils;
 using Data.Models.Dtos;
 using Data.Models.Entities;
+using Data.Models.Enums;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,11 @@ namespace backend.Services.Impl
         {
             this.userRepository = userRepository;
             this._mapper = mapper;
-            Console.WriteLine("dsad");
         }
 
         public void register(User user)
         {
+            Console.WriteLine("dasds");
             byte[] salt = new byte[128 / 8];
             using (var rngCsp = new RNGCryptoServiceProvider())
             {
@@ -42,6 +43,7 @@ namespace backend.Services.Impl
 
             user.password = hashedPassword;
             user.StoredSalt = salt;
+            user.role = UserRole.RESTAURANT;
             userRepository.create(user);
         }
 
