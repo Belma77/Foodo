@@ -1,22 +1,31 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ButtonComponent } from './components/button/button.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+// import { ServicesComponent } from './services/services.component';
+import { ModelsComponent } from './models/models.component';
+// import { EnumsComponent } from './enums/enums.component';
+import { DtoComponent } from './models/dto/dto.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ButtonComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    // ServicesComponent,
+    ModelsComponent,
+    // EnumsComponent,
+    DtoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

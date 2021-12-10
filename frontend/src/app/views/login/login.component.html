@@ -1,1 +1,104 @@
-<p>login works!</p>
+<div class="contaier pt-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Login</h3>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="loginForm" (ngSubmit)="save()">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="email"
+                                required
+                                formControlName="email"
+                                name="email"
+                            />
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.email.touched && f.email.errors?.required
+                                "
+                            >
+                                Email is required
+                            </span>
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.email.touched && f.email.errors?.pattern
+                                "
+                            >
+                                Enter a valid email address
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                name="password"
+                                formControlName="password"
+                            />
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.password.touched &&
+                                    f.password.errors?.required
+                                "
+                            >
+                                Password is required
+                            </span>
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.password.touched &&
+                                    f.password.errors?.minlength
+                                "
+                            >
+                                Password should have minimum 8 characters
+                            </span>
+                        </div>
+
+                        <div class="form-check form-group">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="rememberMe"
+                                name="rememberMe"
+                                formControlName="rememberMe"
+                            />
+                            <label class="form-check-label" for="rememberMe">
+                                Remember me
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <button
+                                type="submit"
+                                class="btn btn-violet btn-lg w-100"
+                                id="submitButton"
+                            >
+                                Login
+                            </button>
+                        </div>
+                        <div class="form-group forgot-password">
+                            <a
+                                [routerLink]="['/password/forgot']"
+                                routerLinkActive="router-link-active"
+                                >Forgot password?</a
+                            >
+                        </div>
+                        <div class="form-group google-button-container">
+                            <button type="button" class="btn btn-lg btn-google btn-block" id="sign-in-with-google-button" (click) = "signInWithGoogle()"><img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png"> Sign in with Google</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
