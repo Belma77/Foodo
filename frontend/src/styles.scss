@@ -1,5 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+}
+
 .btn-outline-violet {
     background: #ffffff;
     border: 3px solid #8367d8;

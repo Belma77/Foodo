@@ -1,0 +1,25 @@
+<div class="container product-card">
+    <div class="image-info-wrapper">
+        <div class="product-image">
+            <img src="{{product.image}}" alt="">
+        </div>
+        <div class="product-info">
+            <div class="title-and-ingridients">
+                <span class="title">{{product.title}}</span>
+                <p class="ingridients">{{product.description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="price-and-controlls">
+        <span class="price">{{product.price}} BAM</span>
+        <div class="controls">
+            <div *ngIf="edit" class="edit-icons">
+                <a class="icon" [routerLink]="['/restaurant/dashboard/edit-product/', product.id]"><i class="fas fa-pen"></i></a>
+                <i class="fas fa-trash icon" (click)="deleteProduct(product.id)"></i>
+            </div>
+            <div *ngIf="!edit">
+                <i class="fas fa-plus-circle icon"></i>
+            </div>
+        </div>
+    </div>
+</div>

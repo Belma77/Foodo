@@ -1,0 +1,203 @@
+[
+    {
+        "id":1,
+        "slug":"slatko-i-slano",
+        "title": "Slatko i Slano",
+        "avgDeliveryTime":"15-25",
+        "deliveryCost":1.5,
+        "rating":96,
+        "numberOfReviews":120,
+        "image":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/wy4xymearvmy7vzglvc2",
+        "products":[
+            {
+                "id": 1,
+                "title": "Pizza Capricciosa",
+                "price": 6,
+                "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
+                "category": {
+                    "id":1,
+                    "name":"Pizza"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
+            },
+            {
+                "id": 4,
+                "title": "Pizza Mararita",
+                "price": 6,
+                "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
+                "category": {
+                    "id":1,
+                    "name":"Pizza"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
+            },
+            {
+                "id": 2,
+                "title": "Omlet sa gljivama",
+                "price": 6,
+                "description": "Jaja, gljive, puter, pavlaka, ajvar",
+                "category": {
+                    "id":2,
+                    "name":"Dorucak"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
+            },
+            {
+                "id": 3,
+                "title": "Curry wok",
+                "price": 6,
+                "description": "Pileći rezanci u curry sosu",
+                "category": {
+                    "id":3,
+                    "name":"Wok"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+            },
+            {
+                "id": 3,
+                "title": "Curry wok",
+                "price": 6,
+                "description": "Pileći rezanci u curry sosu",
+                "category": {
+                    "id":3,
+                    "name":"Wok"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+            },
+            {
+                "id": 3,
+                "title": "Curry wok",
+                "price": 6,
+                "description": "Pileći rezanci u curry sosu",
+                "category": {
+                    "id":3,
+                    "name":"Wok"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+            },
+            {
+                "id": 3,
+                "title": "Curry wok",
+                "price": 6,
+                "description": "Pileći rezanci u curry sosu",
+                "category": {
+                    "id":3,
+                    "name":"Wok"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+            },
+            {
+                "id": 3,
+                "title": "Curry wok",
+                "price": 6,
+                "description": "Pileći rezanci u curry sosu",
+                "category": {
+                    "id":3,
+                    "name":"Wok"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+            },
+            {
+                "id": 3,
+                "title": "Curry wok",
+                "price": 6,
+                "description": "Pileći rezanci u curry sosu",
+                "category": {
+                    "id":3,
+                    "name":"Wok"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+            }
+        ]
+    },
+    {
+        "id":2,
+        "slug":"mostarlic",
+        "title": "Mostarlic",
+        "avgDeliveryTime":"15-25",
+        "deliveryCost":2.5,
+        "rating":93,
+        "numberOfReviews":50,
+        "image":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/mglozbioqdnwvv2onr22",
+        "products":[
+            {
+                "id": 1,
+                "title": "Pizza Capricciosa",
+                "price": 6,
+                "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
+                "category": {
+                    "id":1,
+                    "name":"Pizza"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
+            },
+            {
+                "id": 2,
+                "title": "Omlet sa gljivama",
+                "price": 6,
+                "description": "Jaja, gljive, puter, pavlaka, ajvar",
+                "category": {
+                    "id":2,
+                    "name":"Dorucak"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
+            },
+            {
+                "id": 3,
+                "title": "Curry wok",
+                "price": 6,
+                "description": "Pileći rezanci u curry sosu",
+                "category": {
+                    "id":3,
+                    "name":"Wok"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+            }
+        ]
+    },
+    {
+        "id":3,
+        "slug":"restoran-arci-kod-pirije",
+        "title": "Restoran Arci kod Pirije",
+        "avgDeliveryTime":"15-25",
+        "deliveryCost":2,
+        "rating":99,
+        "numberOfReviews":420,
+        "image":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/bhdg3uuroaqcgm3esrld",
+        "products":[
+            {
+                "id": 1,
+                "title": "Pizza Capricciosa",
+                "price": 6,
+                "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
+                "category": {
+                    "id":1,
+                    "name":"Pizza"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
+            },
+            {
+                "id": 2,
+                "title": "Omlet sa gljivama",
+                "price": 6,
+                "description": "Jaja, gljive, puter, pavlaka, ajvar",
+                "category": {
+                    "id":2,
+                    "name":"Dorucak"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
+            },
+            {
+                "id": 3,
+                "title": "Curry wok",
+                "price": 6,
+                "description": "Pileći rezanci u curry sosu",
+                "category": {
+                    "id":3,
+                    "name":"Wok"
+                },
+                "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+            }
+        ]
+    }
+]
