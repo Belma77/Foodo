@@ -1,0 +1,48 @@
+<div class="wwrapper">
+    <div class="sidebar">
+        <div class="container">
+            <div class="logo">
+                <h1>Foodo</h1>
+            </div>
+            <ul>
+                <li>
+                    <a [routerLink]="['orders']" routerLinkActive="active">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-hamburger"></i>
+                        </div>
+                        Orders
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['menu']" routerLinkActive="active">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        Menu
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['statistics']" routerLinkActive="active">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-signal"></i>
+                        </div>
+                        Statistics
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['wallet']" routerLinkActive="active">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        Wallet
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="restaurant-card">
+    <div class="card-image" [routerLink]="['/restaurant', restaurant.slug]">
+        <div class="card-image-inner" [style.background-image]="'url(' + restaurant.image + ')'">
+            <div class="card-overlay">
+                <h2>{{restaurant.title}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="rating">
+            <i class="fas fa-thumbs-up me-2 rating-icon"></i>{{restaurant.rating}} ({{restaurant.numberOfReviews}})      
+        </div>
+        <div class="price-and-time">
+            <i class="fas fa-bicycle"></i> {{restaurant.deliveryCost}} BAM
+            <span class="fw-bold"> {{restaurant.avgDeliveryTime}} min</span>
+        </div>
+    </div>
+</div>
