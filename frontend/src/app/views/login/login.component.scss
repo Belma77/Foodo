@@ -1,47 +1,48 @@
+
+main {
+    margin-top: 0px;
+    height:100%;
+
+    .form-wrapper {
+        display: flex;
+        height:100%;
+        .left {
+            width: 50%;
+            background-color: rgb(241, 241, 241);
+            display: flex;
+            flex-direction: column;
+            padding: 150px 40px;
+        }
+
+        .right {
+            width: 50%;
+            background-color: #FA9269;
+
+            .form-body {
+                width: 80%;
+                
+                margin: 40px auto;
+                margin-top:150px;
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                -webkit-box-shadow: 5px 5px 10px 4px rgba(0,0,0,0.38); 
+                box-shadow: 5px 5px 10px 4px rgba(0,0,0,0.38);
+            }
+        }
+    }
+}
 .form-group {
     margin-bottom: 30px;
+    
 }
 
-.card-header {
-    h3 {
-        margin: 0;
-        font-family: Lato-Bold;
-        font-size: 24px;
-        color: #252525;
-        letter-spacing: 0.84px;
-        text-align: center;
-    }
+.form-control {
+    border: none;
+    border-bottom: 2px solid lightgrey;
+    padding: 5px 20px 20px 20px;
 }
-
-#submitButton {
-    color: white;
-}
-
-.forgot-password {
-    display: flex;
-    justify-content: center;
-
-    a {
-        color: #8367d8;
-        text-decoration: none;
-        font-family: Lato-Regular;
-        font-size: 1.125rem;
-        letter-spacing: 0.63px;
-    }
-}
-
-.google-button-container{
-    display: flex;
-    justify-content: center;
-}
-
-.btn-google{
-    border: 1px solid lightgray;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-
-    img{
-        margin-right: 20px;
-        width: 30px;
-        height: 30px;
-    }
+a {
+    color:black;
+    text-decoration: none;
 }

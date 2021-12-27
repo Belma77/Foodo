@@ -1,14 +1,15 @@
 ﻿using backend.Services;
 using backend.Services.Impl;
+using Data.Models.Dtos;
 using Data.Models.Entities;
 using Data.Models.Enums;
+using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Data.Models.ViewModels;
 
@@ -21,23 +22,32 @@ namespace backend.Controllers
     [Authorize(UserRole.CUSTOMER)]
     public class CustomerController : ControllerBase
     {
-        private readonly IUserService userService;
+        private CustomerService _customerService;
         private readonly OrderService orderService;
-        //private readonly MyContext myContext;
 
-        public CustomerController(IUserService userService, OrderService orderService)
+        public CustomerController(CustomerService customerService, OrderService orderService, UserService us)
         {
-            this.userService = userService;
+            _customerService = customerService;
             this.orderService = orderService;
+            
         }
 
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public IActionResult Register([FromBody] Restaurant user)
+        public IActionResult Register([FromBody] Customer customer)
         {
-            userService.register(user);
+            _customerService.register(customer);
             return Ok();
+        }
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+        public ResponseToken Login([FromBody] UserVM customer)
+        {
+            _customerService.login(customer);
+            ResponseToken token = _customerService.login(customer);
+            return token;
         }
 
         [HttpPost]

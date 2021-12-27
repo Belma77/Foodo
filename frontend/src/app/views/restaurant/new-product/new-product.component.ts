@@ -48,9 +48,16 @@ export class NewProductComponent implements OnInit {
         }
     }
 
-    get f() {
-        return this.productForm.controls;
-    }
+//         //Todo: 21.12.2021 (Faris) - Add guard to load product before page loads (or conditional rendenring)
+//         if(this.editMode) {
+//           fetch('https://fakestoreapi.com/products/' + this.id )
+//             .then(res=>res.json())
+//             .then(data=> {
+//               console.log(data)
+//               this.productForm.patchValue(data)
+//             })
+//         }
+//     }
 
     get categories() {
       return this.restaurantService.categories;
@@ -58,16 +65,7 @@ export class NewProductComponent implements OnInit {
 
     ngOnInit(): void {}
 
-     save() {
-        if (this.productForm.valid) {
-            if(!this.editMode)
-              this.createProduct();
-            else
-              this.editProduct();
-        } else {
-            this.validateAllFields(this.productForm);
-        }
-     }
+//     ngOnInit(): void {}
 
      createProduct() {
         let p = Object.assign(new Product(), this.productForm.value);
@@ -79,15 +77,17 @@ export class NewProductComponent implements OnInit {
       this.restaurantService.updateProduct(p, this.id);
      }
 
-    validateAllFields(formGroup: FormGroup) {
-        Object.keys(formGroup.controls).forEach((field) => {
-            const control = formGroup.get(field);
-            if (control instanceof FormControl) {
-                control.markAsTouched({ onlySelf: true });
-            } else if (control instanceof FormGroup) {
-                this.validateAllFields(control);
-            }
-        });
-     }
-}
+//     validateAllFields(formGroup: FormGroup) {
+//         Object.keys(formGroup.controls).forEach((field) => {
+//             const control = formGroup.get(field);
+//             if (control instanceof FormControl) {
+//                 control.markAsTouched({ onlySelf: true });
+//             } else if (control instanceof FormGroup) {
+//                 this.validateAllFields(control);
+//             }
+//         });
+//      }
+// }
 
+
+}

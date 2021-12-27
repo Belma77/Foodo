@@ -1,30 +1,15 @@
 // import { CreditCard } from './credit-card.model';
+// import { stat } from 'fs';
+import { LOADERS } from 'ngx-spinner';
 import { UserRole } from './enums/user-role';
 import { UserStatus } from './enums/user-status';
+import { Restaurant } from './restaurant.model';
+import { UserBase } from './userBase.model';
 
 
-export class User {
-    id: number;
-    createdAt: Date;
-    updatedAt: Date;
-    firstName: String;
-    lastName: String;
-    email: String;
-    password: String;
-    profileImage: String | null;
-    
-    dateOfBirth: Date | null;
-    phoneNumber: String | null;
-    verified: boolean | null;
-    city: String | null;
-    street: String | null;
-    zipCode: String | null;
-    country: String | null;
-    state: String | null;
-    // creditCard: CreditCard | null;
-    userStatus: UserStatus;
-    role: UserRole;
+export  class User extends UserBase {
 
+    birthofDate!: Date | null;
     constructor(
         id: number,
         firstName: String,
@@ -33,39 +18,22 @@ export class User {
         password: String,
         createdAt: Date,
         updatedAt: Date,
-        
-        dateOfBirth: Date,
         phoneNumber: String,
         verified: boolean,
-        city: String,
-        street: String,
-        zipCode: String,
-        country: String,
-        state: String,
+        token:string,
         // creditCard: CreditCard,
         profileImage: String,
         userStatus: UserStatus,
-        role: UserRole
+        role: UserRole,
+        private dateofBirth:Date
     ) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    
-        this.dateOfBirth = dateOfBirth;
-        this.phoneNumber = phoneNumber;
-        this.verified = verified;
-        this.city = city;
-        this.street = street;
-        this.zipCode = zipCode;
-        this.country = country;
-        this.state = state;
-        // this.creditCard = creditCard;
-        this.profileImage = profileImage;
-        this.role = role;
-        this.userStatus = userStatus;
+<<<<<<< HEAD
+        super(id, firstName, lastName, email, password, createdAt, updatedAt, phoneNumber, verified, city, street, zipCode, country, state, profileImage, userStatus,role);
+=======
+        super(id, firstName, lastName, email, password, createdAt, updatedAt, phoneNumber, verified, profileImage, userStatus,role);
+>>>>>>> ed9e1d9 (implemented registration for restaurant and customer)
+        
+        this.dateofBirth = dateofBirth;
+       
     }
 }

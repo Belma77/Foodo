@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from '../models/category';
 import { Product } from '../models/product';
+import { Restaurant } from '../models/restaurant';
+import { AuthService } from './auth.service';
 import { CoreRequestService } from './core-request.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
-
+  restaurant!: Restaurant;
   categories:Category[] = [];
 
-  constructor(private requestService:CoreRequestService, private router:Router) {
+  constructor(private requestService:CoreRequestService, private router:Router, private authService: AuthService) {
       this.getCategories();
    }
 
@@ -50,5 +52,11 @@ export class RestaurantService {
     await this.requestService.delete("/product/"+id)
     .then(() => window.location.reload());
   }  
+
+  async register(restaurant: Restaurant): Promise<any> {
+    await this.requestService.post('/restaurant/register', restaurant).then((data: any) => {
+        this.router.navigate(['/login-restaurant']);
+    });
+ }
 
 }

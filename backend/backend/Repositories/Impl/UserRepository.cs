@@ -1,5 +1,8 @@
-﻿using Data;
+﻿using backend.Utils;
+using Data;
+using Data.Models.Dtos;
 using Data.Models.Entities;
+using Data.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +24,7 @@ namespace backend.Repositories
             dbContext.users.Add(user);
             dbContext.SaveChanges();
         }
-
+       
         public User findById (int id)
         {
             User user = dbContext.users.Find(id);
@@ -39,5 +42,6 @@ namespace backend.Repositories
             dbContext.users.Update(user);
             dbContext.SaveChanges();
         }
+        
     }
 }

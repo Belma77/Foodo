@@ -2,6 +2,7 @@
 using backend.Services.Impl;
 using Data.Models.Entities;
 using Data.Models.Enums;
+using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -19,19 +20,31 @@ namespace backend.Controllers
     [Authorize(UserRole.COURIER)]
     public class CourierController : ControllerBase
     {
+
         private readonly CourierService _courierService;
 
         public CourierController(CourierService courierService)
         {
             this._courierService = courierService;
+
         }
 
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public IActionResult Register([FromBody] Courier user)
+        public IActionResult Register([FromBody] Courier courier)
         {
-            _courierService.register(user);
+
+            _courierService.Register(courier);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+        public IActionResult Login([FromBody] UserVM courier)
+        {
+            _courierService.Login(courier);
+
             return Ok();
         }
 

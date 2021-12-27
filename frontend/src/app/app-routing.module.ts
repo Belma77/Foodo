@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LocationPickerComponent } from './components/location-picker/location-picker.component';
 import { LocationWrapperComponent } from './components/location-wrapper/location-wrapper.component';
 import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
 import { ModalComponent } from './components/modal/modal.component';
+
 import { Restaurant } from './models/restaurant';
 import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
 import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
@@ -16,6 +16,9 @@ import { MenuComponent } from './views/restaurant/dashboard/menu/menu.component'
 import { OrdersComponent } from './views/restaurant/dashboard/orders/orders.component';
 import { StatisticsComponent } from './views/restaurant/dashboard/statistics/statistics.component';
 import { WalletComponent } from './views/restaurant/dashboard/wallet/wallet.component';
+import { NgModule } from '@angular/core';
+import { RegisterComponent } from './views/register/register.component';
+import { LoginComponentRestaurant } from './views/login-restaurant/login-restaurant.component';
 import { NewProductComponent } from './views/restaurant/new-product/new-product.component';
 
 const routes: Routes = [
@@ -23,7 +26,10 @@ const routes: Routes = [
    component: HomePageComponent,
   },
   {path:'login', component:LoginComponent},
-  // {path:'restaurant/:slug', component:RestaurantComponent},
+  {path: 'register', component: RegisterComponent},
+  {path:'home-page', component:HomePageComponent},
+  {path:'login-restaurant', component:LoginComponentRestaurant},
+  {path:'restaurant/:slug', component:RestaurantComponent},
   {
     path:'restaurant/dashboard', 
     component:DashboardComponent,
@@ -72,6 +78,7 @@ const routes: Routes = [
       },
     ]
   },
+  
 ];
 
 @NgModule({

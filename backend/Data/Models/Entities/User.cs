@@ -1,4 +1,5 @@
-﻿using Data.Models.Enums;
+﻿using AutoMapper.Configuration.Annotations;
+using Data.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -31,8 +32,8 @@ namespace Data.Models.Entities
         [JsonIgnore]
         public byte[] StoredSalt { get; set; }
 
-        [JsonIgnore]
-        public string connectionId { get; set; }
+        //[JsonIgnore]
+        //public string connectionId { get; set; }
 
     }
 }

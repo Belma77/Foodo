@@ -1,5 +1,172 @@
-<div class="row container">
-    <div *ngFor="let restaurant of restaurants" class="col-md-4">
-        <app-restaurant-card [restaurant]="restaurant"></app-restaurant-card>
+<app-header></app-header>
+<main>
+    <div class="landing-screen">
+        <div class="background-images">
+            <img src="../../../../assets/homePageBackground.svg" alt="">
+            <img src="../../../../assets/homePageBackground2.svg" alt="">
+        </div>
+        <div class="center">
+            <div class="container">
+                <h1>Order food to your door</h1>
+                <div class="search-inline">
+                    <div class="search-wrapper">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="Unesite vasu Adresu"> 
+                    </div>
+                    <button class="find-food btn-success"><i class="fas fa-search"></i>Trazi</button>
+                </div>
+                <span class="sign-in"><a [routerLink]="['login']" >Sign in</a> to your recent adresses</span>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="divider"></div>
+    <div *ngIf="!isLoggedIn">
+        <div class="container why-foodo">
+            <h1>Why Foodo</h1>
+        </div>
+        <div class="about-foodo container">
+            <div class="about-box">
+                <div class="about-image">
+                    <img src="../../../../assets/aboutFoodoRestaurant.svg" alt="">
+                </div>
+                <div class="about-title">
+                    Najbolji restorani u tvom gradu
+                </div>
+                <div class="about-description">
+                    Uz veliki izbor restorana u ponudi možeš da naručiš omiljenu hranu, istraži nove restorane u blizini!
+                </div>
+            </div>
+            <div class="about-box">
+                <div class="about-image">
+                    <img src="../../../../assets/aboutFoodoDelivery.svg" alt="">
+                </div>
+                <div class="about-title">
+                    Brza dostava
+                </div>
+                <div class="about-description">
+                    Ponosimo se time koliko smo brzi. Naruči ili pošalji bilo šta u svom gradu i mi ćemo to da preuzmemo i dostavimo ti za par minuta.
+                </div>
+            </div>
+            <div class="about-box">
+                <div class="about-image">
+                    <img src="../../../../assets/aboutFoodoLaunch.svg" alt="">
+                </div>
+                <div class="about-title">
+                    Dostava namirnica i još mnogo toga
+                </div>
+                <div class="about-description">
+                    Pronađi sve što ti treba! Od supermarketa do trgovina, od apoteka do cvjećara — ako je u tvom gradu, možeš računati da ćemo ti to donijeti.
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="foodo-on-work container" *ngIf="!isLoggedIn">
+            <h1>Novo - FOODO na poslu</h1>
+            <span>Najlakši način da svojim uposlenicima pružite savršeno iskustvo narudžbe hrane na poslu</span>
+            <div class="offer row">
+                <div class="left col-md-6 px-0">
+                    <h1>Posebni popusti</h1>
+                    <p>
+                        Uštedite vrijeme i energiju. Pripremili smo posebne popuste iz restorana kao i posebne tarife za dostavu za naše partnere.
+                    </p>
+                    <button class="btn-outline-secondary btn">Saznaj vise</button>
+                </div>
+                <div class="right col-md-6 px-0">
+                    <img src="../../../../assets/foodoOnWork.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isLoggedIn">
+        <div class="container">
+            <h1>Hrana u tvojoj blizini</h1>
+            <div class="row">
+                <div *ngFor="let restaurant of restaurants" class="col-md-4">
+                    <app-restaurant-card [restaurant]="restaurant"></app-restaurant-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="container why-foodo">
+        <h1>Uradimo to zajedno</h1>
+    </div>
+    <div class="about-foodo container">
+        <div class="about-box">
+            <div class="about-image">
+                <img src="../../../../assets/aboutFoodoRestaurant.svg" alt="">
+            </div>
+            <div class="about-title">
+                Najbolji restorani u tvom gradu
+            </div>
+            <div class="about-description">
+                Uz veliki izbor restorana u ponudi možeš da naručiš omiljenu hranu, istraži nove restorane u blizini!
+            </div>
+        </div>
+        <div class="about-box">
+            <div class="about-image">
+                <img src="../../../../assets/aboutFoodoDelivery.svg" alt="">
+            </div>
+            <div class="about-title">
+                Brza dostava
+            </div>
+            <div class="about-description">
+                Ponosimo se time koliko smo brzi. Naruči ili pošalji bilo šta u svom gradu i mi ćemo to da preuzmemo i dostavimo ti za par minuta.
+            </div>
+        </div>
+        <div class="about-box">
+            <div class="about-image">
+                <img src="../../../../assets/aboutFoodoLaunch.svg" alt="">
+            </div>
+            <div class="about-title">
+                Dostava namirnica i još mnogo toga
+            </div>
+            <div class="about-description">
+                Pronađi sve što ti treba! Od supermarketa do trgovina, od apoteka do cvjećara — ako je u tvom gradu, možeš računati da ćemo ti to donijeti.
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+</main>
+<footer>
+    <!-- Todo: Create Footer component -->
+    <div class="container">
+        <h1>Foodo</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Uradimo to zajedno</h3>
+                <ul>
+                    <li><a href="#"></a>Foodo za dostavljače</li>
+                    <li><a href="#"></a>Foodo za biznis</li>
+                    
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h3>Vazni linkovi</h3>
+                <ul>
+                    <li><a href="#"></a>O nama</li>
+                    <li><a href="#"></a>Česta pitanja</li>
+                    <li><a href="#"></a>Blog</li>
+                    <li><a href="#"></a>Kontaktiraj nas</li>
+                    <li><a href="#"></a>Bezbjednost</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h3>Prati nas</h3>
+                <ul>
+                    <li><a href="#"></a>Facebook</li>
+                    <li><a href="#"></a>Twitter</li>
+                    <li><a href="#"></a>Instagram</li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+<!-- ngif user is logged in show restaurants -->
+

@@ -18,7 +18,7 @@ namespace Data
 
         public DbSet<User> users { get; set; }
 
-        public DbSet<Customer> consumer { get; set; }
+        public DbSet<Customer> costomers { get; set; }
 
         public DbSet<Restaurant> restaurants { get; set; }
 
@@ -28,23 +28,24 @@ namespace Data
 
         public DbSet<OrderRecord> orderRecords { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             builder.Entity<User>()
                 .HasIndex(u => u.email)
                 .IsUnique();
-
+            
             builder.Entity<User>()
-            .HasDiscriminator<int>("discriminator")
-            .HasValue<Customer>(((int)UserRole.CUSTOMER))
-            .HasValue<Courier>(((int)UserRole.COURIER))
-            .HasValue<Restaurant>(((int)UserRole.RESTAURANT));
+            .HasDiscriminator<UserRole>("discriminator")
+            .HasValue<Customer>((UserRole.CUSTOMER))
+            .HasValue<Courier>((UserRole.COURIER))
+            .HasValue<Restaurant>((UserRole.RESTAURANT));
 
             builder.Entity<Customer>().Property(c => c.firstName).HasColumnName("firstName");
             builder.Entity<Customer>().Property(c => c.lastname).HasColumnName("lastName");
             builder.Entity<Courier>().Property(c => c.firstName).HasColumnName("firstName");
-            builder.Entity<Courier>().Property(c => c.lastname).HasColumnName("lastName");
+            builder.Entity<Courier>().Property(c => c.lastName).HasColumnName("lastName");
 
             builder.Entity<Category>()
                 .HasData(
@@ -120,6 +121,5 @@ namespace Data
                 });
                 
         }
-
     }
 }
