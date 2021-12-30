@@ -21,6 +21,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { RestaurantCardComponent } from './views/customer/restaurant-card/restaurant-card.component';
 import { HomePageComponent } from './views/customer/home-page/home-page.component';
 import { RestaurantComponent } from './views/customer/restaurant/restaurant.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { RestaurantComponent } from './views/customer/restaurant/restaurant.comp
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

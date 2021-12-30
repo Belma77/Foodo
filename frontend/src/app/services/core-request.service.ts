@@ -7,7 +7,9 @@ import { Observable, throwError, of } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from './auth.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class CoreRequestService {
     constructor(
         private http: HttpClient,
