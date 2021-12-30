@@ -28,6 +28,7 @@ namespace Data.Models.Entities
 
         public UserRole role { get; set; }
 
+        [JsonIgnore]
         public byte[] StoredSalt { get; set; }
 
     }

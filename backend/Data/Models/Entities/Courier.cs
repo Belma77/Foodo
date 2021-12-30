@@ -8,6 +8,8 @@ namespace Data.Models.Entities
 {
     public class Courier : User
     {
+        public Courier() { }
+
         public Courier(string email, string password) : base(email, password)
         {
         }

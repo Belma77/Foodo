@@ -1,4 +1,5 @@
 ﻿using backend.Services;
+using backend.Services.Impl;
 using Data.Models.Entities;
 using Data.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -18,10 +19,12 @@ namespace backend.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IUserService userService;
+        private readonly OrderService orderService;
 
-        public CustomerController(IUserService userService)
+        public CustomerController(IUserService userService, OrderService orderService)
         {
             this.userService = userService;
+            this.orderService = orderService;
         }
 
         [HttpPost]
@@ -30,6 +33,15 @@ namespace backend.Controllers
         public IActionResult Register([FromBody] Restaurant user)
         {
             userService.register(user);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("order/create")]
+        [AllowAnonymous]
+        public IActionResult createOrder([FromBody] Order order)
+        {
+            orderService.createOrder(order);
             return Ok();
         }
     }

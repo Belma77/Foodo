@@ -21,7 +21,16 @@ namespace backend.middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var request = context.Request;
+
+            if (request.Path.StartsWithSegments("/hub", StringComparison.OrdinalIgnoreCase) &&
+              request.Query.TryGetValue("access_token", out var accessToken))
+            {
+                Console.WriteLine(accessToken);
+                request.Headers.Add("Authorization", $"Bearer {accessToken}");
+            }
+
+            var token = request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (JwtUtil.IsTokenValid(token))
             {

@@ -44,11 +44,24 @@ namespace backend
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend", Version = "v1" });
             });
 
-            services.AddDbContext<MyContext>(options =>
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
-            options.UseSqlServer(Configuration.GetConnectionString("db")));
+            services.AddSignalR();
+
+            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("db")));
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<CourierHub, CourierHub>();
+
+            services.AddScoped<OrderService, OrderService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
@@ -81,6 +94,8 @@ namespace backend
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "backend v1"));
             }
 
+            app.UseCors("CorsPolicy");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -91,6 +106,7 @@ namespace backend
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<CourierHub>("/hub");
                 endpoints.MapControllers();
             });
         }

@@ -12,7 +12,6 @@ using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
 namespace backend.Controllers
 {
     [ApiController]
-    [Route("user")]
     public abstract class BaseUserController : Controller
     {
         protected readonly IUserService userService;
