@@ -6,10 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
-// import { ServicesComponent } from './services/services.component';
-import { ModelsComponent } from './models/models.component';
-// import { EnumsComponent } from './enums/enums.component';
-import { DtoComponent } from './models/dto/dto.component';
 import { DashboardComponent } from './views/restaurant/dashboard/dashboard.component';
 import { MenuComponent } from './views/restaurant/dashboard/menu/menu.component';
 import { OrdersComponent } from './views/restaurant/dashboard/orders/orders.component';
@@ -22,16 +18,18 @@ import { RestaurantCardComponent } from './views/customer/restaurant-card/restau
 import { HomePageComponent } from './views/customer/home-page/home-page.component';
 import { RestaurantComponent } from './views/customer/restaurant/restaurant.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CourierDashboardComponent } from './views/courier/courier-dashboard/courier-dashboard.component';
+import { StartPageComponent } from './views/courier/courier-dashboard/start-page/start-page.component';
+import { OrderOfferComponent } from './views/courier/courier-dashboard/order-offer/order-offer.component';
+import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';   // agm-direction
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    // ServicesComponent,
-    ModelsComponent,
-    // EnumsComponent,
-    DtoComponent,
     DashboardComponent,
     MenuComponent,
     OrdersComponent,
@@ -41,7 +39,10 @@ import { HttpClientModule } from '@angular/common/http';
     NewProductComponent,
     RestaurantCardComponent,
     HomePageComponent,
-    RestaurantComponent
+    RestaurantComponent,
+    CourierDashboardComponent,
+    StartPageComponent,
+    OrderOfferComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,11 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCDkdwLMph3UdzriJtg7LjFQMurftgR4Fk'
+    }),
+    AgmDirectionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

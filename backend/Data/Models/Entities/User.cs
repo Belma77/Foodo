@@ -31,5 +31,8 @@ namespace Data.Models.Entities
         [JsonIgnore]
         public byte[] StoredSalt { get; set; }
 
+        [JsonIgnore]
+        public string connectionId { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using backend.Utils;
+using Data.Models.Entities;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ namespace backend.Services.Impl
 {
     public class CourierHub: Hub<ICourierHub>
     {
-
         public override Task OnConnectedAsync()
         {
             //Get user from Http context items
@@ -29,6 +29,12 @@ namespace backend.Services.Impl
 
             //return base.OnDisconnected(stopCalled);
             return null ;
+        }
+
+        public void AcceptOrder(Order order)
+        {
+            Console.WriteLine(order);
+            return;
         }
 
     }

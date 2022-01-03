@@ -13,5 +13,7 @@ namespace backend.Repositories
         public User findById(int id);
 
         public User findByEmail(string email);
+
+        public void update(User user);
     }
 }

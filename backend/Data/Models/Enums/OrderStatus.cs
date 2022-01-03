@@ -10,7 +10,6 @@ namespace Data.Models.Enums
     {
         CREATED,
         REJECTED,
-        RECEIVED,
         IN_PREPARATION,
         PICKED_UP,
         DELIVERING,

@@ -10,6 +10,11 @@ namespace Data.Models.Entities
     {
         public Restaurant() { }
 
+        public Restaurant(string name, string email, string password) : base(email, password)
+        {
+            this.name = name;
+        }
+
         public string name { get; set; }
     }
 }

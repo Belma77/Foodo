@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Restaurant } from './models/restaurant';
+import { CourierDashboardComponent } from './views/courier/courier-dashboard/courier-dashboard.component';
+import { OrderOfferComponent } from './views/courier/courier-dashboard/order-offer/order-offer.component';
+import { StartPageComponent } from './views/courier/courier-dashboard/start-page/start-page.component';
 import { HomePageComponent } from './views/customer/home-page/home-page.component';
 import { RestaurantComponent } from './views/customer/restaurant/restaurant.component';
 import { LoginComponent } from './views/login/login.component';
@@ -47,6 +50,20 @@ const routes: Routes = [
         path:'edit-product/:id', 
         component:NewProductComponent,
       }
+    ]
+  },
+  {
+    path:'courier/dashboard', 
+    component:CourierDashboardComponent,
+    children:[
+      {
+        path:"",
+        component:StartPageComponent
+      },
+      {
+        path:"order/offer",
+        component:OrderOfferComponent
+      },
     ]
   }
 ];

@@ -47,10 +47,10 @@ namespace backend
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost:4200")
+                    builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowCredentials());
+                    );
             });
 
             services.AddSignalR();
@@ -60,7 +60,9 @@ namespace backend
             services.AddAutoMapper(typeof(Startup));
 
             services.AddScoped<CourierHub, CourierHub>();
+            services.AddScoped<CourierService, CourierService>();
 
+            services.AddScoped<OrderRepository, OrderRepository>();
             services.AddScoped<OrderService, OrderService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
@@ -94,11 +96,11 @@ namespace backend
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "backend v1"));
             }
 
-            app.UseCors("CorsPolicy");
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 

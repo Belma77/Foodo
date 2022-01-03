@@ -15,8 +15,8 @@ namespace backend.Services.Impl
 {
     public class UserService : IUserService
     {
-        private IUserRepository userRepository;
-        private readonly IMapper _mapper;
+        protected IUserRepository userRepository;
+        protected readonly IMapper _mapper;
 
         public UserService(IUserRepository userRepository, IMapper mapper)
         {

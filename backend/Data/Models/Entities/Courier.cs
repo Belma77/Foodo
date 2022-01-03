@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,10 @@ namespace Data.Models.Entities
         {
         }
 
-        private string firstName { get; set; }
+        public string firstName { get; set; }
 
-        private string lastName { get; set; }
+        public string lastName { get; set; }
+
+        public CourierWorkingStatus status { get; set; }
     }
 }

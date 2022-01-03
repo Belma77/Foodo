@@ -78,14 +78,16 @@ export class CoreRequestService {
     //             throw err;
     //         });
     // }
-    // public patch(path: string, body: any): Promise<any> {
-    //     return this.http
-    //         .patch(environment.api.concat(path), body)
-    //         .toPromise()
-    //         .catch((err) => {
-    //             return this.handleError(err);
-    //         });
-    // }
+    public patch(path: string, body: any): Promise<any> {
+        return this.http
+            .patch(environment.api.concat(path), body)
+            .toPromise()
+            .catch((err) => {
+                this.spinerService.hide();
+                // this.handleError(err);
+                throw err;
+            });
+    }
 
     // public handleError(error: any): Observable<any> {
     //     switch (error.status) {

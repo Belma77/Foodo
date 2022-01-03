@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 
 namespace backend.Utils
 {
-    public class ConnectionMapping
+    public static class ConnectionMapping
     {
         public static readonly Dictionary<int, HashSet<string>> _connections =
             new Dictionary<int, HashSet<string>>();
+
+        private static int counter = 1;
 
         public static int Count
         {
@@ -23,10 +25,12 @@ namespace backend.Utils
             lock (_connections)
             {
                 HashSet<string> connections;
-                if (!_connections.TryGetValue(key, out connections))
+                if (!_connections.TryGetValue(counter, out connections))
                 {
                     connections = new HashSet<string>();
-                    _connections.Add(key, connections);
+                    _connections.Add(counter, connections);
+                    counter++;
+
                 }
 
                 lock (connections)
