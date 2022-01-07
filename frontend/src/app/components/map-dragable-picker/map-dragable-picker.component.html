@@ -1,0 +1,12 @@
+<div class="container wrapper">
+    <h1>Oznaci svoju adresi na mapi</h1>
+    <div class="map">
+        <agm-map *ngIf="adressExists" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+            <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                (dragEnd)="markerDragEnd($event)"></agm-marker>
+        </agm-map>
+    </div>
+
+    <h3>{{address}}</h3>
+
+</div>

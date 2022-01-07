@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LocationPickerComponent } from './components/location-picker/location-picker.component';
+import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
 import { Restaurant } from './models/restaurant';
 import { CourierDashboardComponent } from './views/courier/courier-dashboard/courier-dashboard.component';
 import { OrderOfferComponent } from './views/courier/courier-dashboard/order-offer/order-offer.component';
@@ -15,7 +17,7 @@ import { WalletComponent } from './views/restaurant/dashboard/wallet/wallet.comp
 import { NewProductComponent } from './views/restaurant/new-product/new-product.component';
 
 const routes: Routes = [
-  {path:'', component: HomePageComponent},
+  {path:'', component: MapDragablePickerComponent},
   {path:'login', component:LoginComponent},
   {path:'restaurant/:slug', component:RestaurantComponent},
   {
@@ -65,7 +67,7 @@ const routes: Routes = [
         component:OrderOfferComponent
       },
     ]
-  }
+  },
 ];
 
 @NgModule({

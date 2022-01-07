@@ -22,7 +22,9 @@ import { CourierDashboardComponent } from './views/courier/courier-dashboard/cou
 import { StartPageComponent } from './views/courier/courier-dashboard/start-page/start-page.component';
 import { OrderOfferComponent } from './views/courier/courier-dashboard/order-offer/order-offer.component';
 import { AgmCoreModule } from '@agm/core';
-import { AgmDirectionModule } from 'agm-direction';   // agm-direction
+import { AgmDirectionModule } from 'agm-direction';
+import { LocationPickerComponent } from './components/location-picker/location-picker.component';
+import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';   // agm-direction
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     RestaurantComponent,
     CourierDashboardComponent,
     StartPageComponent,
-    OrderOfferComponent
+    OrderOfferComponent,
+    LocationPickerComponent,
+    MapDragablePickerComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,8 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     ReactiveFormsModule,
     NgSelectModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCDkdwLMph3UdzriJtg7LjFQMurftgR4Fk'
+      apiKey: 'AIzaSyCDkdwLMph3UdzriJtg7LjFQMurftgR4Fk',
+      libraries: ['places']
     }),
     AgmDirectionModule
   ],
