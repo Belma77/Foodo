@@ -1,0 +1,11 @@
+<div class="container content">
+    <div class="inactive" *ngIf="!courierIsActive">
+        You are not active. You wont receive orders. 
+        <button class="change-to-active" (click)="setActive()">
+            Start delivering <i class="fas fa-bicycle"></i>
+        </button>
+    </div>
+    <div class="active" *ngIf="courierIsActive">
+        You are active. Be ready to receive orders.
+    </div>
+</div>

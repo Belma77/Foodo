@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModelsComponent } from './models.component';
+import { MapDragablePickerComponent } from './map-dragable-picker.component';
 
-describe('ModelsComponent', () => {
-  let component: ModelsComponent;
-  let fixture: ComponentFixture<ModelsComponent>;
+describe('MapDragablePickerComponent', () => {
+  let component: MapDragablePickerComponent;
+  let fixture: ComponentFixture<MapDragablePickerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModelsComponent ]
+      declarations: [ MapDragablePickerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModelsComponent);
+    fixture = TestBed.createComponent(MapDragablePickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

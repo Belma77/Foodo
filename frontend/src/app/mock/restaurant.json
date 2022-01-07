@@ -1,8 +1,9 @@
 [
     {
         "id":1,
+        "email":"test",
         "slug":"slatko-i-slano",
-        "title": "Slatko i Slano",
+        "name": "Slatko i Slano",
         "avgDeliveryTime":"15-25",
         "deliveryCost":1.5,
         "rating":96,
@@ -113,7 +114,8 @@
     {
         "id":2,
         "slug":"mostarlic",
-        "title": "Mostarlic",
+        "email":"test",
+        "name": "Mostarlic",
         "avgDeliveryTime":"15-25",
         "deliveryCost":2.5,
         "rating":93,
@@ -157,8 +159,9 @@
     },
     {
         "id":3,
+        "email":"test",
         "slug":"restoran-arci-kod-pirije",
-        "title": "Restoran Arci kod Pirije",
+        "name": "Restoran Arci kod Pirije",
         "avgDeliveryTime":"15-25",
         "deliveryCost":2,
         "rating":99,

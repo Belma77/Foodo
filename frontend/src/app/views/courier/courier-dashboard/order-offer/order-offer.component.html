@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="wrapper">
+        <div class="map-wrapper">
+            <h1>map</h1>
+            <agm-map [latitude]="origin.lat" [longitude]="origin.lng">
+                <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
+            </agm-map>
+        </div>
+        <div class="order-info">
+            <h2>Narudzba #{{order.id}}</h2>
+            <h2>Kupac</h2>
+            <hr>
+            <h4>{{order.customer.firstName}} {{order.customer.lastName}}</h4>
+
+        </div>
+    </div>
+</div>

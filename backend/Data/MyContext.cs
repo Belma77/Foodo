@@ -22,6 +22,9 @@ namespace Data
 
         public DbSet<Courier> couriers { get; set; }
 
+        public DbSet<Order> orders { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>()

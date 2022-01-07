@@ -3,7 +3,8 @@ import { Product } from "./product";
 export class Restaurant {
     id!:number;
     slug!:string;
-    title!: string;
+    email!:string;
+    name!: string;
     avgDeliveryTime!: string;
     deliveryCost!:number;
     rating!:number;

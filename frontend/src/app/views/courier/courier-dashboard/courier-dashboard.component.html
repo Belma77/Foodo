@@ -1,0 +1,10 @@
+<div class="header">
+    <i class="fas fa-bars" (click)="onMenuClick()"></i>
+    <i class="fas fa-user-alt"></i>
+</div>
+<div class="wrapper">
+    <div class="sidebar" [ngClass]="{'sidebar-open' : opened}">
+    
+    </div>
+    <router-outlet></router-outlet>
+</div>

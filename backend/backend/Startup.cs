@@ -44,11 +44,26 @@ namespace backend
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend", Version = "v1" });
             });
 
-            services.AddDbContext<MyContext>(options =>
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    );
+            });
 
-            options.UseSqlServer(Configuration.GetConnectionString("db")));
+            services.AddSignalR();
+
+            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("db")));
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<CourierHub, CourierHub>();
+            services.AddScoped<CourierService, CourierService>();
+
+            services.AddScoped<OrderRepository, OrderRepository>();
+            services.AddScoped<OrderService, OrderService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
@@ -85,12 +100,15 @@ namespace backend
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy");
+
             app.UseAuthorization();
 
             app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<CourierHub>("/hub");
                 endpoints.MapControllers();
             });
         }

@@ -1,0 +1,30 @@
+{
+    "id": 1,
+    "customer": {
+      "id": 1,
+      "email": "faris@gmail.com",
+      "firstName": "Faris",
+      "lastName": "Dziho"
+    },
+    "restaurant": {
+      "id":1,
+      "slug":"slatko-i-slano",
+      "name": "Slatko i Slano",
+      "email":"test",
+      "avgDeliveryTime":"15-25",
+      "deliveryCost":1.5,
+      "rating":96,
+      "numberOfReviews":120,
+      "image":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/wy4xymearvmy7vzglvc2",
+      "products":[]
+    },
+    "courier": {
+      "id": 3,
+      "email": "john@doe",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "requestTime": "2022-01-02T19:14:12.360Z",
+    "orderStatus": 0,
+    "price": 22
+  }

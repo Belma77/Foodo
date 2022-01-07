@@ -1,0 +1,34 @@
+<div class="container">
+    <h1>Unesi Adresu za dostavu</h1>
+    <div class="wrapper">
+       <div class="form">
+            <div class="form-group">
+                <i class="fas fa-map-marker-alt"></i>
+                <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+            </div>
+
+            <div *ngIf="adressExists" class="form-group">
+                <i class="fas fa-home"></i>
+                <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Sprat, Stan, Napomena" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
+            </div>
+
+            <div class="postavi-na-mapi">
+                <span>Postavi Lokaciju na mapi</span>
+            </div>    
+       </div>
+    
+       <div class="map-wrapper">
+            <div class="map">
+                <img src="../../../assets/map-placeholder.jpg" alt="map" *ngIf="!adressExists">
+                <agm-map *ngIf="adressExists" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                        (dragEnd)="markerDragEnd($event)"></agm-marker>
+                </agm-map>
+            </div>
+       </div>
+    
+        <!-- <h5>Address: {{address}}</h5>
+        <div>Latitude: {{latitude}}</div>
+        <div>Longitude: {{longitude}}</div> -->
+    </div>
+  </div>

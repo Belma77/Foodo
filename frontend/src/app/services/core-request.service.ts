@@ -7,7 +7,9 @@ import { Observable, throwError, of } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from './auth.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class CoreRequestService {
     constructor(
         private http: HttpClient,
@@ -76,14 +78,16 @@ export class CoreRequestService {
     //             throw err;
     //         });
     // }
-    // public patch(path: string, body: any): Promise<any> {
-    //     return this.http
-    //         .patch(environment.api.concat(path), body)
-    //         .toPromise()
-    //         .catch((err) => {
-    //             return this.handleError(err);
-    //         });
-    // }
+    public patch(path: string, body: any): Promise<any> {
+        return this.http
+            .patch(environment.api.concat(path), body)
+            .toPromise()
+            .catch((err) => {
+                this.spinerService.hide();
+                // this.handleError(err);
+                throw err;
+            });
+    }
 
     // public handleError(error: any): Observable<any> {
     //     switch (error.status) {

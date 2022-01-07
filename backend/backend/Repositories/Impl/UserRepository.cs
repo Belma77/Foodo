@@ -33,5 +33,11 @@ namespace backend.Repositories
             User user = dbContext.users.FirstOrDefault(u => u.email == email);
             return user;
         }
+
+        public void update (User user)
+        {
+            dbContext.users.Update(user);
+            dbContext.SaveChanges();
+        }
     }
 }

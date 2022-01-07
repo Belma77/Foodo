@@ -1,7 +1,9 @@
 ﻿using backend.Services;
+using backend.Services.Impl;
 using Data.Models.Entities;
 using Data.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,11 +19,11 @@ namespace backend.Controllers
     [Authorize(UserRole.COURIER)]
     public class CourierController : ControllerBase
     {
-        private readonly IUserService userService;
+        private readonly CourierService _courierService;
 
-        public CourierController(IUserService userService)
+        public CourierController(CourierService courierService)
         {
-            this.userService = userService;
+            this._courierService = courierService;
         }
 
         [HttpPost]
@@ -29,8 +31,31 @@ namespace backend.Controllers
         [AllowAnonymous]
         public IActionResult Register([FromBody] Courier user)
         {
-            userService.register(user);
+            _courierService.register(user);
             return Ok();
         }
+
+        [HttpPatch]
+        [Route("status/active")]
+        [AllowAnonymous]
+        public IActionResult setStatusActive()
+        {
+            //Todo get courier from jwt
+            int courierId = 1;
+            _courierService.setStatus(courierId, CourierWorkingStatus.ACTIVE);
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("status/inactive")]
+        [AllowAnonymous]
+        public IActionResult setStatusInactive()
+        {
+            //Todo get courier from jwt
+            int courierId = 1;
+            _courierService.setStatus(courierId, CourierWorkingStatus.INACVTIVE);
+            return Ok();
+        }
+
     }
 }

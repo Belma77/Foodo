@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EnumsComponent } from './enums.component';
+import { CourierDashboardComponent } from './courier-dashboard.component';
 
-describe('EnumsComponent', () => {
-  let component: EnumsComponent;
-  let fixture: ComponentFixture<EnumsComponent>;
+describe('CourierDashboardComponent', () => {
+  let component: CourierDashboardComponent;
+  let fixture: ComponentFixture<CourierDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EnumsComponent ]
+      declarations: [ CourierDashboardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EnumsComponent);
+    fixture = TestBed.createComponent(CourierDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -15,8 +15,8 @@ namespace backend.Services.Impl
 {
     public class UserService : IUserService
     {
-        private IUserRepository userRepository;
-        private readonly IMapper _mapper;
+        protected IUserRepository userRepository;
+        protected readonly IMapper _mapper;
 
         public UserService(IUserRepository userRepository, IMapper mapper)
         {
@@ -26,7 +26,6 @@ namespace backend.Services.Impl
 
         public void register(User user)
         {
-            Console.WriteLine("dasds");
             byte[] salt = new byte[128 / 8];
             using (var rngCsp = new RNGCryptoServiceProvider())
             {
