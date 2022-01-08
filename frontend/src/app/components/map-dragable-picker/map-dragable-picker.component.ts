@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, Input, Output } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { EventEmitter } from '@angular/core';
+import { Location } from 'src/app/models/location';
 
 @Component({
   selector: 'app-map-dragable-picker',
@@ -8,13 +10,12 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 })
 export class MapDragablePickerComponent implements OnInit {
 
-  latitude!: number;
-  longitude!: number;
-  zoom!: number;
-  address!: string;
+  zoom: number = 10;
   private geoCoder!:google.maps.Geocoder;
 
+  @Input() location!: Location | null;
 
+  @Output() newLocationEvent: EventEmitter<Location> = new EventEmitter();
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
@@ -25,7 +26,8 @@ export class MapDragablePickerComponent implements OnInit {
   ngOnInit() {
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
+      if(!this.location)
+        this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
     });
   }
@@ -34,10 +36,12 @@ export class MapDragablePickerComponent implements OnInit {
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
+        if(!this.location)
+          this.location = new Location();
+        this.location.latitude = position.coords.latitude;
+        this.location.longitude = position.coords.longitude;
         this.zoom = 8;
-        this.getAddress(this.latitude, this.longitude);
+        this.getAddress(this.location.latitude, this.location.longitude);
       });
     }
   }
@@ -45,9 +49,11 @@ export class MapDragablePickerComponent implements OnInit {
 
   markerDragEnd($event: MouseEvent) {
     console.log($event);
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-    this.getAddress(this.latitude, this.longitude);
+    if(!this.location)
+      this.location = new Location();
+    this.location.latitude = $event.coords.lat;
+    this.location.longitude = $event.coords.lng;
+    this.getAddress(this.location.latitude, this.location.longitude);
   }
 
   getAddress(latitude:any, longitude:any) {
@@ -57,7 +63,8 @@ export class MapDragablePickerComponent implements OnInit {
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
-          this.address = results[0].formatted_address;
+          this.location!.formatedAdress = results[0].formatted_address;
+          this.newLocationEvent.emit(this.location!);
         } else {
           window.alert('No results found');
         }
@@ -69,7 +76,7 @@ export class MapDragablePickerComponent implements OnInit {
   }
 
   get adressExists() {
-    return this.latitude && this.longitude;
+    return this.location && this.location.latitude && this.location.longitude;
   }
 
 }

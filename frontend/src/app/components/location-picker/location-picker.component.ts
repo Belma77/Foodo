@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, Input, EventEmitter, Output } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { Location } from 'src/app/models/location';
 
 @Component({
   selector: 'app-location-picker',
@@ -8,14 +9,15 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 })
 export class LocationPickerComponent implements OnInit {
 
-  latitude!: number;
-  longitude!: number;
-  zoom!: number;
-  address!: string;
+  zoom: number = 10;
   private geoCoder!:google.maps.Geocoder;
 
   @ViewChild('search')
   public searchElementRef!: ElementRef;
+
+  @Output() newLocationEvent: EventEmitter<Location> = new EventEmitter();
+
+  @Input() location!: Location | null;
 
 
   constructor(
@@ -42,9 +44,15 @@ export class LocationPickerComponent implements OnInit {
           }
 
           //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
+          if(!this.location)
+          {
+            this.location = new Location();
+          }
+          this.location.latitude = place.geometry.location.lat();
+          this.location.longitude = place.geometry.location.lng();
+          
           this.zoom = 12;
+          this.newLocationEvent.emit(this.location);
         });
       });
     });
@@ -54,19 +62,14 @@ export class LocationPickerComponent implements OnInit {
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
+        if(!this.location)
+          this.location = new Location();
+        this.location.latitude = position.coords.latitude;
+        this.location.longitude = position.coords.longitude;
         this.zoom = 8;
-        this.getAddress(this.latitude, this.longitude);
+        this.getAddress(this.location.latitude, this.location.longitude);
       });
     }
-  }
-
-
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-    this.getAddress(this.latitude, this.longitude);
   }
 
   getAddress(latitude:any, longitude:any) {
@@ -75,7 +78,7 @@ export class LocationPickerComponent implements OnInit {
         if (results[0]) {
           this.zoom = 12;
           console.log(results[0])
-          this.address = results[0].formatted_address;
+          this.location!.formatedAdress = results[0].formatted_address;
         } else {
           window.alert('No results found');
         }
@@ -87,7 +90,7 @@ export class LocationPickerComponent implements OnInit {
   }
 
   get adressExists() {
-    return this.latitude && this.longitude;
+    return this.location && this.location.latitude && this.location.longitude;
   }
 
 }
