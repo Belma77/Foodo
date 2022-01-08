@@ -1,0 +1,3 @@
+<app-location-picker [location] = "location" (newLocationEvent) = "changeLocation($event)" *ngIf="!isMapDragable"></app-location-picker>
+<app-map-dragable-picker [location] = "location" (newLocationEvent) = "changeLocation($event)" *ngIf="isMapDragable"></app-map-dragable-picker>    
+<button (click) = "setMap()">Promjeni</button>

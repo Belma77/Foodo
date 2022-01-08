@@ -13,16 +13,16 @@
             </div>
 
             <div class="postavi-na-mapi">
-                <span>Postavi Lokaciju na mapi</span>
+                <a [routerLink]="['marker-picker']" >Postavi Lokaciju na mapi</a>
             </div>    
        </div>
     
        <div class="map-wrapper">
             <div class="map">
                 <img src="../../../assets/map-placeholder.jpg" alt="map" *ngIf="!adressExists">
-                <agm-map *ngIf="adressExists" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-                        (dragEnd)="markerDragEnd($event)"></agm-marker>
+                <agm-map *ngIf="adressExists" [latitude]="location?.latitude!" [longitude]="location?.longitude!" [zoom]="zoom">
+                    <agm-marker [latitude]="location?.latitude!" [longitude]="location?.longitude!" [markerDraggable]="true">
+                    </agm-marker>
                 </agm-map>
             </div>
        </div>
