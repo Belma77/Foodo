@@ -1,0 +1,20 @@
+.order-line-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+
+    .quanity {
+        flex: 1;
+    }
+
+    .title {
+        flex: 5;
+    }
+
+    .price {
+        flex: 2;
+    }
+}

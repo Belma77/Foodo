@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LocationPickerComponent } from './components/location-picker/location-picker.component';
+import { LocationWrapperComponent } from './components/location-wrapper/location-wrapper.component';
 import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { Restaurant } from './models/restaurant';
 import { CourierDashboardComponent } from './views/courier/courier-dashboard/courier-dashboard.component';
 import { OrderOfferComponent } from './views/courier/courier-dashboard/order-offer/order-offer.component';
@@ -17,7 +19,9 @@ import { WalletComponent } from './views/restaurant/dashboard/wallet/wallet.comp
 import { NewProductComponent } from './views/restaurant/new-product/new-product.component';
 
 const routes: Routes = [
-  {path:'', component: MapDragablePickerComponent},
+  {path:'',
+   component: HomePageComponent,
+  },
   {path:'login', component:LoginComponent},
   {path:'restaurant/:slug', component:RestaurantComponent},
   {

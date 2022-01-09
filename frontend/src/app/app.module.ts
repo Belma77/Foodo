@@ -24,7 +24,10 @@ import { OrderOfferComponent } from './views/courier/courier-dashboard/order-off
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import { LocationPickerComponent } from './components/location-picker/location-picker.component';
-import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';   // agm-direction
+import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { LocationWrapperComponent } from './components/location-wrapper/location-wrapper.component';
+import { OrderLineComponent } from './components/order-line/order-line.component';   // agm-direction
 
 
 @NgModule({
@@ -46,7 +49,10 @@ import { MapDragablePickerComponent } from './components/map-dragable-picker/map
     StartPageComponent,
     OrderOfferComponent,
     LocationPickerComponent,
-    MapDragablePickerComponent
+    MapDragablePickerComponent,
+    ModalComponent,
+    LocationWrapperComponent,
+    OrderLineComponent
   ],
   imports: [
     BrowserModule,
