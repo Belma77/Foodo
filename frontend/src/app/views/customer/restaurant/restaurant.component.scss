@@ -23,11 +23,49 @@ header {
     }
 }
 
+.content-sidebar-wrapper {
+    display: flex;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.order-container {
+    background-color: white;
+    z-index: 100;
+    margin: 30px 0;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    -webkit-box-shadow: 5px 5px 10px 4px rgba(0,0,0,0.38); 
+    box-shadow: 5px 5px 10px 4px rgba(0,0,0,0.38);
+    width: 500px !important;
+}
+
+.order-container h3, .order-container p {
+    text-align: center;
+}
+
+.order-line-info {
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+    padding: 0 0 5px 0;
+}
+
+.make-order-btn {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+    background-color: #2abb9b;
+    color:white;
+    border-radius: 8px;
+}
+
 .store-container {
     position: relative;
     display: flex;
     flex-direction: column;
     z-index: 100;
+    margin-right: 30px;
 }
 
 .restaurant-info {

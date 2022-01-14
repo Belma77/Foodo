@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { Restaurant } from 'src/app/models/restaurant';
+import { OrderService } from 'src/app/services/order.service';
 import data from '../../../mock/restaurant.json'
 
 @Component({
@@ -17,6 +18,7 @@ export class RestaurantComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, 
               private router: Router, 
+              private orderService:OrderService,
               private viewportScroller: ViewportScroller) {
    
    }
@@ -46,6 +48,22 @@ export class RestaurantComponent implements OnInit {
 
   public anchorScroll(elementId: string): void { 
       this.viewportScroller.scrollToAnchor(elementId);
+  }
+
+  addProductToOrder(p:Product) {
+    this.orderService.addProductToOrder(p);
+  }
+
+  removeProductFromOrder(p:Product) {
+    this.orderService.removeProductFromOrder(p);
+  }
+
+  get order() {
+    return this.orderService.currentOrder;
+  }
+
+  makeOrder() {
+    this.orderService.makeOrder(this.restaurant);
   }
 
 }

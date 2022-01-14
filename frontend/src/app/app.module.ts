@@ -18,13 +18,16 @@ import { RestaurantCardComponent } from './views/customer/restaurant-card/restau
 import { HomePageComponent } from './views/customer/home-page/home-page.component';
 import { RestaurantComponent } from './views/customer/restaurant/restaurant.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CourierDashboardComponent } from './views/courier/courier-dashboard/courier-dashboard.component';
-import { StartPageComponent } from './views/courier/courier-dashboard/start-page/start-page.component';
-import { OrderOfferComponent } from './views/courier/courier-dashboard/order-offer/order-offer.component';
+import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
+import { StartPageComponent } from './views/courier/dashboard/start-page/start-page.component';
+import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import { LocationPickerComponent } from './components/location-picker/location-picker.component';
-import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';   // agm-direction
+import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { LocationWrapperComponent } from './components/location-wrapper/location-wrapper.component';
+import { OrderLineComponent } from './components/order-line/order-line.component';
 
 
 @NgModule({
@@ -46,7 +49,10 @@ import { MapDragablePickerComponent } from './components/map-dragable-picker/map
     StartPageComponent,
     OrderOfferComponent,
     LocationPickerComponent,
-    MapDragablePickerComponent
+    MapDragablePickerComponent,
+    ModalComponent,
+    LocationWrapperComponent,
+    OrderLineComponent,
   ],
   imports: [
     BrowserModule,

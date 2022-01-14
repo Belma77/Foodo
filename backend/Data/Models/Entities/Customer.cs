@@ -14,8 +14,8 @@ namespace Data.Models.Entities
         {
         }
 
-        private string firstName { get; set; }
+        public string firstName { get; set; }
 
-        private string lastname { get; set; }
+        public string lastname { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace backend.Services.Impl
 
         public void createOrder(Order order)
         {
-            order.orderStatus = OrderStatus.CREATED;
+            //order.orderStatus = OrderStatus.CREATED;
             createOrderChanell(order);
             sendOfferToRestaurant(order);
         }
@@ -41,7 +41,7 @@ namespace backend.Services.Impl
 
         private void createOrderChanell(Order order)
         {
-            addToGroup(order, order.customer);
+            //addToGroup(order, order.customer);
             addToGroup(order, order.restaurant);
         }
 
@@ -54,7 +54,7 @@ namespace backend.Services.Impl
         public void acceptOrder (Order order)
         {
             //_orderRepository.findById(order.id).orderStatus = OrderStatus.IN_PREPARATION;
-            order.orderStatus = OrderStatus.IN_PREPARATION;
+            //order.orderStatus = OrderStatus.IN_PREPARATION;
             findCourier(order);
         }
 
@@ -63,7 +63,7 @@ namespace backend.Services.Impl
             //Todo: Find closest courier (implement some algorithm)
             int courierId = 3;
             string connectionid = ConnectionMapping.GetConnections(courierId).First();
-            addToGroup(order, order.courier);
+            //addToGroup(order, order.courier);
             _hub.Clients.Client(connectionid).SendAsync("orderOffer", JsonSerializer.Serialize(order));
             Console.WriteLine("after hub call to courier");
             //courierAcceptedOffer(order);

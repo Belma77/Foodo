@@ -1,0 +1,9 @@
+<div class="order-line-info">
+    <span class="quanity">{{orderLine.quanity}} <span style="color: gray;">X</span></span>
+    <span class="title">{{orderLine.product.title}}</span>
+    <span class="price">{{orderLine.price}} <span style="color: gray;">BAM</span></span>
+</div>
+<div class="order-edit">
+    <i class="fas fa-minus-circle foodo-circle-icon me-3" (click) = "decraseQuanity()"></i>
+    <i class="fas fa-plus-circle foodo-circle-icon" (click) = "incraseQuanity()"></i>
+</div>

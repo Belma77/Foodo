@@ -17,7 +17,7 @@ namespace Data.Models.Entities
 
         public string firstName { get; set; }
 
-        public string lastName { get; set; }
+        public string lastname { get; set; }
 
         public CourierWorkingStatus status { get; set; }
     }

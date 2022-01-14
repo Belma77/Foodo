@@ -32,12 +32,14 @@ namespace backend.middlewares
 
             var token = request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            if (JwtUtil.IsTokenValid(token))
+            if (token != null)
             {
-                var user = JwtUtil.getUserFromToken(token);
-                context.Items[USER_TYPED_KEY] = user;
+                if (JwtUtil.IsTokenValid(token))
+                {
+                    var user = JwtUtil.getUserFromToken(token);
+                    context.Items[USER_TYPED_KEY] = user;
+                }
             }
-
             await _next(context);
           
         }

@@ -37,6 +37,11 @@ namespace Data
             .HasValue<Courier>(((int)UserRole.COURIER))
             .HasValue<Restaurant>(((int)UserRole.RESTAURANT));
 
+            builder.Entity<Customer>().Property(c => c.firstName).HasColumnName("firstName");
+            builder.Entity<Customer>().Property(c => c.lastname).HasColumnName("lastName");
+            builder.Entity<Courier>().Property(c => c.firstName).HasColumnName("firstName");
+            builder.Entity<Courier>().Property(c => c.lastname).HasColumnName("lastName");
+
             builder.Entity<Category>()
                 .HasData(
                    new { id = 1, name = "Breakfast"},
