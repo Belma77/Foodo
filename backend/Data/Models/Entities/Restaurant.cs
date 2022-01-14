@@ -16,5 +16,8 @@ namespace Data.Models.Entities
         }
 
         public string name { get; set; }
+
+        public List<Order> orders{ get; set; }
+
     }
 }

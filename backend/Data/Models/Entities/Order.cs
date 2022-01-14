@@ -16,6 +16,8 @@ namespace Data.Models.Entities
 
         public Customer customer { get; set; }
 
+        public int restaurantId { get; set; }
+
         public Restaurant restaurant { get; set; }
 
         public Courier courier { get; set; }

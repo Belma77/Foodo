@@ -62,4 +62,8 @@ export class RestaurantComponent implements OnInit {
     return this.orderService.currentOrder;
   }
 
+  makeOrder() {
+    this.orderService.makeOrder(this.restaurant);
+  }
+
 }

@@ -50,6 +50,7 @@
                     [orderLine] = "orderLine.value">
                 </app-order-line>
             </div>
+            <button (click) = "makeOrder()" class="make-order-btn btn w-100">Naruci za {{order.price}} BAM</button>
         </div>
         <ng-template #emptyOrder>
             <p>Još uvijek nisi dodao/la nijedan proizvod. Kad to uradiš, vidjet ćeš ih ovdje!</p>

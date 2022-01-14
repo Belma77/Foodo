@@ -4,19 +4,29 @@
       "id": 1,
       "email": "faris@gmail.com",
       "firstName": "Faris",
-      "lastName": "Dziho"
+      "lastName": "Dziho",
+      "location": {
+        "latitude": 43.3438634,
+        "longitude": 17.8147065,
+        "formatedAdress": "Mazoljice, Mostar 88000"
+      }
     },
     "restaurant": {
       "id":1,
-      "slug":"slatko-i-slano",
-      "name": "Slatko i Slano",
+      "slug":"gastro-pub-dobra-prica",
+      "name": "Gasto Pub dobra prica",
       "email":"test",
       "avgDeliveryTime":"15-25",
       "deliveryCost":1.5,
       "rating":96,
       "numberOfReviews":120,
       "image":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/wy4xymearvmy7vzglvc2",
-      "products":[]
+      "products":[],
+      "location": {
+        "latitude": 43.3439751,
+        "longitude": 17.8143328,
+        "formatedAdress": "Lacina 5, Mostar 88000"
+      }
     },
     "courier": {
       "id": 3,
@@ -25,6 +35,6 @@
       "lastName": "Doe"
     },
     "requestTime": "2022-01-02T19:14:12.360Z",
-    "orderStatus": 0,
+    "orderStatus": "IN_PREPARATION",
     "price": 22
   }

@@ -11,9 +11,18 @@ export class Order {
     customer!:Customer;
     restaurant!:Restaurant;
     courier!:Courier;
-    orderLine!:Map<number, OrderLine>;
+    orderLine!:Record<string, OrderLine>;
     requestTime!:string;
     orderStatus!:OrderStatus;
     price!:number;
 
+}
+
+export class OrderForm {
+    id!:number;
+    restaurantId!:number;
+    orderLine!:Record<string, OrderLine>;
+    requestTime!:string;
+    orderStatus!:OrderStatus;
+    price!:number;
 }

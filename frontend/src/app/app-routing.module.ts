@@ -5,9 +5,9 @@ import { LocationWrapperComponent } from './components/location-wrapper/location
 import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { Restaurant } from './models/restaurant';
-import { CourierDashboardComponent } from './views/courier/courier-dashboard/courier-dashboard.component';
-import { OrderOfferComponent } from './views/courier/courier-dashboard/order-offer/order-offer.component';
-import { StartPageComponent } from './views/courier/courier-dashboard/start-page/start-page.component';
+import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
+import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
+import { StartPageComponent } from './views/courier/dashboard/start-page/start-page.component';
 import { HomePageComponent } from './views/customer/home-page/home-page.component';
 import { RestaurantComponent } from './views/customer/restaurant/restaurant.component';
 import { LoginComponent } from './views/login/login.component';
