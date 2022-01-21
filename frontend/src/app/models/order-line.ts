@@ -5,3 +5,9 @@ export class OrderLine {
     quanity!:number;
     price!:number;
 }
+
+export interface OrderLineForm {
+    productId:number;
+    quanity:number;
+    price:number;
+}

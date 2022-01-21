@@ -16,20 +16,24 @@ namespace Data.Models.Entities
             this.name = name;
             this.description = description;
             this.price = price;
-            this.category = category;
+            this.Category = category;
         }
 
         [Key]
         public int Id { get; set; }
 
-        public string name { get; private set; }
+        public string name { get; set; }
 
-        public string description { get; private set; }
+        public string description { get; set; }
 
-        public double price { get; private set; }
+        public double price { get; set; }
 
-        public Category category { get; set; }
+        public string image { get; set; }   
 
-        
+        public virtual Category Category { get; set; }
+
+        public virtual Restaurant Restaurant { get; set; }  
+
+        public virtual ICollection<OrderRecord> OrderRecords { get; set;}
     }
 }

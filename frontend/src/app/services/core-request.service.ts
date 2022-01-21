@@ -48,36 +48,37 @@ export class CoreRequestService {
             });
     }
 
-    // public delete(path: string): Promise<any> {
-    //     this.spinerService.show();
-    //     return this.http
-    //         .delete(environment.api.concat(path))
-    //         .toPromise()
-    //         .then((data: any) => {
-    //             this.spinerService.hide();
-    //             return data;
-    //         })
-    //         .catch((err) => {
-    //             this.spinerService.hide();
-    //             this.handleError(err);
-    //             throw err;
-    //         });
-    // }
-    // public put(path: string, body: any): Promise<any> {
-    //     this.spinerService.show();
-    //     return this.http
-    //         .put(environment.api.concat(path), body)
-    //         .toPromise()
-    //         .then((data: any) => {
-    //             this.spinerService.hide();
-    //             return data;
-    //         })
-    //         .catch((err) => {
-    //             this.spinerService.hide();
-    //             this.handleError(err);
-    //             throw err;
-    //         });
-    // }
+    public delete(path: string): Promise<any> {
+        this.spinerService.show();
+        return this.http
+            .delete(environment.api.concat(path))
+            .toPromise()
+            .then((data: any) => {
+                this.spinerService.hide();
+                return data;
+            })
+            .catch((err) => {
+                this.spinerService.hide();
+                // this.handleError(err);
+                throw err;
+            });
+    }
+    public put(path: string, body: any): Promise<any> {
+        this.spinerService.show();
+        return this.http
+            .put(environment.api.concat(path), body)
+            .toPromise()
+            .then((data: any) => {
+                this.spinerService.hide();
+                return data;
+            })
+            .catch((err) => {
+                this.spinerService.hide();
+                // this.handleError(err);
+                throw err;
+            });
+    }
+
     public patch(path: string, body: any): Promise<any> {
         return this.http
             .patch(environment.api.concat(path), body)

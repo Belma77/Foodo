@@ -12,7 +12,7 @@
         "products":[
             {
                 "id": 1,
-                "title": "Pizza Capricciosa",
+                "name": "Pizza Capricciosa",
                 "price": 6,
                 "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
                 "category": {
@@ -23,7 +23,7 @@
             },
             {
                 "id": 4,
-                "title": "Pizza Mararita",
+                "name": "Pizza Margharita",
                 "price": 6,
                 "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
                 "category": {
@@ -34,7 +34,7 @@
             },
             {
                 "id": 2,
-                "title": "Omlet sa gljivama",
+                "name": "Omlet sa gljivama",
                 "price": 6,
                 "description": "Jaja, gljive, puter, pavlaka, ajvar",
                 "category": {
@@ -45,7 +45,7 @@
             },
             {
                 "id": 3,
-                "title": "Curry wok",
+                "name": "Curry wok",
                 "price": 6,
                 "description": "Pileći rezanci u curry sosu",
                 "category": {
@@ -56,7 +56,7 @@
             },
             {
                 "id": 3,
-                "title": "Curry wok",
+                "name": "Curry wok",
                 "price": 6,
                 "description": "Pileći rezanci u curry sosu",
                 "category": {
@@ -67,7 +67,7 @@
             },
             {
                 "id": 3,
-                "title": "Curry wok",
+                "name": "Curry wok",
                 "price": 6,
                 "description": "Pileći rezanci u curry sosu",
                 "category": {
@@ -78,7 +78,7 @@
             },
             {
                 "id": 3,
-                "title": "Curry wok",
+                "name": "Curry wok",
                 "price": 6,
                 "description": "Pileći rezanci u curry sosu",
                 "category": {
@@ -89,7 +89,7 @@
             },
             {
                 "id": 3,
-                "title": "Curry wok",
+                "name": "Curry wok",
                 "price": 6,
                 "description": "Pileći rezanci u curry sosu",
                 "category": {
@@ -100,7 +100,7 @@
             },
             {
                 "id": 3,
-                "title": "Curry wok",
+                "name": "Curry wok",
                 "price": 6,
                 "description": "Pileći rezanci u curry sosu",
                 "category": {
@@ -124,7 +124,7 @@
         "products":[
             {
                 "id": 1,
-                "title": "Pizza Capricciosa",
+                "name": "Pizza Capricciosa",
                 "price": 6,
                 "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
                 "category": {
@@ -135,7 +135,7 @@
             },
             {
                 "id": 2,
-                "title": "Omlet sa gljivama",
+                "name": "Omlet sa gljivama",
                 "price": 6,
                 "description": "Jaja, gljive, puter, pavlaka, ajvar",
                 "category": {
@@ -146,7 +146,7 @@
             },
             {
                 "id": 3,
-                "title": "Curry wok",
+                "name": "Curry wok",
                 "price": 6,
                 "description": "Pileći rezanci u curry sosu",
                 "category": {
@@ -170,7 +170,7 @@
         "products":[
             {
                 "id": 1,
-                "title": "Pizza Capricciosa",
+                "name": "Pizza Capricciosa",
                 "price": 6,
                 "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
                 "category": {
@@ -181,7 +181,7 @@
             },
             {
                 "id": 2,
-                "title": "Omlet sa gljivama",
+                "name": "Omlet sa gljivama",
                 "price": 6,
                 "description": "Jaja, gljive, puter, pavlaka, ajvar",
                 "category": {
@@ -192,7 +192,7 @@
             },
             {
                 "id": 3,
-                "title": "Curry wok",
+                "name": "Curry wok",
                 "price": 6,
                 "description": "Pileći rezanci u curry sosu",
                 "category": {

@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Data.Models.ViewModels;
+
 using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
 
 namespace backend.Controllers
@@ -21,6 +23,7 @@ namespace backend.Controllers
     {
         private readonly IUserService userService;
         private readonly OrderService orderService;
+        //private readonly MyContext myContext;
 
         public CustomerController(IUserService userService, OrderService orderService)
         {
@@ -40,11 +43,20 @@ namespace backend.Controllers
         [HttpPost]
         [Route("order/create")]
         [AllowAnonymous]
-        public IActionResult createOrder([FromBody] Order order)
+        public IActionResult createOrder([FromBody] OrderViewModel order)
         {
-            Console.WriteLine(JsonSerializer.Serialize(order));
-            //orderService.createOrder(order);
+            orderService.createOrder(order);
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("order/{id}")]
+        [AllowAnonymous]
+        public IActionResult getOrder([FromRoute] int id)
+        {
+            Order order = orderService.GetOrder(id);
+            return Ok(order);
+            //return Ok(JsonSerializer.Serialize());
         }
     }
 }

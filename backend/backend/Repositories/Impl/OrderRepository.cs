@@ -18,12 +18,15 @@ namespace backend.Repositories.Impl
 
         public Order findById(int id)
         {
-            return this._dbContext.orders.Find(id);
+            Restaurant r = this._dbContext.restaurants.Find(1);
+            Order o =  this._dbContext.orders.Find(id);
+            Console.WriteLine(r.Id);
+            return o;
         }
 
         public void create (Order order)
         {
-            _dbContext.orders.Add(order);
+            _dbContext.Add(order);
             _dbContext.SaveChanges();
         }
 

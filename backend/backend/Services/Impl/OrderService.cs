@@ -3,6 +3,7 @@ using backend.Repositories.Impl;
 using backend.Utils;
 using Data.Models.Entities;
 using Data.Models.Enums;
+using Data.Models.ViewModels;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -17,24 +18,46 @@ namespace backend.Services.Impl
         private IHubContext<CourierHub> _hub;
         private OrderRepository _orderRepository;
         private IUserRepository _userRepository;
+        private IProductRepository _productRepository;
 
-        public OrderService(IHubContext<CourierHub> hub, OrderRepository orderRepository, IUserRepository userRepository)
+        public OrderService(IHubContext<CourierHub> hub, IProductRepository productRepository, OrderRepository orderRepository, IUserRepository userRepository)
         {
             _hub = hub;
+            _productRepository = productRepository;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
         }
 
-        public void createOrder(Order order)
+        public void createOrder(OrderViewModel o)
         {
-            //order.orderStatus = OrderStatus.CREATED;
-            createOrderChanell(order);
-            sendOfferToRestaurant(order);
+            Order order = new Order();
+            Restaurant r = (Restaurant)_userRepository.findById(o.restaurantId);
+            order.Restaurant = r;
+            //Customer customer = _userRepository.findById(id)
+            order.orderStatus = OrderStatus.CREATED;
+            foreach(OrderRecordViewModel or in  o.orderRecords)
+            {
+                OrderRecord orderRecord = new OrderRecord();
+                Product product = _productRepository.find(or.productId);
+                orderRecord.Product = product;
+                orderRecord.quanity = or.quanity;   
+                orderRecord.price = or.price;
+                order.OrderRecords.Add(orderRecord);
+            }
+            _orderRepository.create(order);
+            //createOrderChanell(order);
+            //sendOfferToRestaurant(order);
+        }
+
+        public Order GetOrder(int id)
+        {
+            Order o = _orderRepository.findById(id);
+            return o;
         }
 
         private void sendOfferToRestaurant(Order order)
         {
-            string connectionId = ConnectionMapping.GetConnections(order.restaurant.Id).First();
+            string connectionId = ConnectionMapping.GetConnections(order.Restaurant.Id).First();
             _hub.Clients.Client(connectionId).SendAsync("orderOffer", JsonSerializer.Serialize(order));
             acceptOrder(order);
         }
@@ -42,12 +65,12 @@ namespace backend.Services.Impl
         private void createOrderChanell(Order order)
         {
             //addToGroup(order, order.customer);
-            addToGroup(order, order.restaurant);
+            addToGroup(order, order.Restaurant);
         }
 
         private void addToGroup(Order order, User user)
         {
-            string chanellName = "order" + order.id.ToString();
+            string chanellName = "order" + order.Id.ToString();
             _hub.Groups.AddToGroupAsync(getConnectionId(user.Id), chanellName);
         }
 
@@ -71,7 +94,7 @@ namespace backend.Services.Impl
 
         private void courierAcceptedOffer(Order order)
         {
-            string chanellName = "order" + order.id.ToString();
+            string chanellName = "order" + order.Id.ToString();
             _hub.Clients.Group(chanellName).SendAsync("orderOffer", JsonSerializer.Serialize(order));
         }
 

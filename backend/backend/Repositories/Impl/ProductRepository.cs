@@ -31,9 +31,26 @@ namespace backend.Repositories.Impl
             this.dbContext.SaveChanges();
         }
 
+        public void update(Product product)
+        {
+            this.dbContext.products.Update(product);
+            this.dbContext.SaveChanges();
+        }
+
+        public void delete(Product product)
+        {
+            dbContext.products.Remove(product);
+            dbContext.SaveChanges();
+        }
+
         public Product find(int id)
         {
             return dbContext.products.Find(id);
+        }
+
+        public List<Product> getMenu(int restaurantId)
+        {
+            return dbContext.products.Where(p => p.Restaurant.Id == restaurantId).ToList(); 
         }
     }
 }

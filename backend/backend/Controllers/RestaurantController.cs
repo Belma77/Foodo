@@ -38,13 +38,5 @@ namespace backend.Controllers
             userService.register(user);
             return Ok();
         }
-
-        [HttpPost]
-        [Route("add")]
-        public IActionResult addProduct([FromBody] Product product)
-        {
-            this._productService.create(product);
-            return Ok();
-        }
     }
 }

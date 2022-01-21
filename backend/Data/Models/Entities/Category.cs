@@ -22,7 +22,7 @@ namespace Data.Models.Entities
 
         public string name { get; set; }
 
-        public ICollection<Product> products { get; set; } = new HashSet<Product>();
+        public virtual ICollection<Product> products { get; set; } = new HashSet<Product>();
 
     }
 }

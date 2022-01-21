@@ -14,7 +14,13 @@ namespace backend.Repositories
 
         public void create(Product product);
 
+        public void update(Product product);
+
+        public void delete(Product product);
+
         public Product find(int id);
+
+        public List<Product> getMenu(int restaurantId);
 
     }
 }
