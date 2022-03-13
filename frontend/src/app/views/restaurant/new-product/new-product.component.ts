@@ -1,4 +1,4 @@
-import { compileNgModule } from '@angular/compiler';
+import { compileNgModule, ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import {
     FormBuilder,
@@ -10,6 +10,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
+import { RestaurantService } from 'src/app/services/restaurant.service';
     
 @Component({
     selector: 'app-login',
@@ -19,41 +20,27 @@ import { Product } from 'src/app/models/product';
 export class NewProductComponent implements OnInit {
     productForm: FormGroup;
     selectedCategory!:Category;
-    categories: Category[];
     id:number;
     editMode:boolean = false;
 
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
+        private restaurantService:RestaurantService
     ) {
       this.id = this.route.snapshot.params['id'];
       this.editMode = this.id ? true:false;
-      this.categories = [
-        {
-          id:1,
-          name:"Breakfast"
-        },
-        {
-          id:2,
-          name:"Pizza"
-        }, 
-        {
-          id:3,
-          name:"Pasta"
-        },
-      ];
-        this.productForm = this.fb.group({
-            name: ['', [Validators.required]],
-            description: ['', [Validators.required]],
-            price: ['', [Validators.required]],
-            category: new FormControl(null, [Validators.required]),
-        });
+    
+      this.productForm = this.fb.group({
+          name: ['', [Validators.required]],
+          description: ['', [Validators.required]],
+          price: ['', [Validators.required]],
+          category: new FormControl(null, [Validators.required]),
+      });
 
         //Todo: 21.12.2021 (Faris) - Add guard to load product before page loads (or conditional rendenring)
         if(this.editMode) {
-          fetch('https://fakestoreapi.com/products/' + this.id )
-            .then(res=>res.json())
+          this.restaurantService.getProductById(this.id)
             .then(data=> {
               console.log(data)
               this.productForm.patchValue(data)
@@ -63,6 +50,10 @@ export class NewProductComponent implements OnInit {
 
     get f() {
         return this.productForm.controls;
+    }
+
+    get categories() {
+      return this.restaurantService.categories;
     }
 
     ngOnInit(): void {}
@@ -80,12 +71,12 @@ export class NewProductComponent implements OnInit {
 
      createProduct() {
         let p = Object.assign(new Product(), this.productForm.value);
-        console.log(p);
+        this.restaurantService.addProduct(p);
      }
      
      editProduct() {
       let p = Object.assign(new Product(), this.productForm.value);
-      console.log(p);
+      this.restaurantService.updateProduct(p, this.id);
      }
 
     validateAllFields(formGroup: FormGroup) {

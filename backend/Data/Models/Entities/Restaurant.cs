@@ -17,7 +17,23 @@ namespace Data.Models.Entities
 
         public string name { get; set; }
 
-        public List<Order> orders{ get; set; }
+        public string slug { get; set; }
+
+        public string avgDeliveryTime { get; set; }
+
+        public double deliveryCost { get; set; }
+
+        public double rating { get; set; }
+
+        public int numberOfReviews { get; set; }
+
+        public string logoImage {get; set; }
+
+        public string headerImage { get; set; } 
+
+        public virtual ICollection<Product> Products { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
 
     }
 }

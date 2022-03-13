@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
+import { RestaurantService } from 'src/app/services/restaurant.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,13 +11,14 @@ export class MenuComponent implements OnInit {
 
   products:Product[] = [];
 
-  constructor() { }
+  constructor(private restaurantService: RestaurantService) { }
 
   ngOnInit(): void {
-    fetch('https://fakestoreapi.com/products')
-            .then(res=>res.json())
-            .then(data => this.products = data)
-            .catch(err => console.log(err))
+    this.restaurantService.getProducts(1)
+    .then(data => {
+      console.log(data);
+      this.products = data
+    });
   }
 
 }

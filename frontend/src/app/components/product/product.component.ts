@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { OrderService } from 'src/app/services/order.service';
+import { RestaurantService } from 'src/app/services/restaurant.service';
 
 @Component({
   selector: 'app-product',
@@ -9,17 +10,14 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class ProductComponent implements OnInit {
 
-  constructor(private orderService:OrderService) { }
+  constructor(private orderService:OrderService, private restaurantService:RestaurantService) { }
 
   ngOnInit(): void {
   }
 
   deleteProduct(id:number) {
-    fetch('https://fakestoreapi.com/products/' + id,{
-            method:"DELETE"
-        })
-            .then(res=>res.json())
-            .then(json=>console.log(json))
+    console.log(id)
+    this.restaurantService.deleteProduct(id);
   }
 
   addProductToOrder() {

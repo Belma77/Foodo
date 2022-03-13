@@ -32,11 +32,42 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
-        [Authorize(UserRole.RESTAURANT)]
+        //[Authorize(UserRole.RESTAURANT)]
         public IActionResult addProduct([FromBody] Product product)
         {
             this._productService.create(product);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult editProduct([FromBody] Product product, int id)
+        {
+            this._productService.edit(product, id);
+            return Ok();
+        }
+
+
+        [HttpGet]
+        public IActionResult getMenu()
+        {
+            //get user id from jwt or send it in request
+            int restaurantId = 1;
+            return Ok(_productService.getMenu(restaurantId));
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult getProduct(int id)
+        { 
+              return Ok(_productService.GetProduct(id));
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult deleteProduct(int id)
+        {
+            _productService.delete(id);
             return Ok();
         }
 

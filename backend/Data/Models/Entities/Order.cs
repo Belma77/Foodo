@@ -12,15 +12,15 @@ namespace Data.Models.Entities
     public class Order
     {
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public Customer customer { get; set; }
+        public virtual Customer Customer { get; set; }
 
-        public int restaurantId { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
 
-        public Restaurant restaurant { get; set; }
+        public virtual Courier Courier { get; set; }
 
-        public Courier courier { get; set; }
+        public virtual ICollection<OrderRecord> OrderRecords { get; set; }  = new List<OrderRecord>();  
 
         [NotMapped]
         public Location startLocation { get; set; }
@@ -42,10 +42,10 @@ namespace Data.Models.Entities
 
         public Order(int id, Customer customer, Restaurant restaurant, Courier courier, Location startLocation, Location endLocation, DateTime requestTime, OrderStatus orderStatus, double price)
         {
-            this.id = id;
-            this.customer = customer;
-            this.restaurant = restaurant;
-            this.courier = courier;
+            this.Id = id;
+            this.Customer = customer;
+            this.Restaurant = restaurant;
+            this.Courier = courier;
             this.startLocation = startLocation;
             this.endLocation = endLocation;
             this.requestTime = requestTime;

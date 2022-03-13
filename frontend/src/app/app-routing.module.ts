@@ -23,7 +23,7 @@ const routes: Routes = [
    component: HomePageComponent,
   },
   {path:'login', component:LoginComponent},
-  {path:'restaurant/:slug', component:RestaurantComponent},
+  // {path:'restaurant/:slug', component:RestaurantComponent},
   {
     path:'restaurant/dashboard', 
     component:DashboardComponent,
