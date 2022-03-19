@@ -23,6 +23,8 @@ namespace backend.Utils
             var claims = new[] {
             new Claim(nameof (user), JsonSerializer.Serialize(user)),
             new Claim(ClaimTypes.Role, JsonSerializer.Serialize(user.role)),
+            new Claim(ClaimTypes.Email, JsonSerializer.Serialize(user.email)),
+            new Claim(ClaimTypes.Name, JsonSerializer.Serialize(user.userName)),
             new Claim(ClaimTypes.NameIdentifier,
             Guid.NewGuid().ToString())
         };
@@ -73,5 +75,6 @@ namespace backend.Utils
                 throw new Exception("Unable to get User information");
             }
         }
+       
     }
 }

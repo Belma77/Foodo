@@ -44,21 +44,21 @@ namespace backend.Services.Impl
             customer.password = hashedPassword;
             customer.StoredSalt = salt;
             customer.role = UserRole.CUSTOMER;
-
+            
             _userRepository.create(customer);
         }
         public ResponseToken login(UserVM u)
         {
             Customer customer = (Customer)_userRepository.findByEmail(u.email);
-            if (customer!=null&&UserPasswordUtil.verifyUserPassword(u.password, customer.password, customer.StoredSalt))
-            {
+            if (customer == null)
+                throw new Exception("User not found");
+            if(!UserPasswordUtil.verifyUserPassword(u.password, customer.password, customer.StoredSalt))
+                throw new Exception("Incorrect password");
+            else { 
                 string token = JwtUtil.generateToken(_mapper.Map<UserDto>(customer));
                 return  new ResponseToken(token);
             }
-            else
-            {
-               throw new Exception("User not found");
-            }
+            
         }
         
        

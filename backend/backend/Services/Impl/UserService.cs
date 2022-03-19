@@ -1,8 +1,10 @@
-﻿using backend.Utils;
+﻿using backend.Repositories;
+using backend.Utils;
 using Data;
 using Data.Models.Dtos;
 using Data.Models.Entities;
 using Data.Models.Enums;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace backend.Services.Impl
     public class UserService
     {
         private MyContext _dbContext;
+        private UserRepository userRepository;
         public UserService(MyContext _dbContext)
         {
             this._dbContext = _dbContext;
@@ -35,6 +38,19 @@ namespace backend.Services.Impl
         public IEnumerable<User> GetAll()
         {
             return _dbContext.users;
+        }
+        public ActionResult<User> getUser(User u)
+        {
+            try
+            {
+                var user = userRepository.findByEmail(u.email);
+                return user;
+            }
+            catch(Exception)
+            {
+                throw new Exception("User not found");
+            }
+            
         }
     }
 }

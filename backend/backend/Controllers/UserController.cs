@@ -2,6 +2,7 @@
 using backend.Services.Impl;
 using backend.Utils;
 using Data.Models.Dtos;
+using Data.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -16,10 +17,9 @@ using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
 
 namespace backend.Controllers
 {
-    public class UserController
-    {
+    
         [ApiController]
-        [Route("[controller]")]
+        [Route("user")]
         public class UsersController : ControllerBase
         {
             private UserService _userService;
@@ -62,13 +62,35 @@ namespace backend.Controllers
                 });
             }
 
-            [Authorize]
-            [HttpGet]
-            public IActionResult GetAll()
-            {
-                var users = _userService.GetAll();
-                return Ok(users);
-            }
-        }
+        //[Authorize]
+        //[HttpGet]
+        //public IActionResult GetAll()
+        //{
+        //    var users = _userService.GetAll();
+        //    return Ok(users);
+        //}
+        //    [Authorize]
+        //    [HttpGet]
+        //    public IActionResult GetUser()
+        //    {
+        //        var user = getUserDto();
+        //        return Ok();
+        //    }
+        //    private UserDto getUserDto()
+        //    {
+        //        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //        if (identity != null)
+        //        {
+        //            var claims = identity.Claims;
+        //            return new UserDto
+        //            {
+        //                userName = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
+        //                email = claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
+        //                //role = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value,
+        //            };
+        //        }
+        //        return null;
+        //    }
     }
 }
+

@@ -47,6 +47,28 @@ namespace backend
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend", Version = "v1" });
+                c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "basic",
+                    In = ParameterLocation.Header,
+                    Description = "Basic Authorization header using the Bearer scheme."
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "basic"
+                                }
+                            },
+                            new string[] {}
+                    }
+                });
             });
 
             services.AddCors(options =>
@@ -90,30 +112,7 @@ namespace backend
                     (Configuration["Jwt:Key"]))
                 };
 
-                //    x.Events = new JwtBearerEvents
-                //    {
-                //        OnTokenValidated = context =>
-                //        {
-                //            var userService = context.HttpContext.RequestServices.GetRequiredService<UserService>();
-                //            var userId = int.Parse(context.Principal.Identity.Name);
-                //            var user = userService.GetById(userId);
-                //            if (user == null)
-                //            {
-                //                // return unauthorized if user no longer exists
-                //                context.Fail("Unauthorized");
-                //            }
-                //            return Task.CompletedTask;
-                //        }
-                //    };
-                //    x.RequireHttpsMetadata = false;
-                //    x.SaveToken = true;
-                //    x.TokenValidationParameters = new TokenValidationParameters
-                //    {
-                //        ValidateIssuerSigningKey = true,
-                //        IssuerSigningKey = new SymmetricSecurityKey(key),
-                //        ValidateIssuer = false,
-                //        ValidateAudience = false
-                //    };
+               
             });
 
         }

@@ -1,5 +1,6 @@
 ﻿using backend.Services;
 using backend.Services.Impl;
+using Data;
 using Data.Models.Dtos;
 using Data.Models.Entities;
 using Data.Models.Enums;
@@ -9,11 +10,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Data.Models.ViewModels;
 
 using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
+using static backend.Utils.AuthConstants;
+using backend.Repositories;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.Security.Claims;
 
 namespace backend.Controllers
 {
@@ -47,6 +54,8 @@ namespace backend.Controllers
         {
             _customerService.login(customer);
             ResponseToken token = _customerService.login(customer);
+            Console.WriteLine($"Logiran { customer.email}");
+
             return token;
         }
 
@@ -70,3 +79,41 @@ namespace backend.Controllers
         }
     }
 }
+        
+        [HttpGet]
+        [Route("getUser")]
+        [AllowAnonymous]
+        //[Authorize]
+        public IActionResult GetUser()
+        {
+            
+            try
+            {
+                var user = getUserDto();
+                return Ok($"Hi { user.userName}");
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+        }
+        private UserDto getUserDto()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var claims = identity.Claims;
+                return new UserDto
+                {
+                    userName= claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value,
+                    email = claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
+
+                    //role = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value,
+                };
+            }
+            return null;
+        }
+    }
+
+}
+
