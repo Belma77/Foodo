@@ -32,19 +32,11 @@ export class UserService {
     }
 
     async register(user: User): Promise<any> {
-<<<<<<< HEAD
-        await this.requestService.post('customer/register', user).then((data: any) => {
-            this.router.navigate(['/login']);
-        });
-     }
-
-=======
         await this.requestService.post('/customer/register', user).then((data: any) => {
             this.router.navigate(['/login']);
         }).catch(err => console.log(err));
      }
     
->>>>>>> ed9e1d9 (implemented registration for restaurant and customer)
     async login(user: User): Promise<any> {
         await this.requestService.post('/customer/login', user).then(async (data: { token: string; }) => {
             console.log(data)

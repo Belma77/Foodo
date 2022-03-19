@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 using AutoMapper;
-=======
-
-﻿using AutoMapper;
->>>>>>> ed9e1d9 (implemented registration for restaurant and customer)
 using backend.Repositories;
 using backend.Repositories.Impl;
 using backend.Utils;

@@ -27,11 +27,7 @@ export  class User extends UserBase {
         role: UserRole,
         private dateofBirth:Date
     ) {
-<<<<<<< HEAD
-        super(id, firstName, lastName, email, password, createdAt, updatedAt, phoneNumber, verified, city, street, zipCode, country, state, profileImage, userStatus,role);
-=======
         super(id, firstName, lastName, email, password, createdAt, updatedAt, phoneNumber, verified, profileImage, userStatus,role);
->>>>>>> ed9e1d9 (implemented registration for restaurant and customer)
         
         this.dateofBirth = dateofBirth;
        

@@ -15,25 +15,13 @@ import { WalletComponent } from './views/restaurant/dashboard/wallet/wallet.comp
 import { ProductComponent } from './components/product/product.component';
 import { RestaurantComponent } from './views/customer/restaurant/restaurant.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
-import { StartPageComponent } from './views/courier/dashboard/start-page/start-page.component';
-import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
-import { AgmCoreModule } from '@agm/core';
-import { AgmDirectionModule } from 'agm-direction';
-import { LocationPickerComponent } from './components/location-picker/location-picker.component';
-import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
-import { ModalComponent } from './components/modal/modal.component';
 import { LocationWrapperComponent } from './components/location-wrapper/location-wrapper.component';
 import { OrderLineComponent } from './components/order-line/order-line.component';
 
-import { CourierDashboardComponent } from './views/courier/courier-dashboard/courier-dashboard.component';
-import { StartPageComponent } from './views/courier/courier-dashboard/start-page/start-page.component';
-import { OrderOfferComponent } from './views/courier/courier-dashboard/order-offer/order-offer.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import { LocationPickerComponent } from './components/location-picker/location-picker.component';
 import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';   // agm-direction
-import { LoginComponentRestaurant } from './views/login-restaurant/login-restaurant.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RestaurantRegisterComponent } from './views/restaurant/register-business/register.component';
 import { HomePageComponent } from './views/customer/home-page/home-page.component';
@@ -45,11 +33,11 @@ import { UserService } from './services/user.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { RestaurantService } from './services/restaurant.service';
 import { AlertComponent } from './alert/alert.component';
-import { ErrorInterceptor } from './helpers/err.interceptor';
-import { AuthenticationService } from './services/authentication.service';
-import { HomePageUserComponent } from './views/home-page-user/home-page-user.component';
 import { LoginComponentRestaurant } from './views/login-restaurant/login-restaurant.component';
-import { RegistrationRestaurantComponent } from './views/registration-restaurant/registration-restaurant.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
+import { StartPageComponent } from './views/courier/dashboard/start-page/start-page.component';
+import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
 
 @NgModule({
   declarations: [
@@ -77,8 +65,6 @@ import { RegistrationRestaurantComponent } from './views/registration-restaurant
     LoginComponentRestaurant,
     AlertComponent,    
     HomePageComponent,
-    HomePageUserComponent,
-    RegistrationRestaurantComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,10 +85,9 @@ import { RegistrationRestaurantComponent } from './views/registration-restaurant
   providers: [
        AuthService,
        UserService,
-      CoreRequestService,
-      AuthenticationService,
-      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+       CoreRequestService,
+    //   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    //   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],

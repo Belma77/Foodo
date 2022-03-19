@@ -48,18 +48,18 @@ export class LoginComponentRestaurant implements OnInit {
 
      save() {
         if (this.loginForm.valid) {
-            this.resService
-                .login(this.loginForm.value)
-                .then(() => {
+            // this.resService
+            //     .login(this.loginForm.value)
+            //     .then(() => {
                      
-                    // this.loginForm.reset();
+            //         // this.loginForm.reset();
             
-                    console.log("logiran");
-                    // this.router.navigateByUrl('/home-page');
-                })
-                .catch(() => {
-                    this.loginForm.reset();
-                });
+            //         console.log("logiran");
+            //         // this.router.navigateByUrl('/home-page');
+            //     })
+            //     .catch(() => {
+            //         this.loginForm.reset();
+            //     });
         } else {
             this.validateAllFields(this.loginForm);
         }
