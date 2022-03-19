@@ -22,6 +22,9 @@ using System.Text;
 using backend.Utils;
 using backend.Repositories.Impl;
 using backend.middlewares;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+//using AutoMapper.Configuration;
 
 namespace backend
 {
@@ -44,6 +47,28 @@ namespace backend
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend", Version = "v1" });
+                c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "basic",
+                    In = ParameterLocation.Header,
+                    Description = "Basic Authorization header using the Bearer scheme."
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "basic"
+                                }
+                            },
+                            new string[] {}
+                    }
+                });
             });
 
             services.AddCors(options =>
@@ -68,11 +93,13 @@ namespace backend
             services.AddScoped<OrderService, OrderService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserService, UserService>();
-
+            services.AddScoped<UserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
-
+            services.AddScoped<CustomerService, CustomerService>();
+            services.AddScoped<CourierService, CourierService>();
+            services.AddScoped<RestaurantService, RestaurantService>();
+            services.AddScoped<UserService, UserService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -84,6 +111,8 @@ namespace backend
                     (Encoding.UTF8.GetBytes
                     (Configuration["Jwt:Key"]))
                 };
+
+               
             });
 
         }
@@ -97,15 +126,15 @@ namespace backend
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "backend v1"));
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>

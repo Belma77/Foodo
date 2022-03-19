@@ -15,6 +15,8 @@ namespace Data.Profiles
         {
             CreateMap<Restaurant, UserDto>();
             CreateMap<UserDto, Restaurant>();
+            CreateMap<User, UserDto>();
+            CreateMap<Courier, UserDto>();
         }
     }
 }

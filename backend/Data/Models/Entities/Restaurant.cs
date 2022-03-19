@@ -1,18 +1,22 @@
-﻿using System;
+﻿using Data.Models.Enums;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Data.Models.Entities
 {
-    public class Restaurant : User
+    public class Restaurant:User
     {
         public Restaurant() { }
-
-        public Restaurant(string name, string email, string password) : base(email, password)
+        
+        public Restaurant(string name, string email, string password, string phoneNumber) : base(email, password)
         {
             this.name = name;
+            this.phoneNumber = phoneNumber;
         }
 
         public string name { get; set; }
@@ -34,6 +38,9 @@ namespace Data.Models.Entities
         public virtual ICollection<Product> Products { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
+
+        public string phoneNumber { get; set; }
+
 
     }
 }

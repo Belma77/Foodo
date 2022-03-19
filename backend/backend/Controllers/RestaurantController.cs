@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using backend.Services;
+using backend.Services.Impl;
+using Data;
 using Data.Models.Dtos;
 using Data.Models.Entities;
 using Data.Models.Enums;
+using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,24 +21,30 @@ namespace backend.Controllers
     [ApiController]
     [Route("restaurant")]
     [Authorize(UserRole.RESTAURANT)]
-    public class RestaurantController : BaseUserController
+    public class RestaurantController : ControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly IProductService _productService;
+        private RestaurantService _restaurantService;
 
-        public RestaurantController(IMapper mapper, IUserService userService,
-                                    IProductService productService): base(userService)
+        public RestaurantController(RestaurantService restaurantService)
         {
-            this._productService = productService;
-            this._mapper = mapper;
+            _restaurantService = restaurantService;
         }
 
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public IActionResult Register([FromBody] Restaurant user)
+        public IActionResult Register([FromBody] Restaurant res)
         {
-            userService.register(user);
+            _restaurantService.register(res);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        [AllowAnonymous]
+        public IActionResult Login([FromBody] UserVM res)
+        {
+            _restaurantService.Login(res);
             return Ok();
         }
     }

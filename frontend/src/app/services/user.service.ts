@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-// import { BidProductDto } from '../models/dto/bid-product-dto.model';
-// import { ProductListDto } from '../models/dto/product-list-dto.model';
+import { environment } from 'src/environments/environment';
 // import { Notification } from '../models/notification.model';
 import { User } from '../models/user.model';
 import { AuthService } from './auth.service';
@@ -14,12 +14,12 @@ import { CoreRequestService } from './core-request.service';
     providedIn: 'root',
 })
 export class UserService {
-    user!: User;
+    user! : User;
     notifications: Notification[] = [];
-    requestService: any;
-
+    
+    
     constructor(
-        // private requestService: CoreRequestService,
+        private requestService: CoreRequestService,
         private authService: AuthService,
         private router: Router,
         // private notifcationService: NotificationService,
@@ -31,19 +31,21 @@ export class UserService {
         // }, 5000);
     }
 
-    // async register(user: User): Promise<any> {
-    //     await this.requestService.post('/register', user).then((data) => {
-    //         this.router.navigate(['/login']);
-    //     });
-    //  }
-
+    async register(user: User): Promise<any> {
+        await this.requestService.post('/customer/register', user).then((data: any) => {
+            this.router.navigate(['/login']);
+        }).catch(err => console.log(err));
+     }
+    
     async login(user: User): Promise<any> {
-        await this.requestService.post('/login', user).then(async (data: { token: string; }) => {
+        await this.requestService.post('/customer/login', user).then(async (data: { token: string; }) => {
+            console.log(data)
             localStorage.setItem('token', data.token);
-            await this.doMe().then(() => {
+            // await this.doMe().then(() => {
                 this.router.navigate(['']);
-            });
-        });
+            // });
+        }).catch(err => console.log(err));
+
     }
 
     // async googlePopupLogin(){
@@ -70,6 +72,7 @@ export class UserService {
                 this.user = res;
             })
             .catch((err: any) => {
+                console.log(err);
                 this.logout();
             });
     }

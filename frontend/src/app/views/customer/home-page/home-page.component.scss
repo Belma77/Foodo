@@ -1,0 +1,166 @@
+.divider {
+    height: 50px;
+    width: 100%;
+}
+a{
+    cursor: pointer;
+}
+.landing-screen {
+    height: 100vh;
+    overflow: hidden;
+
+    .background-images {
+        height: 100%;
+        display: flex;
+        
+        background-color: #FA9269;
+
+        img {
+            object-fit: cover;
+            width:100%;
+        }
+    }
+
+    .center {
+        
+        position: absolute;
+        top:-20px;
+        left:0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        h1 {
+            font-size: 30px;
+            font-weight: 900;
+        }
+
+        .search-inline {
+            display: flex;
+            margin: 30px 0 10px 0;
+
+            * {
+                margin-right: 20px;
+                border: none;
+                padding:5px 10px;
+                font-size: 20px;
+            }
+
+            .search-wrapper {
+                background-color: white;
+                width: 50%;
+
+                i {
+                    margin-right: 10px;
+                }
+                
+                input {
+                    outline: none;
+                }
+            }
+
+            .find-food {
+                // background-color: black;
+                color: white;
+
+                i {
+                    margin-right: 0;
+                    font-size: 14px;
+                }
+            }
+
+        }
+
+        .sign-in {
+
+            a {
+                color:inherit
+            }
+        }
+    }
+}
+
+.why-foodo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+}
+
+.about-foodo {
+    display: flex;
+    justify-content: space-between;
+
+    .about-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        width: 30%;
+
+        .about-image img{
+            border-radius: 70%;
+            transform: scale(.7)
+        }
+
+        .about-image, .about-title, .about-description {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    }
+}
+
+.foodo-on-work {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+
+    .offer {
+        margin-top: 30px;
+
+        .left {
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            border: 1px solid lightgray;
+
+            button {
+                width: 50%;
+                margin: 0 auto;
+            }
+        }
+
+        .right img{
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
+
+footer {
+    background-color: black;
+    color:white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    h1 {
+        margin-bottom: 15px;
+    }
+
+    ul {
+        margin:0;
+        padding:0;
+        list-style-type: none;
+
+        li {
+            margin-bottom: 15px;
+            color: lightgrey;
+        }
+    }
+}

@@ -1,0 +1,95 @@
+
+<app-header></app-header>
+<main>
+    <div class="form-wrapper">
+        <div class="left">
+            <h1>Pridružite se Foodi i razvijajte svoje poslovanje s nama.</h1>
+            <p>Korisnici danas naručuju online više nego ikad prije. Pratite ih, povećajte svoju prodaju za 40 %.</p>
+        </div>
+        <div class="right">
+            <div class="container">
+                <div class="form-body">
+                    <h1>Počnite prodavati putem Foode</h1>
+                    <p>Logirajte se na svoj račun i započnite sa radom. </p>
+                    <form [formGroup]="loginForm" (ngSubmit)="save()">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="email"
+                                    required
+                                    formControlName="email"
+                                    name="email"
+                                    placeholder="Email"
+                                />
+                                <span
+                                    class="text-danger"
+                                    *ngIf="
+                                        f.email.touched && f.email.errors?.required
+                                    "
+                                >
+                                Unos emaila je obavezan
+                                </span>
+                                <span
+                                    class="text-danger"
+                                    *ngIf="
+                                        f.email.touched && f.email.errors?.pattern
+                                    "
+                                >
+                                Unesite validnu mail adresu
+                                </span>
+                            </div>
+        
+                            <div class="form-group">
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    name="password"
+                                    formControlName="password"
+                                    placeholder="Password"
+                                />
+                                <span
+                                    class="text-danger"
+                                    *ngIf="
+                                        f.password.touched &&
+                                        f.password.errors?.required
+                                    "
+                                >
+                                Unos lozinke je obavezan
+                                </span>
+                                <span
+                                    class="text-danger"
+                                    *ngIf="
+                                        f.password.touched &&
+                                        f.password.errors?.minlength
+                                    "
+                                >
+                                Lozinka mora sadžavati najmanje 8 karaktera
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <button
+                                    type="submit"
+                                    class="btn w-100 btn-outline-secondary"
+                                    id="submitButton"
+                                >
+                                    Login
+                                </button>
+                        
+                            </div>
+                            <div class="form-group">
+                                <a [routerLink]="['/register-business']">Nemate račun? Registrirajte se ovdje </a>
+                            </div>
+                        </div>
+                        </form>
+                    
+                </div>            
+            </div>
+        </div>
+    </div>
+</main>
+                   
+
+
+

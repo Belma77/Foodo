@@ -4,13 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace backend.Services
+namespace backend.Repositories
 {
-    public interface IUserService
+    public interface IRestaurantRepository
     {
-        public void register(User user);
-
-        public string login(User user);
-
+        public void create(Restaurant restaurant);
     }
 }

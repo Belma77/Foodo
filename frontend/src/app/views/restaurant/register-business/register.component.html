@@ -1,0 +1,224 @@
+<app-header></app-header>
+<main>
+    <div class="form-wrapper">
+        <div class="left">
+            <h1>Pridružite se Foodi i razvijajte svoje poslovanje s nama.</h1>
+            <p>Korisnici danas naručuju online više nego ikad prije. Pratite ih, povećajte svoju prodaju za 40 %.</p>
+        </div>
+        <div class="right">
+            <div class="container">
+                <div class="form-body">
+                    <h1>Počnite prodavati putem Foode</h1>
+                    <p>Registracija na Foodo nikada nije bila jednostavnija. Postanite partner već sad.</p>
+                    <form [formGroup]="registerForm" (ngSubmit)="save()">
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="city"
+                                required
+                                formControlName="city"
+                                name="city"
+                                placeholder="Grad"
+                            />
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.city.touched && f.city.errors?.required
+                                "
+                            >
+                               Unos grada je obavezan
+                            </span>
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.city.touched && f.city.errors?.pattern
+                                "
+                            >
+                                Unos grada je obavezan
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="poslovni-naziv"
+                                required
+                                formControlName="businesName"
+                                name="businesName"
+                                placeholder="Poslovni Naziv"
+                            />
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.businesNametouched && f.businesName.errors?.required
+                                "
+                            >
+                            Unos poslovnog naziva je obavezan
+                            </span>
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.businesName.touched && f.businesName.errors?.pattern
+                                "
+                            >
+                            Unos poslovnog naziva je obavezan
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="email"
+                                required
+                                formControlName="email"
+                                name="email"
+                                placeholder="Email"
+                            />
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.email.touched && f.email.errors?.required
+                                "
+                            >
+                                Unos emaila je obavezan
+                            </span>
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.email.touched && f.email.errors?.pattern
+                                "
+                            >
+                            Unesite validnu mail adresu
+                            </span>
+                        </div>
+    
+                        <div class="form-group">
+                            <input
+                                type="password"
+                                class="form-control"
+                                name="password"
+                                formControlName="password"
+                                placeholder="Password"
+                            />
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.password.touched &&
+                                    f.password.errors?.required
+                                "
+                            >
+                                Unos lozinke je obavezan
+                            </span>
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.password.touched &&
+                                    f.password.errors?.minlength
+                                "
+                            >
+                                Lozinka mora sadžavati najmanje 8 karaktera
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <input
+                                type="tel"
+                                class="form-control"
+                                id="phone"
+                                required
+                                formControlName="phone"
+                                name="phone"
+                                placeholder="Telefon"
+                            />
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.phone.touched && f.phone.errors?.required
+                                "
+                            >
+                                Unos telefona je obavezan
+                            </span>
+                            <span
+                                class="text-danger"
+                                *ngIf="
+                                    f.phone.touched && f.phone.errors?.pattern
+                                "
+                            >
+                                
+                            Unos telefona je obavezan
+                            </span>
+                        </div>
+    
+                        <div class="form-group">
+                            <button
+                                type="submit"
+                                class="btn w-100 btn-outline-secondary"
+                                id="submitButton"
+                            >
+                                Registruj se
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="why-foodo">
+        <h1>Why Foodo</h1>
+        <div class="divider"></div>
+        <div class="container">
+            <div class="article">
+                <div class="image">
+                    <img src="./../../../../assets/FoodApp.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h2>Dobijte veću vidljivost</h2>
+                    <div class="separator"></div>
+                    <p>Foodo vam pomaže da svoj brend predstavite novim korisnicima. Na taj će način vaše poslovanje imati širi doseg i veći utjecaj. Prenesite svoj jelovnik ili katalog i počnite primati narudžbe!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="steps">
+            <h1>Nikad nije bilo jednostavnije postati dijelom Foode!</h1>
+            <div class="separator"></div>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="step">
+                    <div class="step-number">
+                        1
+                    </div>
+                    <h1>Recite nam nešto o svojoj firmi</h1>
+                    <div class="image">
+                        <img src="../../../../assets/step1.jpg" alt="">
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">
+                        2
+                    </div>
+                    <h1>Izaberite svoj jelovnik ili katalog</h1>
+                    <div class="image">
+                        <img src="../../../../assets/step2.jpg" alt="">
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">
+                        3
+                    </div>
+                    <h1>Počnite primati narudžbe</h1>
+                    <div class="image">
+                        <img src="../../../../assets/step3_zamjena.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+</main>
+<footer></footer>

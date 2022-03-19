@@ -1,76 +1,56 @@
-﻿using AutoMapper;
-using backend.Repositories;
+﻿using backend.Repositories;
 using backend.Utils;
+using Data;
 using Data.Models.Dtos;
 using Data.Models.Entities;
 using Data.Models.Enums;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace backend.Services.Impl
 {
-    public class UserService : IUserService
+    public class UserService
     {
-        protected IUserRepository userRepository;
-        protected readonly IMapper _mapper;
-
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        private MyContext _dbContext;
+        private UserRepository userRepository;
+        public UserService(MyContext _dbContext)
         {
-            this.userRepository = userRepository;
-            this._mapper = mapper;
+            this._dbContext = _dbContext;
+        }
+        public AuthenticateResponse Login(UserDto model)
+        {
+            var user = (UserDto)_dbContext.users.SingleOrDefault(x => x.email == model.email && x.password == model.password);
+
+            // return null if user not found
+            if (user == null) return null;
+
+            // authentication successful so generate jwt token
+            var token = JwtUtil.generateToken(user);
+
+            return new AuthenticateResponse(user, token);
+
         }
 
-        public void register(User user)
+
+        public IEnumerable<User> GetAll()
         {
-            byte[] salt = new byte[128 / 8];
-            using (var rngCsp = new RNGCryptoServiceProvider())
-            {
-                rngCsp.GetNonZeroBytes(salt);
-            }
-
-            // derive a 256-bit subkey (use HMACSHA256 with 100,000 iterations)
-            string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: user.password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: 100000,
-                numBytesRequested: 256 / 8));
-
-            user.password = hashedPassword;
-            user.StoredSalt = salt;
-            user.role = UserRole.RESTAURANT;
-            userRepository.create(user);
+            return _dbContext.users;
         }
-
-        public string login(User loginUser)
+        public ActionResult<User> getUser(User u)
         {
-            User user = userRepository.findByEmail(loginUser.email);
-            if (verifyUserPassword(loginUser.password, user.password, user.StoredSalt))
+            try
             {
-                string token = JwtUtil.generateToken(_mapper.Map<UserDto>(user));
-                return token;
+                var user = userRepository.findByEmail(u.email);
+                return user;
             }
-            else
+            catch(Exception)
             {
                 throw new Exception("User not found");
             }
             
-        }
-
-        private bool verifyUserPassword(string password, string hashedPassword, byte[] salt)
-        {
-            string encryptedPassw = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: 100000,
-                numBytesRequested: 256 / 8));
-
-            return hashedPassword == encryptedPassw;
         }
     }
 }
