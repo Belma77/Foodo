@@ -36,7 +36,7 @@ namespace backend.Controllers
         {
             _customerService = customerService;
             this.orderService = orderService;
-            
+
         }
 
         [HttpPost]
@@ -77,16 +77,14 @@ namespace backend.Controllers
             return Ok(order);
             //return Ok(JsonSerializer.Serialize());
         }
-    }
-}
-        
+
         [HttpGet]
         [Route("getUser")]
         [AllowAnonymous]
         //[Authorize]
         public IActionResult GetUser()
         {
-            
+
             try
             {
                 var user = getUserDto();
@@ -105,7 +103,7 @@ namespace backend.Controllers
                 var claims = identity.Claims;
                 return new UserDto
                 {
-                    userName= claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value,
+                    userName = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value,
                     email = claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
 
                     //role = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value,
@@ -114,6 +112,11 @@ namespace backend.Controllers
             return null;
         }
     }
-
 }
+
+
+        
+        
+
+
 
