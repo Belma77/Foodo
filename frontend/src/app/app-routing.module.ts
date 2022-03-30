@@ -20,6 +20,9 @@ import { NgModule } from '@angular/core';
 import { RegisterComponent } from './views/register/register.component';
 import { LoginComponentRestaurant } from './views/login-restaurant/login-restaurant.component';
 import { NewProductComponent } from './views/restaurant/new-product/new-product.component';
+import {Customer} from "./models/customer";
+import {AuthService} from "./services/auth.service";
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
   {path:'',
@@ -27,11 +30,17 @@ const routes: Routes = [
   },
   {path:'login', component:LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path:'home-page', component:HomePageComponent},
+
+  { path:'customer/home-page',
+    component:HomePageComponent,
+    canActivate:[AuthGuard]
+  },
   {path:'login-restaurant', component:LoginComponentRestaurant},
+  {path:'login-restaurant', component:LoginComponentRestaurant},
+
   {path:'restaurant/:slug', component:RestaurantComponent},
   {
-    path:'restaurant/dashboard', 
+    path:'restaurant/dashboard',
     component:DashboardComponent,
     children:[
       {
@@ -55,17 +64,17 @@ const routes: Routes = [
         component:WalletComponent
       },
       {
-        path:'new-product', 
+        path:'new-product',
         component:NewProductComponent,
       },
       {
-        path:'edit-product/:id', 
+        path:'edit-product/:id',
         component:NewProductComponent,
       }
     ]
   },
   {
-    path:'courier/dashboard', 
+    path:'courier/dashboard',
     component:CourierDashboardComponent,
     children:[
       {
@@ -78,7 +87,7 @@ const routes: Routes = [
       },
     ]
   },
-  
+
 ];
 
 @NgModule({

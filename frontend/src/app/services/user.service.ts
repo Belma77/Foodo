@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 import { AuthService } from './auth.service';
 import { CoreRequestService } from './core-request.service';
+import {Customer} from "../models/customer";
 // import { NotificationService } from './notification.service';
 
 @Injectable({
@@ -16,8 +17,8 @@ import { CoreRequestService } from './core-request.service';
 export class UserService {
     user! : User;
     notifications: Notification[] = [];
-    
-    
+
+
     constructor(
         private requestService: CoreRequestService,
         private authService: AuthService,
@@ -36,16 +37,20 @@ export class UserService {
             this.router.navigate(['/login']);
         }).catch(err => console.log(err));
      }
-    
+
     async login(user: User): Promise<any> {
         await this.requestService.post('/customer/login', user).then(async (data: { token: string; }) => {
             console.log(data)
             localStorage.setItem('token', data.token);
-            // await this.doMe().then(() => {
-                this.router.navigate(['']);
-            // });
-        }).catch(err => console.log(err));
+             await this.doMe().then(() => {
+                this.router.navigate(['/customer/home-page']);
+             }).catch((err: any) => {
+               console.log(err);
 
+        }).catch((err: any) => {
+               console.log(err);
+    });
+        });
     }
 
     // async googlePopupLogin(){
@@ -67,13 +72,13 @@ export class UserService {
 
     async doMe() {
         await this.requestService
-            .get('/doMe')
+            .get('/customer/doMe')
             .then((res: User) => {
                 this.user = res;
             })
             .catch((err: any) => {
-                console.log(err);
-                this.logout();
+              this.logout();
+              console.log(err);
             });
     }
 

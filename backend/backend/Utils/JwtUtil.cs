@@ -60,13 +60,28 @@ namespace backend.Utils
             return true;
         }
 
-        public static Restaurant getUserFromToken(string token)
+        //public static User getUserFromToken(string token)
+        //{
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var payload = tokenHandler.ReadJwtToken(token).Payload;
+        //    Restaurant user = JsonSerializer.Deserialize<Restaurant>(payload.Claims.First(c => c.Type == USER_TYPED_KEY).Value);
+
+        //    if(user != null)
+        //    {
+        //        return user;
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Unable to get User information");
+        //    }
+        //}
+        public static Customer getUserFromToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var payload = tokenHandler.ReadJwtToken(token).Payload;
-            Restaurant user = JsonSerializer.Deserialize<Restaurant>(payload.Claims.First(c => c.Type == USER_TYPED_KEY).Value);
+            Customer user = JsonSerializer.Deserialize<Customer>(payload.Claims.First(c => c.Type == USER_TYPED_KEY).Value);
 
-            if(user != null)
+            if (user != null)
             {
                 return user;
             }
@@ -75,6 +90,6 @@ namespace backend.Utils
                 throw new Exception("Unable to get User information");
             }
         }
-       
+
     }
 }

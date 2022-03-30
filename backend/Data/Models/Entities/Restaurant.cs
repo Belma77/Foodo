@@ -13,7 +13,7 @@ namespace Data.Models.Entities
     {
         public Restaurant() { }
         
-        public Restaurant(string name, string email, string password, string phoneNumber) : base(email, password)
+        public Restaurant(string name, string email, string password, string phoneNumber) /*:*//* base(email, password)*/
         {
             this.name = name;
             this.phoneNumber = phoneNumber;

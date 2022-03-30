@@ -17,8 +17,8 @@ import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-  
-    
+
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.valid) {
             this.userService
                 .login(this.loginForm.value)
-                .then(() => {
-                     
+                .then((response:any) => {
+
                     // this.loginForm.reset();
                     console.log("logiran");
                 })
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
             }
         });
      }
-    
+
 
     // signInWithGoogle(): void {
     //     this.userService.googlePopupLogin()
@@ -87,10 +87,10 @@ export class LoginComponent implements OnInit {
     //     })
     // }
 
-    //  signOut(): void {
-    //     this.authService.signOut();
-    // }
+      signOut(): void {
+         this.authService.signOut();
+    }
 
-    
+
 }
 

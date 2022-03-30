@@ -60,6 +60,18 @@ namespace backend.Services.Impl
             }
             
         }
+        public User doMe(User u)
+        {
+            try
+            {
+                var user = _userRepository.findById(u.Id);
+                return user;
+            }
+            catch(Exception)
+            {
+                throw new Exception();
+            }
+        }
         
        
     }

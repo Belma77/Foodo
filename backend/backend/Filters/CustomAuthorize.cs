@@ -16,21 +16,13 @@ namespace backend.Filters
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
         private readonly IList<UserRole> _roles;
-        private bool _isCustomer;
-        private bool _isRes;
-        private bool _isCourier;
+        
         public AuthorizeAttribute(params UserRole[] roles)
         {
             _roles = roles ?? new UserRole[] { };
         }
 
-        //public AuthorizeAttribute(bool isCustomer, bool isRes, bool isCourier)
-        //{
-        //    _isCustomer = isCustomer;
-        //    _isRes = isRes;
-        //    _isCourier = isCourier;
-
-        //}
+        
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             // skip authorization if action is decorated with [AllowAnonymous] attribute

@@ -5,6 +5,8 @@ import { Restaurant } from 'src/app/models/restaurant';
 import { ModalService } from 'src/app/services/modal.service';
 import { User } from 'src/app/models/user.model';
 import data from '../../../mock/restaurant.json'
+import {AuthService} from "../../../services/auth.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-home-page',
@@ -14,18 +16,20 @@ import data from '../../../mock/restaurant.json'
 export class HomePageComponent implements OnInit {
   restaurants:Restaurant[]
   //Todo get this from auth service
-  isLoggedIn = true;
+  isLoggedIn;
   currentUser!: User;
   constructor(
-
+private authService:AuthService, private userService:UserService
   ) {
       this.restaurants = data;
-
+       this.isLoggedIn=authService.isLoggedIn;
    }
 
   ngOnInit(): void {
   }
-
+odjaviSe(){
+    this.userService.logout();
+}
   // injectLocationPicker() {
   //   this.modalService.insertComponentToModal(LocationPickerComponent)
   // }

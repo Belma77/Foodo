@@ -83,6 +83,7 @@ namespace backend.Controllers
 
         [HttpGet]
         [Route("doMe")]
+
         [AllowAnonymous]
         public ActionResult<User> doMe()
         {

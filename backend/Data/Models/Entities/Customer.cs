@@ -10,7 +10,7 @@ namespace Data.Models.Entities
     {
         public Customer() { }
 
-        public Customer(string email, string password, string firstName, string lastName) : base(email, password)
+        public Customer(string email, string password, string firstName, string lastName) /*: base(email, password)*/
         {
             this.firstName = firstName;
             this.lastname = lastName;

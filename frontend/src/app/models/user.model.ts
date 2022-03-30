@@ -6,30 +6,24 @@ import { UserStatus } from './enums/user-status';
 import { Restaurant } from './restaurant.model';
 import { UserBase } from './userBase.model';
 
+export abstract class User {
 
-export  class User extends UserBase {
+  Id: number | undefined;
 
-    birthofDate!: Date | null;
-    constructor(
-        id: number,
-        firstName: String,
-        lastName: String,
-        email: String,
-        password: String,
-        createdAt: Date,
-        updatedAt: Date,
-        phoneNumber: String,
-        verified: boolean,
-        token:string,
-        // creditCard: CreditCard,
-        profileImage: String,
-        userStatus: UserStatus,
-        role: UserRole,
-        private dateofBirth:Date
-    ) {
-        super(id, firstName, lastName, email, password, createdAt, updatedAt, phoneNumber, verified, profileImage, userStatus,role);
-        
-        this.dateofBirth = dateofBirth;
-       
+  email: string | undefined;
+  password: string | undefined;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+  //phoneNumber: String,
+  //verified: boolean,
+  token: string | undefined;
+  // creditCard: CreditCard,
+  //profileImage: String,
+  //userStatus: UserStatus,
+  role: UserRole | undefined;
+  //private dateofBirth:Date
+    constructor()
+    {
+
     }
 }
