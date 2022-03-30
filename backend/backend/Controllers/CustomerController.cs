@@ -15,7 +15,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Data.Models.ViewModels;
-
 using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
 using static backend.Utils.AuthConstants;
 using backend.Repositories;
@@ -31,12 +30,14 @@ namespace backend.Controllers
     {
         private CustomerService _customerService;
         private readonly OrderService orderService;
-
-        public CustomerController(CustomerService customerService, OrderService orderService, UserService us)
+        private UserRepository us;
+        
+        public CustomerController(CustomerService customerService, OrderService orderService, UserRepository us)
         {
             _customerService = customerService;
             this.orderService = orderService;
-
+            this.us = us;
+           
         }
 
         [HttpPost]
@@ -61,7 +62,8 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("order/create")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        [Authorize]
         public IActionResult createOrder([FromBody] OrderViewModel order)
         {
             orderService.createOrder(order);
@@ -70,7 +72,8 @@ namespace backend.Controllers
 
         [HttpGet]
         [Route("order/{id}")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        [Authorize]
         public IActionResult getOrder([FromRoute] int id)
         {
             Order order = orderService.GetOrder(id);
@@ -79,16 +82,20 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        [Route("getUser")]
+        [Route("doMe")]
         [AllowAnonymous]
-        //[Authorize]
-        public IActionResult GetUser()
+        public ActionResult<User> doMe()
         {
 
             try
             {
-                var user = getUserDto();
-                return Ok($"Hi { user.userName}");
+                var pathBase = HttpContext.Items;
+
+                User user = (User)pathBase[USER_TYPED_KEY];
+                
+                //return Ok(_customerService.doMe(user));
+                User u = _customerService.doMe(user);
+                return Ok(u); 
             }
             catch (Exception)
             {
@@ -111,7 +118,9 @@ namespace backend.Controllers
             }
             return null;
         }
+        
     }
+
 }
 
 
