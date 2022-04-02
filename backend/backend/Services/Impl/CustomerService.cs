@@ -67,12 +67,12 @@ namespace backend.Services.Impl
                 var user = _userRepository.findById(u.Id);
                 return user;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new Exception();
             }
         }
-        
-       
+
+
     }
 }

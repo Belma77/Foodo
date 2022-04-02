@@ -14,12 +14,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Data.Models.ViewModels;
 using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
 using static backend.Utils.AuthConstants;
 using backend.Repositories;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
+using AutoMapper;
 
 namespace backend.Controllers
 {
@@ -32,7 +32,8 @@ namespace backend.Controllers
         private readonly OrderService orderService;
         private UserRepository us;
         
-        public CustomerController(CustomerService customerService, OrderService orderService, UserRepository us)
+
+        public CustomerController(CustomerService customerService, OrderService orderService, UserRepository us,   IMapper _mapper)
         {
             _customerService = customerService;
             this.orderService = orderService;
@@ -81,28 +82,27 @@ namespace backend.Controllers
             //return Ok(JsonSerializer.Serialize());
         }
 
-        [HttpGet]
-        [Route("doMe")]
+        //[HttpGet]
+        //[Route("doMe")]
+        //[AllowAnonymous]
+        //public ActionResult<User> doMe()
+        //{
 
-        [AllowAnonymous]
-        public ActionResult<User> doMe()
-        {
+        //    try
+        //    {
+        //        var pathBase = HttpContext.Items;
 
-            try
-            {
-                var pathBase = HttpContext.Items;
-
-                User user = (User)pathBase[USER_TYPED_KEY];
+        //        User user = (User)pathBase[USER_TYPED_KEY];
                 
-                //return Ok(_customerService.doMe(user));
-                User u = _customerService.doMe(user);
-                return Ok(u); 
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-        }
+        //        //return Ok(_customerService.doMe(user));
+        //        User u = us.doMe(user);
+        //        return Ok(u); 
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new Exception();
+        //    }
+        //}
         private UserDto getUserDto()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;

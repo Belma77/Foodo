@@ -23,6 +23,7 @@ import { NewProductComponent } from './views/restaurant/new-product/new-product.
 import {Customer} from "./models/customer";
 import {AuthService} from "./services/auth.service";
 import {AuthGuard} from "./guards/auth.guard";
+import {RestaurantRegisterComponent} from "./views/restaurant/register-business/register.component";
 
 const routes: Routes = [
   {path:'',
@@ -33,11 +34,10 @@ const routes: Routes = [
 
   { path:'customer/home-page',
     component:HomePageComponent,
-    canActivate:[AuthGuard]
+    canActivate:[AuthGuard], data: { roles: ['CUSTOMER']}
   },
   {path:'login-restaurant', component:LoginComponentRestaurant},
-  {path:'login-restaurant', component:LoginComponentRestaurant},
-
+  {path:'register-business', component:RestaurantRegisterComponent},
   {path:'restaurant/:slug', component:RestaurantComponent},
   {
     path:'restaurant/dashboard',

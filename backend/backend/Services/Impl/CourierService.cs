@@ -53,18 +53,18 @@ namespace backend.Services.Impl
             
         _UserRepository.create(courier);
     }
-        public string Login(UserVM u)
+        public ResponseToken Login(UserVM u)
         {
             Courier courier = (Courier)_UserRepository.findByEmail(u.email);
-            if (courier!=null&&UserPasswordUtil.verifyUserPassword(u.password, courier.password, courier.StoredSalt))
-            {
-                string token = JwtUtil.generateToken(_mapper.Map<UserDto>(courier));
-                return token;
-            }
-
+            
+            if (u == null)
+                throw new Exception("User not found");
+            if (!UserPasswordUtil.verifyUserPassword(u.password, courier.password, courier.StoredSalt))
+                throw new Exception("Incorrect password");
             else
             {
-                throw new Exception("User not found");
+                string token = JwtUtil.generateToken(_mapper.Map<UserDto>(courier));
+                return new ResponseToken(token);
             }
         }
         public void sendOrderOffer() {

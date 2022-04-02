@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using static backend.Utils.AuthConstants;
+
 using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
 
 namespace backend.Controllers
@@ -24,28 +25,32 @@ namespace backend.Controllers
     public class RestaurantController : ControllerBase
     {
         private RestaurantService _restaurantService;
-
-        public RestaurantController(RestaurantService restaurantService)
+        private readonly IMapper _mapper;
+        
+        public RestaurantController(RestaurantService restaurantService, IMapper _mapper)
         {
             _restaurantService = restaurantService;
+            this._mapper = _mapper;
         }
 
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public IActionResult Register([FromBody] Restaurant res)
+        public IActionResult Register([FromBody] RestaurantVM res)
         {
-            _restaurantService.register(res);
-            return Ok();
+            _restaurantService.register(_mapper.Map<Restaurant>(res));
+            return Ok(res);
         }
 
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] UserVM res)
+        public ResponseToken Login([FromBody] UserVM res)
         {
             _restaurantService.Login(res);
-            return Ok();
+            ResponseToken token = _restaurantService.Login(res);
+            Console.WriteLine($"Logiran { res.email}");
+            return token;
         }
     }
 }

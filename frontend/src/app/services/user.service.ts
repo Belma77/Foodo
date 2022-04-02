@@ -9,6 +9,7 @@ import { User } from '../models/user.model';
 import { AuthService } from './auth.service';
 import { CoreRequestService } from './core-request.service';
 import {Customer} from "../models/customer";
+import {UserRole} from "../models/enums/user-role";
 // import { NotificationService } from './notification.service';
 
 @Injectable({
@@ -39,9 +40,10 @@ export class UserService {
      }
 
     async login(user: User): Promise<any> {
-        await this.requestService.post('/customer/login', user).then(async (data: { token: string; }) => {
+        await this.requestService.post('/customer/login', user).then(async (data: { token: string; role:UserRole }) => {
             console.log(data)
             localStorage.setItem('token', data.token);
+          localStorage.setItem('role', data.role);
              await this.doMe().then(() => {
                 this.router.navigate(['/customer/home-page']);
              }).catch((err: any) => {
@@ -72,7 +74,7 @@ export class UserService {
 
     async doMe() {
         await this.requestService
-            .get('/customer/doMe')
+            .get('/user/doMe')
             .then((res: User) => {
                 this.user = res;
             })

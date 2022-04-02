@@ -14,11 +14,11 @@ namespace Data.Models.Entities
 
         public User() { }
 
-        //public User(string email, string password)
-        //{
-        //    this.email = email;
-        //    this.password = password;
-        //}
+        public User(string email, string password)
+        {
+            this.email = email;
+            this.password = password;
+        }
 
         [Key]
         public int Id { get; set; }

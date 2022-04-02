@@ -2,6 +2,7 @@
 using backend.Services.Impl;
 using backend.Utils;
 using Data.Models.Dtos;
+using Data.Models.Entities;
 using Data.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
-
+using static backend.Utils.AuthConstants;
 namespace backend.Controllers
 {
     
@@ -28,8 +29,26 @@ namespace backend.Controllers
             {
                 _userService = userService;
             }
+        [HttpGet]
+        [Route("doMe")]
+        [AllowAnonymous]
+        public ActionResult<User> doMe()
+        {
 
-            [AllowAnonymous]
+            try
+            {
+                var pathBase = HttpContext.Items;
+                User user = (User)pathBase[USER_TYPED_KEY];
+                //return Ok(_customerService.doMe(user));
+                User u = _userService.doMe(user);
+                return Ok(u);
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+        }
+        [AllowAnonymous]
             [HttpPost("Login")]
             public IActionResult Authenticate([FromBody] UserDto model)
             {

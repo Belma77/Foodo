@@ -41,11 +41,12 @@ namespace backend.Controllers
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] UserVM courier)
+        public ResponseToken Login([FromBody] UserVM courier)
         {
             _courierService.Login(courier);
-
-            return Ok();
+            ResponseToken token = _courierService.Login(courier);
+            Console.WriteLine($"Logiran { courier.email}");
+            return token;
         }
 
         [HttpPatch]

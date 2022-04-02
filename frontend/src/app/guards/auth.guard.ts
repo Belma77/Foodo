@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {}
-    
+
 
     canActivate(
         route: ActivatedRouteSnapshot,
@@ -17,7 +17,12 @@ export class AuthGuard implements CanActivate {
         | Promise<boolean | UrlTree>
         | boolean
         | UrlTree {
-        if (this.authService.isLoggedIn) return true;
+
+        if (this.authService.isLoggedIn) {
+          return route.data.roles.some( (ai:any) => this.authService.getRoles().includes(ai) );
+          return true;
+        }
+
         else {
             this.router.navigateByUrl('login');
             return false;
