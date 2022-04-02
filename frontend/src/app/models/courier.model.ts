@@ -5,35 +5,30 @@ import { UrlWithStringQuery } from "url";
 import { UserRole } from "./enums/user-role";
 import { UserStatus } from "./enums/user-status";
 import { UserBase } from "./userBase.model";
+import {User} from "./user.model";
 
-export class Courier extends UserBase {
-
-    
+export class Courier extends User {
 
     constructor(
         id: number,
-        firstName: String,
-        lastName: String,
-        email: String,
-        password: String,
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
         createdAt: Date,
         updatedAt: Date,
-        phoneNumber: String,
+        phoneNumber: string,
         verified: boolean,
-        city: String,
-        street: String,
-        zipCode: String,
-        country: String,
-        state: String,
+        token:string,
+        //street: String,
+        //zipCode: String,
+
         // creditCard: CreditCard,
-        profileImage: String,
+       // profileImage: String,
         userStatus:UserStatus,
         role:UserRole,
-        businessName : String,
-        numberOfEstablishments: Int32Array
-        
     ) {
-       super(id, firstName, lastName, email, password, createdAt, updatedAt, phoneNumber, verified, city, street, zipCode, country, state, profileImage, userStatus, role);
-       
+       super(id,email, password, createdAt, updatedAt, phoneNumber, verified,token, role);
+
     }
 }

@@ -63,7 +63,7 @@ import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order
     LocationWrapperComponent,
     OrderLineComponent,
     LoginComponentRestaurant,
-    AlertComponent,    
+    AlertComponent,
     HomePageComponent,
   ],
   imports: [
@@ -80,14 +80,15 @@ import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order
     AgmDirectionModule,
     RouterModule.forRoot([]),
     HttpClientModule,
-    
+
   ],
   providers: [
        AuthService,
        UserService,
+       RestaurantService,
        CoreRequestService,
-    //   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    //   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+      // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],

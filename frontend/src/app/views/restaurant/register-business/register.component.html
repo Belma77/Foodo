@@ -15,34 +15,6 @@
                             <input
                                 type="text"
                                 class="form-control"
-                                id="city"
-                                required
-                                formControlName="city"
-                                name="city"
-                                placeholder="Grad"
-                            />
-                            <span
-                                class="text-danger"
-                                *ngIf="
-                                    f.city.touched && f.city.errors?.required
-                                "
-                            >
-                               Unos grada je obavezan
-                            </span>
-                            <span
-                                class="text-danger"
-                                *ngIf="
-                                    f.city.touched && f.city.errors?.pattern
-                                "
-                            >
-                                Unos grada je obavezan
-                            </span>
-                        </div>
-
-                        <div class="form-group">
-                            <input
-                                type="text"
-                                class="form-control"
                                 id="poslovni-naziv"
                                 required
                                 formControlName="businesName"
@@ -94,7 +66,7 @@
                             Unesite validnu mail adresu
                             </span>
                         </div>
-    
+
                         <div class="form-group">
                             <input
                                 type="password"
@@ -147,11 +119,11 @@
                                     f.phone.touched && f.phone.errors?.pattern
                                 "
                             >
-                                
+
                             Unos telefona je obavezan
                             </span>
                         </div>
-    
+
                         <div class="form-group">
                             <button
                                 type="submit"
@@ -163,7 +135,7 @@
                         </div>
                     </form>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
     <div class="divider"></div>

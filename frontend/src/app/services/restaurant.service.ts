@@ -5,6 +5,8 @@ import { Product } from '../models/product';
 import { Restaurant } from '../models/restaurant';
 import { AuthService } from './auth.service';
 import { CoreRequestService } from './core-request.service';
+import {User} from "../models/user.model";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class RestaurantService {
   restaurant!: Restaurant;
   categories:Category[] = [];
 
-  constructor(private requestService:CoreRequestService, private router:Router, private authService: AuthService) {
+  constructor(private requestService:CoreRequestService, private router:Router, private authService: AuthService, private userService:UserService) {
       this.getCategories();
    }
 
@@ -51,12 +53,25 @@ export class RestaurantService {
   async deleteProduct(id:number) {
     await this.requestService.delete("/product/"+id)
     .then(() => window.location.reload());
-  }  
+  }
 
   async register(restaurant: Restaurant): Promise<any> {
     await this.requestService.post('/restaurant/register', restaurant).then((data: any) => {
         this.router.navigate(['/login-restaurant']);
-    });
+    }).catch(err => console.log(err));
  }
+  async login(user: User): Promise<any> {
+    await this.requestService.post('/restaurant/Login', user).then(async (data: { token: string; }) => {
+      console.log(data)
+      localStorage.setItem('token', data.token);
+      await this.userService.doMe().then(() => {
+        this.router.navigate(['/customer/home-page']);
+      }).catch((err: any) => {
+        console.log(err);
 
+      }).catch((err: any) => {
+        console.log(err);
+      });
+    });
+  }
 }

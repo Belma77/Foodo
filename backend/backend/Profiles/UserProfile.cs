@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data.Models.Dtos;
 using Data.Models.Entities;
+using Data.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,9 @@ namespace Data.Profiles
             CreateMap<User, UserDto>();
             CreateMap<Courier, UserDto>();
             CreateMap<Customer, UserDto>();
+            CreateMap<Restaurant, User>();
+            CreateMap<RestaurantVM, Restaurant>();
+
         }
     }
 }

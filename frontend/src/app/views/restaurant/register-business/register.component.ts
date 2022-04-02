@@ -14,7 +14,7 @@ import { Injectable } from '@angular/core';
 export class RestaurantRegisterComponent implements OnInit {
 
     registerForm: FormGroup;
-    
+
     constructor(
         private fb: FormBuilder,
         private restaurantService: RestaurantService,
@@ -23,7 +23,6 @@ export class RestaurantRegisterComponent implements OnInit {
         this.registerForm = this.fb.group({
             email: ['', [Validators.required, Validators.pattern(regex.email)]],
             password: ['', [Validators.required, Validators.minLength(8)]],
-            city: ['', [Validators.required]],
             businesName:['', [Validators.required]],
             phone:['', [Validators.required]],
         });
@@ -40,14 +39,12 @@ export class RestaurantRegisterComponent implements OnInit {
             this.restaurantService
                 .register(this.registerForm.value)
                 .then(() => {
-                    // this.registerForm.reset();
+                  //this.registerForm.reset();
                     console.log("registrovan");
                     this.router.navigateByUrl('/login-restaurant');
                 }).catch(err => console.log(err));
-                // .catch(() => {
-                //     this.registerForm.reset();
-                // });
         } else {
+          console.log("opet nesto");
             this.validateAllFields(this.registerForm);
         }
      }

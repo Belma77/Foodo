@@ -16,9 +16,10 @@ namespace backend.Services.Impl
     {
         private MyContext _dbContext;
         private UserRepository userRepository;
-        public UserService(MyContext _dbContext)
+        public UserService(MyContext _dbContext, UserRepository us)
         {
             this._dbContext = _dbContext;
+            this.userRepository = us;
         }
         public AuthenticateResponse Login(UserDto model)
         {
@@ -39,11 +40,11 @@ namespace backend.Services.Impl
         {
             return _dbContext.users;
         }
-        public ActionResult<User> getUser(User u)
+        public User doMe(User u)
         {
             try
             {
-                var user = userRepository.findByEmail(u.email);
+                var user = userRepository.findById(u.Id);
                 return user;
             }
             catch(Exception)

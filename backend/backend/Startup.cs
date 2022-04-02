@@ -1,4 +1,4 @@
-using Data;
+ using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -100,6 +100,8 @@ namespace backend
             services.AddScoped<CourierService, CourierService>();
             services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
+           
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
