@@ -40,10 +40,10 @@ export class UserService {
      }
 
     async login(user: User): Promise<any> {
-        await this.requestService.post('/customer/login', user).then(async (data: { token: string; role:UserRole }) => {
+        await this.requestService.post('/customer/login', user).then(async (data: { token: string; }) => {
             console.log(data)
             localStorage.setItem('token', data.token);
-          localStorage.setItem('role', data.role);
+         // localStorage.setItem('role', data.role);
              await this.doMe().then(() => {
                 this.router.navigate(['/customer/home-page']);
              }).catch((err: any) => {
