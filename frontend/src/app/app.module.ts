@@ -38,6 +38,9 @@ import { ModalComponent } from './components/modal/modal.component';
 import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
 import { StartPageComponent } from './views/courier/dashboard/start-page/start-page.component';
 import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
+import { CourierRegisterComponent } from './views/courier/courier-register/courier-register.component';
+import { CourierLoginComponent } from './views/courier/courier-login/courier-login.component';
+import {AlertService} from "./services/alert.service";
 
 @NgModule({
   declarations: [
@@ -65,6 +68,8 @@ import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order
     LoginComponentRestaurant,
     AlertComponent,
     HomePageComponent,
+    CourierRegisterComponent,
+    CourierLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +92,7 @@ import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order
        UserService,
        RestaurantService,
        CoreRequestService,
+    AlertService,
       // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

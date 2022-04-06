@@ -1,4 +1,5 @@
-﻿using backend.Services;
+﻿using AutoMapper;
+using backend.Services;
 using backend.Services.Impl;
 using Data.Models.Entities;
 using Data.Models.Enums;
@@ -22,20 +23,22 @@ namespace backend.Controllers
     {
 
         private readonly CourierService _courierService;
+        private IMapper mapper;
 
-        public CourierController(CourierService courierService)
+        public CourierController(CourierService courierService, IMapper mapper)
         {
             this._courierService = courierService;
+            this.mapper = mapper;
 
         }
 
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public IActionResult Register([FromBody] Courier courier)
+        public IActionResult Register([FromBody] CourierVM courier)
         {
 
-            _courierService.Register(courier);
+            _courierService.Register(mapper.Map<Courier>(courier));
             return Ok();
         }
         [HttpPost]

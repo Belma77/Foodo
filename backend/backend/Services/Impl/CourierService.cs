@@ -57,7 +57,7 @@ namespace backend.Services.Impl
         {
             Courier courier = (Courier)_UserRepository.findByEmail(u.email);
             
-            if (u == null)
+            if (courier == null)
                 throw new Exception("User not found");
             if (!UserPasswordUtil.verifyUserPassword(u.password, courier.password, courier.StoredSalt))
                 throw new Exception("Incorrect password");

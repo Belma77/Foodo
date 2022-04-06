@@ -47,7 +47,7 @@ namespace backend.Controllers
         public IActionResult Register([FromBody] Customer customer)
         {
             _customerService.register(customer);
-            return Ok();
+            return Ok(customer);
         }
         [HttpPost]
         [Route("login")]
@@ -57,7 +57,6 @@ namespace backend.Controllers
             _customerService.login(customer);
             ResponseToken token = _customerService.login(customer);
             Console.WriteLine($"Logiran { customer.email}");
-
             return token;
         }
 

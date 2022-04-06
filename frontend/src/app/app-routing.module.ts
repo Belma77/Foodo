@@ -24,6 +24,9 @@ import {Customer} from "./models/customer";
 import {AuthService} from "./services/auth.service";
 import {AuthGuard} from "./guards/auth.guard";
 import {RestaurantRegisterComponent} from "./views/restaurant/register-business/register.component";
+import {CourierRegisterComponent} from "./views/courier/courier-register/courier-register.component";
+import {CourierLoginComponent} from "./views/courier/courier-login/courier-login.component";
+import {RoleGuard} from "./guards/role.guard";
 
 const routes: Routes = [
   {path:'',
@@ -34,8 +37,10 @@ const routes: Routes = [
 
   { path:'customer/home-page',
     component:HomePageComponent,
-    canActivate:[AuthGuard], data: { roles: ['CUSTOMER']}
+   // canActivate:[AuthGuard, RoleGuard], data: { roles: ['CUSTOMER']}
   },
+  {path:'courier-register', component:CourierRegisterComponent},
+  {path:'courier-login', component:CourierLoginComponent},
   {path:'login-restaurant', component:LoginComponentRestaurant},
   {path:'register-business', component:RestaurantRegisterComponent},
   {path:'restaurant/:slug', component:RestaurantComponent},

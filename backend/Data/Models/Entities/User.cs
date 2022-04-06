@@ -18,6 +18,7 @@ namespace Data.Models.Entities
         {
             this.email = email;
             this.password = password;
+
         }
 
         [Key]
