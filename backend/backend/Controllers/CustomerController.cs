@@ -66,6 +66,8 @@ namespace backend.Controllers
         [Authorize]
         public IActionResult createOrder([FromBody] OrderViewModel order)
         {
+            // get customer from http context
+            int userId = 3; // hardcored in migration
             orderService.createOrder(order);
             return Ok();
         }

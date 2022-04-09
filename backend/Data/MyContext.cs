@@ -56,6 +56,17 @@ namespace Data
                    new { id = 3, name = "Pizza" }
                 );
 
+            builder.Entity<Customer>().HasData(
+                new Customer
+                {
+                    email = "john@doe",
+                    firstName = "John",
+                    lastname = "Doe",
+                    password = "test",
+                    Id = 3,
+                    role = UserRole.CUSTOMER
+                });
+
 
             builder.Entity<Restaurant>().HasData(
             new Restaurant

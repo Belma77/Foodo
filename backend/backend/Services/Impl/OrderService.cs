@@ -28,12 +28,15 @@ namespace backend.Services.Impl
             _userRepository = userRepository;
         }
 
-        public void createOrder(OrderViewModel o)
+        public void createOrder(OrderViewModel o, int userId)
         {
             Order order = new Order();
             Restaurant r = (Restaurant)_userRepository.findById(o.restaurantId);
             order.Restaurant = r;
-            //Customer customer = _userRepository.findById(id)
+
+            Customer customer = (Customer) _userRepository.findById(userId);
+            order.Customer = customer;
+
             order.orderStatus = OrderStatus.CREATED;
             foreach(OrderRecordViewModel or in  o.orderLine)
             {
