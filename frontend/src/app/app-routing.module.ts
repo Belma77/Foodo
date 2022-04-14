@@ -43,6 +43,7 @@ const routes: Routes = [
   {path:'courier-login', component:CourierLoginComponent},
   {path:'login-restaurant', component:LoginComponentRestaurant},
   {path:'register-business', component:RestaurantRegisterComponent},
+
   {path:'restaurant/:slug', component:RestaurantComponent},
   {
     path:'restaurant/dashboard',

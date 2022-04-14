@@ -24,6 +24,9 @@ using backend.Repositories.Impl;
 using backend.middlewares;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using backend.ErrorHandler;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 //using AutoMapper.Configuration;
 
 namespace backend
@@ -41,7 +44,7 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddNewtonsoftJson();
-
+            services.AddTransient<ErrorHandlingMiddleware>();
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddSwaggerGen(c =>
@@ -100,7 +103,7 @@ namespace backend
             services.AddScoped<CourierService, CourierService>();
             services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
-           
+            
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -127,10 +130,11 @@ namespace backend
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "backend v1"));
+              
             }
             
             app.UseHttpsRedirection();
-
+            
             app.UseRouting();
 
             app.UseCors("CorsPolicy");
@@ -138,7 +142,7 @@ namespace backend
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();
-
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<CourierHub>("/hub");

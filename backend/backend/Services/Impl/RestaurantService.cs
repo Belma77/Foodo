@@ -1,4 +1,5 @@
 using AutoMapper;
+using backend.ErrorHandler;
 using backend.Repositories;
 using backend.Repositories.Impl;
 using backend.Utils;
@@ -29,37 +30,52 @@ namespace backend.Services.Impl
 
         public void register([FromBody] Restaurant res)
         {
-            byte[] salt = new byte[128 / 8];
-            using (var rngCsp = new RNGCryptoServiceProvider())
+            var email = _UserRepository.findByEmail(res.email);
+            if (email != null)
+                throw new DomainConflictException("User already exists");
+            else
             {
-                rngCsp.GetNonZeroBytes(salt);
+                byte[] salt = new byte[128 / 8];
+                using (var rngCsp = new RNGCryptoServiceProvider())
+                {
+                    rngCsp.GetNonZeroBytes(salt);
+                }
+
+                //derive a 256 - bit subkey(use HMACSHA256 with 100, 000 iterations)
+                string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    password: res.password,
+                    salt: salt,
+                    prf: KeyDerivationPrf.HMACSHA256,
+                    iterationCount: 100000,
+                    numBytesRequested: 256 / 8));
+
+                res.password = hashedPassword;
+                res.StoredSalt = salt;
+                res.role = UserRole.RESTAURANT;
+                _UserRepository.create(res);
             }
-            
-            //derive a 256 - bit subkey(use HMACSHA256 with 100, 000 iterations)
-            string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: res.password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: 100000,
-                numBytesRequested: 256 / 8));
-            
-            res.password = hashedPassword;
-            res.StoredSalt = salt;
-            res.role = UserRole.RESTAURANT;
-            _UserRepository.create(res);
         }
         public ResponseToken Login(UserVM u)
         {
-            Restaurant res = (Restaurant)_UserRepository.findByEmail(u.email);
-            if (res != null && UserPasswordUtil.verifyUserPassword(u.password, res.password, res.StoredSalt))
+            try
             {
-                string token = JwtUtil.generateToken(_mapper.Map<UserDto>(res));
-                return new ResponseToken(token);
+                Restaurant res = (Restaurant)_UserRepository.findByEmail(u.email);
+                if (res != null && UserPasswordUtil.verifyUserPassword(u.password, res.password, res.StoredSalt))
+                {
+                    string token = JwtUtil.generateToken(_mapper.Map<UserDto>(res));
+                    return new ResponseToken(token);
+                }
+                else
+                {
+                    throw new DomainUnauthorizedException("User not found");
+                }
             }
-            else
+            catch(Exception)
             {
-                throw new Exception("User not found");
+                throw new DomainUnauthorizedException("User not found");
             }
+           
+            
         }
 
     }

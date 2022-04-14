@@ -1,4 +1,5 @@
-﻿using backend.Repositories;
+﻿using backend.ErrorHandler;
+using backend.Repositories;
 using backend.Utils;
 using Data;
 using Data.Models.Dtos;
@@ -49,7 +50,7 @@ namespace backend.Services.Impl
             }
             catch(Exception)
             {
-                throw new Exception("User not found");
+                throw new DomainUnauthorizedException("User not found");
             }
             
         }

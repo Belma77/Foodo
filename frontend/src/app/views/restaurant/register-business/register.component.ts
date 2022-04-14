@@ -14,6 +14,7 @@ import { Injectable } from '@angular/core';
 export class RestaurantRegisterComponent implements OnInit {
 
     registerForm: FormGroup;
+  error: any;
 
     constructor(
         private fb: FormBuilder,
@@ -39,12 +40,12 @@ export class RestaurantRegisterComponent implements OnInit {
             this.restaurantService
                 .register(this.registerForm.value)
                 .then(() => {
-                  //this.registerForm.reset();
                     console.log("registrovan");
-                    this.router.navigateByUrl('/login-restaurant');
-                }).catch(err => console.log(err));
+                }).catch(err => {
+              console.log(err)
+              this.error = err;
+            });
         } else {
-          console.log("opet nesto");
             this.validateAllFields(this.registerForm);
         }
      }

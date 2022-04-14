@@ -17,7 +17,6 @@ import { RestaurantComponent } from './views/customer/restaurant/restaurant.comp
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocationWrapperComponent } from './components/location-wrapper/location-wrapper.component';
 import { OrderLineComponent } from './components/order-line/order-line.component';
-
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import { LocationPickerComponent } from './components/location-picker/location-picker.component';
@@ -41,6 +40,9 @@ import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order
 import { CourierRegisterComponent } from './views/courier/courier-register/courier-register.component';
 import { CourierLoginComponent } from './views/courier/courier-login/courier-login.component';
 import {AlertService} from "./services/alert.service";
+import {ErrorInterceptor} from "./interceptors/error.interceptor";
+import {NotificationService} from "./services/notificationService";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -85,7 +87,9 @@ import {AlertService} from "./services/alert.service";
     AgmDirectionModule,
     RouterModule.forRoot([]),
     HttpClientModule,
-
+    ToastrModule.forRoot({
+      positionClass :'toast-bottom-right'
+    })
   ],
   providers: [
        AuthService,
@@ -93,7 +97,8 @@ import {AlertService} from "./services/alert.service";
        RestaurantService,
        CoreRequestService,
     AlertService,
-      // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+NotificationService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

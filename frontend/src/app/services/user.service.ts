@@ -16,7 +16,7 @@ import {AlertService} from "./alert.service";
 export class UserService {
     user! : User;
     notifications: Notification[] = [];
-
+    error: string | undefined;
 
     constructor(
         private requestService: CoreRequestService,
@@ -33,33 +33,32 @@ export class UserService {
     }
 
     async register(user: User): Promise<any> {
-        await this.requestService.post('/customer/register', user).then((data: any) => {
-            this.router.navigate(['/login']);
-        }).catch(err => console.log(err));
+        await this.requestService.post('/customer/register', user).then( (data: any) => {
+             this.router.navigate(['/login']);
+        }).catch((err:any)=>{
+          throw err;
+        })
      }
   async courierRegister(user: Courier): Promise<any> {
     await this.requestService.post('/courier/register', user).then((data: any) => {
       this.router.navigate(['/courier-login']);
-    }).catch(err => console.log(err));
+    }).catch(err => {
+      throw err
+    });
   }
     async login(user: User): Promise<any> {
         await this.requestService.post('/customer/login', user).then(async (data: { token: string; }) => {
-            console.log(data)
             localStorage.setItem('token', data.token);
-         // localStorage.setItem('role', data.role);
              await this.doMe().then(() => {
                 this.router.navigate(['/customer/home-page']);
              }).catch((err: any) => {
                console.log(err);
-
         }).catch((err: any) => {
-               console.log(err);
     });
         });
     }
   async courierLogin(user: Courier): Promise<any> {
     await this.requestService.post('/courier/login', user).then(async (data: { token: string; }) => {
-      console.log(data)
       localStorage.setItem('token', data.token);
       await this.doMe().then((response:any) => {
         this.router.navigate(['/customer/home-page']);
@@ -111,7 +110,6 @@ getRole()
             })
             .catch((err: any) => {
               this.logout();
-              console.log(err);
             });
     }
 

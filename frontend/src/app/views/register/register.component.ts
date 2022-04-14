@@ -17,6 +17,7 @@ import * as regex from '../../utils/regex';
 })
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
+  error: any;
 
     constructor(
         private fb: FormBuilder,
@@ -41,13 +42,13 @@ export class RegisterComponent implements OnInit {
         if (this.registerForm.valid) {
             this.userService
                 .register(this.registerForm.value)
-                .then(() => {
-                    // this.registerForm.reset();
-                    this.router.navigateByUrl('/login');
-                    
+                .then((response:any) => {
+                  console.log("registrovan");
                 })
-                .catch(() => {
-                    this.registerForm.reset();
+                .catch((err:any) => {
+                    //this.registerForm.reset();
+                  this.error=err;
+                  console.log("catch");
                 });
         } else {
             this.validateAllFields(this.registerForm);

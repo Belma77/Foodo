@@ -2,10 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import 'rxjs';
-// import { NotificationService } from './notification.service';
 import { Observable, throwError, of } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from './auth.service';
+import {NotificationService} from "./notificationService";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
 export class CoreRequestService {
     constructor(
         private http: HttpClient,
-        // private notificationService: NotificationService,
+        private notificationService: NotificationService,
         private spinerService: NgxSpinnerService,
         private authService:AuthService
     ) {}
@@ -89,68 +89,67 @@ export class CoreRequestService {
                 throw err;
             });
     }
-
-    // public handleError(error: any): Observable<any> {
-    //     switch (error.status) {
-    //         case 400:
-    //             if (error.error.hasOwnProperty('ModelState')) {
-    //                 return throwError(error.error.ModelState);
-    //             }
-    //             if (error.error.hasOwnProperty('Message')) {
-    //                 this.notificationService.error(
-    //                     error.error.Message,
-    //                     'ERROR'.concat(error.status)
-    //                 );
-    //                 return of();
-    //             }
-    //             if (error.error != null) {
-    //                 if (error.error) {
-    //                     let valError = error.error[Object.keys(error.error)[0]];
-    //                     this.notificationService.error(
-    //                         valError[0],
-    //                         'ERROR'.concat(error.status)
-    //                     );
-    //                 } else
-    //                     this.notificationService.error(
-    //                         error.error,
-    //                         'ERROR'.concat(error.status)
-    //                     );
-    //                 return of();
-    //             }
-    //             this.notificationService.error(
-    //                 error.error,
-    //                 'ERROR'.concat(error.status)
-    //             );
-    //             return of();
-    //         case 0:
-    //             this.notificationService.error(
-    //                 'UNABLE_TO_CONNECT_API',
-    //                 'ERROR'.concat(error.status)
-    //             );
-    //             return of();
-    //         case 403:
-    //             this.notificationService.error(
-    //                 'YOU_DONT_HAVE_PERMISSIONS',
-    //                 'ERROR'.concat(error.status)
-    //             );
-    //             return of();
-    //         case 401:
-    //             if (error.error)
-    //                 this.notificationService.error(error.status, error.error);
-    //             else
-    //                 this.notificationService.error(
-    //                     error.status,
-    //                     error.statusText
-    //                 );
-    //             return of();
-    //         default:
-    //             this.notificationService.error(
-    //                 error.statusText,
-    //                 'ERROR'.concat(error.status)
-    //             );
-    //             return of();
-    //     }
-    // }
+     /*public handleError(error: any): Observable<any> {
+         switch (error.status) {
+             case 400:
+                 if (error.error.hasOwnProperty('ModelState')) {
+                     return throwError(error.error.ModelState);
+                 }
+                 if (error.error.hasOwnProperty('Message')) {
+                     this.notificationService.error(
+                         error.error.Message,
+                         'ERROR'.concat(error.status)
+                     );
+                     return of();
+                 }
+                 if (error.error != null) {
+                     if (error.error) {
+                         let valError = error.error[Object.keys(error.error)[0]];
+                         this.notificationService.error(
+                             valError[0],
+                             'ERROR'.concat(error.status)
+                       );
+                    } else
+                         this.notificationService.error(
+                            error.error,
+                             'ERROR'.concat(error.status)
+                        );
+                     return of();
+                 }
+                this.notificationService.error(
+                     error.error,
+                     'ERROR'.concat(error.status)
+                 );
+                 return of();
+             case 0:
+                 this.notificationService.error(
+                     'UNABLE_TO_CONNECT_API',
+                     'ERROR'.concat(error.status)
+                 );
+                 return of();
+             case 403:
+                 this.notificationService.error(
+                     'YOU_DONT_HAVE_PERMISSIONS',
+                     'ERROR'.concat(error.status)
+                 );
+                 return of();
+             case 401:
+                 if (error.error)
+                     this.notificationService.error(error.status, error.error);
+                 else
+                     this.notificationService.error(
+                         error.status,
+                         error.statusText
+                    );
+                 return of();
+            default:
+                 this.notificationService.error(
+                     error.statusText,
+                   'ERROR'.concat(error.status)
+                 );
+                 return of();
+        }
+    }*/
 
     // public postFiles(path: string, files: File[], body: any): Promise<any> {
     //     const formData: FormData = new FormData();

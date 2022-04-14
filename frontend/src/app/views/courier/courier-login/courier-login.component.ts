@@ -14,6 +14,7 @@ export class CourierLoginComponent implements OnInit {
   userService: any;
   authService: any;
   router:any;
+  error: any;
   constructor(
     private fb: FormBuilder,
     userService:UserService,
@@ -41,14 +42,9 @@ export class CourierLoginComponent implements OnInit {
       this.userService
         .courierLogin(this.loginForm.value)
         .then((response:any) => {
-
-          // this.loginForm.reset();
-          console.log("logiran");
-
         })
         .catch((err:any) => {
-          //this.loginForm.reset();
-          console.log(err);
+         this.error=err;
         });
     } else {
       this.validateAllFields(this.loginForm);

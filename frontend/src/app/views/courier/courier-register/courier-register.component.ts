@@ -11,6 +11,7 @@ import * as regex from "../../../utils/regex";
 })
 export class CourierRegisterComponent implements OnInit {
   registerForm: FormGroup;
+  error: any;
 
   constructor(
     private fb: FormBuilder,
@@ -37,13 +38,10 @@ export class CourierRegisterComponent implements OnInit {
       this.userService
         .courierRegister(this.registerForm.value)
         .then(() => {
-          // this.registerForm.reset();
-          this.router.navigateByUrl('/login');
 
         })
         .catch((err) => {
-          this.registerForm.reset();
-          console.log(err);
+          this.error=err;
         });
     } else {
       this.validateAllFields(this.registerForm);

@@ -25,7 +25,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponentRestaurant implements OnInit {
     loginForm: FormGroup;
-
+  error: any;
     constructor(
         private fb: FormBuilder,
         private resService:RestaurantService,
@@ -51,13 +51,13 @@ export class LoginComponentRestaurant implements OnInit {
              this.resService
                  .login(this.loginForm.value)
                  .then(() => {
-
                      console.log("logiran");
                      this.router.navigateByUrl('/customer/home-page');
                })
               .catch((err) => {
                 console.log(err);
-                   this.loginForm.reset();
+                this.error=err;
+
         });
         } else {
             this.validateAllFields(this.loginForm);
@@ -70,10 +70,6 @@ export class LoginComponentRestaurant implements OnInit {
     //     .finally(() => {
     //         this.loginForm.reset();
     //     })
-    // }
-
-    //  signOut(): void {
-    //     this.authService.signOut();
     // }
 
     validateAllFields(formGroup: FormGroup) {
