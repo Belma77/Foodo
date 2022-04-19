@@ -79,11 +79,15 @@ namespace backend.Services.Impl
                     return new ResponseToken(token);
                 }
             }
-            catch(Exception)
+            catch (DomainUnauthorizedException)
             {
                 throw new DomainUnauthorizedException("User not found");
             }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
+        }
         public User doMe(User u)
         {
             try

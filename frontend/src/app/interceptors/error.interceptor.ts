@@ -15,32 +15,29 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     return next.handle(request)
       .pipe(
-        retry(1),
+        retry(3),
         catchError((error: HttpErrorResponse) => {
 
           let errorMessage = '';
 
-          if (error.error instanceof ErrorEvent) {
+          if (error.error instanceof ErrorEvent){
             // client-side error
-            errorMessage="ne kontam";
-            }
+            errorMessage="Ups... Nešto je pošlo po zlu";
+          }
           else {
             // server-side error
             switch (error.status) {
-              case 401:
+              case 401: {
                 errorMessage = "Email ili password nije ispravan";
-                 break;
-
-              case 409:
-                errorMessage = "Racun s unijetom e-mail adresom vec postoji";
                 break;
+              }
+              case 409:{
+                errorMessage = "Racun s unijetom e-mail adresom vec postoji";
+                break;}
+              default:errorMessage = "Nepoznat error";
             }
-         /* case 401:
-            errorMessage = "Niste autorizovani za tu akciju";
-            break;
-          }*/
-          }
 
+            }
           return throwError(errorMessage);
         })
       )

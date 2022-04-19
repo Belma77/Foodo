@@ -73,17 +73,7 @@ export class UserService {
 getRole()
 {
    var role=this.user.role;
-
-  if((<number><unknown>role)===0)
-  return UserRole.CUSTOMER;
-
-  if((<number><unknown>role)===1)
-    return UserRole.RESTAURANT;
-
-  if((<number><unknown>role)===2)
-    return UserRole.COURIER;
-  this.alert.getAlert();
-  return null;
+   return role!=null?role:null;
 }
     // async googlePopupLogin(){
     //     return await this.socialAuthService
