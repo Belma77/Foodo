@@ -1,10 +1,16 @@
 .divider {
     margin-bottom: 50px;
 }
-
+.form-group {
+  margin-bottom: 20px;
+  a {
+    color:black;
+    text-decoration: none;
+  }
+}
 main {
     margin-top: 0px;
-    
+
 
     .form-wrapper {
         display: flex;
@@ -27,7 +33,7 @@ main {
                 background-color: white;
                 padding: 20px;
                 border-radius: 8px;
-                -webkit-box-shadow: 5px 5px 10px 4px rgba(0,0,0,0.38); 
+                -webkit-box-shadow: 5px 5px 10px 4px rgba(0,0,0,0.38);
                 box-shadow: 5px 5px 10px 4px rgba(0,0,0,0.38);
             }
         }
@@ -46,7 +52,7 @@ main {
 .form-control {
     border: none;
     border-bottom: 2px solid lightgrey;
-    padding: 5px 20px 20px 20px;
+    padding: 10px;
 }
 
 .why-foodo {
@@ -63,7 +69,7 @@ main {
             text-align: left;
 
         }
-        
+
         .content .separator {
             width: 20%;
             height: 2px;
@@ -82,7 +88,7 @@ padding-top: 30px;
 .steps {
     display: flex;
     flex-direction: column;
-    
+
 }
 .image{
     img {
@@ -106,10 +112,10 @@ padding-top: 30px;
     width: 30%;
     h1{
         font-size: 20px;
-        
+
         color:inherit;
     }
-    
+
         img {
             height: 250px;
             width: 100%;
@@ -118,7 +124,7 @@ padding-top: 30px;
             border-top-right-radius: 25%;
             vertical-align: middle;
         }
-    
+
     .step-number {
         position: absolute;
         top:0;
@@ -135,7 +141,7 @@ padding-top: 30px;
         color:white;
     }
 
-   
+
 }
 
 

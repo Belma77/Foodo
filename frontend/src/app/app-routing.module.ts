@@ -1,29 +1,25 @@
-import { RouterModule, Routes } from '@angular/router';
-import { LocationPickerComponent } from './components/location-picker/location-picker.component';
-import { LocationWrapperComponent } from './components/location-wrapper/location-wrapper.component';
-import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
-import { ModalComponent } from './components/modal/modal.component';
-
-import { Restaurant } from './models/restaurant';
-import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
-import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
-import { StartPageComponent } from './views/courier/dashboard/start-page/start-page.component';
-import { HomePageComponent } from './views/customer/home-page/home-page.component';
-import { RestaurantComponent } from './views/customer/restaurant/restaurant.component';
-import { LoginComponent } from './views/login/login.component';
-import { DashboardComponent } from './views/restaurant/dashboard/dashboard.component';
-import { MenuComponent } from './views/restaurant/dashboard/menu/menu.component';
-import { OrdersComponent } from './views/restaurant/dashboard/orders/orders.component';
-import { StatisticsComponent } from './views/restaurant/dashboard/statistics/statistics.component';
-import { WalletComponent } from './views/restaurant/dashboard/wallet/wallet.component';
-import { NgModule } from '@angular/core';
-import { RegisterComponent } from './views/register/register.component';
-import { LoginComponentRestaurant } from './views/login-restaurant/login-restaurant.component';
-import { NewProductComponent } from './views/restaurant/new-product/new-product.component';
-import {Customer} from "./models/customer";
-import {AuthService} from "./services/auth.service";
+import {RouterModule, Routes} from '@angular/router';
+import {CourierDashboardComponent} from './views/courier/dashboard/courier-dashboard.component';
+import {OrderOfferComponent} from './views/courier/dashboard/order-offer/order-offer.component';
+import {StartPageComponent} from './views/courier/dashboard/start-page/start-page.component';
+import {HomePageComponent} from './views/customer/home-page/home-page.component';
+import {RestaurantComponent} from './views/customer/restaurant/restaurant.component';
+import {LoginComponent} from './views/login/login.component';
+import {DashboardComponent} from './views/restaurant/dashboard/dashboard.component';
+import {MenuComponent} from './views/restaurant/dashboard/menu/menu.component';
+import {OrdersComponent} from './views/restaurant/dashboard/orders/orders.component';
+import {StatisticsComponent} from './views/restaurant/dashboard/statistics/statistics.component';
+import {WalletComponent} from './views/restaurant/dashboard/wallet/wallet.component';
+import {NgModule} from '@angular/core';
+import {RegisterComponent} from './views/register/register.component';
+import {LoginComponentRestaurant} from './views/login-restaurant/login-restaurant.component';
+import {NewProductComponent} from './views/restaurant/new-product/new-product.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {RestaurantRegisterComponent} from "./views/restaurant/register-business/register.component";
+import {CourierRegisterComponent} from "./views/courier/courier-register/courier-register.component";
+import {CourierLoginComponent} from "./views/courier/courier-login/courier-login.component";
+import {RoleGuard} from "./guards/role.guard";
+import {UserRole} from "./models/enums/user-role";
 
 const routes: Routes = [
   {path:'',
@@ -34,10 +30,13 @@ const routes: Routes = [
 
   { path:'customer/home-page',
     component:HomePageComponent,
-    canActivate:[AuthGuard], data: { roles: ['CUSTOMER']}
+    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf(), UserRole.COURIER.valueOf()]}
   },
+  {path:'courier-register', component:CourierRegisterComponent},
+  {path:'courier-login', component:CourierLoginComponent},
   {path:'login-restaurant', component:LoginComponentRestaurant},
   {path:'register-business', component:RestaurantRegisterComponent},
+
   {path:'restaurant/:slug', component:RestaurantComponent},
   {
     path:'restaurant/dashboard',

@@ -11,5 +11,7 @@ namespace Data.Models.Enums
         CUSTOMER,
         RESTAURANT,
         COURIER
+
+        
     }
 }

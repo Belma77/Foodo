@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     userService: any;
     authService: any;
     router:any;
+  error: any;
     constructor(
         private fb: FormBuilder,
         userService:UserService,
@@ -60,9 +61,9 @@ export class LoginComponent implements OnInit {
                     // this.loginForm.reset();
                     console.log("logiran");
                 })
-                .catch(() => {
-                    this.loginForm.reset();
+                .catch((err:any) => {
                     console.log("greska");
+                    this.error=err;
                 });
         } else {
             this.validateAllFields(this.loginForm);
@@ -86,6 +87,7 @@ export class LoginComponent implements OnInit {
     //         this.loginForm.reset();
     //     })
     // }
+
 
       signOut(): void {
          this.authService.signOut();

@@ -17,7 +17,6 @@ import { RestaurantComponent } from './views/customer/restaurant/restaurant.comp
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocationWrapperComponent } from './components/location-wrapper/location-wrapper.component';
 import { OrderLineComponent } from './components/order-line/order-line.component';
-
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import { LocationPickerComponent } from './components/location-picker/location-picker.component';
@@ -38,6 +37,12 @@ import { ModalComponent } from './components/modal/modal.component';
 import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
 import { StartPageComponent } from './views/courier/dashboard/start-page/start-page.component';
 import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
+import { CourierRegisterComponent } from './views/courier/courier-register/courier-register.component';
+import { CourierLoginComponent } from './views/courier/courier-login/courier-login.component';
+import {AlertService} from "./services/alert.service";
+import {ErrorInterceptor} from "./interceptors/error.interceptor";
+import {NotificationService} from "./services/notificationService";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -65,6 +70,8 @@ import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order
     LoginComponentRestaurant,
     AlertComponent,
     HomePageComponent,
+    CourierRegisterComponent,
+    CourierLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,14 +87,18 @@ import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order
     AgmDirectionModule,
     RouterModule.forRoot([]),
     HttpClientModule,
-
+    ToastrModule.forRoot({
+      positionClass :'toast-bottom-right'
+    })
   ],
   providers: [
        AuthService,
        UserService,
        RestaurantService,
        CoreRequestService,
-      // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AlertService,
+NotificationService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

@@ -14,6 +14,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Data.Models.ViewModels;
+using backend.ErrorHandler;
 
 namespace backend.Services.Impl
 {
@@ -31,41 +32,55 @@ namespace backend.Services.Impl
             this._UserRepository = UserRepository;
             this._mapper = mapper;
         }
-    public void Register([FromBody] Courier courier)
-    {
-        byte[] salt = new byte[128 / 8];
-        using (var rngCsp = new RNGCryptoServiceProvider())
+        public void Register([FromBody] Courier courier)
         {
-            rngCsp.GetNonZeroBytes(salt);
-        }
-
-        // derive a 256-bit subkey (use HMACSHA256 with 100,000 iterations)
-        string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            password: courier.password,
-            salt: salt,
-            prf: KeyDerivationPrf.HMACSHA256,
-            iterationCount: 100000,
-            numBytesRequested: 256 / 8));
-
-        courier.password = hashedPassword;
-        courier.StoredSalt = salt;
-        courier.role = UserRole.COURIER;
-            
-        _UserRepository.create(courier);
-    }
-        public ResponseToken Login(UserVM u)
-        {
-            Courier courier = (Courier)_UserRepository.findByEmail(u.email);
-            
-            if (u == null)
-                throw new Exception("User not found");
-            if (!UserPasswordUtil.verifyUserPassword(u.password, courier.password, courier.StoredSalt))
-                throw new Exception("Incorrect password");
+            var email = _UserRepository.findByEmail(courier.email);
+            if (email != null)
+                throw new DomainConflictException("User already exists");
             else
             {
-                string token = JwtUtil.generateToken(_mapper.Map<UserDto>(courier));
-                return new ResponseToken(token);
+                byte[] salt = new byte[128 / 8];
+                using (var rngCsp = new RNGCryptoServiceProvider())
+                {
+                    rngCsp.GetNonZeroBytes(salt);
+                }
+
+                // derive a 256-bit subkey (use HMACSHA256 with 100,000 iterations)
+                string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    password: courier.password,
+                    salt: salt,
+                    prf: KeyDerivationPrf.HMACSHA256,
+                    iterationCount: 100000,
+                    numBytesRequested: 256 / 8));
+
+                courier.password = hashedPassword;
+                courier.StoredSalt = salt;
+                courier.role = UserRole.COURIER;
+
+                _UserRepository.create(courier);
             }
+        }
+        public ResponseToken Login(UserVM u)
+        {
+            try
+            {
+                Courier courier = (Courier)_UserRepository.findByEmail(u.email);
+                if (courier == null)
+                    throw new DomainUnauthorizedException("User not found");
+                if (!UserPasswordUtil.verifyUserPassword(u.password, courier.password, courier.StoredSalt))
+                    throw new DomainUnauthorizedException("Incorrect password");
+                else
+                {
+                    string token = JwtUtil.generateToken(_mapper.Map<UserDto>(courier));
+                    return new ResponseToken(token);
+                }
+            }
+            catch(Exception)
+            {
+                throw new DomainUnauthorizedException("User not found");
+            }
+            
+            
         }
         public void sendOrderOffer() {
             //receive courier id and 

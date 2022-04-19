@@ -45,8 +45,8 @@ namespace backend.Services.Impl
                 order.OrderRecords.Add(orderRecord);
             }
             _orderRepository.create(order);
-            //createOrderChanell(order);
-            //sendOfferToRestaurant(order);
+            createOrderChanell(order);
+            sendOfferToRestaurant(order);
         }
 
         public Order GetOrder(int id)
