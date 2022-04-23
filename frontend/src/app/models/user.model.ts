@@ -11,16 +11,16 @@ export abstract class User {
   Id: number | undefined;
 
   email: string | undefined;
-  password: string | undefined;
-  createdAt: Date | undefined;
-  updatedAt: Date | undefined;
-  phoneNumber: string | undefined;
-  verified: boolean | undefined;
-  token: string | undefined;
+  password?: string | undefined;
+  createdAt?: Date | undefined;
+  updatedAt?: Date | undefined;
+  phoneNumber?: string | undefined;
+  verified?: boolean | undefined;
+  token?: string | undefined;
   // creditCard: CreditCard,
   //profileImage: String,
   //userStatus: UserStatus,
-  role: UserRole | undefined;
+  role?: UserRole | undefined;
 
     constructor(id:number,email:string, password:string, createdAt:Date, updatedAt:Date, phoneNumber:string, verified:boolean,  token:string, role:UserRole)
     {

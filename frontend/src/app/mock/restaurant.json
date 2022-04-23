@@ -9,6 +9,11 @@
         "rating":96,
         "numberOfReviews":120,
         "image":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/wy4xymearvmy7vzglvc2",
+        "location": {
+            "latitude": 43.3439751,
+            "longitude": 17.8143328,
+            "formatedAdress": "Lacina 5, Mostar 88000"
+        },
         "products":[
             {
                 "id": 1,
@@ -121,6 +126,11 @@
         "rating":93,
         "numberOfReviews":50,
         "image":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/mglozbioqdnwvv2onr22",
+        "location": {
+            "latitude": 43.3439751,
+            "longitude": 17.8143328,
+            "formatedAdress": "Lacina 5, Mostar 88000"
+        },
         "products":[
             {
                 "id": 1,
@@ -167,6 +177,11 @@
         "rating":99,
         "numberOfReviews":420,
         "image":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/bhdg3uuroaqcgm3esrld",
+        "location": {
+            "latitude": 43.3439751,
+            "longitude": 17.8143328,
+            "formatedAdress": "Lacina 5, Mostar 88000"
+        },
         "products":[
             {
                 "id": 1,

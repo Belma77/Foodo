@@ -16,10 +16,14 @@ import {LoginComponentRestaurant} from './views/login-restaurant/login-restauran
 import {NewProductComponent} from './views/restaurant/new-product/new-product.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {RestaurantRegisterComponent} from "./views/restaurant/register-business/register.component";
+<<<<<<< HEAD
 import {CourierRegisterComponent} from "./views/courier/courier-register/courier-register.component";
 import {CourierLoginComponent} from "./views/courier/courier-login/courier-login.component";
 import {RoleGuard} from "./guards/role.guard";
 import {UserRole} from "./models/enums/user-role";
+=======
+import { OrderTrackingComponent } from './views/courier/dashboard/order-tracking/order-tracking.component';
+>>>>>>> 3addbaa (Task-16: courier tracking order on map)
 
 const routes: Routes = [
   {path:'',
@@ -93,6 +97,10 @@ const routes: Routes = [
         path:"order/offer",
         component:OrderOfferComponent
       },
+      {
+        path:"order/:id/tracking",
+        component:OrderTrackingComponent
+      }
     ]
   },
 

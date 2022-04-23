@@ -37,12 +37,16 @@ import { ModalComponent } from './components/modal/modal.component';
 import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
 import { StartPageComponent } from './views/courier/dashboard/start-page/start-page.component';
 import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
+<<<<<<< HEAD
 import { CourierRegisterComponent } from './views/courier/courier-register/courier-register.component';
 import { CourierLoginComponent } from './views/courier/courier-login/courier-login.component';
 import {AlertService} from "./services/alert.service";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
 import {NotificationService} from "./services/notificationService";
 import {ToastrModule} from "ngx-toastr";
+=======
+import { OrderTrackingComponent } from './views/courier/dashboard/order-tracking/order-tracking.component';
+>>>>>>> 3addbaa (Task-16: courier tracking order on map)
 
 @NgModule({
   declarations: [
@@ -70,8 +74,12 @@ import {ToastrModule} from "ngx-toastr";
     LoginComponentRestaurant,
     AlertComponent,
     HomePageComponent,
+<<<<<<< HEAD
     CourierRegisterComponent,
     CourierLoginComponent,
+=======
+    OrderTrackingComponent
+>>>>>>> 3addbaa (Task-16: courier tracking order on map)
   ],
   imports: [
     BrowserModule,
@@ -81,7 +89,7 @@ import {ToastrModule} from "ngx-toastr";
     ReactiveFormsModule,
     NgSelectModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCDkdwLMph3UdzriJtg7LjFQMurftgR4Fk',
+      apiKey: 'AIzaSyAr-DXPnb3x_qS7ICWsCU64E8t41x85SyM',
       libraries: ['places']
     }),
     AgmDirectionModule,
