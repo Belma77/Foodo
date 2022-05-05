@@ -12,6 +12,5 @@ namespace Data.Models.ViewModels
 
         public int quanity { get; set; }
 
-        public double price { get; set; }
     }
 }

@@ -44,10 +44,10 @@ namespace backend.Controllers
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public IActionResult Register([FromBody] Customer customer)
+        public IActionResult Register([FromBody] CustomerVM customer)
         {
             _customerService.register(customer);
-            return Ok(customer);
+            return Ok();
         }
         [HttpPost]
         [Route("login")]

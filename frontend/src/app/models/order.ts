@@ -1,7 +1,7 @@
 import { Courier } from "./courier";
 import { Customer } from "./customer";
 import { OrderStatus } from "./enums/order-status";
-import { OrderLine } from "./order-line";
+import { OrderLine, OrderLineForm } from "./order-line";
 import { Product } from "./product";
 import { Restaurant } from "./restaurant";
 import { User } from "./user.model";
@@ -25,4 +25,9 @@ export class OrderForm {
     requestTime!:string;
     orderStatus!:OrderStatus;
     price!:number;
+}
+
+export class OrderPost {
+    restaurantId!:number;
+    orderLine:OrderLineForm[] = [];
 }

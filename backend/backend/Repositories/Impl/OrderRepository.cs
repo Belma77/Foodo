@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,8 @@ namespace backend.Repositories.Impl
 
         public Order findById(int id)
         {
-            Restaurant r = this._dbContext.restaurants.Find(1);
-            Order o =  this._dbContext.orders.Find(id);
-            Console.WriteLine(r.Id);
+            Order o = this._dbContext.orders.Where(o => o.Id == id)
+                                            .FirstOrDefault();
             return o;
         }
 

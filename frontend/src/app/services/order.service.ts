@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Order, OrderForm } from '../models/order';
-import { OrderLine } from '../models/order-line';
+import { Order, OrderForm, OrderPost } from '../models/order';
+import { OrderLine, OrderLineForm } from '../models/order-line';
 import { Product } from '../models/product';
 import { Restaurant } from '../models/restaurant';
 import { CoreRequestService } from './core-request.service';
@@ -24,14 +24,12 @@ export class OrderService {
     if(this.currentOrder.orderLine && this.currentOrder.orderLine[product.id])
     {
       var ol = this.currentOrder.orderLine[product.id];
-      ol!.price += product.price;
       ol!.quanity++;
       console.log("test")
     }
     else {
       ol = new OrderLine();
       ol.product = product;
-      ol.price = product.price;
       ol.quanity = 1;
       this.currentOrder.orderLine[product.id.toString()] =  ol;
     }
@@ -43,8 +41,6 @@ export class OrderService {
     ol!.quanity--;
     if(ol?.quanity === 0)
       delete this.currentOrder!.orderLine[p.id];
-    else
-      ol!.price -= p.price;
     if(Object.keys(this.currentOrder!.orderLine).length === 0)
       this.currentOrder = null;
     else
@@ -52,8 +48,17 @@ export class OrderService {
   } 
 
   makeOrder(retraurant:Restaurant) {
-    this.currentOrder!.restaurantId = retraurant.id;
-    this.requestService.post('/customer/order/create', this.currentOrder)
+    let order = new OrderPost;
+    order.restaurantId = retraurant.id;
+    Object.keys(this.currentOrder!.orderLine).map((key:string) => {
+      let value = this.currentOrder!.orderLine[key]; 
+      let orderLine = new OrderLineForm;
+      orderLine.productId = value.product.id;
+      orderLine.quanity = value.quanity;
+      order.orderLine.push(orderLine);
+    })     
+    
+    this.requestService.post('/customer/order/create', order)
     .then(data => console.log(data))
     .catch(e => console.log(e))
   }
@@ -63,7 +68,7 @@ export class OrderService {
     let totalPrice = 0;
     Object.keys(this.currentOrder!.orderLine).map((key:string) => {
       let value = this.currentOrder!.orderLine[key]; 
-      totalPrice += value.price;
+      totalPrice += value.product.price * value.quanity;
     })     
     this.currentOrder!.price = totalPrice;
   }
