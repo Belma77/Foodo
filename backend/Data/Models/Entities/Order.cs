@@ -16,7 +16,7 @@ namespace Data.Models.Entities
 
         public virtual Customer Customer { get; set; }
 
-        public virtual Restaurant Restaurant { get; set; }
+        public Restaurant Restaurant { get; set; }
 
         public virtual Courier Courier { get; set; }
 

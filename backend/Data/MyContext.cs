@@ -10,7 +10,9 @@ namespace Data
     public class MyContext : DbContext
     {
         public MyContext(DbContextOptions<MyContext> options) : base(options)
-        { }
+        {
+            this.ChangeTracker.LazyLoadingEnabled = false;
+        }
 
         public DbSet<Product> products { get; set; }
 

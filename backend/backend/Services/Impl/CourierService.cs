@@ -21,10 +21,10 @@ namespace backend.Services.Impl
 
     public class CourierService 
     {
-        private IHubContext<CourierHub> _hub;
+        private IHubContext<CustomHub> _hub;
         UserRepository _UserRepository;
         IMapper _mapper;
-        public CourierService(IHubContext<CourierHub> hub,
+        public CourierService(IHubContext<CustomHub> hub,
                               UserRepository UserRepository, 
                               IMapper mapper) 
         {

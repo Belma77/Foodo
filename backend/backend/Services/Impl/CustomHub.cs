@@ -2,20 +2,17 @@
 using Data.Models.Entities;
 using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace backend.Services.Impl
 {
-    public class CourierHub: Hub<ICourierHub>
+    public class CustomHub: Hub
     {
         public override Task OnConnectedAsync()
         {
             //Get user from Http context items
-            int courierId = 1;
-            ConnectionMapping.Add(courierId, Context.ConnectionId);
+            int id = 1;
+            ConnectionMapping.Add(id, Context.ConnectionId);
             Console.WriteLine("Client connected");
             return base.OnConnectedAsync();
         }
@@ -29,12 +26,6 @@ namespace backend.Services.Impl
 
             //return base.OnDisconnected(stopCalled);
             return null ;
-        }
-
-        public void AcceptOrder(Order order)
-        {
-            Console.WriteLine(order);
-            return;
         }
 
     }

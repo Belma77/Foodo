@@ -15,12 +15,12 @@ namespace backend.Services.Impl
 {
     public class OrderService
     {
-        private IHubContext<CourierHub> _hub;
+        private IHubContext<CustomHub> _hub;
         private OrderRepository _orderRepository;
         private IUserRepository _userRepository;
         private IProductRepository _productRepository;
 
-        public OrderService(IHubContext<CourierHub> hub, IProductRepository productRepository, OrderRepository orderRepository, IUserRepository userRepository)
+        public OrderService(IHubContext<CustomHub> hub, IProductRepository productRepository, OrderRepository orderRepository, IUserRepository userRepository)
         {
             _hub = hub;
             _productRepository = productRepository;
@@ -35,18 +35,17 @@ namespace backend.Services.Impl
             order.Restaurant = r;
             //Customer customer = _userRepository.findById(id)
             order.orderStatus = OrderStatus.CREATED;
-            foreach(OrderRecordViewModel or in  o.orderRecords)
+            foreach(OrderRecordViewModel or in  o.orderLine)
             {
                 OrderRecord orderRecord = new OrderRecord();
                 Product product = _productRepository.find(or.productId);
                 orderRecord.Product = product;
-                orderRecord.quanity = or.quanity;   
-                orderRecord.price = or.price;
+                orderRecord.quanity = or.quanity;
+                orderRecord.price = or.quanity * product.price;
                 order.OrderRecords.Add(orderRecord);
             }
             _orderRepository.create(order);
-            createOrderChanell(order);
-            sendOfferToRestaurant(order);
+            //sendOfferToRestaurant(order.Id);
         }
 
         public Order GetOrder(int id)
@@ -55,17 +54,17 @@ namespace backend.Services.Impl
             return o;
         }
 
-        private void sendOfferToRestaurant(Order order)
+        private void sendOfferToRestaurant(int orderId)
         {
+            Order order = _orderRepository.findById(orderId);
             string connectionId = ConnectionMapping.GetConnections(order.Restaurant.Id).First();
             _hub.Clients.Client(connectionId).SendAsync("orderOffer", JsonSerializer.Serialize(order));
-            acceptOrder(order);
         }
 
-        private void createOrderChanell(Order order)
+        private void createOrderChannel(Order order)
         {
             //addToGroup(order, order.customer);
-            addToGroup(order, order.Restaurant);
+            //addToGroup(order, order.Restaurant);
         }
 
         private void addToGroup(Order order, User user)
@@ -78,24 +77,24 @@ namespace backend.Services.Impl
         {
             //_orderRepository.findById(order.id).orderStatus = OrderStatus.IN_PREPARATION;
             //order.orderStatus = OrderStatus.IN_PREPARATION;
-            findCourier(order);
+            //findCourier(order);
         }
 
         public void findCourier (Order order)
         {
             //Todo: Find closest courier (implement some algorithm)
-            int courierId = 3;
-            string connectionid = ConnectionMapping.GetConnections(courierId).First();
+            //int courierId = 3;
+            //string connectionid = ConnectionMapping.GetConnections(courierId).First();
             //addToGroup(order, order.courier);
-            _hub.Clients.Client(connectionid).SendAsync("orderOffer", JsonSerializer.Serialize(order));
-            Console.WriteLine("after hub call to courier");
+            //_hub.Clients.Client(connectionid).SendAsync("orderOffer", JsonSerializer.Serialize(order));
+            //Console.WriteLine("after hub call to courier");
             //courierAcceptedOffer(order);
         }
 
         private void courierAcceptedOffer(Order order)
         {
-            string chanellName = "order" + order.Id.ToString();
-            _hub.Clients.Group(chanellName).SendAsync("orderOffer", JsonSerializer.Serialize(order));
+            //string chanellName = "order" + order.Id.ToString();
+            //_hub.Clients.Group(chanellName).SendAsync("orderOffer", JsonSerializer.Serialize(order));
         }
 
         private string getConnectionId (int id)

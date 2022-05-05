@@ -35,9 +35,9 @@ namespace Data.Models.Entities
 
         public string headerImage { get; set; } 
 
-        public virtual ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
         public string phoneNumber { get; set; }
 

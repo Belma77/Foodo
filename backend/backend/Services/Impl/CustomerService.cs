@@ -32,36 +32,40 @@ namespace backend.Services.Impl
             
         }
 
-        public void register([FromBody] Customer customer)
+        public void register([FromBody] CustomerVM c)
         {
-            
-                var exists = _userRepository.findByEmail(customer.email);
-                if (exists != null)
-                    throw new DomainConflictException("Account is already registered");
-                else
-                {
-                    byte[] salt = new byte[128 / 8];
-                    using (var rngCsp = new RNGCryptoServiceProvider())
-                    {
-                        rngCsp.GetNonZeroBytes(salt);
-                    }
 
-                    //derive a 256 - bit subkey(use HMACSHA256 with 100, 000 iterations)
-                    string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                        password: customer.password,
-                        salt: salt,
-                        prf: KeyDerivationPrf.HMACSHA256,
-                        iterationCount: 100000,
-                        numBytesRequested: 256 / 8));
-                    customer.password = hashedPassword;
-                    customer.StoredSalt = salt;
-                    customer.role = UserRole.CUSTOMER;
+            var exists = _userRepository.findByEmail(c.email);
+            if (exists != null) {
+                throw new DomainConflictException("Account is already registered");
+            }
 
-                    _userRepository.create(customer);
-                }
-            
+            byte[] salt = new byte[128 / 8];
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {
+                rngCsp.GetNonZeroBytes(salt);
+            }
+
+            //derive a 256 - bit subkey(use HMACSHA256 with 100, 000 iterations)
+            string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: c.password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA256,
+                iterationCount: 100000,
+                numBytesRequested: 256 / 8));
+
+            Customer customer = new Customer();
+            customer.email = c.email;
+            customer.firstName = c.firstName;
+            customer.lastname = c.lastName;
+            customer.password = hashedPassword;
+            customer.StoredSalt = salt;
+            customer.role = UserRole.CUSTOMER;
+
+            _userRepository.create(customer);
             
         }
+
         public ResponseToken login(UserVM u)
         {
             try

@@ -52,10 +52,11 @@ namespace backend
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend", Version = "v1" });
                 c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
                 {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "basic",
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
                     In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
                     Description = "Basic Authorization header using the Bearer scheme."
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -89,7 +90,7 @@ namespace backend
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddScoped<CourierHub, CourierHub>();
+            services.AddScoped<CustomHub, CustomHub>();
             services.AddScoped<CourierService, CourierService>();
 
             services.AddScoped<OrderRepository, OrderRepository>();
@@ -145,7 +146,7 @@ namespace backend
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<CourierHub>("/hub");
+                endpoints.MapHub<CustomHub>("/hub");
                 endpoints.MapControllers();
             });
         }

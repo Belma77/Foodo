@@ -25,10 +25,10 @@ namespace backend.Utils
             lock (_connections)
             {
                 HashSet<string> connections;
-                if (!_connections.TryGetValue(counter, out connections))
+                if (!_connections.TryGetValue(key, out connections))
                 {
                     connections = new HashSet<string>();
-                    _connections.Add(counter, connections);
+                    _connections.Add(key, connections);
                     counter++;
 
                 }
@@ -72,6 +72,7 @@ namespace backend.Utils
                 }
             }
         }
+
     }
 }
 
