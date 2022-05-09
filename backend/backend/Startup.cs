@@ -27,6 +27,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using backend.ErrorHandler;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 //using AutoMapper.Configuration;
 
 namespace backend
@@ -101,6 +103,7 @@ namespace backend
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<CustomerService, CustomerService>();
+            services.AddScoped<ImageService, ImageService>();
             services.AddScoped<CourierService, CourierService>();
             services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
@@ -139,6 +142,13 @@ namespace backend
             app.UseRouting();
 
             app.UseCors("CorsPolicy");
+
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();

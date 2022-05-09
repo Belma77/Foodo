@@ -13,7 +13,7 @@ export class Order {
     courier!:Courier;
     orderLine!:Record<string, OrderLine>;
     requestTime!:string;
-    orderStatus!:OrderStatus;
+    orderStatus?:OrderStatus;
     price!:number;
 
 }

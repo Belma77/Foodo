@@ -1,4 +1,6 @@
 ﻿using Data.Models.Entities;
+using Data.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
 namespace backend.Services
@@ -7,7 +9,7 @@ namespace backend.Services
     {
         public List<Category> getCategories();
 
-        public void create(Product product);
+        public void create(ProductViewModel product, int restaurantId, IFormFile file);
 
         public void edit(Product product, int id);
 

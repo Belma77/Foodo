@@ -1,13 +1,13 @@
 {
     "id": 1,
     "customer": {
-      "id": 1,
+      "Id": 1,
       "email": "faris@gmail.com",
       "firstName": "Faris",
       "lastName": "Dziho",
       "location": {
-        "latitude": 43.3438634,
-        "longitude": 17.8147065,
+        "latitude": 43.3338634,
+        "longitude": 17.2147065,
         "formatedAdress": "Mazoljice, Mostar 88000"
       }
     },
@@ -35,6 +35,22 @@
       "lastName": "Doe"
     },
     "requestTime": "2022-01-02T19:14:12.360Z",
-    "orderStatus": "IN_PREPARATION",
-    "price": 22
+    "price": 22,
+    "orderLine": {
+      "1": {
+            "product":  {
+            "id": 1,
+            "name": "Pizza Capricciosa",
+            "price": 6,
+            "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
+            "category": {
+                "id":1,
+                "name":"Pizza"
+            },
+            "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
+        },
+        "quanity": 1,
+        "price": 22
+     }
+    }
   }

@@ -24,10 +24,11 @@ namespace backend.Repositories.Impl
             return o;
         }
 
-        public void create (Order order)
+        public Order create (Order order)
         {
-            _dbContext.Add(order);
+            _dbContext.orders.Add(order);
             _dbContext.SaveChanges();
+            return order;
         }
 
         public void update (Order order)

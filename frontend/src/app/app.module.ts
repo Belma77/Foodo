@@ -43,6 +43,9 @@ import {AlertService} from "./services/alert.service";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
 import {NotificationService} from "./services/notificationService";
 import {ToastrModule} from "ngx-toastr";
+import { OrderTrackingComponent } from './views/courier/dashboard/order-tracking/order-tracking.component';
+import { NewProductComponent } from './views/restaurant/new-product/new-product.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -72,6 +75,8 @@ import {ToastrModule} from "ngx-toastr";
     HomePageComponent,
     CourierRegisterComponent,
     CourierLoginComponent,
+    OrderTrackingComponent,
+    NewProductComponent
   ],
   imports: [
     BrowserModule,
@@ -79,9 +84,10 @@ import {ToastrModule} from "ngx-toastr";
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxDropzoneModule,
     NgSelectModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCDkdwLMph3UdzriJtg7LjFQMurftgR4Fk',
+      apiKey: 'AIzaSyAr-DXPnb3x_qS7ICWsCU64E8t41x85SyM',
       libraries: ['places']
     }),
     AgmDirectionModule,

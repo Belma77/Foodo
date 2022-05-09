@@ -66,7 +66,8 @@ namespace backend.Controllers
         [Authorize]
         public IActionResult createOrder([FromBody] OrderViewModel order)
         {
-            orderService.createOrder(order);
+            int userId = ((User) HttpContext.Items[USER_TYPED_KEY]).Id;
+            orderService.createOrder(order, userId);
             return Ok();
         }
 

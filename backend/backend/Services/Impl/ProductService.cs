@@ -1,5 +1,7 @@
 ﻿using backend.Repositories;
 using Data.Models.Entities;
+using Data.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +13,13 @@ namespace backend.Services.Impl
     {
         private IProductRepository _productRepository;
         private IUserRepository _userRepository;
+        private ImageService imageService;
 
-        public ProductService(IProductRepository productRepository, IUserRepository userRepository)
+        public ProductService(IProductRepository productRepository, IUserRepository userRepository, ImageService imageService)
         {
             this._productRepository = productRepository;
             this._userRepository = userRepository;
+            this.imageService = imageService;
         }
 
         public List<Category> getCategories()
@@ -23,11 +27,18 @@ namespace backend.Services.Impl
             return this._productRepository.GetCategories();
         }
 
-        public void create(Product product)
+        public void create(ProductViewModel p, int restaurantId, IFormFile file)
         {
-            Category category = _productRepository.findCategoryById(product.Category.id);
+            Product product = new Product();
+            Category category = _productRepository.findCategoryById(p.category);
             product.Category = category;
-            Restaurant restaurant = (Restaurant) _userRepository.findById(1);
+            product.name = p.name;
+            product.description = p.description;
+            product.price = p.price;
+
+            product.image = imageService.saveImage(file);
+
+            Restaurant restaurant = (Restaurant) _userRepository.findById(restaurantId);
             product.Restaurant = restaurant;
             this._productRepository.create(product);
         }

@@ -1,3 +1,4 @@
+import { Location } from "./location";
 import { Product } from "./product";
 
 export class Restaurant {
@@ -11,4 +12,5 @@ export class Restaurant {
     numberOfReviews!:number;
     image!:string;
     products!:Product[];
+    location!:Location;
 }

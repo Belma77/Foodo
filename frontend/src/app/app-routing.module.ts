@@ -36,8 +36,9 @@ const routes: Routes = [
   {path:'courier-login', component:CourierLoginComponent},
   {path:'login-restaurant', component:LoginComponentRestaurant},
   {path:'register-business', component:RestaurantRegisterComponent},
+  // {path:'restaurant/:slug', component:RestaurantComponent},
 
-  {path:'restaurant/:slug', component:RestaurantComponent},
+  // Restaurant dashboard links
   {
     path:'restaurant/dashboard',
     component:DashboardComponent,
@@ -72,6 +73,9 @@ const routes: Routes = [
       }
     ]
   },
+
+
+  //Courier dashboard routes
   {
     path:'courier/dashboard',
     component:CourierDashboardComponent,

@@ -1,12 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CoreRequestService } from './services/core-request.service';
 import { SignalRService } from './services/signal-r.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { RestaurantService } from './services/restaurant.service';
-import { User } from './models/user.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +11,18 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   title = 'frontend';
-  currentUser!: User;
-  constructor(public signalRService: SignalRService, public requestService: CoreRequestService, private userService: UserService,
-    private authService: AuthService, private resService: RestaurantService,         private router: Router,
+
+  async = false;
+
+  constructor(
+    public signalRService: SignalRService, 
+    public requestService: CoreRequestService, 
+    private userService: UserService,
+    private authService: AuthService
     ) {
+      this.async = true;
         if (authService.isLoggedIn) 
-        this.userService.doMe();
-       
+          this.userService.doMe().finally(() => this.async = false);
      }
      
   ngOnInit() {

@@ -1,1 +1,24 @@
 <p>order-tracking works!</p>
+<div *ngIf="order">
+    <p>{{order.orderStatus}}</p>
+    <agm-map [latitude]="order.customer.location.latitude" [longitude]="order.customer.location.longitude">
+        <agm-direction  
+            *ngIf = "directionToRestaurant()" 
+            [origin]="courierLocation" 
+            [destination]="resLocation"
+            [renderOptions]="renderOptions" 
+            [markerOptions]="restaurantMarkerOptions"
+        >
+        </agm-direction>
+        <agm-marker *ngIf = "directionToRestaurant()" [latitude]="cusLocation?.lat!" [longitude]="cusLocation?.lng!" [markerDraggable]="true"></agm-marker>
+        <agm-direction  
+            *ngIf = "!directionToRestaurant()" 
+            [origin]="courierLocation" 
+            [destination]="cusLocation"
+            [renderOptions]="renderOptions" 
+            [markerOptions]="customerMarkerOptions"
+        >
+        </agm-direction>
+    </agm-map>
+    <button (click) = "updateStatus()">Update status narudzbe</button>
+</div>

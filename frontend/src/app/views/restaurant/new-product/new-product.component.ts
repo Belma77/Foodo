@@ -23,6 +23,9 @@ export class NewProductComponent implements OnInit {
     id:number;
     editMode:boolean = false;
 
+    files: File[] = [];
+    fileError: boolean = false;
+
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
@@ -48,16 +51,22 @@ export class NewProductComponent implements OnInit {
         }
     }
 
-//         //Todo: 21.12.2021 (Faris) - Add guard to load product before page loads (or conditional rendenring)
-//         if(this.editMode) {
-//           fetch('https://fakestoreapi.com/products/' + this.id )
-//             .then(res=>res.json())
-//             .then(data=> {
-//               console.log(data)
-//               this.productForm.patchValue(data)
-//             })
-//         }
-//     }
+    save() {
+      this.validateAllFields(this.productForm);
+      let p = Object.assign(new Product(), this.productForm.value);
+      console.log(p)
+      let formData = new FormData();
+      formData.append('body', JSON.stringify(p));
+      formData.append('file', this.files[0], this.files[0].name);
+      if(!this.editMode) 
+        this.restaurantService.addProduct(formData);
+      else 
+        this.restaurantService.updateProduct(formData, this.id);
+    }
+
+    get f() {
+      return this.productForm.controls;
+    }
 
     get categories() {
       return this.restaurantService.categories;
@@ -65,29 +74,29 @@ export class NewProductComponent implements OnInit {
 
     ngOnInit(): void {}
 
-//     ngOnInit(): void {}
+    validateAllFields(formGroup: FormGroup) {
 
-     createProduct() {
-        let p = Object.assign(new Product(), this.productForm.value);
-        this.restaurantService.addProduct(p);
+        if(this.files.length == 0)
+          this.fileError = true;
+        Object.keys(formGroup.controls).forEach((field) => {
+            const control = formGroup.get(field);
+            if (control instanceof FormControl) {
+                control.markAsTouched({ onlySelf: true });
+            } else if (control instanceof FormGroup) {
+                this.validateAllFields(control);
+            }
+        });
      }
-     
-     editProduct() {
-      let p = Object.assign(new Product(), this.productForm.value);
-      this.restaurantService.updateProduct(p, this.id);
-     }
 
-//     validateAllFields(formGroup: FormGroup) {
-//         Object.keys(formGroup.controls).forEach((field) => {
-//             const control = formGroup.get(field);
-//             if (control instanceof FormControl) {
-//                 control.markAsTouched({ onlySelf: true });
-//             } else if (control instanceof FormGroup) {
-//                 this.validateAllFields(control);
-//             }
-//         });
-//      }
-// }
-
-
+  
+     onSelect(event:any) {
+      this.files.push(...event.addedFiles);
+      this.fileError = false;
+    }
+    
+    onRemove(event:any) {
+      this.files.splice(this.files.indexOf(event), 1);
+    }
 }
+
+
