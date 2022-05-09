@@ -1,4 +1,4 @@
-<!-- <div class="contaier pt-5">
+<div class="contaier pt-5">
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card">
@@ -24,18 +24,10 @@
                                 "
                             >
                                 Naziv je obavezan
-                            </span> -->
-                            <!-- <!-- <!-- <span
-                                class="text-danger"
-                                *ngIf="
-                                    f.name.touched && f.email.errors?.pattern
-                                "
-                            >
-                                Enter a valid email address
-                            </span> -->
-                        <!-- </div> -->
+                            </span>
+                        </div>
 
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label>Opis/Sastojci</label>
                             <textarea
                                 class="form-control"
@@ -50,17 +42,8 @@
                                 "
                             >
                                 Opis je obavezan
-                            </span> -->
-                            <!-- <!-- <span -->
-                                <!-- class="text-danger"
-                                *ngIf="
-                                    f.password.touched &&
-                                    f.password.errors?.minlength
-                                "
-                            >
-                                Password should have minimum 8 characters
-                            </span> --> -->
-                        <!-- </div>
+                            </span>
+                        </div>
 
                         <div class="form-group">
                             <label>Cijena</label>
@@ -79,16 +62,7 @@
                             >
                                 Cijena je obavezna
                             </span>
-                            <!-- <span
-                                class="text-danger"
-                                *ngIf="
-                                    f.password.touched &&
-                                    f.password.errors?.minlength
-                                "
-                            >
-                                Password should have minimum 8 characters
-                            </span> -->
-                        <!-- </div>
+                        </div>
                         
                         <div class="form-group">
                             <ng-select
@@ -102,13 +76,28 @@
                                     *ngFor="
                                         let category of categories
                                     "
-                                    [value]="category"
+                                    [value]="category.id"
                                 >
                                     {{
                                         category.name
                                     }}</ng-option
                                 >
                             </ng-select>
+                        </div>
+
+                        <div class="form-group">
+                            <ngx-dropzone (change)="onSelect($event)" [multiple] = "false" accept="image/jpeg,image/jpg,image/png">
+                                <ngx-dropzone-label>Add Meal image!</ngx-dropzone-label>
+                                <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [multiple] = "false">
+                                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                        <span
+                                class="text-danger"
+                                *ngIf="fileError"
+                            >
+                                Slika je obavezna
+                            </span>
                         </div>
 
                         <div class="form-group">
@@ -125,4 +114,4 @@
             </div>
         </div>
     </div>
-</div>  --> -->
+</div>

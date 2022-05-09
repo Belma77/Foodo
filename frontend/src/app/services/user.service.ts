@@ -39,6 +39,8 @@ export class UserService {
           throw err;
         })
      }
+
+
   async courierRegister(user: Courier): Promise<any> {
     await this.requestService.post('/courier/register', user).then((data: any) => {
       this.router.navigate(['/courier-login']);
@@ -46,6 +48,8 @@ export class UserService {
       throw err
     });
   }
+
+
     async login(user: User): Promise<any> {
         await this.requestService.post('/customer/login', user).then(async (data: { token: string; }) => {
             localStorage.setItem('token', data.token);
@@ -57,6 +61,8 @@ export class UserService {
     });
         });
     }
+
+
   async courierLogin(user: Courier): Promise<any> {
     await this.requestService.post('/courier/login', user).then(async (data: { token: string; }) => {
       localStorage.setItem('token', data.token);
@@ -95,7 +101,8 @@ getRole()
     async doMe() {
         await this.requestService
             .get('/user/doMe')
-            .then((res: User) => {
+            .then((res: User) => {    
+                console.log(res)           
                 this.user = res;
             })
             .catch((err: any) => {
@@ -103,73 +110,14 @@ getRole()
             });
     }
 
-    // async updateUser(value: FormData) {
-    //     await this.requestService
-    //         .put(`/user/${this.user.id}`, value)
-    //         .then((res: User) => {
-    //             this.user = res;
-    //         })
-    //         .catch((err) => {
-    //         });
-    // }
-
     logout() {
         location.reload();
         this.authService.logout();
         // this.socialAuthService.signOut();
     }
 
-    // async resetPassword(token: String, id: number, password: String) {
-    //     await this.requestService
-    //         .put(`/password/reset?id=${id}&token=${token}`, password)
-    //         .then(() => {
-    //             this.router.navigateByUrl('/login');
-    //         })
-    //         .catch((err) => {
-    //             throw new Error(err);
-    //         });
-    // }
-
     async forgotPassword(email: String) {
         await this.requestService.post(`/password/forgot`, email);
     }
 
-    // async getUserBids() {
-    //     return await this.requestService.get('/user/bids');
-    // }
-
-    // async deactivateAccount() {
-    //     await this.requestService
-    //         .put(`/user/${this.user.id}/deactivate`, null)
-    //         .then(() => {
-    //             this.logout();
-    //         })
-    //         .catch((err) => {
-    //         });
-    // }
-
-    // getNotifications() {
-    //     if (this.authService.isLoggedIn) {
-    //         this.requestService
-    //             .getNotifications()
-    //             .then((res: Notification[]) => {
-    //                 if (this.notifications.length)
-    //                     this.notifications = res.filter((n1) =>
-    //                         this.notifications.some(
-    //                             (n2) =>
-    //                                 n2 &&
-    //                                 n1.id === n2.id &&
-    //                                 n1.status ===
-    //                                     n2.status
-    //                         )
-    //                     );
-    //                 else this.notifications = res;
-    //             });
-    //     }
-    // }
-
-    // markNotificationAsRead(id: number) {
-    //     this.notifications = this.notifications.filter((not) => not.id != id);
-    //     this.requestService.updateNotificationStatus(id);
-    // }
 }

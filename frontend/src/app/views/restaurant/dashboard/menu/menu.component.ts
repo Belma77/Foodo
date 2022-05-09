@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { RestaurantService } from 'src/app/services/restaurant.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,10 +12,11 @@ export class MenuComponent implements OnInit {
 
   products:Product[] = [];
 
-  constructor(private restaurantService: RestaurantService) { }
+  constructor(private restaurantService: RestaurantService, private userService:UserService) { }
 
   ngOnInit(): void {
-    this.restaurantService.getProducts(1)
+    console.log(this.userService.user)
+    this.restaurantService.getMenu(this.userService.user.Id!)
     .then(data => {
       console.log(data);
       this.products = data
