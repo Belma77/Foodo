@@ -40,6 +40,7 @@ namespace backend.middlewares
                     context.Items[USER_TYPED_KEY] = user;
                 }
             }
+
             await _next(context);
           
         }

@@ -11,7 +11,6 @@ import { DashboardComponent } from './views/restaurant/dashboard/dashboard.compo
 import { MenuComponent } from './views/restaurant/dashboard/menu/menu.component';
 import { OrdersComponent } from './views/restaurant/dashboard/orders/orders.component';
 import { StatisticsComponent } from './views/restaurant/dashboard/statistics/statistics.component';
-import { WalletComponent } from './views/restaurant/dashboard/wallet/wallet.component';
 import { ProductComponent } from './components/product/product.component';
 import { RestaurantComponent } from './views/customer/restaurant/restaurant.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -46,6 +45,7 @@ import {ToastrModule} from "ngx-toastr";
 import { OrderTrackingComponent } from './views/courier/dashboard/order-tracking/order-tracking.component';
 import { NewProductComponent } from './views/restaurant/new-product/new-product.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,6 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     MenuComponent,
     OrdersComponent,
     StatisticsComponent,
-    WalletComponent,
     ProductComponent,
     RestaurantCardComponent,
     RestaurantRegisterComponent,
@@ -76,7 +75,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     CourierRegisterComponent,
     CourierLoginComponent,
     OrderTrackingComponent,
-    NewProductComponent
+    NewProductComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

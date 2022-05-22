@@ -10,32 +10,44 @@ export class SignalRService {
 
   private hubConnection!:HubConnection;
 
-  constructor(private courierService:CourierService) {
+  constructor() {
 
   }
 
   public startConnection = () => {
-  this.hubConnection = new HubConnectionBuilder()
-  .withUrl('https://localhost:5001/hub', {
-    accessTokenFactory: () => 'Acces token',
-    withCredentials:false
-  })
-  .withAutomaticReconnect()
-  .configureLogging(LogLevel.Debug)
-  .build();
+    console.log("test test")
+
+    let token:string | null = localStorage.getItem('token');
+    if(!token) {
+      return;
+    }
+
+    this.hubConnection = new HubConnectionBuilder()
+    .withUrl('https://localhost:5001/hub', {
+      accessTokenFactory: () => token!,
+      withCredentials:false
+    })
+    .withAutomaticReconnect()
+    .configureLogging(LogLevel.Debug)
+    .build();
   
-  this.hubConnection
-  .start()
-  .then(() => console.log('Connection started'))
-  .catch(err => console.log('Error while starting connection: ' + err))
+    this.hubConnection
+    .start()
+    .then(() => {
+      console.log('Connection started');
+      // this.registerListeners();
+    })
+    .catch(err => console.log('Error while starting connection: ' + err))
   }
 
   public orderOfferListener = () => {
     this.hubConnection.on('orderOffer', (data) => {
       console.log(data)
       console.log("stigla")
-      this.courierService.receiveOrderOffer(data);
-  })
-
-}
+    })
+  }
+ 
+  public registerListeners() {
+      this.orderOfferListener();
+  } 
 }

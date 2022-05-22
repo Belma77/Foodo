@@ -13,16 +13,16 @@ namespace Data.Models.Entities
 
         public Category(int id, string name)
         {
-            this.id = id;
+            this.Id = id;
             this.name = name;
         }
 
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         public string name { get; set; }
 
-        public virtual ICollection<Product> products { get; set; } = new HashSet<Product>();
+        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
 
     }
 }

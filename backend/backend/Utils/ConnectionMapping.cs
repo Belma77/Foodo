@@ -7,8 +7,8 @@ namespace backend.Utils
 {
     public static class ConnectionMapping
     {
-        public static readonly Dictionary<int, HashSet<string>> _connections =
-            new Dictionary<int, HashSet<string>>();
+        public static readonly Dictionary<string, HashSet<string>> _connections =
+            new Dictionary<string, HashSet<string>>();
 
         private static int counter = 1;
 
@@ -20,7 +20,7 @@ namespace backend.Utils
             }
         }
 
-        public static void Add(int key, string connectionId)
+        public static void Add(string key, string connectionId)
         {
             lock (_connections)
             {
@@ -40,7 +40,7 @@ namespace backend.Utils
             }
         }
 
-        public static IEnumerable<string> GetConnections(int key)
+        public static IEnumerable<string> GetConnections(string key)
         {
             HashSet<string> connections;
             if (_connections.TryGetValue(key, out connections))
@@ -51,7 +51,7 @@ namespace backend.Utils
             return Enumerable.Empty<string>();
         }
 
-        public static void Remove(int key, string connectionId)
+        public static void Remove(string key, string connectionId)
         {
             lock (_connections)
             {

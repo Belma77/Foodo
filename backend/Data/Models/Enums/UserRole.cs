@@ -8,10 +8,8 @@ namespace Data.Models.Enums
 {
     public enum UserRole
     {
-        CUSTOMER,
-        RESTAURANT,
-        COURIER
-
-        
+        Customer,
+        Restaurant,
+        Courier
     }
 }

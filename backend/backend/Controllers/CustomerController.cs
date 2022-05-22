@@ -14,7 +14,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
+using AuthorizeAttribute = backend.Filters.CustomAuthorizeAttribute;
 using static backend.Utils.AuthConstants;
 using backend.Repositories;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -25,7 +25,7 @@ namespace backend.Controllers
 {
     [Route("customer")]
     [ApiController]
-    [Authorize(UserRole.CUSTOMER)]
+    [Authorize(UserRole.Customer)]
     public class CustomerController : ControllerBase
     {
         private CustomerService _customerService;
@@ -49,12 +49,12 @@ namespace backend.Controllers
             _customerService.register(customer);
             return Ok();
         }
+
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
         public ResponseToken Login([FromBody] UserVM customer)
         {
-            _customerService.login(customer);
             ResponseToken token = _customerService.login(customer);
             Console.WriteLine($"Logiran { customer.email}");
             return token;
@@ -62,11 +62,10 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("order/create")]
-        //[AllowAnonymous]
-        [Authorize]
+        [Authorize(UserRole.Customer)]
         public IActionResult createOrder([FromBody] OrderViewModel order)
         {
-            int userId = ((User) HttpContext.Items[USER_TYPED_KEY]).Id;
+            int userId = int.Parse(HttpContext.User.Identity.Name);
             orderService.createOrder(order, userId);
             return Ok();
         }
@@ -111,7 +110,7 @@ namespace backend.Controllers
                 var claims = identity.Claims;
                 return new UserDto
                 {
-                    userName = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value,
+                    //userName = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value,
                     email = claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
 
                     //role = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value,

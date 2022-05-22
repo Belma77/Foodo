@@ -12,13 +12,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
+using AuthorizeAttribute = backend.Filters.CustomAuthorizeAttribute;
 
 namespace backend.Controllers
 {
     [Route("courier")]
     [ApiController]
-    [Authorize(UserRole.COURIER)]
+    [Authorize(UserRole.Courier)]
     public class CourierController : ControllerBase
     {
 

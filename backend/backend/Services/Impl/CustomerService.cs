@@ -60,7 +60,7 @@ namespace backend.Services.Impl
             customer.lastname = c.lastName;
             customer.password = hashedPassword;
             customer.StoredSalt = salt;
-            customer.role = UserRole.CUSTOMER;
+            customer.role = UserRole.Customer;
 
             _userRepository.create(customer);
             

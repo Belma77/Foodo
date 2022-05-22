@@ -5,15 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20211230232724_initial.cs" />
-    <Compile Remove="Migrations\20211230232724_initial.Designer.cs" />
-    <Compile Remove="Migrations\20220104135133_customer.cs" />
-    <Compile Remove="Migrations\20220104135133_customer.Designer.cs" />
-    <Compile Remove="Migrations\20220108231819_migracija.cs" />
-    <Compile Remove="Migrations\20220108231819_migracija.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />

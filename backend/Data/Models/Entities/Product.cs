@@ -32,7 +32,7 @@ namespace Data.Models.Entities
 
         public virtual Category Category { get; set; }
 
-        public Restaurant Restaurant { get; set; }  
+        public virtual Restaurant Restaurant { get; set; }  
 
         public ICollection<OrderRecord> OrderRecords { get; set;}
     }

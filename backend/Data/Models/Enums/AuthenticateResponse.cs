@@ -20,7 +20,6 @@ namespace Data.Models.Enums
         {
             Id = user.Id;
             email = user.email;
-            password = user.password;
             Token = token;
         }
     }

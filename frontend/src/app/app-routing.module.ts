@@ -9,7 +9,6 @@ import {DashboardComponent} from './views/restaurant/dashboard/dashboard.compone
 import {MenuComponent} from './views/restaurant/dashboard/menu/menu.component';
 import {OrdersComponent} from './views/restaurant/dashboard/orders/orders.component';
 import {StatisticsComponent} from './views/restaurant/dashboard/statistics/statistics.component';
-import {WalletComponent} from './views/restaurant/dashboard/wallet/wallet.component';
 import {NgModule} from '@angular/core';
 import {RegisterComponent} from './views/register/register.component';
 import {LoginComponentRestaurant} from './views/login-restaurant/login-restaurant.component';
@@ -20,6 +19,7 @@ import {CourierRegisterComponent} from "./views/courier/courier-register/courier
 import {CourierLoginComponent} from "./views/courier/courier-login/courier-login.component";
 import {RoleGuard} from "./guards/role.guard";
 import {UserRole} from "./models/enums/user-role";
+import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.component';
 
 const routes: Routes = [
   {path:'',
@@ -36,11 +36,11 @@ const routes: Routes = [
   {path:'courier-login', component:CourierLoginComponent},
   {path:'login-restaurant', component:LoginComponentRestaurant},
   {path:'register-business', component:RestaurantRegisterComponent},
-  // {path:'restaurant/:slug', component:RestaurantComponent},
+  {path:'restaurant/:slug', component:RestaurantComponent},
 
   // Restaurant dashboard links
   {
-    path:'restaurant/dashboard',
+    path:'restaurant/admin/dashboard',
     component:DashboardComponent,
     children:[
       {
@@ -60,8 +60,8 @@ const routes: Routes = [
         component:StatisticsComponent
       },
       {
-        path:"wallet",
-        component:WalletComponent
+        path:"profile",
+        component:ProfileComponent
       },
       {
         path:'new-product',

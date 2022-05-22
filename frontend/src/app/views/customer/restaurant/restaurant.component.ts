@@ -5,7 +5,8 @@ import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { Restaurant } from 'src/app/models/restaurant';
 import { OrderService } from 'src/app/services/order.service';
-import data from '../../../mock/restaurant.json'
+import { RestaurantService } from 'src/app/services/restaurant.service';
+// import data from '../../../mock/restaurant.json'
 
 @Component({
   selector: 'app-restaurant',
@@ -19,19 +20,31 @@ export class RestaurantComponent implements OnInit {
   constructor(private route: ActivatedRoute, 
               private router: Router, 
               private orderService:OrderService,
+              private restaurantService:RestaurantService,
               private viewportScroller: ViewportScroller) {
    
    }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      // TODO change later to slug
       let slug = params['slug'];
-      let res = data.find(r => r.slug === slug)
-      if(!res || res === undefined)
-        this.router.navigateByUrl("");
-      else
-        this.restaurant = res;
-      this.transpose()
+      console.log(slug)
+      this.restaurantService.getRestaurant(slug)
+      .then((res:Restaurant) => {
+        console.log(res)
+        if(!res || res === undefined)
+          this.router.navigateByUrl("");
+        else {
+          this.restaurant = res;
+          if(res.products)
+            this.transpose() 
+        }
+      })
+      .catch((e) => {
+        console.log(e)
+        this.router.navigateByUrl("")
+      })
     });
   }
 

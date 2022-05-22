@@ -11,7 +11,7 @@ namespace Data
     {
         public MyContext(DbContextOptions<MyContext> options) : base(options)
         {
-            this.ChangeTracker.LazyLoadingEnabled = false;
+            //this.ChangeTracker.LazyLoadingEnabled = false;
         }
 
         public DbSet<Product> products { get; set; }
@@ -40,9 +40,9 @@ namespace Data
             
             builder.Entity<User>()
             .HasDiscriminator<UserRole>("discriminator")
-            .HasValue<Customer>((UserRole.CUSTOMER))
-            .HasValue<Courier>((UserRole.COURIER))
-            .HasValue<Restaurant>((UserRole.RESTAURANT));
+            .HasValue<Customer>((UserRole.Customer))
+            .HasValue<Courier>((UserRole.Courier))
+            .HasValue<Restaurant>((UserRole.Restaurant));
 
             builder.Entity<Customer>().Property(c => c.firstName).HasColumnName("firstName");
             builder.Entity<Customer>().Property(c => c.lastname).HasColumnName("lastName");
@@ -51,87 +51,87 @@ namespace Data
 
             builder.Entity<Category>()
                 .HasData(
-                   new { id = 1, name = "Breakfast"},
-                   new { id = 2, name = "Pasta" },
-                   new { id = 3, name = "Pizza" }
+                   new { Id = 1, name = "Breakfast"},
+                   new { Id = 2, name = "Pasta" },
+                   new { Id = 3, name = "Pizza" }
                 );
 
-            builder.Entity<Customer>().HasData(
-                new Customer
-                {
-                    email = "john@doe",
-                    firstName = "John",
-                    lastname = "Doe",
-                    password = "test",
-                    Id = 3,
-                    role = UserRole.CUSTOMER
-                });
+            //builder.Entity<Customer>().HasData(
+            //    new Customer
+            //    {
+            //        email = "john@doe",
+            //        firstName = "John",
+            //        lastname = "Doe",
+            //        password = "test",
+            //        Id = 3,
+            //        role = UserRole.CUSTOMER
+            //    });
 
 
-            builder.Entity<Restaurant>().HasData(
-            new Restaurant
-            {
-                email = "slatko@slano",
-                Id = 1,
-                deliveryCost = 3,
-                password = "test",
-                rating = 10,
-                avgDeliveryTime = "15-25",
-                name = "Slatko i Slano",
-                numberOfReviews = 2,
-                role = UserRole.RESTAURANT,
-                slug = "slatko-i-slano",
-                headerImage = "https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/wy4xymearvmy7vzglvc2"
-            },
-             new Restaurant
-             {
-                 email = "mostar@lic",
-                 Id = 2,
-                 deliveryCost = 3,
-                 password = "test",
-                 rating = 163,
-                 avgDeliveryTime = "15-25",
-                 name = "Mostarlic",
-                 numberOfReviews = 10,
-                 role = UserRole.RESTAURANT,
-                 slug = "mostarlic",
-                 headerImage = "https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/mglozbioqdnwvv2onr22"
-             }
-            );
+            //builder.Entity<Restaurant>().HasData(
+            //new Restaurant
+            //{
+            //    email = "slatko@slano",
+            //    Id = 1,
+            //    deliveryCost = 3,
+            //    password = "test",
+            //    rating = 10,
+            //    avgDeliveryTime = "15-25",
+            //    name = "Slatko i Slano",
+            //    numberOfReviews = 2,
+            //    role = UserRole.RESTAURANT,
+            //    slug = "slatko-i-slano",
+            //    headerImage = "https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/wy4xymearvmy7vzglvc2"
+            //},
+            // new Restaurant
+            // {
+            //     email = "mostar@lic",
+            //     Id = 2,
+            //     deliveryCost = 3,
+            //     password = "test",
+            //     rating = 163,
+            //     avgDeliveryTime = "15-25",
+            //     name = "Mostarlic",
+            //     numberOfReviews = 10,
+            //     role = UserRole.RESTAURANT,
+            //     slug = "mostarlic",
+            //     headerImage = "https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/mglozbioqdnwvv2onr22"
+            // }
+            //);
 
-            builder.Entity<Product>()
-               .HasData
-               (
-                  new
-                  {
-                      Id = 1,
-                      name = "Cury Wok",
-                      description = "Pileći rezanci u curry sosu",
-                      price = 10.0,
-                      Categoryid = 1,
-                      RestaurantId = 1,
-                      image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
-                  },
-                new
-                {
-                    Id = 2,
-                    name = "Omlet sa gljivama",
-                    description = "Jaja, gljive, puter, pavlaka, ajvar",
-                    price = 6.0,
-                    Categoryid = 1,
-                    RestaurantId = 1, 
-                    image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
-                },
-                new
-                {
-                    Id = 3,
-                    name = "Pizza Margharita",
-                    description = "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
-                    price = 7.0,
-                    Categoryid = 1,
-                    RestaurantId = 1,
-                    image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
-                });
+            //builder.Entity<Product>()
+            //   .HasData
+            //   (
+            //      new
+            //      {
+            //          Id = 1,
+            //          name = "Cury Wok",
+            //          description = "Pileći rezanci u curry sosu",
+            //          price = 10.0,
+            //          Categoryid = 1,
+            //          RestaurantId = 1,
+            //          image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+            //      },
+            //    new
+            //    {
+            //        Id = 2,
+            //        name = "Omlet sa gljivama",
+            //        description = "Jaja, gljive, puter, pavlaka, ajvar",
+            //        price = 6.0,
+            //        Categoryid = 1,
+            //        RestaurantId = 1, 
+            //        image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
+            //    },
+            //    new
+            //    {
+            //        Id = 3,
+            //        name = "Pizza Margharita",
+            //        description = "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
+            //        price = 7.0,
+            //        Categoryid = 1,
+            //        RestaurantId = 1,
+            //        image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
+            //    });
                 
         }
     }

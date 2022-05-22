@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static backend.Utils.AuthConstants;
 using System;
-using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
+using AuthorizeAttribute = backend.Filters.CustomAuthorizeAttribute;
 using Data.Models.Enums;
 
 namespace backend.Controllers
@@ -31,17 +31,18 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        [Authorize(UserRole.RESTAURANT)]
+        [Authorize(UserRole.Restaurant)]
         public IActionResult addProduct([FromForm] IFormFile file, [FromForm] string body)
         {
-            int restaurantId = ((User)HttpContext.Items[USER_TYPED_KEY]).Id;
+            int userId = int.Parse(HttpContext.User.Identity.Name);
             ProductViewModel product = JsonConvert.DeserializeObject<ProductViewModel>(body);
-            this._productService.create(product, restaurantId, file);
+            this._productService.create(product, userId, file);
             return Ok();
         }
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(UserRole.Restaurant)]
         public IActionResult editProduct([FromForm] Product product, [FromForm] IFormFile file, int id)
         {
             this._productService.edit(product, id);
@@ -51,10 +52,12 @@ namespace backend.Controllers
 
         [HttpGet]
         [Route("menu")]
+        [Authorize(UserRole.Restaurant)]
         public IActionResult getMenu()
         {
-            int restaurantId = ((User)HttpContext.Items[USER_TYPED_KEY]).Id;
-            return Ok(_productService.getMenu(restaurantId));
+
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+            return Ok(_productService.getMenu(userId));
         }
 
         [HttpGet]
@@ -66,6 +69,7 @@ namespace backend.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(UserRole.Restaurant)]
         public IActionResult deleteProduct(int id)
         {
             _productService.delete(id);

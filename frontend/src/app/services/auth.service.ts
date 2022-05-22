@@ -4,15 +4,18 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
 })
 export class AuthService {
-    constructor() {}
-  userRoles: string[] = [];
-    get isLoggedIn() {
-        return localStorage.getItem('token') != null ? true : false;
-    }
+  constructor() {}
 
-    logout() {
-        localStorage.removeItem('token');
-    }
+  userRoles: string[] = [];
+
+  get isLoggedIn() {
+      return localStorage.getItem('token') != null ? true : false;
+  }
+
+  logout() {
+      localStorage.removeItem('token');
+  }
+
   setRoles(Roles: string[]){
     this.userRoles = Roles.slice(0);
   }
