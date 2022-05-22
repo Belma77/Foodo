@@ -12,9 +12,7 @@ namespace Data.Models.Entities
 
         public int quanity { get; set; }
 
-        public double price { get; set; } 
-        
-        public Order order { get; set; }    
+        public double price { get; set; }  
 
         public Product Product { get; set; }
     }

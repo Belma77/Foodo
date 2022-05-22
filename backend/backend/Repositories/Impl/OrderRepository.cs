@@ -19,9 +19,11 @@ namespace backend.Repositories.Impl
 
         public Order findById(int id)
         {
-            Order o = this._dbContext.orders.Where(o => o.Id == id)
-                                            .FirstOrDefault();
-            return o;
+            _dbContext.ChangeTracker.Clear();
+            return _dbContext.orders.Where(o => o.Id == id)
+                                    .Include(o => o.OrderRecords)
+                                    .Include(o => o.Customer)
+                                    .FirstOrDefault(); ;
         }
 
         public Order create (Order order)

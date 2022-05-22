@@ -24,6 +24,14 @@ export class RestaurantService {
     .then((data:Category[]) => this.categories = data)
   }
 
+  async getRestaurants() {
+    return await this.requestService.get('/restaurant');
+  }
+
+  async getRestaurant(id:number) {
+    return await this.requestService.get('/restaurant/' + id)
+  }
+
   async getMenu(restaurantId:number) {
     return await this.requestService.get('/product/menu')
    }
@@ -39,7 +47,7 @@ export class RestaurantService {
   async updateProduct(formData:FormData, id:number) {
     await this.requestService.put("/product/" + id, formData)
       .then(() => {
-        this.router.navigateByUrl('/restaurant/dashboard/menu')
+        this.router.navigateByUrl('/restaurant/admin/dashboard/menu')
       })
       .catch(e => {
         console.log(e)
@@ -49,7 +57,7 @@ export class RestaurantService {
   async addProduct(formData:FormData) {
     await this.requestService.post("/product", formData)
       .then(() => {
-        this.router.navigateByUrl('/restaurant/dashboard/menu')
+        this.router.navigateByUrl('/restaurant/admin/dashboard/menu')
       })
   }
 
@@ -69,7 +77,7 @@ export class RestaurantService {
       localStorage.setItem('token', data.token);
       console.log(data.token)
       await this.userService.doMe().then((data) => {
-        this.router.navigate(['/restaurant/dashboard']);
+        this.router.navigate(['/restaurant/admin/dashboard']);
       });
     });
   }

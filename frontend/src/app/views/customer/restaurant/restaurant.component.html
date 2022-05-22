@@ -1,59 +1,61 @@
-<header>
-    <img src="{{restaurant.image}}" alt="restaurant" class="restaurant-image">
-    <div class="image-overlay"></div>
-</header>
-<div class="content-sidebar-wrapper">
-    <div class="store-container">
-        <div class="restaurant-info">
-            <div class="container">
-                <h2>{{restaurant.name}}</h2>
-                <div class="rating">
-                    <i class="fas fa-thumbs-up me-2 rating-icon"></i>{{restaurant.rating}} ({{restaurant.numberOfReviews}})   
-                    <i class="fas fa-bicycle"></i> {{restaurant.deliveryCost}} BAM
-                    <span class="fw-bold"> {{restaurant.avgDeliveryTime}} min</span>   
-                </div>
-                <div class="price-and-time">
-                    
-                </div>
-            </div>
-        </div>
-        <div class="wrapper">
-            <div class="sidebar">
+<div *ngIf="restaurant">
+    <header>
+        <img *ngIf="restaurant.image" src="{{restaurant.image}}" alt="restaurant" class="restaurant-image">
+        <div class="image-overlay"></div>
+    </header>
+    <div class="content-sidebar-wrapper">
+        <div class="store-container">
+            <div class="restaurant-info">
                 <div class="container">
-                    <span class="section-label"><i class="fas fa-th"></i> Odjeljci</span>
-                    <ul>
-                        <li *ngFor="let groupProduct of groupedProducts | keyvalue">
-                            <span (click)="anchorScroll(groupProduct.key)">{{groupProduct.key}}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="content">
-                <div *ngFor="let groupProduct of groupedProducts | keyvalue" class="mb-5">
-                    <h2 [id]="groupProduct.key">{{groupProduct.key}}</h2>
-                    <div class="wrap-products">
-                        <div *ngFor="let product of groupProduct.value">
-                            <app-product [product] = "product"></app-product>
-                        </div>
+                    <h2>{{restaurant.name}}</h2>
+                    <div class="rating">
+                        <i class="fas fa-thumbs-up me-2 rating-icon"></i>{{restaurant.rating}} ({{restaurant.numberOfReviews}})   
+                        <i class="fas fa-bicycle"></i> {{restaurant.deliveryCost}} BAM
+                        <span class="fw-bold"> {{restaurant.avgDeliveryTime}} min</span>   
+                    </div>
+                    <div class="price-and-time">
+                        
                     </div>
                 </div>
             </div>
-        </div>    
-    </div>
-    <div class="order-container sidebar">
-        <h3>Tvoja Foodo Narudzba</h3>
-        <div *ngIf="order; else emptyOrder">
-            <div *ngFor="let orderLine of order.orderLine | keyvalue" class="order-line-info">
-                <app-order-line 
-                    (incraseQuanityEvent) = "addProductToOrder($event)" 
-                    (decraseQuanityEvent) = "removeProductFromOrder($event)" 
-                    [orderLine] = "orderLine.value">
-                </app-order-line>
-            </div>
-            <button (click) = "makeOrder()" class="make-order-btn btn w-100">Naruci za {{order.price}} BAM</button>
+            <div class="wrapper">
+                <div class="sidebar">
+                    <div class="container">
+                        <span class="section-label"><i class="fas fa-th"></i> Odjeljci</span>
+                        <ul>
+                            <li *ngFor="let groupProduct of groupedProducts | keyvalue">
+                                <span (click)="anchorScroll(groupProduct.key)">{{groupProduct.key}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content">
+                    <div *ngFor="let groupProduct of groupedProducts | keyvalue" class="mb-5">
+                        <h2 [id]="groupProduct.key">{{groupProduct.key}}</h2>
+                        <div class="wrap-products">
+                            <div *ngFor="let product of groupProduct.value">
+                                <app-product [product] = "product"></app-product>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
         </div>
-        <ng-template #emptyOrder>
-            <p>Još uvijek nisi dodao/la nijedan proizvod. Kad to uradiš, vidjet ćeš ih ovdje!</p>
-        </ng-template>
+        <div class="order-container sidebar">
+            <h3>Tvoja Foodo Narudzba</h3>
+            <div *ngIf="order; else emptyOrder">
+                <div *ngFor="let orderLine of order.orderLine | keyvalue" class="order-line-info">
+                    <app-order-line 
+                        (incraseQuanityEvent) = "addProductToOrder($event)" 
+                        (decraseQuanityEvent) = "removeProductFromOrder($event)" 
+                        [orderLine] = "orderLine.value">
+                    </app-order-line>
+                </div>
+                <button (click) = "makeOrder()" class="make-order-btn btn w-100">Naruci za {{order.price}} BAM</button>
+            </div>
+            <ng-template #emptyOrder>
+                <p>Još uvijek nisi dodao/la nijedan proizvod. Kad to uradiš, vidjet ćeš ih ovdje!</p>
+            </ng-template>
+        </div>
     </div>
 </div>

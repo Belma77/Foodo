@@ -4,9 +4,9 @@ import { MapDragablePickerComponent } from 'src/app/components/map-dragable-pick
 import { Restaurant } from 'src/app/models/restaurant';
 import { ModalService } from 'src/app/services/modal.service';
 import { User } from 'src/app/models/user.model';
-import data from '../../../mock/restaurant.json'
 import {AuthService} from "../../../services/auth.service";
 import {UserService} from "../../../services/user.service";
+import { RestaurantService } from 'src/app/services/restaurant.service';
 
 @Component({
   selector: 'app-home-page',
@@ -14,22 +14,29 @@ import {UserService} from "../../../services/user.service";
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  restaurants:Restaurant[]
-  //Todo get this from auth service
-  isLoggedIn;
-  currentUser!: User;
+  restaurants!:Restaurant[]
   constructor(
-private authService:AuthService, private userService:UserService
-  ) {
-      this.restaurants = data;
-       this.isLoggedIn=authService.isLoggedIn;
+private authService:AuthService, private userService:UserService, private restaurantService:RestaurantService) {
+      
    }
 
   ngOnInit(): void {
+    this.restaurantService.getRestaurants().then(data => {
+      console.log(data);
+      this.restaurants = data
+    });
   }
-odjaviSe(){
+
+
+  odjaviSe(){
     this.userService.logout();
-}
+  }
+
+  get isLoggedIn() {
+    return this.authService.isLoggedIn;
+  }
+
+
   // injectLocationPicker() {
   //   this.modalService.insertComponentToModal(LocationPickerComponent)
   // }

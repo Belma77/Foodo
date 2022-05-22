@@ -22,30 +22,19 @@ namespace backend.Services.Impl
             this._dbContext = _dbContext;
             this.userRepository = us;
         }
-        public AuthenticateResponse Login(UserDto model)
-        {
-            var user = (UserDto)_dbContext.users.SingleOrDefault(x => x.email == model.email && x.password == model.password);
-
-            // return null if user not found
-            if (user == null) return null;
-
-            // authentication successful so generate jwt token
-            var token = JwtUtil.generateToken(user);
-
-            return new AuthenticateResponse(user, token);
-
-        }
 
 
         public IEnumerable<User> GetAll()
         {
             return _dbContext.users;
         }
-        public User doMe(User u)
+
+
+        public User doMe(int userId)
         {
             try
             {
-                var user = userRepository.findById(u.Id);
+                var user = userRepository.findById(userId);
                 return user;
             }
             catch(Exception)

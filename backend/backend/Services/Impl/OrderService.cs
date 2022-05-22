@@ -60,8 +60,8 @@ namespace backend.Services.Impl
         private void sendOfferToRestaurant(int orderId)
         {
             Order order = _orderRepository.findById(orderId);
-            string connectionId = ConnectionMapping.GetConnections(order.Restaurant.Id).First();
-            _hub.Clients.Client(connectionId).SendAsync("orderOffer", JsonSerializer.Serialize(order));
+            string connectionId = ConnectionMapping.GetConnections(order.RestaurantId.ToString()).First();
+            _hub.Clients.Client(connectionId).SendAsync("orderOffer", order);
         }
 
         private void createOrderChannel(Order order)
@@ -73,7 +73,7 @@ namespace backend.Services.Impl
         private void addToGroup(Order order, User user)
         {
             string chanellName = "order" + order.Id.ToString();
-            _hub.Groups.AddToGroupAsync(getConnectionId(user.Id), chanellName);
+            _hub.Groups.AddToGroupAsync(getConnectionId(user.Id.ToString()), chanellName);
         }
 
         public void acceptOrder (Order order)
@@ -100,7 +100,7 @@ namespace backend.Services.Impl
             //_hub.Clients.Group(chanellName).SendAsync("orderOffer", JsonSerializer.Serialize(order));
         }
 
-        private string getConnectionId (int id)
+        private string getConnectionId (string id)
         {
             return ConnectionMapping.GetConnections(id).First();
         }

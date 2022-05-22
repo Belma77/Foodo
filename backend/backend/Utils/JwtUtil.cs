@@ -21,12 +21,9 @@ namespace backend.Utils
         public static string generateToken(UserDto user)
         {
             var claims = new[] {
-            new Claim(nameof (user), JsonSerializer.Serialize(user)),
-            new Claim(ClaimTypes.Role, JsonSerializer.Serialize(user.role)),
-            new Claim(ClaimTypes.Email, JsonSerializer.Serialize(user.email)),
-            new Claim(ClaimTypes.Name, JsonSerializer.Serialize(user.userName)),
-            new Claim(ClaimTypes.NameIdentifier,
-            Guid.NewGuid().ToString())
+            new Claim(ClaimTypes.Role, user.role.ToString()),
+            new Claim(ClaimTypes.Email, user.email),
+            new Claim(ClaimTypes.Name, user.Id.ToString())
         };
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));

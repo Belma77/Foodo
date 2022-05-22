@@ -51,7 +51,7 @@ namespace backend.Services.Impl
 
                 res.password = hashedPassword;
                 res.StoredSalt = salt;
-                res.role = UserRole.RESTAURANT;
+                res.role = UserRole.Restaurant;
                 _UserRepository.create(res);
             }
         }
@@ -78,6 +78,16 @@ namespace backend.Services.Impl
             
         }
 
+        public List<User> GetRestaurants()
+        {
+            return _UserRepository.getAll(UserRole.Restaurant);
+        }
+
+        public User GetRestaurant(int id)
+        {
+            Restaurant restaurant = _UserRepository.findRestaurantById(id);
+            return restaurant;
+        }
     }
 }
 

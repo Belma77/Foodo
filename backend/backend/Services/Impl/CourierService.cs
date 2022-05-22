@@ -55,7 +55,7 @@ namespace backend.Services.Impl
 
                 courier.password = hashedPassword;
                 courier.StoredSalt = salt;
-                courier.role = UserRole.COURIER;
+                courier.role = UserRole.Courier;
 
                 _UserRepository.create(courier);
             }

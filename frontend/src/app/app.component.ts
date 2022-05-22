@@ -20,19 +20,22 @@ export class AppComponent implements OnInit{
     private userService: UserService,
     private authService: AuthService
     ) {
-      this.async = true;
-        if (authService.isLoggedIn) 
+        if (authService.isLoggedIn) {
+          this.async = true;
           this.userService.doMe().finally(() => this.async = false);
+          this.signalRService.startConnection();
+          this.signalRService.orderOfferListener();
+          // this.startHttpRequest();
+        }
      }
      
   ngOnInit() {
-    this.signalRService.startConnection();
-    this.signalRService.orderOfferListener();
-    this.startHttpRequest();
+   
   }
   
 
   private startHttpRequest = () => {
+    console.log("http request")
     this.requestService.get('/hub')
       .then(res => {
         console.log(res);

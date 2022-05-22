@@ -10,22 +10,15 @@ namespace backend.Services.Impl
     {
         public override Task OnConnectedAsync()
         {
-            //Get user from Http context items
-            int id = 1;
-            ConnectionMapping.Add(id, Context.ConnectionId);
+            ConnectionMapping.Add(Context.User.Identity.Name, Context.ConnectionId);
             Console.WriteLine("Client connected");
             return base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception e)
         {
-            string name = Context.User.Identity.Name;
-            Console.WriteLine("Identity name");
-            Console.WriteLine(name);
-            //_connections.Remove(name, Context.ConnectionId);
-
-            //return base.OnDisconnected(stopCalled);
-            return null ;
+            ConnectionMapping.Remove(Context.User.Identity.Name, Context.ConnectionId);
+            return base.OnDisconnectedAsync(e);
         }
 
     }

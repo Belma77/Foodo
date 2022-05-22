@@ -14,13 +14,15 @@ namespace Data.Models.Entities
         [Key]
         public int Id { get; set; }
 
-        public virtual Customer Customer { get; set; }
+        public Customer Customer { get; set; }
 
         public Restaurant Restaurant { get; set; }
 
-        public virtual Courier Courier { get; set; }
+        public int RestaurantId { get; set; }   
 
-        public virtual ICollection<OrderRecord> OrderRecords { get; set; }  = new List<OrderRecord>();  
+        public Courier Courier { get; set; }
+
+        public ICollection<OrderRecord> OrderRecords { get; set; }  = new List<OrderRecord>();  
 
         [NotMapped]
         public Location startLocation { get; set; }
@@ -40,17 +42,5 @@ namespace Data.Models.Entities
             orderStatus = OrderStatus.CREATED;
         }
 
-        public Order(int id, Customer customer, Restaurant restaurant, Courier courier, Location startLocation, Location endLocation, DateTime requestTime, OrderStatus orderStatus, double price)
-        {
-            this.Id = id;
-            this.Customer = customer;
-            this.Restaurant = restaurant;
-            this.Courier = courier;
-            this.startLocation = startLocation;
-            this.endLocation = endLocation;
-            this.requestTime = requestTime;
-            this.orderStatus = orderStatus;
-            this.price = price;
-        }
     }
 }

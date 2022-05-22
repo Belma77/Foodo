@@ -2,7 +2,9 @@
 using Data;
 using Data.Models.Dtos;
 using Data.Models.Entities;
+using Data.Models.Enums;
 using Data.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,11 @@ namespace backend.Repositories
         public UserRepository(MyContext dbContext)
         {
             this.dbContext = dbContext;
+        }
+
+        public List<User> getAll(UserRole userRole)
+        {
+            return dbContext.users.Where(user => userRole == user.role).ToList();
         }
 
         public void create (User user)
@@ -42,6 +49,10 @@ namespace backend.Repositories
             dbContext.users.Update(user);
             dbContext.SaveChanges();
         }
-        
+
+        public Restaurant findRestaurantById(int id)
+        {
+            return dbContext.restaurants.Include(r => r.Products).ThenInclude(p => p.Category).Where(r => r.Id == id).FirstOrDefault();
+        }
     }
 }

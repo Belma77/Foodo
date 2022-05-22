@@ -86,6 +86,44 @@ namespace backend
                     );
             });
 
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
+                var Key = Encoding.UTF8.GetBytes(Configuration["JWT:Key"]);
+                o.SaveToken = true;
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["JWT:Issuer"],
+                    ValidAudience = Configuration["JWT:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Key)
+                };
+
+                o.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+
+                        // If the request is for our hub...
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                            (path.StartsWithSegments("/hub")))
+                        {
+                            // Read the token out of the query string
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+
             services.AddSignalR();
 
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("db")));
@@ -107,22 +145,6 @@ namespace backend
             services.AddScoped<CourierService, CourierService>();
             services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
-            
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new
-                    SymmetricSecurityKey
-                    (Encoding.UTF8.GetBytes
-                    (Configuration["Jwt:Key"]))
-                };
-
-               
-            });
 
         }
 
@@ -152,7 +174,8 @@ namespace backend
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseMiddleware<JwtMiddleware>();
+
+            //app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseEndpoints(endpoints =>
             {

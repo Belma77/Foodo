@@ -15,13 +15,13 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using static backend.Utils.AuthConstants;
 
-using AuthorizeAttribute = backend.Filters.AuthorizeAttribute;
+using AuthorizeAttribute = backend.Filters.CustomAuthorizeAttribute;
 
 namespace backend.Controllers
 {
     [ApiController]
     [Route("restaurant")]
-    [Authorize(UserRole.RESTAURANT)]
+    [Authorize(UserRole.Restaurant)]
     public class RestaurantController : ControllerBase
     {
         private RestaurantService _restaurantService;
@@ -51,6 +51,21 @@ namespace backend.Controllers
             ResponseToken token = _restaurantService.Login(res);
             Console.WriteLine($"Logiran { res.email}");
             return token;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult getRestaurants()
+        {
+            return Ok(_restaurantService.GetRestaurants());
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [AllowAnonymous]
+        public IActionResult getRestaurant(int id)
+        {
+            return Ok(_restaurantService.GetRestaurant(id));
         }
     }
 }
