@@ -6,7 +6,7 @@ import { Product } from 'src/app/models/product';
 import { Restaurant } from 'src/app/models/restaurant';
 import { OrderService } from 'src/app/services/order.service';
 import { RestaurantService } from 'src/app/services/restaurant.service';
-// import data from '../../../mock/restaurant.json'
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-restaurant',
@@ -79,4 +79,7 @@ export class RestaurantComponent implements OnInit {
     this.orderService.makeOrder(this.restaurant);
   }
 
+  get imageUrl() {
+    return environment.api + "/download?fileUrl=" + this.restaurant.headerImage;
+  }
 }

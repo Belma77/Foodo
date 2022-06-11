@@ -12,12 +12,6 @@ namespace Data.Models.Entities
     public class Restaurant:User
     {
         public Restaurant() { }
-        
-        public Restaurant(string name, string email, string password, string phoneNumber) : base(email, password)
-        {
-            this.name = name;
-            this.phoneNumber = phoneNumber;
-        }
 
         public string name { get; set; }
 
@@ -39,7 +33,7 @@ namespace Data.Models.Entities
 
         public virtual ICollection<Order> Orders { get; set; }
 
-        public string phoneNumber { get; set; }
+        public string phone { get; set; }
 
 
     }

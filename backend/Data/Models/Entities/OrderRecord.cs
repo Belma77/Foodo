@@ -15,5 +15,7 @@ namespace Data.Models.Entities
         public double price { get; set; }  
 
         public Product Product { get; set; }
+
+        public int ProductId { get; set; }  
     }
 }

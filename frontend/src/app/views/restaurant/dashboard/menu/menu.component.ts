@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.userService.user)
-    this.restaurantService.getMenu(this.userService.user.Id!)
+    this.restaurantService.getMenu(this.userService.user.id!)
     .then(data => {
       console.log(data);
       this.products = data

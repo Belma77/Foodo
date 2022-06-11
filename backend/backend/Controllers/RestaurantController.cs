@@ -7,7 +7,9 @@ using Data.Models.Entities;
 using Data.Models.Enums;
 using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +68,16 @@ namespace backend.Controllers
         public IActionResult getRestaurant(int id)
         {
             return Ok(_restaurantService.GetRestaurant(id));
+        }
+
+        [HttpPut]
+        [Route("profile")]
+        public IActionResult editProfile([FromForm] IFormFile file, [FromForm] string body)
+        {
+            var userId = HttpContext.User.Identity.Name;
+            Restaurant r = JsonConvert.DeserializeObject<Restaurant>(body);
+            _restaurantService.editProfile(int.Parse(userId), file, r);
+            return Ok();
         }
     }
 }

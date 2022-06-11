@@ -8,6 +8,7 @@ using Data.Models.Entities;
 using Data.Models.Enums;
 using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,13 +23,15 @@ namespace backend.Services.Impl
     {
         private UserRepository _UserRepository;
         private readonly IMapper _mapper;
-        public RestaurantService(UserRepository userRepository, IMapper mapper)
+        private ImageService _imageService;
+        public RestaurantService(UserRepository userRepository, IMapper mapper, ImageService imageService)
         {
             _UserRepository = userRepository;
             _mapper = mapper;
+            _imageService = imageService;
         }
 
-        public void register([FromBody] Restaurant res)
+        public void register(Restaurant res)
         {
             var email = _UserRepository.findByEmail(res.email);
             if (email != null)
@@ -87,6 +90,17 @@ namespace backend.Services.Impl
         {
             Restaurant restaurant = _UserRepository.findRestaurantById(id);
             return restaurant;
+        }
+
+        public void editProfile(int userId, IFormFile file, Restaurant r)
+        {
+            Restaurant restaurant = (Restaurant) _UserRepository.findById(userId);
+            restaurant.name = r.name;
+            if(file != null)
+            {
+                restaurant.headerImage = _imageService.saveImage(file);
+            }
+            _UserRepository.update(restaurant);
         }
     }
 }

@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { CoreRequestService } from './core-request.service';
 import {User} from "../models/user.model";
 import {UserService} from "./user.service";
+import { Order } from '../models/order';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import {UserService} from "./user.service";
 export class RestaurantService {
   restaurant!: Restaurant;
   categories:Category[] = [];
+  pendingOrders:Order[] = [];
 
   constructor(private requestService:CoreRequestService, private router:Router, private authService: AuthService, private userService:UserService) {
       this.getCategories();
@@ -80,5 +82,21 @@ export class RestaurantService {
         this.router.navigate(['/restaurant/admin/dashboard']);
       });
     });
+  }
+
+  async updateProfile(formData:FormData) {
+    return await this.requestService.put("/restaurant/profile", formData);
+  }
+
+  addPendingOrder(order:Order) {
+    let contains = false;
+    this.pendingOrders.map(o => {
+      if(o.id === order.id) {
+        contains = true;
+      }
+    })
+
+    if(!contains)
+      this.pendingOrders.push(order);
   }
 }

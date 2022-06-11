@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LogLevel, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { Order } from '../models/order';
 import { CourierService } from './courier.service';
+import { RestaurantService } from './restaurant.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class SignalRService {
 
   private hubConnection!:HubConnection;
 
-  constructor() {
+  constructor(private restaurantService:RestaurantService) {
 
   }
 
@@ -41,9 +42,10 @@ export class SignalRService {
   }
 
   public orderOfferListener = () => {
-    this.hubConnection.on('orderOffer', (data) => {
+    this.hubConnection.on('orderOffer', (data:Order) => {
       console.log(data)
       console.log("stigla")
+      this.restaurantService.addPendingOrder(data)
     })
   }
  

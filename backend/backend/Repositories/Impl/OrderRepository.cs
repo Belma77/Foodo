@@ -22,6 +22,7 @@ namespace backend.Repositories.Impl
             _dbContext.ChangeTracker.Clear();
             return _dbContext.orders.Where(o => o.Id == id)
                                     .Include(o => o.OrderRecords)
+                                        .ThenInclude(or => or.Product)
                                     .Include(o => o.Customer)
                                     .FirstOrDefault(); ;
         }

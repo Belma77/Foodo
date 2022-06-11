@@ -17,14 +17,14 @@
                                 class="form-control"
                                 id="poslovni-naziv"
                                 required
-                                formControlName="businesName"
-                                name="businesName"
+                                formControlName="name"
+                                name="name"
                                 placeholder="Poslovni Naziv"
                             />
                             <span
                                 class="text-danger"
                                 *ngIf="
-                                    f.businesNametouched && f.businesName.errors?.required
+                                    f.name && f.name.errors?.required
                                 "
                             >
                             Unos poslovnog naziva je obavezan
@@ -32,7 +32,7 @@
                             <span
                                 class="text-danger"
                                 *ngIf="
-                                    f.businesName.touched && f.businesName.errors?.pattern
+                                    f.name.touched && f.name.errors?.pattern
                                 "
                             >
                             Unos poslovnog naziva je obavezan

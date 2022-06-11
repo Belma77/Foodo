@@ -47,6 +47,7 @@ namespace backend
         {
             services.AddMvc().AddNewtonsoftJson();
             services.AddTransient<ErrorHandlingMiddleware>();
+
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddSwaggerGen(c =>
@@ -124,7 +125,10 @@ namespace backend
                 };
             });
 
-            services.AddSignalR();
+            services.AddSignalR().AddJsonProtocol(o =>
+            {
+                o.PayloadSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+            });
 
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("db")));
 

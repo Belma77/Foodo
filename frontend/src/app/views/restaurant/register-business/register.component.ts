@@ -24,7 +24,7 @@ export class RestaurantRegisterComponent implements OnInit {
         this.registerForm = this.fb.group({
             email: ['', [Validators.required, Validators.pattern(regex.email)]],
             password: ['', [Validators.required, Validators.minLength(8)]],
-            businesName:['', [Validators.required]],
+            name:['', [Validators.required]],
             phone:['', [Validators.required]],
         });
     }

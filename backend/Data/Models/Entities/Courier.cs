@@ -11,17 +11,9 @@ namespace Data.Models.Entities
     {
         public Courier() { }
 
-        public Courier(string email, string password, string firstname, string lastname, string phone) : base(email, password)
-        {
-            this.firstName = firstname;
-            this.lastName = lastname;
-            this.phoneNumber = phone;
-        }
-
         public string firstName { get; set; }
 
         public string lastName { get; set; }
-        public string phoneNumber { get; set; }
 
         public CourierWorkingStatus status { get; set; }
     }

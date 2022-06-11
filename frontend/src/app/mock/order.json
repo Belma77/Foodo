@@ -1,7 +1,7 @@
 {
     "id": 1,
     "customer": {
-      "Id": 1,
+      "id": 1,
       "email": "faris@gmail.com",
       "firstName": "Faris",
       "lastName": "Dziho",
@@ -20,7 +20,7 @@
       "deliveryCost":1.5,
       "rating":96,
       "numberOfReviews":120,
-      "image":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/wy4xymearvmy7vzglvc2",
+      "headerImage":"https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/wy4xymearvmy7vzglvc2",
       "products":[],
       "location": {
         "latitude": 43.3439751,

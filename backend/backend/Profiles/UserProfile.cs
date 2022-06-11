@@ -14,8 +14,6 @@ namespace Data.Profiles
     {
         public UserProfile()
         {
-            CreateMap<Restaurant, UserDto>();
-            CreateMap<UserDto, Restaurant>();
             CreateMap<User, UserDto>();
             CreateMap<Courier, UserDto>();
             CreateMap<Customer, UserDto>();
