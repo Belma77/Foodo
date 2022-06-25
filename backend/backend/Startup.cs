@@ -32,7 +32,11 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 =======
 using Stripe;
+<<<<<<< HEAD
 >>>>>>> d32c5ca (added files for stripe integration)
+=======
+using System.Web.Http;
+>>>>>>> b18f049 (task-20 implemented online payment with stripe integration)
 //using AutoMapper.Configuration;
 
 namespace backend
@@ -45,7 +49,11 @@ namespace backend
         {
             Configuration = configuration;
         }
-
+        public static void Register(HttpConfiguration config)
+        {
+            // New code
+            config.EnableCors();
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -207,8 +215,12 @@ namespace backend
 
 =======
           app.UseCors("CorsPolicy");
+<<<<<<< HEAD
             //app.UseCors("AllowAllHeaders");
 >>>>>>> d32c5ca (added files for stripe integration)
+=======
+            
+>>>>>>> b18f049 (task-20 implemented online payment with stripe integration)
             app.UseAuthentication();
             app.UseAuthorization();
 

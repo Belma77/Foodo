@@ -19,10 +19,10 @@ import {CourierRegisterComponent} from "./views/courier/courier-register/courier
 import {CourierLoginComponent} from "./views/courier/courier-login/courier-login.component";
 import {RoleGuard} from "./guards/role.guard";
 import {UserRole} from "./models/enums/user-role";
-
 import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.component';
 import { CheckoutComponent } from './views/customer/checkout/checkout.component';
-
+import {CancelComponent} from "./views/customer/checkout/cancel.component";
+import {CustomerOderTrackerComponent} from "./views/customer/customer-oder-tracker/customer-oder-tracker.component";
 
 const routes: Routes = [
   {path:'',
@@ -33,16 +33,21 @@ const routes: Routes = [
 
   { path:'customer/home-page',
     component:HomePageComponent,
-    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf(), UserRole.COURIER.valueOf()]}
+   // canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf(), UserRole.COURIER.valueOf()]}
   },
   {path:'courier-register', component:CourierRegisterComponent},
   {path:'courier-login', component:CourierLoginComponent},
   {path:'login-restaurant', component:LoginComponentRestaurant},
   {path:'register-business', component:RestaurantRegisterComponent},
-  {path:'customer/checkout', component:CheckoutComponent},
+  {path:'checkout', component:CheckoutComponent},
+  {path:'cancel', component:CancelComponent},
   {path:'restaurant/:slug', component:RestaurantComponent},
 
+
   // Restaurant dashboard links
+
+  {path:'customer-order-tracking', component:CustomerOderTrackerComponent},
+
   {
     path:'restaurant/admin/dashboard',
     component:DashboardComponent,

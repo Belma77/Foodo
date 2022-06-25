@@ -21,11 +21,13 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Cors;
+using Stripe.Checkout;
+using Newtonsoft.Json;
 
 namespace backend.Controllers
 {
     [Route("customer")]
-    
+   
     [ApiController]
     [Authorize(UserRole.Customer)]
     public class CustomerController : ControllerBase
@@ -80,12 +82,30 @@ namespace backend.Controllers
         [Route("session/create")]
         [AllowAnonymous]
         //[Authorize]
-        public IActionResult CreateSession([FromBody] OrderViewModel order)
+        public void CreateSession([FromBody] OrderViewModel order)
         {
-            orderService.CreateSession(order);
-           var url= orderService.CreateSession(order);
-            Response.Headers.Add("Location", url);
-            return new StatusCodeResult(303);
+            var url = "localhost:4200";
+            try
+            {
+                var options = new SessionCreateOptions
+                {
+                    LineItems = orderService.CreatesessionLineItemOptions(order),
+
+                    Mode = "payment",
+                    SuccessUrl = "http://localhost:4200/checkout",
+                    CancelUrl = "http://localhost:4200/cancel",
+                };
+
+                var service = new SessionService();
+                Session session = service.Create(options);
+                Response.Headers.Add("Location", session.Url);
+                Response.WriteAsJsonAsync(session.Url);
+                
+            }
+            catch(Exception)
+            {
+              throw new Exception();
+            }
 
         }
         [HttpGet]
@@ -98,6 +118,7 @@ namespace backend.Controllers
             return Ok(order);
             //return Ok(JsonSerializer.Serialize());
         }
+<<<<<<< HEAD
 
         //[HttpGet]
         //[Route("doMe")]
@@ -136,6 +157,8 @@ namespace backend.Controllers
             }
             return null;
         }
+=======
+>>>>>>> b18f049 (task-20 implemented online payment with stripe integration)
         
     }
 

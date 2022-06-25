@@ -85,7 +85,7 @@ namespace backend.Services.Impl
                 {
                     PriceData = new SessionLineItemPriceDataOptions
                     {
-                        UnitAmount = (long?)(or.quanity * product.price*60),
+                        UnitAmount = (long?)(product.price*100),
                         Currency = "bam",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {

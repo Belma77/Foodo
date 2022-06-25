@@ -48,6 +48,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.component';
 import {CheckoutComponent} from "./views/customer/checkout/checkout.component";
 import { StripeModule } from "stripe-angular";
+import {CancelComponent} from "./views/customer/checkout/cancel.component";
+import { CustomerOderTrackerComponent } from './views/customer/customer-oder-tracker/customer-oder-tracker.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import { StripeModule } from "stripe-angular";
     NewProductComponent,
     ProfileComponent,
     CheckoutComponent,
-
+    CancelComponent,
+    CustomerOderTrackerComponent
   ],
   imports: [
     BrowserModule,
