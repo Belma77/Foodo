@@ -17,12 +17,12 @@ export class RestaurantComponent implements OnInit {
   restaurant!:Restaurant;
   groupedProducts!:Map<string,Product[]>;
 
-  constructor(private route: ActivatedRoute, 
-              private router: Router, 
+  constructor(private route: ActivatedRoute,
+              private router: Router,
               private orderService:OrderService,
               private restaurantService:RestaurantService,
               private viewportScroller: ViewportScroller) {
-   
+
    }
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class RestaurantComponent implements OnInit {
         else {
           this.restaurant = res;
           if(res.products)
-            this.transpose() 
+            this.transpose()
         }
       })
       .catch((e) => {
@@ -59,7 +59,7 @@ export class RestaurantComponent implements OnInit {
       this.groupedProducts = groupedProducts;
   }
 
-  public anchorScroll(elementId: string): void { 
+  public anchorScroll(elementId: string): void {
       this.viewportScroller.scrollToAnchor(elementId);
   }
 
@@ -74,12 +74,13 @@ export class RestaurantComponent implements OnInit {
   get order() {
     return this.orderService.currentOrder;
   }
-
   makeOrder() {
     this.orderService.makeOrder(this.restaurant);
-  }
 
+  }
   get imageUrl() {
     return environment.api + "/download?fileUrl=" + this.restaurant.headerImage;
   }
 }
+
+

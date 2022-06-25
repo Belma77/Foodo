@@ -20,10 +20,12 @@ using backend.Repositories;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 
 namespace backend.Controllers
 {
     [Route("customer")]
+    
     [ApiController]
     [Authorize(UserRole.Customer)]
     public class CustomerController : ControllerBase
@@ -62,14 +64,30 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("order/create")]
+<<<<<<< HEAD
         [Authorize(UserRole.Customer)]
+=======
+        [AllowAnonymous]
+        //[Authorize]
+>>>>>>> d32c5ca (added files for stripe integration)
         public IActionResult createOrder([FromBody] OrderViewModel order)
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
             orderService.createOrder(order, userId);
             return Ok();
         }
+        [HttpPost]
+        [Route("session/create")]
+        [AllowAnonymous]
+        //[Authorize]
+        public IActionResult CreateSession([FromBody] OrderViewModel order)
+        {
+            orderService.CreateSession(order);
+           var url= orderService.CreateSession(order);
+            Response.Headers.Add("Location", url);
+            return new StatusCodeResult(303);
 
+        }
         [HttpGet]
         [Route("order/{id}")]
         //[AllowAnonymous]

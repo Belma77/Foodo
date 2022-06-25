@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   api: 'https://localhost:5001',
-
+  stripe_key:'pk_test_51Kw0aQKRuZYR6PFuWr7T06KwduEmYLRK07ovV0aGsKLAe41y8Tq8FfVTCxyULkyn2p2SSWNkv5qWBMqM04D6DoKf005ruX3VcY'
 };
 
 /*

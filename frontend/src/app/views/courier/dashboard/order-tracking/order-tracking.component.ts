@@ -15,14 +15,13 @@ export class OrderTrackingComponent implements OnInit {
   OrderStatus = OrderStatus;
   resLocation:any;
   cusLocation:any;
-
   courierLocation: any;
   zoom: number = 20;
 
 
-  constructor() { 
+  constructor() {
     this.setCurrentLocation();
-    this.order = data;  
+    this.order = data;
     this.resLocation = {lat: this.order.restaurant.location.latitude, lng: this.order.restaurant.location.longitude};
     this.cusLocation = {lat: this.order.customer.location.latitude, lng: this.order.customer.location.longitude};
     this.order.orderStatus = OrderStatus.IN_PREPARATION;

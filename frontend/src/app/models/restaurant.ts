@@ -12,4 +12,5 @@ export class Restaurant extends User{
     headerImage!:string;
     products!:Product[];
     location!:Location;
+
 }

@@ -45,31 +45,38 @@ export class OrderService {
       this.currentOrder = null;
     else
       this.calculatePrice();
-  } 
+  }
 
   makeOrder(retraurant:Restaurant) {
     let order = new OrderPost;
     order.restaurantId = retraurant.id;
     Object.keys(this.currentOrder!.orderLine).map((key:string) => {
-      let value = this.currentOrder!.orderLine[key]; 
+      let value = this.currentOrder!.orderLine[key];
       let orderLine = new OrderLineForm;
       orderLine.productId = value.product.id;
       orderLine.quanity = value.quanity;
       order.orderLine.push(orderLine);
-    })     
-    
+    })
+
     this.requestService.post('/customer/order/create', order)
     .then(data => console.log(data))
     .catch(e => console.log(e))
+    this.Pay(order);
   }
-
+Pay(order:any)
+{
+  console.log(order);
+  this.requestService.post('/customer/session/create', order)
+    .then(data => console.log(data))
+    .catch(e => console.log(e))
+}
   calculatePrice() {
     var orderLines = Object.values(this.currentOrder!.orderLine);
     let totalPrice = 0;
     Object.keys(this.currentOrder!.orderLine).map((key:string) => {
-      let value = this.currentOrder!.orderLine[key]; 
+      let value = this.currentOrder!.orderLine[key];
       totalPrice += value.product.price * value.quanity;
-    })     
+    })
     this.currentOrder!.price = totalPrice;
   }
 }

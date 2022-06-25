@@ -19,7 +19,10 @@ import {CourierRegisterComponent} from "./views/courier/courier-register/courier
 import {CourierLoginComponent} from "./views/courier/courier-login/courier-login.component";
 import {RoleGuard} from "./guards/role.guard";
 import {UserRole} from "./models/enums/user-role";
+
 import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.component';
+import { CheckoutComponent } from './views/customer/checkout/checkout.component';
+
 
 const routes: Routes = [
   {path:'',
@@ -36,6 +39,7 @@ const routes: Routes = [
   {path:'courier-login', component:CourierLoginComponent},
   {path:'login-restaurant', component:LoginComponentRestaurant},
   {path:'register-business', component:RestaurantRegisterComponent},
+  {path:'customer/checkout', component:CheckoutComponent},
   {path:'restaurant/:slug', component:RestaurantComponent},
 
   // Restaurant dashboard links
