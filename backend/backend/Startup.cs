@@ -27,8 +27,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using backend.ErrorHandler;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+<<<<<<< HEAD
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+=======
+using Stripe;
+<<<<<<< HEAD
+>>>>>>> d32c5ca (added files for stripe integration)
+=======
+using System.Web.Http;
+>>>>>>> b18f049 (task-20 implemented online payment with stripe integration)
 //using AutoMapper.Configuration;
 
 namespace backend
@@ -41,7 +49,11 @@ namespace backend
         {
             Configuration = configuration;
         }
-
+        public static void Register(HttpConfiguration config)
+        {
+            // New code
+            config.EnableCors();
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -138,35 +150,60 @@ namespace backend
             services.AddScoped<CourierService, CourierService>();
 
             services.AddScoped<OrderRepository, OrderRepository>();
-            services.AddScoped<OrderService, OrderService>();
+            services.AddScoped<Services.Impl.OrderService, Services.Impl.OrderService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<UserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+<<<<<<< HEAD
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<CustomerService, CustomerService>();
             services.AddScoped<ImageService, ImageService>();
             services.AddScoped<CourierService, CourierService>();
             services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
+=======
+            services.AddScoped<IProductService, Services.Impl.ProductService>();
+            services.AddScoped<Services.Impl.CustomerService, Services.Impl.CustomerService>();
+            services.AddScoped<CourierService, CourierService>();
+            services.AddScoped<RestaurantService, RestaurantService>();
+            services.AddScoped<UserService, UserService>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new
+                    SymmetricSecurityKey
+                    (Encoding.UTF8.GetBytes
+                    (Configuration["Jwt:Key"]))
+                };
+
+            });
+>>>>>>> d32c5ca (added files for stripe integration)
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.ApiKey = "sk_test_51Kw0aQKRuZYR6PFus0Cn01uZYmWxF3IL34UpJnQ5U6hzDOTz4yfP3G8tvnix1sfmShOEPDXBi8ZNALIJdumNl05l00CKD7fURm";
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "backend v1"));
-              
+
             }
-            
+
             app.UseHttpsRedirection();
             
             app.UseRouting();
 
+<<<<<<< HEAD
             app.UseCors("CorsPolicy");
 
             app.UseStaticFiles();
@@ -176,6 +213,14 @@ namespace backend
                 RequestPath = new PathString("/Resources")
             });
 
+=======
+          app.UseCors("CorsPolicy");
+<<<<<<< HEAD
+            //app.UseCors("AllowAllHeaders");
+>>>>>>> d32c5ca (added files for stripe integration)
+=======
+            
+>>>>>>> b18f049 (task-20 implemented online payment with stripe integration)
             app.UseAuthentication();
             app.UseAuthorization();
 

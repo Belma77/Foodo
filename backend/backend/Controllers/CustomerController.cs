@@ -20,10 +20,14 @@ using backend.Repositories;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 using AutoMapper;
+using Microsoft.AspNetCore.Cors;
+using Stripe.Checkout;
+using Newtonsoft.Json;
 
 namespace backend.Controllers
 {
     [Route("customer")]
+   
     [ApiController]
     [Authorize(UserRole.Customer)]
     public class CustomerController : ControllerBase
@@ -62,14 +66,48 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("order/create")]
+<<<<<<< HEAD
         [Authorize(UserRole.Customer)]
+=======
+        [AllowAnonymous]
+        //[Authorize]
+>>>>>>> d32c5ca (added files for stripe integration)
         public IActionResult createOrder([FromBody] OrderViewModel order)
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
             orderService.createOrder(order, userId);
             return Ok();
         }
+        [HttpPost]
+        [Route("session/create")]
+        [AllowAnonymous]
+        //[Authorize]
+        public void CreateSession([FromBody] OrderViewModel order)
+        {
+            var url = "localhost:4200";
+            try
+            {
+                var options = new SessionCreateOptions
+                {
+                    LineItems = orderService.CreatesessionLineItemOptions(order),
 
+                    Mode = "payment",
+                    SuccessUrl = "http://localhost:4200/checkout",
+                    CancelUrl = "http://localhost:4200/cancel",
+                };
+
+                var service = new SessionService();
+                Session session = service.Create(options);
+                Response.Headers.Add("Location", session.Url);
+                Response.WriteAsJsonAsync(session.Url);
+                
+            }
+            catch(Exception)
+            {
+              throw new Exception();
+            }
+
+        }
         [HttpGet]
         [Route("order/{id}")]
         //[AllowAnonymous]
@@ -80,6 +118,7 @@ namespace backend.Controllers
             return Ok(order);
             //return Ok(JsonSerializer.Serialize());
         }
+<<<<<<< HEAD
 
         //[HttpGet]
         //[Route("doMe")]
@@ -118,6 +157,8 @@ namespace backend.Controllers
             }
             return null;
         }
+=======
+>>>>>>> b18f049 (task-20 implemented online payment with stripe integration)
         
     }
 

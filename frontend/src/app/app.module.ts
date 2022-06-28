@@ -46,6 +46,10 @@ import { OrderTrackingComponent } from './views/courier/dashboard/order-tracking
 import { NewProductComponent } from './views/restaurant/new-product/new-product.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.component';
+import {CheckoutComponent} from "./views/customer/checkout/checkout.component";
+import { StripeModule } from "stripe-angular";
+import {CancelComponent} from "./views/customer/checkout/cancel.component";
+import { CustomerOderTrackerComponent } from './views/customer/customer-oder-tracker/customer-oder-tracker.component';
 
 @NgModule({
   declarations: [
@@ -74,9 +78,13 @@ import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.c
     HomePageComponent,
     CourierRegisterComponent,
     CourierLoginComponent,
+
     OrderTrackingComponent,
     NewProductComponent,
-    ProfileComponent
+    ProfileComponent,
+    CheckoutComponent,
+    CancelComponent,
+    CustomerOderTrackerComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +103,8 @@ import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.c
     HttpClientModule,
     ToastrModule.forRoot({
       positionClass :'toast-bottom-right'
-    })
+    }),
+    StripeModule.forRoot("pk_test_51Kw0aQKRuZYR6PFuWr7T06KwduEmYLRK07ovV0aGsKLAe41y8Tq8FfVTCxyULkyn2p2SSWNkv5qWBMqM04D6DoKf005ruX3VcY")
   ],
   providers: [
        AuthService,

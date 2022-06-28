@@ -1,10 +1,12 @@
-﻿using backend.Repositories;
+﻿using backend.Controllers;
+using backend.Repositories;
 using backend.Repositories.Impl;
 using backend.Utils;
 using Data.Models.Entities;
 using Data.Models.Enums;
 using Data.Models.ViewModels;
 using Microsoft.AspNetCore.SignalR;
+using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +40,7 @@ namespace backend.Services.Impl
             order.Customer = customer;
 
             order.orderStatus = OrderStatus.CREATED;
-            foreach(OrderRecordViewModel or in  o.orderLine)
+            foreach (OrderRecordViewModel or in o.orderLine)
             {
                 OrderRecord orderRecord = new OrderRecord();
                 Product product = _productRepository.find(or.productId);
@@ -48,9 +50,54 @@ namespace backend.Services.Impl
                 order.OrderRecords.Add(orderRecord);
             }
             _orderRepository.create(order);
+<<<<<<< HEAD
             sendOfferToRestaurant(order.Id);
-        }
+=======
 
+            //sendOfferToRestaurant(order.Id);
+>>>>>>> d32c5ca (added files for stripe integration)
+        }
+        public string CreateSession(OrderViewModel o)
+        {
+
+            var options = new SessionCreateOptions
+            {
+                 LineItems=CreatesessionLineItemOptions(o),
+
+            Mode = "payment",
+                SuccessUrl = "https://example.com/success",
+                CancelUrl = "https://example.com/cancel",
+            };
+
+        var service = new SessionService();
+        Session session = service.Create(options);
+          return   session.Url;
+
+    }
+
+        public List<SessionLineItemOptions> CreatesessionLineItemOptions(OrderViewModel o)
+        {
+            var LineItems = new List<SessionLineItemOptions>();
+            
+            foreach (OrderRecordViewModel or in o.orderLine) {
+                Product product = _productRepository.find(or.productId);
+                var option=new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        UnitAmount = (long?)(product.price*100),
+                        Currency = "bam",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = product.name,
+                        },
+                    },
+                    Quantity = or.quanity,
+                };
+                LineItems.Add(option);
+             }
+            return LineItems;
+        }
         public Order GetOrder(int id)
         {
             Order o = _orderRepository.findById(id);

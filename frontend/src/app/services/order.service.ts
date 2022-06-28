@@ -4,6 +4,7 @@ import { OrderLine, OrderLineForm } from '../models/order-line';
 import { Product } from '../models/product';
 import { Restaurant } from '../models/restaurant';
 import { CoreRequestService } from './core-request.service';
+import Stripe = stripe.Stripe;
 
 @Injectable({
   providedIn: 'root'
@@ -45,31 +46,45 @@ export class OrderService {
       this.currentOrder = null;
     else
       this.calculatePrice();
-  } 
+  }
 
-  makeOrder(retraurant:Restaurant) {
+   async makeOrder(retraurant: Restaurant) {
     let order = new OrderPost;
     order.restaurantId = retraurant.id;
-    Object.keys(this.currentOrder!.orderLine).map((key:string) => {
-      let value = this.currentOrder!.orderLine[key]; 
+    Object.keys(this.currentOrder!.orderLine).map((key: string) => {
+      let value = this.currentOrder!.orderLine[key];
       let orderLine = new OrderLineForm;
       orderLine.productId = value.product.id;
       orderLine.quanity = value.quanity;
       order.orderLine.push(orderLine);
-    })     
-    
-    this.requestService.post('/customer/order/create', order)
-    .then(data => console.log(data))
-    .catch(e => console.log(e))
-  }
+    })
+     await this.requestService.post('/customer/order/create', order)
+      .then(data => console.log(data))
+      .catch(e => console.log(e))
 
+     await this.Pay(order);
+
+  }
+ async Pay(order:any)
+{
+  var stripe=Stripe('pk_test_51Kw0aQKRuZYR6PFuWr7T06KwduEmYLRK07ovV0aGsKLAe41y8Tq8FfVTCxyULkyn2p2SSWNkv5qWBMqM04D6DoKf005ruX3VcY');
+
+  this.requestService.post('/customer/session/create', order)
+    .then(function(response) {
+      window.location.href=response;
+    })
+    .then(function(session:any) {
+      return stripe.redirectToCheckout({sessionId:session.id}) ;
+    })
+    .catch((error:any)=> {})
+}
   calculatePrice() {
     var orderLines = Object.values(this.currentOrder!.orderLine);
     let totalPrice = 0;
     Object.keys(this.currentOrder!.orderLine).map((key:string) => {
-      let value = this.currentOrder!.orderLine[key]; 
+      let value = this.currentOrder!.orderLine[key];
       totalPrice += value.product.price * value.quanity;
-    })     
+    })
     this.currentOrder!.price = totalPrice;
   }
 }
