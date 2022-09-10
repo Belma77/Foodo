@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RestaurantService } from 'src/app/services/restaurant.service';
+import {OrderService} from "../../../../services/order.service";
+import {Product} from "../../../../models/product";
+import {Order} from "../../../../models/order";
+import { OrderLine } from 'src/app/models/order-line';
 
 @Component({
   selector: 'app-orders',
@@ -7,14 +11,21 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
-
-  constructor(private restaurantService:RestaurantService) { }
+  orders: Order[] | undefined;
+  newOrder: boolean=false;
+  OrderLine:Map<string,OrderLine[]>=new Map<string, OrderLine[]>();
+  constructor(private orderService:OrderService) { }
 
   ngOnInit(): void {
+
+
   }
 
-  get pendingOrders() {
-    return this.restaurantService.pendingOrders;
+    get pendingOrders() {
+      console.log("getting pending orders");
+      return this.orderService.pendingOrders;
+
   }
+
 
 }

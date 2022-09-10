@@ -10,6 +10,7 @@ using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace backend.Services.Impl
         private OrderRepository _orderRepository;
         private IUserRepository _userRepository;
         private IProductRepository _productRepository;
-
+        
         public OrderService(IHubContext<CustomHub> hub, IProductRepository productRepository, OrderRepository orderRepository, IUserRepository userRepository)
         {
             _hub = hub;
@@ -50,12 +51,10 @@ namespace backend.Services.Impl
                 order.OrderRecords.Add(orderRecord);
             }
             _orderRepository.create(order);
-<<<<<<< HEAD
-            sendOfferToRestaurant(order.Id);
-=======
 
             //sendOfferToRestaurant(order.Id);
->>>>>>> d32c5ca (added files for stripe integration)
+            sendOfferToCourier(order.Id);
+            //sendOfferToRestaurant(order.Id);
         }
         public string CreateSession(OrderViewModel o)
         {
@@ -72,7 +71,7 @@ namespace backend.Services.Impl
         var service = new SessionService();
         Session session = service.Create(options);
           return   session.Url;
-
+            
     }
 
         public List<SessionLineItemOptions> CreatesessionLineItemOptions(OrderViewModel o)
@@ -107,8 +106,17 @@ namespace backend.Services.Impl
         private void sendOfferToRestaurant(int orderId)
         {
             Order order = _orderRepository.findById(orderId);
-            string connectionId = ConnectionMapping.GetConnections(order.RestaurantId.ToString()).First();
+            string connectionId = ConnectionMapping.GetConnections(order.RestaurantId.ToString()).FirstOrDefault();
             _hub.Clients.Client(connectionId).SendAsync("orderOffer", order);
+            Console.WriteLine("uspjesno proslo");
+        }
+        private void sendOfferToCourier(int orderId)
+        {
+            Order order = _orderRepository.findById(orderId);
+            Courier courier = _userRepository.findActiveCourier();
+            string connectionId = ConnectionMapping.GetConnections(courier.Id.ToString()).FirstOrDefault();
+            _hub.Clients.Client(connectionId).SendAsync("orderOffer", order);
+            Console.WriteLine("poslano kuriru");
         }
 
         private void createOrderChannel(Order order)
@@ -123,28 +131,24 @@ namespace backend.Services.Impl
             _hub.Groups.AddToGroupAsync(getConnectionId(user.Id.ToString()), chanellName);
         }
 
-        public void acceptOrder (Order order)
-        {
-            //_orderRepository.findById(order.id).orderStatus = OrderStatus.IN_PREPARATION;
-            //order.orderStatus = OrderStatus.IN_PREPARATION;
-            //findCourier(order);
-        }
+        
 
-        public void findCourier (Order order)
+        public Courier findCourier (Order order)
         {
-            //Todo: Find closest courier (implement some algorithm)
-            //int courierId = 3;
-            //string connectionid = ConnectionMapping.GetConnections(courierId).First();
-            //addToGroup(order, order.courier);
-            //_hub.Clients.Client(connectionid).SendAsync("orderOffer", JsonSerializer.Serialize(order));
-            //Console.WriteLine("after hub call to courier");
-            //courierAcceptedOffer(order);
+            //Todo: Find closest courier(implement some algorithm)
+            Courier courier = _userRepository.findActiveCourier();
+            string connectionid = ConnectionMapping.GetConnections(courier.connectiod).First();
+            addToGroup(order, order.Courier);
+            _hub.Clients.Client(connectionid).SendAsync("orderOffer", JsonSerializer.Serialize(order));
+            Console.WriteLine("after hub call to courier");
+            courierAcceptedOffer(order);
+            return courier;
         }
 
         private void courierAcceptedOffer(Order order)
         {
-            //string chanellName = "order" + order.Id.ToString();
-            //_hub.Clients.Group(chanellName).SendAsync("orderOffer", JsonSerializer.Serialize(order));
+            string chanellName = "order" + order.Id.ToString();
+            _hub.Clients.Group(chanellName).SendAsync("orderOffer", JsonSerializer.Serialize(order));
         }
 
         private string getConnectionId (string id)

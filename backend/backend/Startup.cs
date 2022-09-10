@@ -27,16 +27,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using backend.ErrorHandler;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-<<<<<<< HEAD
 using Microsoft.Extensions.FileProviders;
 using System.IO;
-=======
 using Stripe;
-<<<<<<< HEAD
->>>>>>> d32c5ca (added files for stripe integration)
-=======
 using System.Web.Http;
->>>>>>> b18f049 (task-20 implemented online payment with stripe integration)
 //using AutoMapper.Configuration;
 
 namespace backend
@@ -155,34 +149,32 @@ namespace backend
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<UserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
-<<<<<<< HEAD
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<CustomerService, CustomerService>();
+
             services.AddScoped<ImageService, ImageService>();
             services.AddScoped<CourierService, CourierService>();
             services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
-=======
+
             services.AddScoped<IProductService, Services.Impl.ProductService>();
             services.AddScoped<Services.Impl.CustomerService, Services.Impl.CustomerService>();
             services.AddScoped<CourierService, CourierService>();
             services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new
-                    SymmetricSecurityKey
-                    (Encoding.UTF8.GetBytes
-                    (Configuration["Jwt:Key"]))
-                };
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            //{
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new
+            //        SymmetricSecurityKey
+            //        (Encoding.UTF8.GetBytes
+            //        (Configuration["Jwt:Key"]))
+            //    };
 
-            });
->>>>>>> d32c5ca (added files for stripe integration)
+            //});
+
 
         }
 
@@ -203,7 +195,7 @@ namespace backend
             
             app.UseRouting();
 
-<<<<<<< HEAD
+
             app.UseCors("CorsPolicy");
 
             app.UseStaticFiles();
@@ -213,14 +205,7 @@ namespace backend
                 RequestPath = new PathString("/Resources")
             });
 
-=======
-          app.UseCors("CorsPolicy");
-<<<<<<< HEAD
-            //app.UseCors("AllowAllHeaders");
->>>>>>> d32c5ca (added files for stripe integration)
-=======
-            
->>>>>>> b18f049 (task-20 implemented online payment with stripe integration)
+
             app.UseAuthentication();
             app.UseAuthorization();
 

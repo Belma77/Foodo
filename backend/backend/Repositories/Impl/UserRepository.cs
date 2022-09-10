@@ -54,5 +54,9 @@ namespace backend.Repositories
         {
             return dbContext.restaurants.Include(r => r.Products).ThenInclude(p => p.Category).Where(r => r.Id == id).FirstOrDefault();
         }
+        public Courier findActiveCourier()
+        {
+            return (Courier)dbContext.couriers.Where(s => s.status == CourierWorkingStatus.ACTIVE).FirstOrDefault();
+        }
     }
 }

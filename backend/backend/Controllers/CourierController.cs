@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using backend.Services;
 using backend.Services.Impl;
+using backend.Utils;
 using Data.Models.Entities;
 using Data.Models.Enums;
 using Data.Models.ViewModels;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AuthorizeAttribute = backend.Filters.CustomAuthorizeAttribute;
 
@@ -24,11 +26,13 @@ namespace backend.Controllers
 
         private readonly CourierService _courierService;
         private IMapper mapper;
+        private UserService _userService; 
 
-        public CourierController(CourierService courierService, IMapper mapper)
+        public CourierController(CourierService courierService, IMapper mapper, UserService userService)
         {
             this._courierService = courierService;
             this.mapper = mapper;
+            this._userService = userService;
 
         }
 
@@ -58,7 +62,9 @@ namespace backend.Controllers
         public IActionResult setStatusActive()
         {
             //Todo get courier from jwt
-            int courierId = 1;
+            string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+            int courierId = int.Parse(userId);
+            Console.WriteLine(courierId);
             _courierService.setStatus(courierId, CourierWorkingStatus.ACTIVE);
             return Ok();
         }
@@ -69,8 +75,18 @@ namespace backend.Controllers
         public IActionResult setStatusInactive()
         {
             //Todo get courier from jwt
-            int courierId = 1;
+            //int courierId = 1;
+            string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+            int courierId = int.Parse(userId);
             _courierService.setStatus(courierId, CourierWorkingStatus.INACVTIVE);
+            return Ok();
+        }
+        [HttpPatch]
+        [Route("acceptOrder")]
+        [AllowAnonymous]
+        public IActionResult CourierAcceptOrder([FromBody] Order order)
+        {
+            _courierService.courierAcceptOrder(order);
             return Ok();
         }
 

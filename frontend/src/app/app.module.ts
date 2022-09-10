@@ -50,6 +50,9 @@ import {CheckoutComponent} from "./views/customer/checkout/checkout.component";
 import { StripeModule } from "stripe-angular";
 import {CancelComponent} from "./views/customer/checkout/cancel.component";
 import { CustomerOderTrackerComponent } from './views/customer/customer-oder-tracker/customer-oder-tracker.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {PopUpComponent} from "./views/courier/dashboard/start-page/pop-up/pop-up.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -78,13 +81,15 @@ import { CustomerOderTrackerComponent } from './views/customer/customer-oder-tra
     HomePageComponent,
     CourierRegisterComponent,
     CourierLoginComponent,
-
     OrderTrackingComponent,
     NewProductComponent,
     ProfileComponent,
     CheckoutComponent,
     CancelComponent,
-    CustomerOderTrackerComponent
+    CustomerOderTrackerComponent,
+PopUpComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -104,7 +109,14 @@ import { CustomerOderTrackerComponent } from './views/customer/customer-oder-tra
     ToastrModule.forRoot({
       positionClass :'toast-bottom-right'
     }),
-    StripeModule.forRoot("pk_test_51Kw0aQKRuZYR6PFuWr7T06KwduEmYLRK07ovV0aGsKLAe41y8Tq8FfVTCxyULkyn2p2SSWNkv5qWBMqM04D6DoKf005ruX3VcY")
+    //meDemoComponent,
+    StripeModule.forRoot("pk_test_51Kw0aQKRuZYR6PFuWr7T06KwduEmYLRK07ovV0aGsKLAe41y8Tq8FfVTCxyULkyn2p2SSWNkv5qWBMqM04D6DoKf005ruX3VcY"),
+      BrowserAnimationsModule,
+    MatDialogModule
+
+  ],
+  entryComponents:[
+    PopUpComponent
   ],
   providers: [
        AuthService,

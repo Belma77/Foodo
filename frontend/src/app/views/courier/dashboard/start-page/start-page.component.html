@@ -1,11 +1,17 @@
 <div class="container content">
     <div class="inactive" *ngIf="!courierIsActive">
-        You are not active. You wont receive orders. 
+      Trenutni status: neaktivan, nećeš primati nadolazeće narudžbe.
         <button class="change-to-active" (click)="setActive()">
-            Start delivering <i class="fas fa-bicycle"></i>
+            Počni dostavljati <i class="fas fa-bicycle"></i>
         </button>
     </div>
     <div class="active" *ngIf="courierIsActive">
-        You are active. Be ready to receive orders.
+      Trenutni status: aktivan, budi spreman za nadolazeće narudžbe.
+      <button class="change-to-inactive" (click)="setInactive()">
+        Završi dostavljanje <i class="fas fa-bicycle"></i>
+      </button>
+
     </div>
+
 </div>
+

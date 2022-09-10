@@ -10,7 +10,7 @@ namespace backend.Utils
         public static readonly Dictionary<string, HashSet<string>> _connections =
             new Dictionary<string, HashSet<string>>();
 
-        private static int counter = 1;
+        private static int counter = 0;
 
         public static int Count
         {
@@ -22,7 +22,7 @@ namespace backend.Utils
 
         public static void Add(string key, string connectionId)
         {
-            lock (_connections)
+            lock(_connections)
             {
                 HashSet<string> connections;
                 if (!_connections.TryGetValue(key, out connections))
@@ -72,7 +72,8 @@ namespace backend.Utils
                 }
             }
         }
+        }
 
     }
-}
+
 

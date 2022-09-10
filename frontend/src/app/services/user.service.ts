@@ -7,6 +7,7 @@ import {CoreRequestService} from './core-request.service';
 import {UserRole} from "../models/enums/user-role";
 import {Courier} from "../models/courier";
 import {AlertService} from "./alert.service";
+import {SignalRService} from "./signal-r.service";
 
 // import { NotificationService } from './notification.service';
 
@@ -22,7 +23,8 @@ export class UserService {
         private requestService: CoreRequestService,
         private authService: AuthService,
         private router: Router,
-        private alert:AlertService
+        private alert:AlertService,
+        private signalR: SignalRService
         // private notifcationService: NotificationService,
         // private socialAuthService:SocialAuthService
      ) {
@@ -53,11 +55,13 @@ export class UserService {
     async login(user: User): Promise<any> {
         await this.requestService.post('/customer/login', user).then(async (data: { token: string; }) => {
             localStorage.setItem('token', data.token);
+          this.signalR.startConnection();
              await this.doMe().then(() => {
                 this.router.navigate(['/customer/home-page']);
              }).catch((err: any) => {
                console.log(err);
         }).catch((err: any) => {
+               console.log(err);
     });
         });
     }
@@ -66,8 +70,9 @@ export class UserService {
   async courierLogin(user: Courier): Promise<any> {
     await this.requestService.post('/courier/login', user).then(async (data: { token: string; }) => {
       localStorage.setItem('token', data.token);
+      this.signalR.startConnection();
       await this.doMe().then((response:any) => {
-        this.router.navigate(['/customer/home-page']);
+        this.router.navigate(['/courier/dashboard']);
       }).catch((err: any) => {
         console.log(err);
       }).catch((err: any) => {
@@ -81,28 +86,13 @@ getRole()
    var role=this.user.role;
    return role!=null?role:null;
 }
-    // async googlePopupLogin(){
-    //     return await this.socialAuthService
-    //     .signIn(GoogleLoginProvider.PROVIDER_ID)
-    //     .then((res: SocialUser) => {
-    //         return this.googleLogin(res);
-    //     });
-    // }
 
-    // async googleLogin(user:SocialUser){
-    //     await this.requestService.post('/login/social/google', {"idTokenString":user.idToken}).then(async (data: { token: string; }) => {
-    //         localStorage.setItem('token', data.token);
-    //         await this.doMe().then(() => {
-    //             this.router.navigate(['']);
-    //         });
-    //     });
-    // }
 
     async doMe() {
         await this.requestService
             .get('/user/doMe')
-            .then((res: User) => {    
-                console.log(res)           
+            .then((res: User) => {
+                console.log(res)
                 this.user = res;
             })
             .catch((err: any) => {
@@ -116,8 +106,6 @@ getRole()
         // this.socialAuthService.signOut();
     }
 
-    async forgotPassword(email: String) {
-        await this.requestService.post(`/password/forgot`, email);
-    }
+
 
 }

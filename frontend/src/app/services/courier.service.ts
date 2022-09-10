@@ -20,10 +20,14 @@ export class CourierService {
   setStatusInactive() {
     this.requestService.patch('/courier/status/inacvtive', {});
   }
-
+  courierAcceptOrder(order:Order)
+  {
+    this.requestService.patch('courier/acceptOrder', order);
+  }
   receiveOrderOffer (order:Order) {
     console.log("test")
     this.order = order;
-    this.router.navigateByUrl('/courier/dashboard/order/offer')
+   // this.router.navigateByUrl('/courier/dashboard/order/offer');
+
   }
 }

@@ -1,8 +1,37 @@
-<p>customer-oder-tracker works!</p>
 
-<mat-progress-bar mode="buffer" value=25 bufferValue=50 *ngIf="progresValue > 0"></mat-progress-bar>
-<!--<div>
-  <p *ngFor="let i of rangeArray">
-    Angular Progress Bar
-  </p>
-</div>-->
+<!--<ul>
+    <li>
+      <img src="assets/food_preparation.jpg"><br>
+
+      <p>Narudžba u pripremi</p>
+    </li>
+    <li>
+      <img src="assets/pick_up_color.png"><br>
+      <p>Narudžba preuzeta</p>
+    </li>
+    <li>
+      <img src="assets/delivery.webp"><br>
+      <p>Narudžba na putu</p>
+    </li>
+    <li>
+      <img src="assets/delivered.png"><br>
+      <p>Narudžba dostavljena</p>
+    </li>
+  </ul>-->
+
+
+<html>
+<body>
+
+<h3>{{ name}}</h3>
+
+<div class="container">
+ <span *ngFor="let item of counts;let i = index">
+   <span class="circle-desc" [class.circle-desc-active]="orderStatus == item">{{ item }}</span>
+   <span class="circles" [class.active]="orderStatus == item"></span>
+   <span class="bar" *ngIf="(i != counts.length-1)"></span>
+ </span>
+</div>
+
+</body>
+</html>

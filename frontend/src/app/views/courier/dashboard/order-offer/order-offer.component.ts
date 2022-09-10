@@ -3,6 +3,8 @@ import { interval } from 'rxjs';
 import { Order } from 'src/app/models/order';
 import { CourierService } from 'src/app/services/courier.service';
 import order from '../../../../mock/order.json'
+import {MatDialog} from "@angular/material/dialog";
+import {PopUpComponent} from "../start-page/pop-up/pop-up.component";
 
 @Component({
   selector: 'app-order-offer',
@@ -21,7 +23,7 @@ export class OrderOfferComponent implements OnInit {
   origin = { lat: 43.3438, lng: 17.8078 };
   destination = { lat: 43.3538, lng: 17.8178 };
 
-  constructor(private courierService: CourierService) { 
+  constructor(private courierService: CourierService ) {
     // this.order = order;
   }
 
@@ -33,9 +35,8 @@ export class OrderOfferComponent implements OnInit {
       })
   }
 
-  // get order () {
-  //   return this.courierService.order;
-  // }
+
+
 
   acceptOrder () {
     console.log("accept order");
@@ -46,6 +47,6 @@ export class OrderOfferComponent implements OnInit {
   }
 
 
-  
+
 
 }
