@@ -40,14 +40,11 @@ const routes: Routes = [
   {path:'login-restaurant', component:LoginComponentRestaurant},
   {path:'register-business', component:RestaurantRegisterComponent},
   {path:'checkout', component:CheckoutComponent},
-  {path:'cancel', component:CancelComponent},
   {path:'restaurant/:slug', component:RestaurantComponent},
-
+  {path:'restaurantOrders', component:OrdersComponent},
 
   // Restaurant dashboard links
-
   {path:'customer-order-tracking', component:CustomerOderTrackerComponent},
-
   {
     path:'restaurant/admin/dashboard',
     component:DashboardComponent,

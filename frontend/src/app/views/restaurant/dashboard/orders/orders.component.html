@@ -1,4 +1,20 @@
-radi
-<div *ngFor="let order of pendingOrders">
-    {{order.id}}
+<div class="container">
+<h3>Aktivne narudžbe</h3>
+<table>
+    <tr>
+     <th>ID narudžbe</th>
+      <th>Naziv proizvoda</th>
+      <th>Kolicina</th>
+      <th>Totalna cijena</th>
+    </tr>
+    <tbody>
+    <tr *ngFor="let s of pendingOrders">
+      <td>{{s.id}}</td>
+     <td *ngFor="let orderLine of s.orderLine | keyvalue">
+       <h2 *ngFor="let o of orderLine | keyvalue">{{o.key}}:{{o.value}}</h2></td>
+
+    </tr>
+    </tbody>
+
+</table>
 </div>

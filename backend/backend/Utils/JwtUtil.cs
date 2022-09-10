@@ -23,7 +23,8 @@ namespace backend.Utils
             var claims = new[] {
             new Claim(ClaimTypes.Role, user.role.ToString()),
             new Claim(ClaimTypes.Email, user.email),
-            new Claim(ClaimTypes.Name, user.Id.ToString())
+            new Claim(ClaimTypes.Name, user.Id.ToString()),
+            
         };
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
@@ -57,26 +58,12 @@ namespace backend.Utils
             return true;
         }
 
-        //public static User getUserFromToken(string token)
-        //{
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var payload = tokenHandler.ReadJwtToken(token).Payload;
-        //    Restaurant user = JsonSerializer.Deserialize<Restaurant>(payload.Claims.First(c => c.Type == USER_TYPED_KEY).Value);
-
-        //    if(user != null)
-        //    {
-        //        return user;
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("Unable to get User information");
-        //    }
-        //}
-        public static Customer getUserFromToken(string token)
+       
+        public static User getUserFromToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var payload = tokenHandler.ReadJwtToken(token).Payload;
-            Customer user = JsonSerializer.Deserialize<Customer>(payload.Claims.First(c => c.Type == USER_TYPED_KEY).Value);
+            User user = JsonSerializer.Deserialize<User>(payload.Claims.First(c => c.Type == USER_TYPED_KEY).Value);
 
             if (user != null)
             {

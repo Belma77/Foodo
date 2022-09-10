@@ -52,7 +52,7 @@ export class LoginComponentRestaurant implements OnInit {
                  .login(this.loginForm.value)
                  .then(() => {
                      console.log("logiran");
-                     this.router.navigateByUrl('/customer/home-page');
+                     this.router.navigateByUrl('/restaurant/admin/dashboard');
                })
               .catch((err) => {
                 console.log(err);

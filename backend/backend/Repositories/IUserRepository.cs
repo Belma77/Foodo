@@ -20,5 +20,6 @@ namespace backend.Repositories
         public void update(User user);
 
         public Restaurant findRestaurantById(int id);
+        public Courier findActiveCourier();
     }
 }

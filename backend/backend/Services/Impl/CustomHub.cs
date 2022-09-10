@@ -12,6 +12,9 @@ namespace backend.Services.Impl
         {
             ConnectionMapping.Add(Context.User.Identity.Name, Context.ConnectionId);
             Console.WriteLine("Client connected");
+            Console.WriteLine(Context.User.Identity.Name);
+            Console.WriteLine(Context.ConnectionId);
+
             return base.OnConnectedAsync();
         }
 

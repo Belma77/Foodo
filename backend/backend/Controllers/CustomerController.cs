@@ -66,12 +66,8 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("order/create")]
-<<<<<<< HEAD
-        [Authorize(UserRole.Customer)]
-=======
+        //[Authorize(UserRole.Customer)]
         [AllowAnonymous]
-        //[Authorize]
->>>>>>> d32c5ca (added files for stripe integration)
         public IActionResult createOrder([FromBody] OrderViewModel order)
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
@@ -118,47 +114,6 @@ namespace backend.Controllers
             return Ok(order);
             //return Ok(JsonSerializer.Serialize());
         }
-<<<<<<< HEAD
-
-        //[HttpGet]
-        //[Route("doMe")]
-        //[AllowAnonymous]
-        //public ActionResult<User> doMe()
-        //{
-
-        //    try
-        //    {
-        //        var pathBase = HttpContext.Items;
-
-        //        User user = (User)pathBase[USER_TYPED_KEY];
-                
-        //        //return Ok(_customerService.doMe(user));
-        //        User u = us.doMe(user);
-        //        return Ok(u); 
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new Exception();
-        //    }
-        //}
-        private UserDto getUserDto()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                var claims = identity.Claims;
-                return new UserDto
-                {
-                    //userName = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value,
-                    email = claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
-
-                    //role = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value,
-                };
-            }
-            return null;
-        }
-=======
->>>>>>> b18f049 (task-20 implemented online payment with stripe integration)
         
     }
 

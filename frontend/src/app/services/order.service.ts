@@ -5,15 +5,21 @@ import { Product } from '../models/product';
 import { Restaurant } from '../models/restaurant';
 import { CoreRequestService } from './core-request.service';
 import Stripe = stripe.Stripe;
+import {webSocket} from 'rxjs/WebSocket';
+import {CourierService} from "./courier.service";
+import {StartPageComponent} from "../views/courier/dashboard/start-page/start-page.component";
+import {PopUpComponent} from "../views/courier/dashboard/start-page/pop-up/pop-up.component";
+import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-
+  subject = webSocket('ws://localhost:4200/');
   currentOrder:OrderForm | null = null;
-
-  constructor(private requestService:CoreRequestService) { }
+  pendingOrders:Order[] = [];
+  newOrder: any;
+  constructor(private requestService:CoreRequestService, private courierService: CourierService, private modal:NgbModal) { }
 
   addProductToOrder(product:Product) {
     if(!this.currentOrder)
@@ -47,7 +53,15 @@ export class OrderService {
     else
       this.calculatePrice();
   }
-
+  calculatePrice() {
+    var orderLines = Object.values(this.currentOrder!.orderLine);
+    let totalPrice = 0;
+    Object.keys(this.currentOrder!.orderLine).map((key:string) => {
+      let value = this.currentOrder!.orderLine[key];
+      totalPrice += value.product.price * value.quanity;
+    })
+    this.currentOrder!.price = totalPrice;
+  }
    async makeOrder(retraurant: Restaurant) {
     let order = new OrderPost;
     order.restaurantId = retraurant.id;
@@ -59,11 +73,13 @@ export class OrderService {
       order.orderLine.push(orderLine);
     })
      await this.requestService.post('/customer/order/create', order)
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+
+      })
       .catch(e => console.log(e))
 
      await this.Pay(order);
-
   }
  async Pay(order:any)
 {
@@ -78,13 +94,34 @@ export class OrderService {
     })
     .catch((error:any)=> {})
 }
-  calculatePrice() {
-    var orderLines = Object.values(this.currentOrder!.orderLine);
-    let totalPrice = 0;
-    Object.keys(this.currentOrder!.orderLine).map((key:string) => {
-      let value = this.currentOrder!.orderLine[key];
-      totalPrice += value.product.price * value.quanity;
-    })
-    this.currentOrder!.price = totalPrice;
+  open() {
+    const modalRef = this.modal.open(PopUpComponent);
+    modalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
+    modalRef.componentInstance.data = this.newOrder;
   }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+  addPendingOrder(order:Order) {
+    let contains = false;
+    this.pendingOrders.map(o => {
+      if(o.id === order.id) {
+        contains = true;
+      }
+    })
+
+    if(!contains)
+      this.pendingOrders.push(order);
+      this.newOrder=order;
+      this.open();
+
+  }
+
+
 }

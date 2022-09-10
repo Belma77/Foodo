@@ -8,6 +8,7 @@ import { CoreRequestService } from './core-request.service';
 import {User} from "../models/user.model";
 import {UserService} from "./user.service";
 import { Order } from '../models/order';
+import {SignalRService} from "./signal-r.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,9 @@ import { Order } from '../models/order';
 export class RestaurantService {
   restaurant!: Restaurant;
   categories:Category[] = [];
-  pendingOrders:Order[] = [];
 
-  constructor(private requestService:CoreRequestService, private router:Router, private authService: AuthService, private userService:UserService) {
+  constructor(private requestService:CoreRequestService, private router:Router, private authService: AuthService, private userService:UserService,
+              private signalRservice: SignalRService) {
       this.getCategories();
    }
 
@@ -78,7 +79,9 @@ export class RestaurantService {
     await this.requestService.post('/restaurant/Login', user).then(async (data: { token: string; }) => {
       localStorage.setItem('token', data.token);
       console.log(data.token)
+      this.signalRservice.startConnection();
       await this.userService.doMe().then((data) => {
+
         this.router.navigate(['/restaurant/admin/dashboard']);
       });
     });
@@ -88,15 +91,6 @@ export class RestaurantService {
     return await this.requestService.put("/restaurant/profile", formData);
   }
 
-  addPendingOrder(order:Order) {
-    let contains = false;
-    this.pendingOrders.map(o => {
-      if(o.id === order.id) {
-        contains = true;
-      }
-    })
 
-    if(!contains)
-      this.pendingOrders.push(order);
-  }
+
 }

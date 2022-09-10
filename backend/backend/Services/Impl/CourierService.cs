@@ -24,13 +24,20 @@ namespace backend.Services.Impl
         private IHubContext<CustomHub> _hub;
         UserRepository _UserRepository;
         IMapper _mapper;
+        string token;
+        OrderRepository _orderRepository;
+        OrderService _orderService;
         public CourierService(IHubContext<CustomHub> hub,
                               UserRepository UserRepository, 
-                              IMapper mapper) 
+                              IMapper mapper,
+                              OrderRepository orderRepository,
+                              OrderService orderService) 
         {
             this._hub = hub;
             this._UserRepository = UserRepository;
             this._mapper = mapper;
+            this._orderRepository = orderRepository;
+            this._orderService = orderService;
         }
         public void Register([FromBody] Courier courier)
         {
@@ -56,7 +63,8 @@ namespace backend.Services.Impl
                 courier.password = hashedPassword;
                 courier.StoredSalt = salt;
                 courier.role = UserRole.Courier;
-
+                courier.firstName = courier.firstName;
+                courier.lastName = courier.lastName;
                 _UserRepository.create(courier);
             }
         }
@@ -71,7 +79,7 @@ namespace backend.Services.Impl
                     throw new DomainUnauthorizedException("Incorrect password");
                 else
                 {
-                    string token = JwtUtil.generateToken(_mapper.Map<UserDto>(courier));
+                    token = JwtUtil.generateToken(_mapper.Map<UserDto>(courier)); 
                     return new ResponseToken(token);
                 }
             }
@@ -94,6 +102,13 @@ namespace backend.Services.Impl
             courier.status = status;
             _UserRepository.update(courier);
         }
+        public void courierAcceptOrder(Order order)
+        {
+            _orderRepository.findById(order.Id).orderStatus = OrderStatus.IN_PREPARATION;
+            order.orderStatus = OrderStatus.IN_PREPARATION;
+            order.Courier.Id = _orderService.findCourier(order).Id;
+        }
+
     }
 }
 

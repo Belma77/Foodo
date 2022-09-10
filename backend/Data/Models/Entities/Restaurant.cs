@@ -33,7 +33,7 @@ namespace Data.Models.Entities
 
         public virtual ICollection<Order> Orders { get; set; }
 
-        public string phone { get; set; }
+        public string phoneNumber { get; set; }
 
 
     }
