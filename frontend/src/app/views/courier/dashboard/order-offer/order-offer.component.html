@@ -1,17 +1,27 @@
-<div class="container">
-    <div class="wrapper">
-        <div class="map-wrapper">
-            <h1>map</h1>
-            <agm-map [latitude]="origin.lat" [longitude]="origin.lng">
-                <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
-            </agm-map>
-        </div>
+<div class="wrapper">
+    <div class="map-wrapper">
+        <!-- {{restaurantLocation}}
+        {{customerLocation}} -->
+        <agm-map [latitude]="restaurantLocation.lat" [longitude]="restaurantLocation.lng">
+            <agm-direction [origin]="restaurantLocation" [destination]="customerLocation"></agm-direction>
+        </agm-map>
+    </div>
+    <div class="info-wrapper">
         <div class="order-info">
-            <h2>Narudzba #{{order.id}}</h2>
-            <h2>Kupac</h2>
-            <hr>
-            <h4>{{order.customer.firstName}} {{order.customer.lastName}}</h4>
+            <span class="nadoknada">Nadoknada za dostavu: <span class="value">2.00KM</span></span>
+            <br>
+            <div class="restaurantName">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span class="restaurantName"><strong>{{order.restaurant.name}}</strong></span>
+            </div>
 
+            <div class="restaurantLocation">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span><strong>{{order.restaurant.location.formatedAdress}}</strong></span>
+            </div>
+            
+            <br>
+           
         </div>
     </div>
 </div>

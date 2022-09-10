@@ -87,7 +87,7 @@ import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.c
     NgxDropzoneModule,
     NgSelectModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAr-DXPnb3x_qS7ICWsCU64E8t41x85SyM',
+      apiKey: 'AIzaSyB1J_YHQhrv9OmDWFm43_8koYgycCzeEh4',
       libraries: ['places']
     }),
     AgmDirectionModule,

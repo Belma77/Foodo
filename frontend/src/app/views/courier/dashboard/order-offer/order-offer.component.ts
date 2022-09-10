@@ -10,10 +10,11 @@ import order from '../../../../mock/order.json'
   styleUrls: ['./order-offer.component.scss']
 })
 export class OrderOfferComponent implements OnInit {
+  order:Order;
+
 
   counter = 15;
   inter = interval(1000);
-  order!:Order;
 
   lat = 17.8078;
   long = 43.3438;
@@ -22,10 +23,11 @@ export class OrderOfferComponent implements OnInit {
   destination = { lat: 43.3538, lng: 17.8178 };
 
   constructor(private courierService: CourierService) { 
-    // this.order = order;
+    this.order = courierService.order!;
   }
 
   ngOnInit(): void {
+    console.log("test")
       this.inter.subscribe(() => {
         this.counter--;
         if(this.counter == 0)
@@ -33,16 +35,26 @@ export class OrderOfferComponent implements OnInit {
       })
   }
 
-  // get order () {
-  //   return this.courierService.order;
-  // }
-
   acceptOrder () {
     console.log("accept order");
   }
 
   rejectOrder () {
     console.log("reject order")
+  }
+
+  get restaurantLocation () {
+    return {
+      lat: order.restaurant.location.latitude,
+      lng: order.restaurant.location.longitude
+    }
+  }
+
+  get customerLocation () {
+    return {
+      lat: order.customer.location.latitude,
+      lng: order.customer.location.longitude
+    }
   }
 
 
