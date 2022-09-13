@@ -8,9 +8,9 @@ import { CoreRequestService } from './core-request.service';
   providedIn: 'root'
 })
 export class CourierService {
-
+activeOrder: Order | undefined;
   order:Order | null = null;
-
+pendingOrders:Order[]=[];
   constructor(private requestService: CoreRequestService, private router:Router) { }
 
   setStatusActive() {
@@ -18,16 +18,16 @@ export class CourierService {
   }
 
   setStatusInactive() {
-    this.requestService.patch('/courier/status/inacvtive', {});
+    this.requestService.patch('/courier/status/inactive', {});
   }
   courierAcceptOrder(order:Order)
   {
     this.requestService.patch('courier/acceptOrder', order);
+    this.activeOrder=order;
+    this.pendingOrders.push(order);
+    this.router.navigateByUrl('/courier/dashboard/order/offer');
   }
   receiveOrderOffer (order:Order) {
-    console.log("test")
-    this.order = order;
-   // this.router.navigateByUrl('/courier/dashboard/order/offer');
 
   }
 }

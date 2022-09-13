@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { LogLevel, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import  { LogLevel, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { Order } from '../models/order';
 import { CourierService } from './courier.service';
 import { RestaurantService } from './restaurant.service';
 import {OrderService} from "./order.service";
 import {PopUpComponent} from "../views/courier/dashboard/start-page/pop-up/pop-up.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService {
-
+  newOrder:any;
   private hubConnection!:HubConnection;
 
   constructor(private orderService:OrderService) {
@@ -38,7 +39,7 @@ export class SignalRService {
     .start()
     .then(() => {
       console.log('Connection started');
-      //this.registerListeners();
+      this.registerListeners();
     })
     .catch(err => console.log('Error while starting connection: ' + err))
   }
@@ -47,9 +48,12 @@ export class SignalRService {
     this.hubConnection.on('orderOffer', (data:Order) => {
       console.log(data)
       console.log("stigla")
-      this.orderService.addPendingOrder(data);
-      //this.orderService.open();
-    })
+
+      this.orderService.sendToCourier(data);
+      console.log("signalR sending data");
+      //this.orderService.sendToRestaurant(data);
+
+   })
   }
 
   public registerListeners() {

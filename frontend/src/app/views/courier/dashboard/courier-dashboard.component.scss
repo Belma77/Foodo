@@ -4,12 +4,14 @@
     font-size: 20px;
     font-weight: bold;
     padding: 10px;
-    background-color: #FA9269;;
+    background-color: #FA9269;
     color:white;
 }
-
+.container{
+  font-size: 20px;
+}
 .wrapper {
-    // display: flex;
+    //display: flex;
     position: relative;
     height: 100%;
     width: 100%;
@@ -19,7 +21,7 @@
         position: absolute;
         top:0;
         left:-200px;
-        background-color: lightgray;
+        background-color: #cecece;
         height: 100%;
         transition: all .5s;
 
@@ -39,9 +41,10 @@
 
                 a {
                     text-decoration: none;
-                    font-size: 25px;
+                    font-size: 20px;
                     color:inherit;
-
+                    font-family: sans-serif;
+                  align-items: center;
                     .icon-wrapper {
                         height: 20px;
                         width: 20px;

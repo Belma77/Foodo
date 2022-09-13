@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user.model';
 import {AuthService} from "../../../services/auth.service";
 import {UserService} from "../../../services/user.service";
 import { RestaurantService } from 'src/app/services/restaurant.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -16,8 +17,8 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
 export class HomePageComponent implements OnInit {
   restaurants!:Restaurant[]
   constructor(
-private authService:AuthService, private userService:UserService, private restaurantService:RestaurantService) {
-      
+private authService:AuthService, private userService:UserService, private restaurantService:RestaurantService, private router:Router) {
+
    }
 
   ngOnInit(): void {

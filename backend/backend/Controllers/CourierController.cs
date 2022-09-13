@@ -26,13 +26,14 @@ namespace backend.Controllers
 
         private readonly CourierService _courierService;
         private IMapper mapper;
-        private UserService _userService; 
-
-        public CourierController(CourierService courierService, IMapper mapper, UserService userService)
+        private UserService _userService;
+        private OrderService _orderService;
+        public CourierController(CourierService courierService, IMapper mapper, UserService userService,OrderService orderService)
         {
             this._courierService = courierService;
             this.mapper = mapper;
             this._userService = userService;
+            this._orderService= orderService;
 
         }
 
@@ -89,6 +90,8 @@ namespace backend.Controllers
             _courierService.courierAcceptOrder(order);
             return Ok();
         }
+        
+
 
     }
 }

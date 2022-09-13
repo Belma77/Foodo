@@ -3,6 +3,7 @@ import {OrderService} from "../../../../../services/order.service";
 import {Order} from "../../../../../models/order";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CourierService} from "../../../../../services/courier.service";
+import {StartPageComponent} from "../start-page.component";
 
 @Component({
   selector: 'app-pop-up',
@@ -12,16 +13,17 @@ import {CourierService} from "../../../../../services/courier.service";
 export class PopUpComponent implements OnInit {
   @Input() response: any;
   @Input() title:any;
-  @Input() data:Order=new Order();
-  constructor(private orderService:OrderService, public activeModal: NgbActiveModal, private courierService:CourierService) { }
+  @Input() data: Order | undefined;
+
+  constructor(private courierService: CourierService,public modal:NgbActiveModal, public start: StartPageComponent) { }
 
   ngOnInit(): void {
 
   }
-  acceptOrder(order:Order)
+  AcceptOrder(order:Order)
   {
     this.courierService.courierAcceptOrder(order);
-    this.activeModal.close();
+    this.modal.close();
 
   }
 

@@ -53,8 +53,8 @@ namespace backend.Services.Impl
             _orderRepository.create(order);
 
             //sendOfferToRestaurant(order.Id);
-            sendOfferToCourier(order.Id);
-            //sendOfferToRestaurant(order.Id);
+            sendOfferToCourier(order);
+           
         }
         public string CreateSession(OrderViewModel o)
         {
@@ -70,9 +70,10 @@ namespace backend.Services.Impl
 
         var service = new SessionService();
         Session session = service.Create(options);
-          return   session.Url;
+           
+            return   session.Url;
             
-    }
+        }
 
         public List<SessionLineItemOptions> CreatesessionLineItemOptions(OrderViewModel o)
         {
@@ -108,11 +109,11 @@ namespace backend.Services.Impl
             Order order = _orderRepository.findById(orderId);
             string connectionId = ConnectionMapping.GetConnections(order.RestaurantId.ToString()).FirstOrDefault();
             _hub.Clients.Client(connectionId).SendAsync("orderOffer", order);
-            Console.WriteLine("uspjesno proslo");
+            Console.WriteLine("poslano restoranu");
         }
-        private void sendOfferToCourier(int orderId)
+        public void sendOfferToCourier(Order order)
         {
-            Order order = _orderRepository.findById(orderId);
+            Order o = _orderRepository.findById(order.Id);
             Courier courier = _userRepository.findActiveCourier();
             string connectionId = ConnectionMapping.GetConnections(courier.Id.ToString()).FirstOrDefault();
             _hub.Clients.Client(connectionId).SendAsync("orderOffer", order);
@@ -137,11 +138,11 @@ namespace backend.Services.Impl
         {
             //Todo: Find closest courier(implement some algorithm)
             Courier courier = _userRepository.findActiveCourier();
-            string connectionid = ConnectionMapping.GetConnections(courier.connectiod).First();
-            addToGroup(order, order.Courier);
-            _hub.Clients.Client(connectionid).SendAsync("orderOffer", JsonSerializer.Serialize(order));
-            Console.WriteLine("after hub call to courier");
-            courierAcceptedOffer(order);
+            //string connectionid = ConnectionMapping.GetConnections(courier.connectiod).First();
+            //addToGroup(order, order.Courier);
+            //_hub.Clients.Client(connectionid).SendAsync("orderOffer", JsonSerializer.Serialize(order));
+            //Console.WriteLine("after hub call to courier");
+            //courierAcceptedOffer(order);
             return courier;
         }
 

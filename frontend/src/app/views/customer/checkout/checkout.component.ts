@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CourierService} from "../../../services/courier.service";
+import {OrderService} from "../../../services/order.service";
 
 @Component({
   selector: 'app-checkout',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private orderService:OrderService) { }
 
   ngOnInit(): void {
+
   }
 
 

@@ -11,7 +11,7 @@
     <tr *ngFor="let s of pendingOrders">
       <td>{{s.id}}</td>
      <td *ngFor="let orderLine of s.orderLine | keyvalue">
-       <h2 *ngFor="let o of orderLine | keyvalue">{{o.key}}:{{o.value}}</h2></td>
+       {{orderLine.value.product.name}}</td>
 
     </tr>
     </tbody>

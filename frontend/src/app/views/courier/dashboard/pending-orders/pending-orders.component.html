@@ -1,0 +1,24 @@
+
+<div class="container">
+  <h3>Aktivne narudžbe</h3>
+  <table>
+    <tr>
+      <th>ID narudžbe</th>
+      <th>Stavke narudzbe</th>
+      <th>Restoran</th>
+<!--      <th>Restoran adresa</th>-->
+      <th>Kupac</th>
+<!--      <th>Kupac adresa</th>-->
+      <th>Status</th>
+    </tr>
+    <tbody>
+    <tr *ngFor="let s of getPendingOrder()">
+      <td>{{s.id}}</td>
+      <td>{{s.restaurant.name}}</td>
+      <td>{{s.customer.firstName}} {{s.customer.lastName}}</td>
+      <td>{{s.orderStatus}}</td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>

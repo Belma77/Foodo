@@ -5,20 +5,34 @@
 <div class="wrapper">
     <div class="sidebar" [ngClass]="{'sidebar-open' : opened}">
         <div class="container">
-            <div class="logo">
-                <h1>Foodo</h1>
-            </div>
+
             <ul>
-                <!-- <li>
-                    <a [routerLink]="['orders']" routerLinkActive="active">
+                 <li>
+                    <a [routerLink]="['pending/orders']" routerLinkActive="active" (click)="onMenuClick()">
                         <div class="icon-wrapper">
-                            <i class="fas fa-hamburger"></i>
                         </div>
-                        Orders
+                        Pending orders
                     </a>
-                </li> -->
+                </li>
+              <li>
+                <a [routerLink]="['order/offer']" routerLinkActive="active" (click)="onMenuClick()">
+                  <div class="icon-wrapper">
+                  </div>
+                  Current Order
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['order/tracking']" routerLinkActive="active" (click)="onMenuClick()">
+                  <div class="icon-wrapper">
+                  </div>
+                  Order tracker
+                </a>
+              </li>
             </ul>
         </div>`
+      <div class="logo">
+        <h1>Foodo</h1>
+      </div>
     </div>
     <router-outlet></router-outlet>
 </div>

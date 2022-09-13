@@ -15,7 +15,7 @@ export class OrderOfferComponent implements OnInit {
 
   counter = 15;
   inter = interval(1000);
-  order!:Order;
+  order:Order | undefined;
 
   lat = 17.8078;
   long = 43.3438;
@@ -23,8 +23,8 @@ export class OrderOfferComponent implements OnInit {
   origin = { lat: 43.3438, lng: 17.8078 };
   destination = { lat: 43.3538, lng: 17.8178 };
 
-  constructor(private courierService: CourierService ) {
-    // this.order = order;
+  constructor(public courierService: CourierService ) {
+
   }
 
   ngOnInit(): void {
@@ -35,7 +35,11 @@ export class OrderOfferComponent implements OnInit {
       })
   }
 
-
+getOrder()
+{
+  this.order=this.courierService.activeOrder;
+  return this.order;
+}
 
 
   acceptOrder () {

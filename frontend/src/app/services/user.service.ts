@@ -103,7 +103,7 @@ getRole()
     logout() {
         location.reload();
         this.authService.logout();
-        // this.socialAuthService.signOut();
+
     }
 
 

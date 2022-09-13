@@ -1,16 +1,16 @@
-<div class="modal-header">
+<div *ngIf="this.start.courierIsActive" class="modal-header">
   <h4 class="modal-title">{{title}}</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
   <p>Broj narudžbe: {{data.id}}</p>
-  <p>Restoran: {{data.restaurant}}</p>
+  <p>Restoran: {{data.restaurant.name}}</p>
 
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Odbij narudžbu</button>
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Prihvati narudžbu</button>
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Odbij narudžbu</button>
+  <button type="button" class="btn btn-outline-dark" (click)="AcceptOrder(data)">Prihvati narudžbu</button>
 </div>
 

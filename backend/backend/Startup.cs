@@ -87,9 +87,13 @@ namespace backend
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                    builder => 
+                    //builder.AllowAnyOrigin()
+                    builder
                     .AllowAnyMethod()
                     .AllowAnyHeader()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:4200")
                     );
             });
 

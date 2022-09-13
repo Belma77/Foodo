@@ -70,7 +70,8 @@ namespace backend.Controllers
         [AllowAnonymous]
         public IActionResult createOrder([FromBody] OrderViewModel order)
         {
-            int userId = int.Parse(HttpContext.User.Identity.Name);
+            //int userId = int.Parse(HttpContext.User.Identity.Name);
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value);
             orderService.createOrder(order, userId);
             return Ok();
         }

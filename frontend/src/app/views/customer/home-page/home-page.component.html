@@ -16,7 +16,8 @@
                     </div>
                     <button class="find-food btn-success"><i class="fas fa-search"></i>Trazi</button>
                 </div>
-                <span class="sign-in"><a [routerLink]="['login']" >Sign in</a> to your recent adresses</span>
+                <h2 *ngIf="!isLoggedIn" class="sign-in"><a [routerLink]="['/login']" >Sign in</a></h2>
+              <h2 *ngIf="isLoggedIn" class="sign-in" (click)="odjaviSe()">Logout</h2>
             </div>
         </div>
     </div>
@@ -137,8 +138,8 @@
             <div class="col-md-4">
                 <h3>Uradimo to zajedno</h3>
                 <ul>
-                    <li><a href="#"></a>Foodo za dostavljače</li>
-                    <li><a href="#"></a>Foodo za biznis</li>
+                    <li><a [routerLink]="['/courier-register']"></a>Foodo za dostavljače</li>
+                    <li><a [routerLink]="['/register-business']" ></a>Foodo za biznis</li>
 
                 </ul>
             </div>
@@ -160,6 +161,7 @@
                     <li><a href="#"></a>Instagram</li>
 
                 </ul>
+
             </div>
         </div>
     </div>

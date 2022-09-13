@@ -23,6 +23,8 @@ import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.c
 import { CheckoutComponent } from './views/customer/checkout/checkout.component';
 import {CancelComponent} from "./views/customer/checkout/cancel.component";
 import {CustomerOderTrackerComponent} from "./views/customer/customer-oder-tracker/customer-oder-tracker.component";
+import {PendingOrdersComponent} from "./views/courier/dashboard/pending-orders/pending-orders.component";
+import {OrderTrackingComponent} from "./views/courier/dashboard/order-tracking/order-tracking.component";
 
 const routes: Routes = [
   {path:'',
@@ -93,6 +95,14 @@ const routes: Routes = [
       {
         path:"order/offer",
         component:OrderOfferComponent
+      },
+      {
+        path:"pending/orders",
+        component:PendingOrdersComponent
+      },
+      {
+        path:"order/tracking",
+        component:OrderTrackingComponent
       },
     ]
   },
