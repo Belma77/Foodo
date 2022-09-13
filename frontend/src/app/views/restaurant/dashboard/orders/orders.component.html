@@ -1,20 +1,38 @@
 <div class="container">
 <h3>Aktivne narudžbe</h3>
-<table>
-    <tr>
-     <th>ID narudžbe</th>
-      <th>Naziv proizvoda</th>
-      <th>Kolicina</th>
-      <th>Totalna cijena</th>
-    </tr>
-    <tbody>
-    <tr *ngFor="let s of pendingOrders">
-      <td>{{s.id}}</td>
-     <td *ngFor="let orderLine of s.orderLine | keyvalue">
-       <h2 *ngFor="let o of orderLine | keyvalue">{{o.key}}:{{o.value}}</h2></td>
-
-    </tr>
-    </tbody>
-
-</table>
+<div class="table">
+  <div class="header">
+    <div class="left">
+      <div class="cell">Order ID</div>
+    </div>
+    <div class="right">
+      <div class="order-row">
+        <div class="cell">Product Name</div>
+        <div class="cell">Product Quanity</div>
+        <div class="cell">Price</div>
+      </div>
+    </div>
+    <div class="left">
+      <div class="cell">Total Price</div>
+    </div>
+  </div>
+  
+  <div class="table-body">
+    <div *ngFor="let s of pendingOrders" class="order-row">
+      <div class="left">
+        <div class="cell">{{s.id}}</div>
+      </div>
+      <div class="right">
+        <div *ngFor="let orderLine of s.orderLine | keyvalue" class="order-row">
+          <div class="cell">{{orderLine.value.product.name}}</div>
+          <div class="cell">{{orderLine.value.quanity}}</div>
+          <div class="cell">{{orderLine.value.product.price * orderLine.value.quanity}}</div>
+        </div>
+      </div>
+      <div class="left">
+        <div class="cell">{{s.price}}</div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>

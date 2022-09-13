@@ -15,10 +15,9 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
 })
 export class HomePageComponent implements OnInit {
   restaurants!:Restaurant[]
-  constructor(
-private authService:AuthService, private userService:UserService, private restaurantService:RestaurantService) {
+  constructor(private authService:AuthService, private userService:UserService, private restaurantService:RestaurantService) {
       
-   }
+  }
 
   ngOnInit(): void {
     this.restaurantService.getRestaurants().then(data => {

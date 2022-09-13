@@ -35,7 +35,7 @@
       "lastName": "Doe"
     },
     "requestTime": "2022-01-02T19:14:12.360Z",
-    "price": 22,
+    "price": 18,
     "orderLine": {
       "1": {
             "product":  {
@@ -50,7 +50,22 @@
             "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
         },
         "quanity": 1,
-        "price": 22
+        "price": 6
+     },
+     "2": {
+      "product":  {
+        "id": 2,
+        "name": "Sandwich",
+        "price": 6,
+        "description": "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
+        "category": {
+            "id":1,
+            "name":"Pizza"
+        },
+        "image": "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
+      },
+      "quanity": 2,
+      "price": 12
      }
     }
   }

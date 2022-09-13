@@ -43,9 +43,10 @@ namespace backend.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize(UserRole.Restaurant)]
-        public IActionResult editProduct([FromForm] Product product, [FromForm] IFormFile file, int id)
+        public IActionResult editProduct([FromForm] string body, [FromForm] IFormFile file, int id)
         {
-            this._productService.edit(product, id);
+            ProductViewModel product = JsonConvert.DeserializeObject<ProductViewModel>(body);
+            this._productService.edit(product, file, id);
             return Ok();
         }
 

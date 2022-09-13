@@ -10,6 +10,7 @@ import {CourierService} from "./courier.service";
 import {StartPageComponent} from "../views/courier/dashboard/start-page/start-page.component";
 import {PopUpComponent} from "../views/courier/dashboard/start-page/pop-up/pop-up.component";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import order from '../mock/order.json';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,9 @@ export class OrderService {
   currentOrder:OrderForm | null = null;
   pendingOrders:Order[] = [];
   newOrder: any;
-  constructor(private requestService:CoreRequestService, private courierService: CourierService, private modal:NgbModal) { }
+  constructor(private requestService:CoreRequestService, private courierService: CourierService, private modal:NgbModal) {
+      this.pendingOrders.push(order);
+   }
 
   addProductToOrder(product:Product) {
     if(!this.currentOrder)
@@ -64,7 +67,7 @@ export class OrderService {
   }
    async makeOrder(retraurant: Restaurant) {
     let order = new OrderPost;
-    order.restaurantId = retraurant.id;
+    order.restaurantId = retraurant.id!;
     Object.keys(this.currentOrder!.orderLine).map((key: string) => {
       let value = this.currentOrder!.orderLine[key];
       let orderLine = new OrderLineForm;
