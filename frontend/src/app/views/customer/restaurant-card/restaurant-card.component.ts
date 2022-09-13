@@ -12,15 +12,14 @@ export class RestaurantCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("test")
   }
 
   @Input() restaurant!: Restaurant;
 
   get imageUrl() {
-    return environment.api + "/download?fileUrl=" + this.replaceBackslashes(this.restaurant.headerImage);
+    return environment.api + "/download?fileUrl=" + this.restaurant.headerImage;
   }
 
-  replaceBackslashes(url:string) {
-    return url.replace(/\\/g, "/");
-  }
+
 }

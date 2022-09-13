@@ -8,9 +8,12 @@ import {
     ReactiveFormsModule
 } from '@angular/forms'; 
 import { ActivatedRoute } from '@angular/router';
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { RestaurantService } from 'src/app/services/restaurant.service';
+import { environment } from 'src/environments/environment';
+
     
 @Component({
     selector: 'app-login',
@@ -22,6 +25,8 @@ export class NewProductComponent implements OnInit {
     selectedCategory!:Category;
     id:number;
     editMode:boolean = false;
+    editImage: boolean = false;
+    image:string | null = null;
 
     files: File[] = [];
     fileError: boolean = false;
@@ -45,8 +50,10 @@ export class NewProductComponent implements OnInit {
         if(this.editMode) {
           this.restaurantService.getProductById(this.id)
             .then(data=> {
-              console.log(data)
-              this.productForm.patchValue(data)
+                console.log(data)
+                this.productForm.patchValue(data)
+                this.productForm.controls['category'].setValue(data.category.id)
+                this.image = data.image;
             })
         }
     }
@@ -57,7 +64,9 @@ export class NewProductComponent implements OnInit {
       console.log(p)
       let formData = new FormData();
       formData.append('body', JSON.stringify(p));
-      formData.append('file', this.files[0], this.files[0].name);
+      if (this.files[0])
+        formData.append('file', this.files[0], this.files[0].name);
+      console.log("salje se")
       if(!this.editMode) 
         this.restaurantService.addProduct(formData);
       else 
@@ -76,8 +85,10 @@ export class NewProductComponent implements OnInit {
 
     validateAllFields(formGroup: FormGroup) {
 
-        if(this.files.length == 0)
-          this.fileError = true;
+        if(this.files.length == 0  && !this.editMode || (this.files.length == 0 && this.editMode && !this.image)) {
+          console.log("file error")
+              this.fileError = true;
+        }
         Object.keys(formGroup.controls).forEach((field) => {
             const control = formGroup.get(field);
             if (control instanceof FormControl) {
@@ -96,6 +107,14 @@ export class NewProductComponent implements OnInit {
     
     onRemove(event:any) {
       this.files.splice(this.files.indexOf(event), 1);
+    }
+
+    setEditImage() {
+      this.editImage = !this.editImage;
+    }
+
+    get imageUrl() {
+      return environment.api + "/download?fileUrl=" + this.image;
     }
 }
 

@@ -43,14 +43,20 @@ namespace backend.Services.Impl
             this._productRepository.create(product);
         }
 
-        public void edit(Product p, int id)
+        public void edit(ProductViewModel p, IFormFile file, int id)
         {
             Product product = _productRepository.find(id);
+
+            if(file != null)
+            {
+                string imagePath = this.imageService.saveImage(file);
+                product.image = imagePath;
+            }
             product.name = p.name;
             product.price = p.price;
             product.description = p.description;
-            product.image = p.image;
-            product.Category = p.Category;
+            Category category = _productRepository.findCategoryById(p.category);
+            product.Category = category;
             _productRepository.update(product);
         }
 

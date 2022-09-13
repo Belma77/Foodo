@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace backend.Repositories.Impl
 
         public Product find(int id)
         {
-            return dbContext.products.Find(id);
+            return dbContext.products.Include(p => p.Category).Where(p => p.Id == id).FirstOrDefault();
         }
 
         public List<Product> getMenu(int restaurantId)

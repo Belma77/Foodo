@@ -85,7 +85,7 @@
                             </ng-select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="editImage || !editMode">
                             <ngx-dropzone (change)="onSelect($event)" [multiple] = "false" accept="image/jpeg,image/jpg,image/png">
                                 <ngx-dropzone-label>Add Meal image!</ngx-dropzone-label>
                                 <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [multiple] = "false">
@@ -99,6 +99,10 @@
                                 Slika je obavezna
                             </span>
                         </div>
+                        <div class="form-group" *ngIf = "!editImage && image && editMode">
+                            <img src="{{imageUrl}}"/>
+                        </div>
+                        <button type="button" *ngIf = "editMode" (click) = "setEditImage()">{{!editImage ? "edit image" : "cancel"}}</button>
 
                         <div class="form-group">
                             <button

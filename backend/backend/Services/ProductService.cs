@@ -11,7 +11,7 @@ namespace backend.Services
 
         public void create(ProductViewModel product, int restaurantId, IFormFile file);
 
-        public void edit(Product product, int id);
+        public void edit(ProductViewModel product, IFormFile file, int id);
 
         public void delete(int id);
 
