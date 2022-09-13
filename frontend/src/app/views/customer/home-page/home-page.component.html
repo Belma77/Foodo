@@ -8,15 +8,20 @@
         </div>
         <div class="center">
             <div class="container">
-                <h1>Order food to your door</h1>
-                <div class="search-inline">
-                    <div class="search-wrapper">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <input type="text" placeholder="Unesite vasu Adresu">
+              <h1>Welcome to Foodo</h1>
+                <h1 class="order">Order food to your door</h1>
+                <div *ngIf="isLoggedIn"  class="search-inline">
+                    <div  class="search-wrapper">
+<!--                        <i class="fas fa-map-marker-alt"></i>-->
+                      <input type="text" placeholder="Pretražite proizvod ili restoran">
                     </div>
                     <button class="find-food btn-success"><i class="fas fa-search"></i>Trazi</button>
                 </div>
-                <span class="sign-in"><a [routerLink]="['login']" >Sign in</a> to your recent adresses</span>
+<!--                <h2 *ngIf="!isLoggedIn" class="sign-in"><a [routerLink]="['/login']" >Sign in</a></h2>-->
+              <button *ngIf="!isLoggedIn" class="prijavi" (click)="prijaviSe()">Prijavi se</button>
+
+
+              <h2 *ngIf="isLoggedIn" class="sign-in" (click)="odjaviSe()"><a [routerLink]="['/login']">Odjavi se</a></h2>
             </div>
         </div>
     </div>
@@ -28,7 +33,7 @@
         <div class="about-foodo container">
             <div class="about-box">
                 <div class="about-image">
-                    <img src="../../../../assets/aboutFoodoRestaurant.svg" alt="">
+           <img src="../../../../assets/rest.jpg" alt="">
                 </div>
                 <div class="about-title">
                     Najbolji restorani u tvom gradu
@@ -39,7 +44,7 @@
             </div>
             <div class="about-box">
                 <div class="about-image">
-                    <img src="../../../../assets/aboutFoodoDelivery.svg" alt="">
+                    <img src="../../../../assets/dostava.jpeg" alt="">
                 </div>
                 <div class="about-title">
                     Brza dostava
@@ -50,16 +55,17 @@
             </div>
             <div class="about-box">
                 <div class="about-image">
-                    <img src="../../../../assets/aboutFoodoLaunch.svg" alt="">
+                    <img src="../../../../assets/pay.jpg" alt="">
                 </div>
                 <div class="about-title">
-                    Dostava namirnica i još mnogo toga
+                    Online plaćanje
                 </div>
                 <div class="about-description">
-                    Pronađi sve što ti treba! Od supermarketa do trgovina, od apoteka do cvjećara — ako je u tvom gradu, možeš računati da ćemo ti to donijeti.
+                    Kroz par koraka do plaćanja narudžbe, sasvim pouzdano i sigurno!
                 </div>
             </div>
         </div>
+
         <div class="divider"></div>
         <div class="foodo-on-work container" *ngIf="!isLoggedIn">
             <h1>Novo - FOODO na poslu</h1>
@@ -73,7 +79,7 @@
                     <button class="btn-outline-secondary btn">Saznaj vise</button>
                 </div>
                 <div class="right col-md-6 px-0">
-                    <img src="../../../../assets/foodoOnWork.jpg" alt="">
+                    <img src="../../../../assets/friends_eating.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -87,15 +93,15 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="divider"></div>
-    <div class="container why-foodo">
+
+    <div  class="divider"></div>
+    <div  class="container why-foodo">
         <h1>Uradimo to zajedno</h1>
     </div>
     <div class="about-foodo container">
         <div class="about-box">
             <div class="about-image">
-                <img src="../../../../assets/aboutFoodoRestaurant.svg" alt="">
+<!--                <img src="../../../../assets/rest.jpg" alt="">-->
             </div>
             <div class="about-title">
                 Najbolji restorani u tvom gradu
@@ -106,7 +112,7 @@
         </div>
         <div class="about-box">
             <div class="about-image">
-                <img src="../../../../assets/aboutFoodoDelivery.svg" alt="">
+<!--                <img src="../../../../assets/dostavi.jpg" alt="">-->
             </div>
             <div class="about-title">
                 Brza dostava
@@ -117,17 +123,18 @@
         </div>
         <div class="about-box">
             <div class="about-image">
-                <img src="../../../../assets/aboutFoodoLaunch.svg" alt="">
+<!--                <img src="../../../../assets/stripe.png" alt="">-->
             </div>
             <div class="about-title">
-                Dostava namirnica i još mnogo toga
+                Online plaćanje
             </div>
             <div class="about-description">
-                Pronađi sve što ti treba! Od supermarketa do trgovina, od apoteka do cvjećara — ako je u tvom gradu, možeš računati da ćemo ti to donijeti.
+              Kroz par koraka do plaćanja narudžbe, sasvim pouzdano i sigurno!
             </div>
         </div>
     </div>
     <div class="divider"></div>
+    </div>
 </main>
 <footer>
     <!-- Todo: Create Footer component -->
@@ -137,10 +144,13 @@
             <div class="col-md-4">
                 <h3>Uradimo to zajedno</h3>
                 <ul>
-                    <li><a href="#"></a>Foodo za dostavljače</li>
-                    <li><a href="#"></a>Foodo za biznis</li>
+                    <li>
+                      <a [routerLink]="['/register/courier']" routerLinkActive="active">Foodo za dostavljače</a>
+                    </li>
+                    <li><a [routerLink]="['/register/business']">Foodo za biznis</a></li>
 
                 </ul>
+              <router-outlet></router-outlet>
             </div>
             <div class="col-md-4">
                 <h3>Vazni linkovi</h3>
@@ -160,6 +170,7 @@
                     <li><a href="#"></a>Instagram</li>
 
                 </ul>
+
             </div>
         </div>
     </div>

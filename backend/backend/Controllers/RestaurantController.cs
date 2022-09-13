@@ -28,11 +28,13 @@ namespace backend.Controllers
     {
         private RestaurantService _restaurantService;
         private readonly IMapper _mapper;
+        private OrderService orderService;
         
-        public RestaurantController(RestaurantService restaurantService, IMapper _mapper)
+        public RestaurantController(RestaurantService restaurantService, IMapper _mapper, OrderService orderService)
         {
             _restaurantService = restaurantService;
             this._mapper = _mapper;
+            this.orderService = orderService;
         }
 
         [HttpPost]
@@ -77,6 +79,15 @@ namespace backend.Controllers
             var userId = HttpContext.User.Identity.Name;
             Restaurant r = JsonConvert.DeserializeObject<Restaurant>(body);
             _restaurantService.editProfile(int.Parse(userId), file, r);
+            return Ok();
+        }
+        [HttpPatch]
+        [Route("accept/order")]
+        [AllowAnonymous]
+        public IActionResult resAcceptOrder([FromBody] Order order)
+        {
+            orderService.restaurantAcceptOrder(order);
+            Console.WriteLine("restoran prihvatio narudzbu");
             return Ok();
         }
     }

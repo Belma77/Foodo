@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Data.Models.Entities
@@ -31,7 +32,8 @@ namespace Data.Models.Entities
         public Location endLocation { get; set; }
 
         public DateTime requestTime { get; set; }
-
+        
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public OrderStatus orderStatus { get; set; }
 
         //Todo: Change this to Payment object

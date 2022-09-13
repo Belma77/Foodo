@@ -9,7 +9,7 @@ namespace Data.Models.ViewModels
 {
     public class OrderViewModel
     {
-        public OrderRecordViewModel[] orderLine { get; set; }
+        public OrderRecordViewModel[] orderRecords { get; set; }
 
         public int restaurantId { get; set; }
     }

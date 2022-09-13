@@ -15,33 +15,26 @@ import {SignalRService} from "../../../../services/signal-r.service";
   styleUrls: ['./start-page.component.scss']
 })
 export class StartPageComponent implements OnInit {
-  courierIsActive: boolean = false;
-  newOrder:boolean=false;
-  order: any;
-  closeResult: string;
-   narudzba : any;
-  modalOptions:NgbModalOptions;
-  constructor(private courierService: CourierService, private modalService: NgbModal) {
-    this.modalOptions = {
-      backdrop:'static',
-      backdropClass:'customBackdrop'
-    }
+  public courierIsActive: boolean = false;
+
+
+  constructor(private courierService: CourierService, private modal: NgbModal, private orderService:OrderService) {
+
   }
 
   ngOnInit(): void {
 
   }
 
-
   setActive() {
     this.courierIsActive = true;
     this.courierService.setStatusActive();
-
   }
   setInactive() {
     this.courierIsActive = false;
     this.courierService.setStatusInactive();
   }
+
 
 
 

@@ -7,3 +7,4 @@ export enum OrderStatus
     DELIVERING = "DELIVERING",
     COMPLETED = "COMPLETED",
 }
+const orderStatus: Array<string> = Object.keys(OrderStatus).filter(key => isNaN(+key));

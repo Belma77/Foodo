@@ -3,7 +3,7 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
 import {OrderService} from "../../../../services/order.service";
 import {Product} from "../../../../models/product";
 import {Order} from "../../../../models/order";
-import { OrderLine } from 'src/app/models/order-line';
+import { OrderRecord} from "../../../../models/order-line";
 
 @Component({
   selector: 'app-orders',
@@ -11,9 +11,9 @@ import { OrderLine } from 'src/app/models/order-line';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
-  orders: Order[] | undefined;
+  orders: Order[]=[];
   newOrder: boolean=false;
-  OrderLine:Map<string,OrderLine[]>=new Map<string, OrderLine[]>();
+
   constructor(private orderService:OrderService) { }
 
   ngOnInit(): void {

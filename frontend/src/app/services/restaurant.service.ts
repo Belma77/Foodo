@@ -71,7 +71,7 @@ export class RestaurantService {
 
   async register(restaurant: Restaurant): Promise<any> {
     await this.requestService.post('/restaurant/register', restaurant).then((data: any) => {
-        this.router.navigate(['/login-restaurant']);
+        this.router.navigate(['/login/business']);
     }).catch((err:any)=>{throw err});
  }
 

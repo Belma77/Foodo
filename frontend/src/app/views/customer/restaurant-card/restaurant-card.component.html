@@ -1,14 +1,16 @@
 <div class="restaurant-card">
     <div class="card-image" [routerLink]="['/restaurant', restaurant.id]">
-        <div class="card-image-inner" [style.background-image]="'url(' + imageUrl + ')'">
-            <div class="card-overlay">
+<!--        <div class="card-image-inner" [style.background-image]="'url(' + imageUrl + ')'">-->
+      <div class="card-image-inner" [ngStyle]="{backgroundImage:'url(assets/res1.jpg)'}" >-
+
+      <div class="card-overlay">
                 <h2>{{restaurant.name}}</h2>
             </div>
         </div>
     </div>
     <div class="card-content">
         <div class="rating">
-            <i class="fas fa-thumbs-up me-2 rating-icon"></i>{{restaurant.rating}}% ({{restaurant.numberOfReviews}})      
+            <i class="fas fa-thumbs-up me-2 rating-icon"></i>{{restaurant.rating}}% ({{restaurant.numberOfReviews}})
         </div>
         <div class="price-and-time">
             <i class="fas fa-car-side"></i> {{restaurant.deliveryCost}} BAM

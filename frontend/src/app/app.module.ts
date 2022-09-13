@@ -53,6 +53,9 @@ import { CustomerOderTrackerComponent } from './views/customer/customer-oder-tra
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {PopUpComponent} from "./views/courier/dashboard/start-page/pop-up/pop-up.component";
 import {MatDialogModule} from "@angular/material/dialog";
+import { PendingOrdersComponent } from './views/courier/dashboard/pending-orders/pending-orders.component';
+import { IncomingOrderComponent } from './views/restaurant/dashboard/incoming-order/incoming-order.component';
+import { ActivitiesComponent } from './views/courier/dashboard/activities/activities.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +90,10 @@ import {MatDialogModule} from "@angular/material/dialog";
     CheckoutComponent,
     CancelComponent,
     CustomerOderTrackerComponent,
-PopUpComponent
+PopUpComponent,
+PendingOrdersComponent,
+IncomingOrderComponent,
+ActivitiesComponent
 
 
   ],

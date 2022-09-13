@@ -10,12 +10,14 @@ using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
 using System.Threading.Tasks;
+using Order = Data.Models.Entities.Order;
 
 namespace backend.Services.Impl
 {
@@ -24,11 +26,13 @@ namespace backend.Services.Impl
         private UserRepository _UserRepository;
         private readonly IMapper _mapper;
         private ImageService _imageService;
+       
         public RestaurantService(UserRepository userRepository, IMapper mapper, ImageService imageService)
         {
             _UserRepository = userRepository;
             _mapper = mapper;
             _imageService = imageService;
+
         }
 
         public void register(Restaurant res)
@@ -55,6 +59,9 @@ namespace backend.Services.Impl
                 res.password = hashedPassword;
                 res.StoredSalt = salt;
                 res.role = UserRole.Restaurant;
+                res.phoneNumber = res.phoneNumber;
+                res.headerImage = res.headerImage;
+
                 _UserRepository.create(res);
             }
         }
@@ -96,12 +103,15 @@ namespace backend.Services.Impl
         {
             Restaurant restaurant = (Restaurant) _UserRepository.findById(userId);
             restaurant.name = r.name;
+            
             if(file != null)
             {
-                restaurant.headerImage = _imageService.saveImage(file);
+               
+                restaurant.headerImage = new string(_imageService.saveImage(file));
             }
             _UserRepository.update(restaurant);
         }
+        
     }
 }
 

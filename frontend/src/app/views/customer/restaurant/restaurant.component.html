@@ -1,7 +1,8 @@
 
 <div *ngIf="restaurant">
     <header>
-        <img *ngIf="restaurant.headerImage" src="{{imageUrl}}" alt="restaurant" class="restaurant-image">
+<!--        <img *ngIf="restaurant.headerImage" src="{{imageUrl}}" alt="restaurant" class="restaurant-image">-->
+      <img src="assets/res1.jpg" alt="restaurant" class="restaurant-image">
         <div class="image-overlay"></div>
     </header>
     <div class="content-sidebar-wrapper">
@@ -10,6 +11,7 @@
 
 <header>
 <!--    <img src="{{restaurant.image}}" alt="restaurant" class="restaurant-image">-->
+  <img src="assets/res1.jpg" alt="restaurant" class="restaurant-image">
     <div class="image-overlay"></div>
 </header>
 <div class="content-sidebar-wrapper">
@@ -68,7 +70,7 @@
         <div class="order-container sidebar">
             <h3>Tvoja Foodo Narudzba</h3>
             <div *ngIf="order; else emptyOrder">
-                <div *ngFor="let orderLine of order.orderLine | keyvalue" class="order-line-info">
+                <div *ngFor="let orderLine of order.orderRecords | keyvalue" class="order-line-info">
                     <app-order-line
                         (incraseQuanityEvent) = "addProductToOrder($event)"
                         (decraseQuanityEvent) = "removeProductFromOrder($event)"
@@ -87,7 +89,7 @@
     <div class="order-container sidebar">
         <h3>Tvoja Foodo Narudzba</h3>
         <div *ngIf="order; else emptyOrder">
-            <div *ngFor="let orderLine of order.orderLine | keyvalue" class="order-line-info">
+            <div *ngFor="let orderLine of order.orderRecords | keyvalue" class="order-line-info">
                 <app-order-line
                     (incraseQuanityEvent) = "addProductToOrder($event)"
                     (decraseQuanityEvent) = "removeProductFromOrder($event)"
@@ -96,7 +98,9 @@
             </div>
 
             <button type="submit" id="checkout-button" (click)="makeOrder()"  class="make-order-btn btn w-100">Naruci za {{order.price}} BAM</button>
-
+          <ng-template #emptyOrder>
+            <p>Još uvijek nisi dodao/la nijedan proizvod. Kad to uradiš, vidjet ćeš ih ovdje!</p>
+          </ng-template>
         </div>
     </div>
 </div>
