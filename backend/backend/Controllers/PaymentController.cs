@@ -40,13 +40,7 @@ namespace backend.Controllers
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
         }
-        private int CalculateOrderAmount(Item[] items)
-        {
-            // Replace this constant with a calculation of the order's amount
-            // Calculate the order total on the server to prevent
-            // people from directly manipulating the amount on the client
-            return 1400;
-        }
+        
 
         public class Item
         {
@@ -54,11 +48,7 @@ namespace backend.Controllers
             public string Id { get; set; }
         }
 
-        public class PaymentIntentCreateRequest
-        {
-            [JsonProperty("items")]
-            public Item[] Items { get; set; }
-        }
+       
     }
 }
 

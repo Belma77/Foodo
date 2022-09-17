@@ -1,11 +1,11 @@
 import { Product } from "./product";
 
-export class OrderLine {
+export class OrderRecord {
     product!:Product;
     quanity!:number;
 }
 
-export class OrderLineForm {
+export class OrderRecordForm {
     productId!:number;
     quanity!:number;
 }

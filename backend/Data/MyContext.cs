@@ -49,12 +49,12 @@ namespace Data
             builder.Entity<Courier>().Property(c => c.firstName).HasColumnName("firstName");
             builder.Entity<Courier>().Property(c => c.lastName).HasColumnName("lastName");
 
-            builder.Entity<Category>()
-                .HasData(
-                   new { Id = 1, name = "Breakfast"},
-                   new { Id = 2, name = "Pasta" },
-                   new { Id = 3, name = "Pizza" }
-                );
+            //builder.Entity<Category>()
+            //    .HasData(
+            //       new { Id = 1, name = "Breakfast"},
+            //       new { Id = 2, name = "Pasta" },
+            //       new { Id = 3, name = "Pizza" }
+            //    );
 
             //builder.Entity<Customer>().HasData(
             //    new Customer

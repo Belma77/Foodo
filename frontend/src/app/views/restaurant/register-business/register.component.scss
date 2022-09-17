@@ -10,11 +10,11 @@
 }
 main {
     margin-top: 0px;
-
+  height: 100%;
 
     .form-wrapper {
         display: flex;
-
+        height: 100vh;
         .left {
             width: 50%;
             background-color: rgb(241, 241, 241);

@@ -23,6 +23,11 @@ import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.c
 import { CheckoutComponent } from './views/customer/checkout/checkout.component';
 import {CancelComponent} from "./views/customer/checkout/cancel.component";
 import {CustomerOderTrackerComponent} from "./views/customer/customer-oder-tracker/customer-oder-tracker.component";
+import {PendingOrdersComponent} from "./views/courier/dashboard/pending-orders/pending-orders.component";
+import {OrderTrackingComponent} from "./views/courier/dashboard/order-tracking/order-tracking.component";
+
+import {ActivitiesComponent} from "./views/courier/dashboard/activities/activities.component";
+
 
 const routes: Routes = [
   {path:'',
@@ -35,10 +40,10 @@ const routes: Routes = [
     component:HomePageComponent,
    // canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf(), UserRole.COURIER.valueOf()]}
   },
-  {path:'courier-register', component:CourierRegisterComponent},
-  {path:'courier-login', component:CourierLoginComponent},
-  {path:'login-restaurant', component:LoginComponentRestaurant},
-  {path:'register-business', component:RestaurantRegisterComponent},
+  {path:'register/courier', component:CourierRegisterComponent},
+  {path:'login/courier', component:CourierLoginComponent},
+  {path:'login/business', component:LoginComponentRestaurant},
+  {path:'register/business', component:RestaurantRegisterComponent},
   {path:'checkout', component:CheckoutComponent},
   {path:'restaurant/:slug', component:RestaurantComponent},
   {path:'restaurantOrders', component:OrdersComponent},
@@ -76,7 +81,8 @@ const routes: Routes = [
       {
         path:'edit-product/:id',
         component:NewProductComponent,
-      }
+      },
+
     ]
   },
 
@@ -93,6 +99,19 @@ const routes: Routes = [
       {
         path:"order/offer",
         component:OrderOfferComponent
+      },
+      {
+        path:"pending/orders",
+        component:PendingOrdersComponent
+      },
+      {
+        path:"order/tracking",
+        component:OrderTrackingComponent
+      },
+
+      {
+        path:"activities",
+        component:ActivitiesComponent
       },
     ]
   },

@@ -18,8 +18,14 @@ export class RestaurantCardComponent implements OnInit {
   @Input() restaurant!: Restaurant;
 
   get imageUrl() {
-    return environment.api + "/download?fileUrl=" + this.restaurant.headerImage;
+    console.log(this.restaurant.headerImage);
+    return this.restaurant.headerImage;
+
   }
+
+
+
+
 
 
 }

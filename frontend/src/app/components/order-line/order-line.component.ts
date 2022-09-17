@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { OrderLine } from 'src/app/models/order-line';
+import { OrderRecord } from 'src/app/models/order-line';
 import { Product } from 'src/app/models/product';
 
 @Component({
@@ -14,7 +14,7 @@ export class OrderLineComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input() orderLine!:OrderLine;
+  @Input() orderLine!:OrderRecord;
   @Output() incraseQuanityEvent: EventEmitter<Product> = new EventEmitter();
   @Output() decraseQuanityEvent: EventEmitter<Product> = new EventEmitter();
 

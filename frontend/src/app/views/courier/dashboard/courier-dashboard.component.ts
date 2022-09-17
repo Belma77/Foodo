@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-courier-dashboard',
@@ -7,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourierDashboardComponent implements OnInit {
   opened: boolean = false;
-
-  constructor() { }
+  profil:boolean=false;
+  constructor(private authService:AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -18,4 +20,12 @@ export class CourierDashboardComponent implements OnInit {
     this.opened = !this.opened;
   }
 
+  klikni() {
+    this.profil=!this.profil;
+  }
+
+  Odjava() {
+    this.authService.logout();
+    this.router.navigateByUrl('login/courier');
+  }
 }

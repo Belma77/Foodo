@@ -1,5 +1,6 @@
-<div class="container">
-<h3>Aktivne narudžbe</h3>
+<!--
+
+
 <div class="table">
   <div class="header">
     <div class="left">
@@ -10,17 +11,19 @@
         <div class="cell">Product Name</div>
         <div class="cell">Product Quanity</div>
         <div class="cell">Price</div>
+        <div class="cell">Status</div>
       </div>
     </div>
     <div class="left">
       <div class="cell">Total Price</div>
     </div>
   </div>
-  
+
   <div class="table-body">
     <div *ngFor="let s of pendingOrders" class="order-row">
       <div class="left">
         <div class="cell">{{s.id}}</div>
+        <div>{{s.orderLine}}</div>
       </div>
       <div class="right">
         <div *ngFor="let orderLine of s.orderLine | keyvalue" class="order-row">
@@ -28,6 +31,7 @@
           <div class="cell">{{orderLine.value.quanity}}</div>
           <div class="cell">{{orderLine.value.product.price * orderLine.value.quanity}}</div>
         </div>
+        <div class="cell">{{s.orderStatus}}</div>
       </div>
       <div class="left">
         <div class="cell">{{s.price}}</div>
@@ -35,4 +39,39 @@
     </div>
   </div>
 </div>
+
+-->
+<p>Aktivne narudžbe</p>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+
+      <th scope="col">Broj narudzbe</th>
+      <th scope="col">Kupac No</th>
+      <th scope="col">Stavke narudzbe</th>
+      <th scope="col">Status narudzbe</th>
+      <th scope="col">Ukupna cijena</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of pendingOrders">
+
+      <td>{{s.id}}</td>
+<<<<<<< HEAD
+      <td>{{s.customer.firstName}}</td>
+      <td>{{s.orderStatus}}</td>
+      <td>{{s.price}}</td>
+      <td *ngFor="let orderRecord of s.orderRecords|keyvalue">{{orderRecord.value.product}} {{orderRecord.value.quanity}}</td>
+
+=======
+     <td *ngFor="let orderLine of s.orderLine | keyvalue">
+       {{orderLine.value.product.name}}</td>
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
+
+    </tr>
+
+    </tbody>
+  </table>
 </div>

@@ -18,11 +18,11 @@ namespace backend.Services.Impl
             return base.OnConnectedAsync();
         }
 
-        public override Task OnDisconnectedAsync(Exception e)
-        {
-            ConnectionMapping.Remove(Context.User.Identity.Name, Context.ConnectionId);
-            return base.OnDisconnectedAsync(e);
-        }
+        //public override Task OnDisconnectedAsync(Exception e)
+        //{
+        //    ConnectionMapping.Remove(Context.User.Identity.Name, Context.ConnectionId);
+        //    return base.OnDisconnectedAsync(e);
+        //}
 
     }
 

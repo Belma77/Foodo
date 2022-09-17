@@ -69,6 +69,34 @@
                                 Unesite prezime
                                 </span>
                             </div>
+
+                            <div class="form-group">
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="Adresa"
+                                formControlName="Adresa"
+                                placeholder="Adresa"
+                              />
+                              <span
+                                class="text-danger"
+                                *ngIf="
+                                        f.Adresa.touched &&
+                                        f.Adresa.errors?.required
+                                    "
+                              >
+                                  Unesite adresu
+                                </span>
+                              <span
+                                class="text-danger"
+                                *ngIf="
+                                        f.Adresa.touched &&
+                                        f.Adresa.errors?.minlength
+                                    "
+                              >
+                                Unesite adresu
+                                </span>
+                            </div>
                             <div class="form-group">
                                 <input
                                     type="text"

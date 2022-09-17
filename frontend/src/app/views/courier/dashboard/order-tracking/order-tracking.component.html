@@ -1,24 +1,32 @@
+<<<<<<< HEAD
+
+=======
 <p>order-tracking works!</p>
-<div *ngIf="order">
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
+<div *ngIf="order" class="container">
     <p>{{order.orderStatus}}</p>
     <agm-map [latitude]="order.customer.location.latitude" [longitude]="order.customer.location.longitude">
-        <agm-direction  
-            *ngIf = "directionToRestaurant()" 
-            [origin]="courierLocation" 
+        <agm-direction
+            *ngIf = "directionToRestaurant()"
+            [origin]="courierLocation"
             [destination]="resLocation"
-            [renderOptions]="renderOptions" 
+            [renderOptions]="renderOptions"
             [markerOptions]="restaurantMarkerOptions"
         >
         </agm-direction>
         <agm-marker *ngIf = "directionToRestaurant()" [latitude]="cusLocation?.lat!" [longitude]="cusLocation?.lng!" [markerDraggable]="true"></agm-marker>
-        <agm-direction  
-            *ngIf = "!directionToRestaurant()" 
-            [origin]="courierLocation" 
+        <agm-direction
+            *ngIf = "!directionToRestaurant()"
+            [origin]="courierLocation"
             [destination]="cusLocation"
-            [renderOptions]="renderOptions" 
+            [renderOptions]="renderOptions"
             [markerOptions]="customerMarkerOptions"
         >
         </agm-direction>
     </agm-map>
+<<<<<<< HEAD
+  <button type="button" class="btn btn-secondary" (click) = "updateStatus()">Update status narudzbe</button>
+=======
     <button (click) = "updateStatus()">Update status narudzbe</button>
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
 </div>

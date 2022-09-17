@@ -15,6 +15,8 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Data.Models.ViewModels;
 using backend.ErrorHandler;
+using Stripe;
+using Order = Data.Models.Entities.Order;
 
 namespace backend.Services.Impl
 {
@@ -28,10 +30,10 @@ namespace backend.Services.Impl
         OrderRepository _orderRepository;
         OrderService _orderService;
         public CourierService(IHubContext<CustomHub> hub,
-                              UserRepository UserRepository, 
-                              IMapper mapper,
-                              OrderRepository orderRepository,
-                              OrderService orderService) 
+        UserRepository UserRepository, 
+        IMapper mapper,
+        OrderRepository orderRepository,
+        OrderService orderService) 
         {
             this._hub = hub;
             this._UserRepository = UserRepository;
@@ -90,10 +92,15 @@ namespace backend.Services.Impl
             
             
         }
-        public void sendOrderOffer() {
+        public void sendOrderOffer(int orderId) {
             //receive courier id and 
+<<<<<<< HEAD
+
+            Order order = _orderRepository.findById(orderId);
+            _hub.Clients.All.SendAsync("orderOffer", "test message");
+=======
             _hub.Clients.All.SendAsync("orderOffer", "test mesage");
-            
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
         }
 
         public void setStatus(int courierId, CourierWorkingStatus status)

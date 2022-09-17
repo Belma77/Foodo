@@ -1,16 +1,23 @@
 <div class="container">
-    <div class="wrapper">
+    <div class="wrapper-order">
         <div class="map-wrapper">
-            <h1>map</h1>
+            <h1>Mapa</h1>
             <agm-map [latitude]="origin.lat" [longitude]="origin.lng">
                 <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
             </agm-map>
         </div>
         <div class="order-info">
-            <h2>Narudzba #{{order.id}}</h2>
+            <h2>Narudzba #{{this.courierService.activeOrder.id}}</h2>
             <h2>Kupac</h2>
-            <hr>
-            <h4>{{order.customer.firstName}} {{order.customer.lastName}}</h4>
+            <h4>{{this.courierService.activeOrder.customer.firstName}} {{this.courierService.activeOrder.customer.lastName}}</h4>
+          <h2>Restoran</h2>
+          <h4>{{this.courierService.activeOrder.restaurant.name}}</h4>
+          <h2>Status</h2>
+          <h4>{{this.courierService.activeOrder.orderStatus}}</h4>
+          <h2>Stavke</h2>
+
+          <div *ngFor="let orderRecords of this.courierService.activeOrder.orderRecords | keyvalue">{{orderRecords.key}} {{orderRecords.value}}</div>
+
 
         </div>
     </div>

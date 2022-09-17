@@ -1,24 +1,67 @@
 <div class="header">
     <i class="fas fa-bars" (click)="onMenuClick()"></i>
-    <i class="fas fa-user-alt"></i>
+    <i class="fas fa-user-alt" (click)="klikni()"></i>
 </div>
+
+<div *ngIf=profil class="profile">
+  <button (click)="Odjava()"><h2>Odjavi se</h2></button>
+</div>
+
+
+
 <div class="wrapper">
     <div class="sidebar" [ngClass]="{'sidebar-open' : opened}">
         <div class="container">
-            <div class="logo">
-                <h1>Foodo</h1>
-            </div>
+
             <ul>
-                <!-- <li>
-                    <a [routerLink]="['orders']" routerLinkActive="active">
+              <li>
+                <a [routerLink]="['']" routerLinkActive="active" (click)="onMenuClick()">
+                  <div class="icon-wrapper">
+                  </div>
+                  <h2>Početna stranica</h2><hr>
+                </a>
+              </li>
+
+
+            <ul>
+
+                 <li>
+                    <a [routerLink]="['pending/orders']" routerLinkActive="active" (click)="onMenuClick()">
                         <div class="icon-wrapper">
-                            <i class="fas fa-hamburger"></i>
                         </div>
-                        Orders
+
+                       <h2>Aktivne narudžbe</h2> <hr>
+
                     </a>
-                </li> -->
+                </li>
+              <li>
+                <a [routerLink]="['order/offer']" routerLinkActive="active" (click)="onMenuClick()">
+                  <div class="icon-wrapper">
+                  </div>
+
+                  <h2>Trenutna narudžba</h2><hr>
+
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['order/tracking']" routerLinkActive="active" (click)="onMenuClick()">
+                  <div class="icon-wrapper">
+                  </div>
+
+                  <h2> Praćenje narudžbe</h2><hr>
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['activities']" routerLinkActive="active" (click)="onMenuClick()">
+                  <h2> Aktivnosti</h2>
+
+                </a>
+              </li>
             </ul>
         </div>`
+      <div class="logo">
+        <h1>Foodo</h1>
+      </div>
     </div>
     <router-outlet></router-outlet>
 </div>
