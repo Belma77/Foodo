@@ -6,10 +6,9 @@ import { RestaurantService } from './restaurant.service';
 import {OrderService} from "./order.service";
 import {PopUpComponent} from "../views/courier/dashboard/start-page/pop-up/pop-up.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-<<<<<<< HEAD
+
 import {IncomingOrderComponent} from "../views/restaurant/dashboard/incoming-order/incoming-order.component";
-=======
->>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
+
 
 @Injectable({
   providedIn: 'root'
@@ -51,18 +50,11 @@ export class SignalRService {
   public orderOfferListener = () => {
     this.hubConnection.on('orderOffer', (data:Order) => {
       console.log(data)
-      console.log("stigla")
-      const ModalRef = this.modal.open(IncomingOrderComponent);
-      ModalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
-      //order.orderStatus=this.makeOrderStatus(order);
-      ModalRef.componentInstance.data = data;
-      //this.orderService.sendToCourier(data);
+      console.log("stigla");
      // this.orderService.sendToRestaurant(data);
       //this.orderService.addPendingOrder(data);
-
       this.orderService.sendToCourier(data);
       console.log("signalR sending data");
-      //this.orderService.sendToRestaurant(data);
 
    })
   }

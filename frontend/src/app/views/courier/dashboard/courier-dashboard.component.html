@@ -15,22 +15,19 @@
 
             <ul>
               <li>
-                <a [routerLink]="['']" routerLinkActive="active" (click)="onMenuClick()">
+                <a [routerLink]="['/courier/dashboard']" routerLinkActive="active" (click)="onMenuClick()">
                   <div class="icon-wrapper">
                   </div>
-                  <h2>Početna stranica</h2><hr>
+                  <h3>Početna stranica</h3><hr>
                 </a>
               </li>
-
-
-            <ul>
 
                  <li>
                     <a [routerLink]="['pending/orders']" routerLinkActive="active" (click)="onMenuClick()">
                         <div class="icon-wrapper">
                         </div>
 
-                       <h2>Aktivne narudžbe</h2> <hr>
+                       <h3>Aktivne narudžbe</h3> <hr>
 
                     </a>
                 </li>
@@ -39,7 +36,7 @@
                   <div class="icon-wrapper">
                   </div>
 
-                  <h2>Trenutna narudžba</h2><hr>
+                  <h3>Trenutna narudžba</h3><hr>
 
                 </a>
               </li>
@@ -48,18 +45,19 @@
                   <div class="icon-wrapper">
                   </div>
 
-                  <h2> Praćenje narudžbe</h2><hr>
+                  <h3> Praćenje narudžbe</h3><hr>
                 </a>
               </li>
               <li>
                 <a [routerLink]="['activities']" routerLinkActive="active" (click)="onMenuClick()">
-                  <h2> Aktivnosti</h2>
+                  <h3> Aktivnosti</h3>
 
                 </a>
               </li>
             </ul>
-        </div>`
-      <div class="logo">
+    </div>`
+
+  <div class="logo">
         <h1>Foodo</h1>
       </div>
     </div>

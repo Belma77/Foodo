@@ -2,19 +2,21 @@
 main {
   margin-top: 0px;
   height:100%;
+
   .form-wrapper {
     display: flex;
     height:100vh;
-    .left {
+
+    /*.left {
       width: 50%;
       background-color: rgb(241, 241, 241);
       display: flex;
       flex-direction: column;
       padding: 150px 40px;
-    }
+    }*/
 
     .right {
-      width: 50%;
+      width: 100%;
       background-color: #FA9269;
       .form-body {
         width: 80%;

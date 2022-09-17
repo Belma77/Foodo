@@ -17,6 +17,7 @@ export class OrderTrackingComponent implements OnInit {
   cusLocation:any;
   courierLocation: any;
   zoom: number = 20;
+  data:string="U pripremi";
 
 
   constructor() {
@@ -27,8 +28,11 @@ export class OrderTrackingComponent implements OnInit {
     this.order.orderStatus = OrderStatus.IN_PREPARATION;
   }
 
-  updateStatus() {
+ /* updateStatus() {
     this.order.orderStatus = OrderStatus.DELIVERING;
+  }*/
+  updateStatus() {
+    this.data="Na putu";
   }
 
   private setCurrentLocation() {

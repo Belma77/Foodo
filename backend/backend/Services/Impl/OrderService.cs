@@ -38,7 +38,7 @@ namespace backend.Services.Impl
 
         public void createOrder(OrderViewModel o, int userId)
         {
-            Console.WriteLine(o.orderRecords);
+            
             Order order = new Order();
             Restaurant r = (Restaurant)_userRepository.findById(o.restaurantId);
             order.Restaurant = r;
@@ -60,11 +60,13 @@ namespace backend.Services.Impl
             
             _orderRepository.create(order);
 
-
             //sendOfferToRestaurant(order.Id);
             sendOfferToCourier(order.Id);
            
         }
+      
+
+
         public string CreateSession(OrderViewModel o)
         {
 

@@ -8,14 +8,14 @@
         </div>
         <div class="center">
             <div class="container">
-              <h1>Welcome to Foodo</h1>
-                <h1 class="order">Order food to your door</h1>
+              <h1>Dobrodošli na Foodu</h1>
+                <h1 class="order">U par koraka dostava na Vašim vratima</h1>
                 <div *ngIf="isLoggedIn"  class="search-inline">
                     <div  class="search-wrapper">
 <!--                        <i class="fas fa-map-marker-alt"></i>-->
-                      <input type="text" placeholder="Pretražite proizvod ili restoran">
+                      <input type="text" [(ngModel)]="naziv" placeholder="Pretražite restoran po nazivu">
                     </div>
-                    <button class="find-food btn-success"><i class="fas fa-search"></i>Trazi</button>
+<!--                    <button class="find-food btn-success"><i class="fas fa-search"></i>Trazi</button>-->
                 </div>
 
 <!--                <h2 *ngIf="!isLoggedIn" class="sign-in"><a [routerLink]="['/login']" >Sign in</a></h2>-->
@@ -33,7 +33,7 @@
     <div class="divider"></div>
     <div *ngIf="!isLoggedIn">
         <div class="container why-foodo">
-            <h1>Why Foodo</h1>
+            <h1>Zašto Foodo?</h1>
         </div>
         <div class="about-foodo container">
             <div class="about-box">
@@ -93,7 +93,7 @@
         <div class="container">
             <h1>Hrana u tvojoj blizini</h1>
             <div class="row">
-                <div *ngFor="let restaurant of restaurants" class="col-md-4">
+                <div *ngFor="let restaurant of getRestaurants()" class="col-md-4">
                     <app-restaurant-card [restaurant]="restaurant"></app-restaurant-card>
                 </div>
             </div>
@@ -154,11 +154,6 @@
                       <a [routerLink]="['/register/courier']" routerLinkActive="active">Foodo za dostavljače</a>
                     </li>
                     <li><a [routerLink]="['/register/business']">Foodo za biznis</a></li>
-
-                    <li><a [routerLink]="['/courier-register']"></a>Foodo za dostavljače</li>
-                    <li><a [routerLink]="['/register-business']" ></a>Foodo za biznis</li>
-
-
                 </ul>
               <router-outlet></router-outlet>
             </div>

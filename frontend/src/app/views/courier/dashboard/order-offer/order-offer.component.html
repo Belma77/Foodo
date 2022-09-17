@@ -1,12 +1,12 @@
 <div class="container">
     <div class="wrapper-order">
         <div class="map-wrapper">
-            <h1>Mapa</h1>
+            <h2>Mapa</h2>
             <agm-map [latitude]="origin.lat" [longitude]="origin.lng">
                 <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
             </agm-map>
         </div>
-        <div class="order-info">
+       <!-- <div class="order-info">
             <h2>Narudzba #{{this.courierService.activeOrder.id}}</h2>
             <h2>Kupac</h2>
             <h4>{{this.courierService.activeOrder.customer.firstName}} {{this.courierService.activeOrder.customer.lastName}}</h4>
@@ -19,6 +19,19 @@
           <div *ngFor="let orderRecords of this.courierService.activeOrder.orderRecords | keyvalue">{{orderRecords.key}} {{orderRecords.value}}</div>
 
 
-        </div>
+        </div>-->
+
+      <div class="order-info">
+        <h2>Narudžba</h2><h3>#35</h3>
+        <h2>Kupac</h2> <h3>Kupac1</h3>
+        <h2>Restoran</h2> <h3>Kaldrma</h3>
+        <h2>Status</h2> <h3>U pripremi</h3>
+
+        <h2>Stavke</h2>
+        <h3>Hamburger x 2, Cheeseburger</h3>
+
+
+
+      </div>
     </div>
 </div>

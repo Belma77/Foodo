@@ -4,6 +4,7 @@ import {Order} from "../../../../../models/order";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CourierService} from "../../../../../services/courier.service";
 import {StartPageComponent} from "../start-page.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-pop-up',
@@ -13,21 +14,19 @@ import {StartPageComponent} from "../start-page.component";
 export class PopUpComponent implements OnInit {
   @Input() response: any;
   @Input() title:any;
-<<<<<<< HEAD
   @Input() data: Order = new Order();
-=======
-  @Input() data: Order | undefined;
->>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
 
-  constructor(private courierService: CourierService,public modal:NgbActiveModal, public start: StartPageComponent) { }
+
+  constructor(private courierService: CourierService,public modal:NgbActiveModal, public start: StartPageComponent, private router:Router) { }
 
   ngOnInit(): void {
 
   }
   AcceptOrder(order:Order)
   {
-    this.courierService.courierAcceptOrder(order);
+    //this.courierService.courierAcceptOrder(order);
     this.modal.close();
+    this.router.navigateByUrl('/courier/dashboard/order/offer');
 
   }
 
