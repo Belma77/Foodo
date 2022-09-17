@@ -7,7 +7,11 @@
 <div class="modal-body">
   <p>Broj narudžbe: {{data.id}}</p>
   <p>Restoran: {{data.restaurant.name}}</p>
+<<<<<<< HEAD
   <p *ngFor="let orderRecord of data.orderRecords|keyvalue">Stavke: {{orderRecord.value.product.id}}</p>
+=======
+
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Odbij narudžbu</button>

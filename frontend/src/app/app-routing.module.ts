@@ -25,7 +25,9 @@ import {CancelComponent} from "./views/customer/checkout/cancel.component";
 import {CustomerOderTrackerComponent} from "./views/customer/customer-oder-tracker/customer-oder-tracker.component";
 import {PendingOrdersComponent} from "./views/courier/dashboard/pending-orders/pending-orders.component";
 import {OrderTrackingComponent} from "./views/courier/dashboard/order-tracking/order-tracking.component";
+
 import {ActivitiesComponent} from "./views/courier/dashboard/activities/activities.component";
+
 
 const routes: Routes = [
   {path:'',
@@ -106,6 +108,7 @@ const routes: Routes = [
         path:"order/tracking",
         component:OrderTrackingComponent
       },
+
       {
         path:"activities",
         component:ActivitiesComponent

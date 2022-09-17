@@ -1,20 +1,34 @@
 
+<<<<<<< HEAD
 <!--<div class="container">
   <h3>Pregled aktivnih narudžbi</h3>
+=======
+<div class="container">
+  <h3>Aktivne narudžbe</h3>
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
   <table>
     <tr>
       <th>ID narudžbe</th>
       <th>Stavke narudzbe</th>
       <th>Restoran</th>
+<<<<<<< HEAD
 &lt;!&ndash;      <th>Restoran adresa</th>&ndash;&gt;
       <th>Kupac</th>
 &lt;!&ndash;      <th>Kupac adresa</th>&ndash;&gt;
+=======
+<!--      <th>Restoran adresa</th>-->
+      <th>Kupac</th>
+<!--      <th>Kupac adresa</th>-->
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
       <th>Status</th>
     </tr>
     <tbody>
     <tr *ngFor="let s of getPendingOrder()">
       <td>{{s.id}}</td>
+<<<<<<< HEAD
       <td *ngFor="let orderLine of s.orderLine|keyvalue" >{{orderLine.value.product.name}} {{orderLine.value.quanity}}</td>
+=======
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
       <td>{{s.restaurant.name}}</td>
       <td>{{s.customer.firstName}} {{s.customer.lastName}}</td>
       <td>{{s.orderStatus}}</td>
@@ -22,6 +36,7 @@
     </tbody>
 
   </table>
+<<<<<<< HEAD
 </div>-->
 
 <p>Aktivne narudzbe</p>
@@ -56,4 +71,6 @@
 
     </tbody>
   </table>
+=======
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
 </div>

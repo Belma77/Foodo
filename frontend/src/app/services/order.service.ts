@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Order, OrderForm, OrderPost} from '../models/order';
+
 import {OrderRecord, OrderRecordForm} from '../models/order-line';
+
 import {Product} from '../models/product';
 import {Restaurant} from '../models/restaurant';
 import {CoreRequestService} from './core-request.service';
@@ -8,13 +10,17 @@ import {webSocket} from 'rxjs/WebSocket';
 import {CourierService} from "./courier.service";
 import {PopUpComponent} from "../views/courier/dashboard/start-page/pop-up/pop-up.component";
 
+
 import order from '../mock/order.json';
 
-import {ModalDismissReasons, NgbActiveModal, NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
+
+import {IncomingOrderComponent} from "../views/restaurant/dashboard/incoming-order/incoming-order.component";
+
+import {ModalDismissReasons, NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
 import {OrderStatus} from "../models/enums/order-status";
 import Stripe = stripe.Stripe;
-import {IncomingOrderComponent} from "../views/restaurant/dashboard/incoming-order/incoming-order.component";
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +31,11 @@ export class OrderService {
   pendingOrders:Order[] = [];
   newOrder: any;
 
+
   constructor(private requestService:CoreRequestService, private courierService: CourierService, private modal:NgbModal) {
       //this.pendingOrders.push(order);
    }
+
 
 
   addProductToOrder(product:Product) {
@@ -105,6 +113,7 @@ export class OrderService {
 
 
 }
+
   sendToCourier(order:Order) {
     const modalRef = this.modal.open(PopUpComponent);
     modalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
@@ -134,16 +143,17 @@ export class OrderService {
     console.log(order);
     this.addPendingOrder(order);
   }
-  restaurantAcceptOrder(order:Order)
-  {
+  restaurantAcceptOrder(order:Order) {
     this.requestService.patch('/restaurant/accept/order', order)
-     .then(() => {
-      console.log("update status u pripremi");
-    })
+      .then(() => {
+        console.log("update status u pripremi");
+      })
       .catch(e => {
         console.log(e)
       })
   }
+
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -165,5 +175,6 @@ export class OrderService {
     if(!contains)
       this.pendingOrders.push(order);
     console.log(this.pendingOrders);
+
   }
 }

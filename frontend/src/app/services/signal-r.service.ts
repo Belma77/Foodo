@@ -6,7 +6,10 @@ import { RestaurantService } from './restaurant.service';
 import {OrderService} from "./order.service";
 import {PopUpComponent} from "../views/courier/dashboard/start-page/pop-up/pop-up.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+<<<<<<< HEAD
 import {IncomingOrderComponent} from "../views/restaurant/dashboard/incoming-order/incoming-order.component";
+=======
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +59,11 @@ export class SignalRService {
       //this.orderService.sendToCourier(data);
      // this.orderService.sendToRestaurant(data);
       //this.orderService.addPendingOrder(data);
+
+      this.orderService.sendToCourier(data);
+      console.log("signalR sending data");
+      //this.orderService.sendToRestaurant(data);
+
    })
   }
 

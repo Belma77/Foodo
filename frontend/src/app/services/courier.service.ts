@@ -8,7 +8,9 @@ import { CoreRequestService } from './core-request.service';
   providedIn: 'root'
 })
 export class CourierService {
+
 activeOrder: Order = new Order();
+
   order:Order | null = null;
 pendingOrders:Order[]=[];
   constructor(private requestService: CoreRequestService, private router:Router) { }
@@ -22,9 +24,8 @@ pendingOrders:Order[]=[];
   }
   courierAcceptOrder(order:Order)
   {
-    this.requestService.patch('courier/acceptOrder', order)
-      .then()
 
+    this.requestService.patch('courier/acceptOrder', order);
     this.activeOrder=order;
     this.pendingOrders.push(order);
     this.router.navigateByUrl('/courier/dashboard/order/offer');

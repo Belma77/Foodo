@@ -12,6 +12,7 @@
 <div class="wrapper">
     <div class="sidebar" [ngClass]="{'sidebar-open' : opened}">
         <div class="container">
+
             <ul>
               <li>
                 <a [routerLink]="['']" routerLinkActive="active" (click)="onMenuClick()">
@@ -20,30 +21,40 @@
                   <h2>Početna stranica</h2><hr>
                 </a>
               </li>
+
+
+            <ul>
+
                  <li>
                     <a [routerLink]="['pending/orders']" routerLinkActive="active" (click)="onMenuClick()">
                         <div class="icon-wrapper">
                         </div>
+
                        <h2>Aktivne narudžbe</h2> <hr>
+
                     </a>
                 </li>
               <li>
                 <a [routerLink]="['order/offer']" routerLinkActive="active" (click)="onMenuClick()">
                   <div class="icon-wrapper">
                   </div>
+
                   <h2>Trenutna narudžba</h2><hr>
+
                 </a>
               </li>
               <li>
                 <a [routerLink]="['order/tracking']" routerLinkActive="active" (click)="onMenuClick()">
                   <div class="icon-wrapper">
                   </div>
+
                   <h2> Praćenje narudžbe</h2><hr>
                 </a>
               </li>
               <li>
                 <a [routerLink]="['activities']" routerLinkActive="active" (click)="onMenuClick()">
                   <h2> Aktivnosti</h2>
+
                 </a>
               </li>
             </ul>

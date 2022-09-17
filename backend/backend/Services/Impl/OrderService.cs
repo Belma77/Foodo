@@ -59,9 +59,10 @@ namespace backend.Services.Impl
             }
             
             _orderRepository.create(order);
-            
-           sendOfferToRestaurant(order.Id);
-          // sendOfferToCourier(order, userId);
+
+
+            //sendOfferToRestaurant(order.Id);
+            sendOfferToCourier(order.Id);
            
         }
         public string CreateSession(OrderViewModel o)
@@ -118,14 +119,16 @@ namespace backend.Services.Impl
             string connectionId = ConnectionMapping.GetConnections(order.RestaurantId.ToString()).FirstOrDefault();
             _hub.Clients.Client(connectionId).SendAsync("orderOffer", order);
             Console.WriteLine("poslano restoranu");
+
             Console.WriteLine(order.OrderRecords);
         }
-        public void sendOfferToCourier(Order order, int userId)
+        public void sendOfferToCourier(int orderId)
+
         {
-            Order o = _orderRepository.findById(order.Id);
+            Order o = _orderRepository.findById(orderId);
             Courier courier = _userRepository.findActiveCourier();
             string connectionId = ConnectionMapping.GetConnections(courier.Id.ToString()).FirstOrDefault();
-            _hub.Clients.Client(connectionId).SendAsync("orderOffer", order);
+            _hub.Clients.Client(connectionId).SendAsync("orderOffer", o);
             Console.WriteLine("poslano kuriru");
         }
 

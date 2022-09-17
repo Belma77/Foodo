@@ -17,11 +17,16 @@
                     </div>
                     <button class="find-food btn-success"><i class="fas fa-search"></i>Trazi</button>
                 </div>
+
 <!--                <h2 *ngIf="!isLoggedIn" class="sign-in"><a [routerLink]="['/login']" >Sign in</a></h2>-->
               <button *ngIf="!isLoggedIn" class="prijavi" (click)="prijaviSe()">Prijavi se</button>
 
 
               <h2 *ngIf="isLoggedIn" class="sign-in" (click)="odjaviSe()"><a [routerLink]="['/login']">Odjavi se</a></h2>
+
+               <!-- <h2 *ngIf="!isLoggedIn" class="sign-in"><a [routerLink]="['/login']" >Sign in</a></h2>
+              <h2 *ngIf="isLoggedIn" class="sign-in" (click)="odjaviSe()">Logout</h2>-->
+
             </div>
         </div>
     </div>
@@ -144,10 +149,15 @@
             <div class="col-md-4">
                 <h3>Uradimo to zajedno</h3>
                 <ul>
+
                     <li>
                       <a [routerLink]="['/register/courier']" routerLinkActive="active">Foodo za dostavljače</a>
                     </li>
                     <li><a [routerLink]="['/register/business']">Foodo za biznis</a></li>
+
+                    <li><a [routerLink]="['/courier-register']"></a>Foodo za dostavljače</li>
+                    <li><a [routerLink]="['/register-business']" ></a>Foodo za biznis</li>
+
 
                 </ul>
               <router-outlet></router-outlet>

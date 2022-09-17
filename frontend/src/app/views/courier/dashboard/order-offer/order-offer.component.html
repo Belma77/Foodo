@@ -15,6 +15,7 @@
           <h2>Status</h2>
           <h4>{{this.courierService.activeOrder.orderStatus}}</h4>
           <h2>Stavke</h2>
+
           <div *ngFor="let orderRecords of this.courierService.activeOrder.orderRecords | keyvalue">{{orderRecords.key}} {{orderRecords.value}}</div>
 
 

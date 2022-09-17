@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+<p>order-tracking works!</p>
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
 <div *ngIf="order" class="container">
     <p>{{order.orderStatus}}</p>
     <agm-map [latitude]="order.customer.location.latitude" [longitude]="order.customer.location.longitude">
@@ -20,5 +24,9 @@
         >
         </agm-direction>
     </agm-map>
+<<<<<<< HEAD
   <button type="button" class="btn btn-secondary" (click) = "updateStatus()">Update status narudzbe</button>
+=======
+    <button (click) = "updateStatus()">Update status narudzbe</button>
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
 </div>

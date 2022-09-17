@@ -59,11 +59,16 @@
     <tr *ngFor="let s of pendingOrders">
 
       <td>{{s.id}}</td>
+<<<<<<< HEAD
       <td>{{s.customer.firstName}}</td>
       <td>{{s.orderStatus}}</td>
       <td>{{s.price}}</td>
       <td *ngFor="let orderRecord of s.orderRecords|keyvalue">{{orderRecord.value.product}} {{orderRecord.value.quanity}}</td>
 
+=======
+     <td *ngFor="let orderLine of s.orderLine | keyvalue">
+       {{orderLine.value.product.name}}</td>
+>>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
 
     </tr>
 

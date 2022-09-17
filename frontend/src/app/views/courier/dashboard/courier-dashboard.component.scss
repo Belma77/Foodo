@@ -11,6 +11,7 @@
   font-size: 20px;
   height:100vh;
   position: relative;
+
 }
 .wrapper {
     //display: flex;
@@ -25,6 +26,7 @@
         left:-200px;
         background-color: #cdcdcd;
         height: 100vh;
+
         transition: all .5s;
       z-index: 10;
         ul {
@@ -46,8 +48,13 @@
                     font-size: 20px;
                     color:inherit;
                     font-family: sans-serif;
+
                   //align-items: center;
                     /*.icon-wrapper {
+
+                  align-items: center;
+                    .icon-wrapper {
+
                         height: 20px;
                         width: 20px;
                         margin-right: 10px;
