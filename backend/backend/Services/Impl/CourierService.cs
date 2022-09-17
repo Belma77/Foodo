@@ -94,13 +94,11 @@ namespace backend.Services.Impl
         }
         public void sendOrderOffer(int orderId) {
             //receive courier id and 
-<<<<<<< HEAD
+
 
             Order order = _orderRepository.findById(orderId);
             _hub.Clients.All.SendAsync("orderOffer", "test message");
-=======
-            _hub.Clients.All.SendAsync("orderOffer", "test mesage");
->>>>>>> ef2436dee2d25f46afc90e584ab73ca10b4930b0
+
         }
 
         public void setStatus(int courierId, CourierWorkingStatus status)

@@ -39,7 +39,7 @@
     .price{
       font-weight: bold;
       color: black;
-      margin-right: 30px;
+      margin-right: 70px;
     }
 
     p{
@@ -52,11 +52,13 @@
     transition: height .5s;
     h3 {
       font-style: italic;
+      margin-left: 10px;
     }
 
 }
   .sidebar-opened{
     transition: height .5s;
+
 
   }
 

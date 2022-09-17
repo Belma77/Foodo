@@ -15,7 +15,6 @@
   agm-map{
     align-content: center;
 
-
   }
 }
 @media only screen and (max-width: 750px) {
@@ -26,7 +25,7 @@
       margin-left: 0px;
       position: relative;
       width: 100%;
-
+      margin-top:10px;
 
       .map-wrapper {
 
@@ -45,6 +44,7 @@
         position: absolute;
         bottom: 0;
         height: 50%;
+
 
       }
 

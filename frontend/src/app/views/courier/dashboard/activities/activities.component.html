@@ -3,19 +3,20 @@
 
       <div class="activity">
         <div class="info">
-       <h2>#32</h2>
+       <h2>#34</h2>
           <h3>Kaldrma</h3>
           <button *ngIf="!opened" (click)="open()">+</button>
           <button *ngIf="opened" (click)="open()">-</button>
 
         </div>
           <p class="price">23 KM</p>
-          <p>10:28-10:41 (13min)</p>
+        <p>10:58-11:07 (9min)</p>
+
         </div>
   <div *ngIf="opened"   class="sidebar" [ngClass]="{'sidebar-open' : opened}">
     <h3>Adresa restorana: Kraljice Katarine 11a, Mostar 88000</h3><hr>
     <h3>Adresa dostave:   Jusovina, Mostar 88000 </h3><hr>
-    <h3>Detalji narudzbe: Pizza capricciosa, palačinke nutella</h3>
+    <h3>Detalji narudžbe: Pizza capricciosa, palačinke nutella</h3>
     </div>
 
 
@@ -24,20 +25,21 @@
   <div class="activity">
     <div class="info">
       <h2>#33</h2>
-      <h3>Megi</h3>
+      <h3>Milky way</h3>
       <button>+</button>
     </div>
     <p class="price">11 KM</p>
-    <p>10:58-11:07 (9min)</p>
+    <p>10:28-10:41 (13min)</p>
+
   </div>
   <div class="activity">
     <div class="info">
-      <h2>#33</h2>
-      <h3>My way</h3>
+      <h2>#32</h2>
+      <h3>Palma</h3>
       <button>+</button>
     </div>
-    <p class="price">11 KM</p>
-    <p>10:58-11:07 (9min)</p>
+    <p class="price">9 KM</p>
+    <p>10:15-10:25 (10min)</p>
   </div>
 
 

@@ -9,6 +9,7 @@ import {Order} from "../../../../models/order";
 })
 export class PendingOrdersComponent implements OnInit {
 pendingOrders:Order[]=[];
+opened:boolean=false;
   constructor(private courierService:CourierService) {
 
   }
@@ -20,6 +21,9 @@ pendingOrders:Order[]=[];
      this.pendingOrders=this.courierService.pendingOrders;
      return this.pendingOrders;
   }
-
+  open()
+  {
+    this.opened=!this.opened;
+  }
 
 }

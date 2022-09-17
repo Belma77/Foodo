@@ -118,8 +118,8 @@ export class OrderService {
     const modalRef = this.modal.open(PopUpComponent);
     modalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
     //order.orderStatus=this.makeOrderStatus(order);
-    modalRef.componentInstance.data = order;
-    console.log("send to courier");
+    //modalRef.componentInstance.data = order;
+   // console.log("send to courier");
   }
   makeOrderStatus(order:Order)
   {

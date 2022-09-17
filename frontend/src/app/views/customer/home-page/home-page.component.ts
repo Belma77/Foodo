@@ -15,8 +15,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  restaurants!:Restaurant[]
-
+  restaurants:Restaurant[]=[]
+  naziv:string="";
 
   constructor(
 private authService:AuthService, private userService:UserService, private restaurantService:RestaurantService, private router:Router) {
@@ -26,7 +26,7 @@ private authService:AuthService, private userService:UserService, private restau
   ngOnInit(): void {
     this.restaurantService.getRestaurants().then(data => {
       console.log(data);
-      this.restaurants = data
+      this.restaurants = data;
     });
   }
 
@@ -38,7 +38,15 @@ private authService:AuthService, private userService:UserService, private restau
   get isLoggedIn() {
     return this.authService.isLoggedIn;
   }
+  prijaviSe() {
+    this.router.navigateByUrl('login');
+  }
 
+  getRestaurants() {
+
+   return this.restaurants.filter((x:any)=>x.name.toLowerCase().startsWith(this.naziv.toLowerCase()) || x.name.length==0);
+  }
+}
 
   // injectLocationPicker() {
   //   this.modalService.insertComponentToModal(LocationPickerComponent)
@@ -58,7 +66,4 @@ private authService:AuthService, private userService:UserService, private restau
 //       }
 //     }
 
-  prijaviSe() {
-    this.router.navigateByUrl('login');
-  }
-}
+
