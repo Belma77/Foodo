@@ -90,16 +90,16 @@
         </div>
     </div>
     <div *ngIf="isLoggedIn">
-        <div class="container">
+        <div class="container" *ngIf = "getRestaurants().length">
             <h1>Hrana u tvojoj blizini</h1>
             <div class="row">
                 <div *ngFor="let restaurant of getRestaurants()" class="col-md-4">
                     <app-restaurant-card [restaurant]="restaurant"></app-restaurant-card>
                 </div>
             </div>
-        </div>
+            <div  class="divider"></div>
 
-    <div  class="divider"></div>
+        </div>
     <div  class="container why-foodo">
         <h1>Uradimo to zajedno</h1>
     </div>
