@@ -2,7 +2,7 @@
   height: 100vh;
   margin-left: 200px;
 }
-tr, th, td{
+tr, th, td {
   border:1px solid black;
 }
 
@@ -11,7 +11,7 @@ th{
 }
 
 @media only screen and (max-width: 740px) {
-    .container{
+    .container {
       margin-left: 0px;
     }
 }*/
@@ -37,7 +37,7 @@ th{
       font-size: 27px;
       right: 10px;
       top:20px;
-      buttom:10px;
+      bottom:10px;
       position: absolute;
     }
 
@@ -80,9 +80,5 @@ th{
     padding-left: 10px;
 
   }
-
-
-
 }
-
 

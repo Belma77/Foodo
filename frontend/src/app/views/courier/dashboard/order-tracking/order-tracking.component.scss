@@ -1,8 +1,60 @@
 
-.container{
-  margin-left: 200px;
-  height:100vh;
+
+.buyer-label {
+  margin-bottom: 5px;
 }
+
+hr {
+  margin: 5px 0;
+}
+
+.location-icon {
+  width: 20px;
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+.customer-info {
+  display: flex;
+  justify-content: space-between;
+
+
+  i {
+    margin-left: 10px;
+    padding: 8px;
+    background-color: lightgray;
+    border-radius: 50%;
+    font-size: 15px;
+  }
+}
+
+.status-icons {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  
+  .line {
+    width: 100px;
+    height: 1px;
+    background-color: lightgray;
+    margin: 0 5px;
+    position: relative;
+    top: 18px;
+  }
+
+  i {
+    padding: 10px;
+    background-color: lightgray;
+    border-radius: 50%;
+    font-size: 20px;
+  }
+
+  .iconActive {
+    background-color: green;
+  }
+}
+
 
 @media only screen and (max-width: 750px) {
 .container{
@@ -22,4 +74,3 @@
 }
 
 }
-
