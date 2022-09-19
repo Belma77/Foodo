@@ -1,0 +1,129 @@
+header {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    color: #000000;
+    font-family: UberMoveText, sans-serif;
+    -webkit-box-direction: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+.firstWrapper {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    color: #000000;
+    font-family: UberMoveText, sans-serif;
+    -webkit-box-direction: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+.firstWrapperActive {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    color: #000000;
+    font-family: UberMoveText, sans-serif;
+    -webkit-box-direction: normal;
+    -webkit-font-smoothing: antialiased;
+    height: 0px;
+}
+
+.secondWrapper {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    color: #000000;
+    font-family: UberMoveText, sans-serif;
+    -webkit-box-direction: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+.secondWrapperActive {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    color: #000000;
+    font-family: UberMoveText, sans-serif;
+    -webkit-box-direction: normal;
+    -webkit-font-smoothing: antialiased;
+    z-index: 3;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.thirdWrapper {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    color: #000000;
+    font-family: UberMoveText, sans-serif;
+    -webkit-box-direction: normal;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+}
+
+.thirdWrapperActive {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    color: #000000;
+    font-family: UberMoveText, sans-serif;
+    -webkit-box-direction: normal;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+}
+
+.main {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: UberMoveText, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    top: 0;
+    left: 0;
+    color: #000000;
+    box-sizing: border-box;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    position: absolute;
+    max-width: 1920px;
+    min-width: 1024px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 96px;
+    transition: background 200ms ease;
+    background: transparent;
+    right: 0;
+    z-index: 1;
+}
+
+.mainActive {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: UberMoveText, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    top: 0;
+    left: 0;
+    color: #000000;
+    box-sizing: border-box;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    position: absolute;
+    max-width: 1920px;
+    min-width: 1024px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 96px;
+    transition: background 200ms ease;
+    right: 0;
+    z-index: 1;
+    background: #FFFFFF;
+    box-shadow: rgb(226, 226, 226) 0px -2px 0px inset;
+}
