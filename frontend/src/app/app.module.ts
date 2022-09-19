@@ -54,7 +54,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {PopUpComponent} from "./views/courier/dashboard/start-page/pop-up/pop-up.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import { PendingOrdersComponent } from './views/courier/dashboard/pending-orders/pending-orders.component';
-
 import { IncomingOrderComponent } from './views/restaurant/dashboard/incoming-order/incoming-order.component';
 import { ActivitiesComponent } from './views/courier/dashboard/activities/activities.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -95,14 +94,11 @@ import { FooterComponent } from './components/footer/footer.component';
     CancelComponent,
     CustomerOderTrackerComponent,
 PopUpComponent,
-
 PendingOrdersComponent,
 IncomingOrderComponent,
 ActivitiesComponent,
 HeaderComponent,
 FooterComponent
-
-
 
   ],
   imports: [
@@ -129,16 +125,16 @@ FooterComponent
     MatDialogModule
 
   ],
-  entryComponents:[
+  /*entryComponents:[
     PopUpComponent
-  ],
+  ],*/
   providers: [
        AuthService,
        UserService,
        RestaurantService,
        CoreRequestService,
-    AlertService,
-NotificationService,
+       AlertService,
+       NotificationService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

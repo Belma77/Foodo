@@ -39,16 +39,29 @@
         <i [ngClass]="{'iconActive': order.orderStatus === 'COMPLETED' }" class="fas fa-check"></i>
     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   <button *ngIf="order.orderStatus === 'IN_PREPARATION'" type="button" class="btn w-100 btn-secondary" (click) = "updateStatus('PICKED_UP')">Preuzeo narudzbu</button>
   <button *ngIf="order.orderStatus === 'PICKED_UP'" type="button" class="btn w-100 btn-secondary" (click) = "updateStatus('DELIVERING')">Krenuo prema kupcu</button>
   <button *ngIf="order.orderStatus === 'DELIVERING'" type="button" class="btn w-100 btn-secondary" (click) = "updateStatus('COMPLETED')">Dostavio narudzbu</button>
   <button *ngIf="order.orderStatus === 'COMPLETED'" type="button" class="btn w-100 btn-secondary" (click) = "completeOrder()">Zavrsi</button>
 =======
+=======
+>>>>>>> 29ae16d (fixed bug with pending orders)
     
   <button *ngIf="order.orderStatus === 'IN_PREPARATION'" type="button" class="btn w-100 mb-3 btn-secondary" (click) = "updateStatus('PICKED_UP')">Preuzeo narudzbu</button>
   <button *ngIf="order.orderStatus === 'PICKED_UP'" type="button" class="btn w-100 mb-3 btn-secondary" (click) = "updateStatus('DELIVERING')">Krenuo prema kupcu</button>
   <button *ngIf="order.orderStatus === 'DELIVERING'" type="button" class="btn w-100 mb-3 btn-secondary" (click) = "updateStatus('COMPLETED')">Dostavio narudzbu</button>
   <button *ngIf="order.orderStatus === 'COMPLETED'" type="button" class="btn w-100 mb-3 btn-secondary" (click) = "completeOrder()">Zavrsi</button>
+<<<<<<< HEAD
 >>>>>>> 51e4a26 (smaller fixes, styling)
+=======
+=======
+
+  <button *ngIf="order.orderStatus === 'IN_PREPARATION'" type="button" class="btn w-100 btn-secondary" (click) = "updateStatus('PICKED_UP')">Preuzeo narudzbu</button>
+  <button *ngIf="order.orderStatus === 'PICKED_UP'" type="button" class="btn w-100 btn-secondary" (click) = "updateStatus('DELIVERING')">Krenuo prema kupcu</button>
+  <button *ngIf="order.orderStatus === 'DELIVERING'" type="button" class="btn w-100 btn-secondary" (click) = "updateStatus('COMPLETED')">Dostavio narudzbu</button>
+  <button *ngIf="order.orderStatus === 'COMPLETED'" type="button" class="btn w-100 btn-secondary" (click) = "completeOrder()">Zavrsi</button>
+>>>>>>> 4f976eb (fixed bug with pending orders)
+>>>>>>> 29ae16d (fixed bug with pending orders)
 </div>
