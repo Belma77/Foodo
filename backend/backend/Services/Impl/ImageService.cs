@@ -22,8 +22,8 @@ namespace backend.Services.Impl
                     {
                         file.CopyTo(stream);
                     }
-                    //var formatedPath = dbPath.Replace("\\", "/").Replace(" ", "");
-                    return dbPath;
+                    var formatedPath = dbPath.Replace(" ", "").Replace("\\", "/");
+                    return formatedPath;
                 }
                 else
                 {

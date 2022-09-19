@@ -1,0 +1,19 @@
+<header>
+    <div [ngClass] = "!scrollActive ? 'firstWrapper' : 'firstWrapperActive'">
+        <div [ngClass] = "!scrollActive ? 'secondWrapper' : 'secondWrapperActive'">
+            <div [ngClass] = "!scrollActive ? 'thirdWrapper' : 'thirdWrapperActive'">
+                <div class="mainRoot" [ngClass] = "!scrollActive ? 'main' : 'mainActive'">
+                    <h1>FOODO</h1>
+                    <div class="authButtons" *ngIf = "!isLoggedIn">
+                        <a class="loginButton" [routerLink]="['/login']" routerLinkActive="active">Prijava</a>
+                        <a class="registerButton" [routerLink]="['/register']" routerLinkActive="active">Registracija</a>
+                    </div>
+                    <div class="authButtons" *ngIf = "isLoggedIn">
+                        <h2>{{userName}}</h2>
+                        <button class="registerButton" (click) = "logout()">Odjava</button>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
