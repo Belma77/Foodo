@@ -14,6 +14,15 @@
   <div *ngIf="opened"   class="sidebar" [ngClass]="{'sidebar-open' : opened}">
     <h3>Adresa restorana: Lacina 5, Mostar 88000</h3><hr>
     <h3>Adresa dostave:  Mazoljice, Mostar 88000  </h3><hr>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 29ae16d (fixed bug with pending orders)
+    <h3>Detalji narudzbe: Hamburger x 2, Cheeseburger</h3><hr>
+=======
+>>>>>>> f283bf2 (fixed bug with pending orders)
     <h3>Detalji narudzbe</h3>
     <h3 *ngFor="let order of pendingOrder.orderRecords|keyvalue">{{order.key}}:{{order.value}}</h3><hr>
   </div>

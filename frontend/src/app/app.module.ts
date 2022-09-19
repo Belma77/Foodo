@@ -100,9 +100,10 @@ IncomingOrderComponent,
 ActivitiesComponent,
 HeaderComponent,
 FooterComponent,
+LocationWrapperComponent,
 ReviewsComponent,
+LocationPickerComponent,
 PickLocationComponent
-
   ],
   imports: [
     BrowserModule,
