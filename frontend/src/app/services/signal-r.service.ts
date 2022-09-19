@@ -6,7 +6,6 @@ import { RestaurantService } from './restaurant.service';
 import {OrderService} from "./order.service";
 import {PopUpComponent} from "../views/courier/dashboard/start-page/pop-up/pop-up.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-
 import {IncomingOrderComponent} from "../views/restaurant/dashboard/incoming-order/incoming-order.component";
 
 

@@ -64,6 +64,7 @@ header {
     position: relative;
     display: flex;
     flex-direction: column;
+    flex-grow: 2;
     z-index: 100;
     margin-right: 30px;
 }

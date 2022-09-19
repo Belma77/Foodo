@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrderStatus } from 'src/app/models/enums/order-status';
 import { Location } from 'src/app/models/location';
 import { Order } from 'src/app/models/order';
@@ -20,7 +21,7 @@ export class OrderTrackingComponent implements OnInit {
   data:string="U pripremi";
 
 
-  constructor() {
+  constructor(private router:Router) {
     this.setCurrentLocation();
     this.order = data;
     this.resLocation = {lat: this.order.restaurant.location.latitude, lng: this.order.restaurant.location.longitude};
@@ -28,11 +29,13 @@ export class OrderTrackingComponent implements OnInit {
     this.order.orderStatus = OrderStatus.IN_PREPARATION;
   }
 
- /* updateStatus() {
-    this.order.orderStatus = OrderStatus.DELIVERING;
-  }*/
-  updateStatus() {
-    this.data="Na putu";
+  updateStatus(status: String) {
+    this.order!.orderStatus = OrderStatus[status as keyof typeof OrderStatus];
+  }
+
+  completeOrder() {
+    console.log("close the order");
+    this.router.navigateByUrl("courier/dashboard")
   }
 
   private setCurrentLocation() {
