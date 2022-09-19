@@ -1,5 +1,6 @@
 ﻿using Data.Models.Entities;
 using Data.Models.Enums;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -49,12 +50,14 @@ namespace Data
             builder.Entity<Courier>().Property(c => c.firstName).HasColumnName("firstName");
             builder.Entity<Courier>().Property(c => c.lastName).HasColumnName("lastName");
 
-            //builder.Entity<Category>()
-            //    .HasData(
-            //       new { Id = 1, name = "Breakfast"},
-            //       new { Id = 2, name = "Pasta" },
-            //       new { Id = 3, name = "Pizza" }
-            //    );
+            builder.Entity<Category>()
+                .HasData(
+                   new { Id = 1, name = "Breakfast" },
+                   new { Id = 2, name = "Pasta" },
+                   new { Id = 3, name = "Pizza" }
+                );
+
+            //byte[] salt = new byte[128 / 8];
 
             //builder.Entity<Customer>().HasData(
             //    new Customer
@@ -62,9 +65,10 @@ namespace Data
             //        email = "john@doe",
             //        firstName = "John",
             //        lastname = "Doe",
-            //        password = "test",
+            //        password = generateHashedPassword(salt, "password"),
             //        Id = 3,
-            //        role = UserRole.CUSTOMER
+            //        role = UserRole.Customer,
+            //        StoredSalt = salt,
             //    });
 
 
@@ -81,7 +85,7 @@ namespace Data
             //    numberOfReviews = 2,
             //    role = UserRole.RESTAURANT,
             //    slug = "slatko-i-slano",
-            //    headerImage = "https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/wy4xymearvmy7vzglvc2"
+            //    headerImage = "Resources/Images/slatkoislano"
             //},
             // new Restaurant
             // {
@@ -95,7 +99,7 @@ namespace Data
             //     numberOfReviews = 10,
             //     role = UserRole.RESTAURANT,
             //     slug = "mostarlic",
-            //     headerImage = "https://res.cloudinary.com/glovoapp/w_450,h_250,c_fill,f_auto,q_auto/Stores/mglozbioqdnwvv2onr22"
+            //     headerImage = "Resources/images/mostarlic"
             // }
             //);
 
@@ -132,7 +136,22 @@ namespace Data
             //        RestaurantId = 1,
             //        image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
             //    });
-                
+
         }
+
+        private string generateHashedPassword(byte[] salt, string password)
+        {
+
+            //derive a 256 - bit subkey(use HMACSHA256 with 100, 000 iterations)
+            string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA256,
+                iterationCount: 100000,
+                numBytesRequested: 256 / 8));
+
+            return hashedPassword;
+        }
+
     }
 }
