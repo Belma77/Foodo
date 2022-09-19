@@ -7,6 +7,8 @@ import { Restaurant } from 'src/app/models/restaurant';
 import { OrderService } from 'src/app/services/order.service';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { environment } from 'src/environments/environment';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PopUpComponent} from "../../courier/dashboard/start-page/pop-up/pop-up.component";
 
 @Component({
   selector: 'app-restaurant',
@@ -21,7 +23,8 @@ export class RestaurantComponent implements OnInit {
               private router: Router,
               private orderService:OrderService,
               private restaurantService:RestaurantService,
-              private viewportScroller: ViewportScroller) {
+              private viewportScroller: ViewportScroller,
+              private modal: NgbModal) {
 
    }
 
