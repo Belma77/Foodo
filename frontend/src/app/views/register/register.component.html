@@ -75,14 +75,14 @@
                                 type="text"
                                 class="form-control"
                                 name="Adresa"
-                                formControlName="Adresa"
+                                formControlName="address"
                                 placeholder="Adresa"
                               />
                               <span
                                 class="text-danger"
                                 *ngIf="
-                                        f.Adresa.touched &&
-                                        f.Adresa.errors?.required
+                                        f.address.touched &&
+                                        f.address.errors?.required
                                     "
                               >
                                   Unesite adresu
@@ -90,8 +90,8 @@
                               <span
                                 class="text-danger"
                                 *ngIf="
-                                        f.Adresa.touched &&
-                                        f.Adresa.errors?.minlength
+                                        f.address.touched &&
+                                        f.address.errors?.minlength
                                     "
                               >
                                 Unesite adresu

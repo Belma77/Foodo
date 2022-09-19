@@ -22,6 +22,7 @@ export class PopUpComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
   AcceptOrder(order:Order)
   {
     //this.courierService.courierAcceptOrder(order);

@@ -18,9 +18,7 @@ export class RestaurantCardComponent implements OnInit {
   @Input() restaurant!: Restaurant;
 
   get imageUrl() {
-    console.log(this.restaurant.headerImage);
-    return this.restaurant.headerImage;
-
+    return environment.api + "/download?fileUrl=" + this.restaurant.headerImage;
   }
 
 
