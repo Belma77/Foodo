@@ -6,6 +6,9 @@ import {MatDialog} from "@angular/material/dialog";
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {OrderService} from "../../../../services/order.service";
 import {SignalRService} from "../../../../services/signal-r.service";
+import { UserService } from 'src/app/services/user.service';
+import { Courier } from 'src/app/models/courier.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +18,8 @@ import {SignalRService} from "../../../../services/signal-r.service";
   styleUrls: ['./start-page.component.scss']
 })
 export class StartPageComponent implements OnInit {
-  public courierIsActive: boolean = false;
 
-
-  constructor(private courierService: CourierService, private modal: NgbModal, private orderService:OrderService) {
+  constructor(private courierService: CourierService, private userService:UserService) {
 
   }
 
@@ -26,13 +27,19 @@ export class StartPageComponent implements OnInit {
 
   }
 
-  setActive() {
-    this.courierIsActive = true;
-    this.courierService.setStatusActive();
+  get courierIsActive() {
+    return (this.userService.user as Courier).status;
+  }
+
+  async setActive() {
+    this.courierService.setStatusActive().then(res => {
+      location.reload();
+    });
   }
   setInactive() {
-    this.courierIsActive = false;
-    this.courierService.setStatusInactive();
+    this.courierService.setStatusInactive().then(res => {
+      location.reload();
+    });
   }
 
 

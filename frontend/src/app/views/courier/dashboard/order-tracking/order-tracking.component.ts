@@ -34,14 +34,12 @@ export class OrderTrackingComponent implements OnInit {
   }
 
   completeOrder() {
-    console.log("close the order");
     this.router.navigateByUrl("courier/dashboard")
   }
 
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.watchPosition((position) => {
-        console.log(position)
         this.courierLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
       });
     }

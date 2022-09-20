@@ -97,6 +97,10 @@ const routes: Routes = [
         component:StartPageComponent
       },
       {
+        path:"home",
+        component:StartPageComponent
+      },
+      {
         path:"order/offer",
         component:OrderOfferComponent
       },

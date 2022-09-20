@@ -15,11 +15,11 @@ activeOrder: Order = new Order();
 pendingOrders:Order[]=[];
   constructor(private requestService: CoreRequestService, private router:Router) { }
 
-  setStatusActive() {
+  async setStatusActive() {
     this.requestService.patch('/courier/status/active', {});
   }
 
-  setStatusInactive() {
+  async setStatusInactive() {
     this.requestService.patch('/courier/status/inactive', {});
   }
   courierAcceptOrder(order:Order)
