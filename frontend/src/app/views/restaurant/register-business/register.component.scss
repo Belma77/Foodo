@@ -21,6 +21,16 @@ main {
             display: flex;
             flex-direction: column;
             padding: 150px 40px;
+
+            a {
+                color:inherit;
+            }
+
+            .logo {
+                position: absolute;
+                top:20px;
+                left: 40px;
+            }
         }
 
         .right {
@@ -29,7 +39,7 @@ main {
 
             .form-body {
                 width: 80%;
-                margin: 40px auto;
+                margin: 150px auto;
                 background-color: white;
                 padding: 20px;
                 border-radius: 8px;

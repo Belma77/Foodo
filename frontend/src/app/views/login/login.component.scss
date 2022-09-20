@@ -6,12 +6,20 @@ main {
     .form-wrapper {
         display: flex;
         height:100vh;
+
         .left {
             width: 50%;
             background-color: rgb(241, 241, 241);
             display: flex;
             flex-direction: column;
             padding: 150px 40px;
+            position: relative;
+
+            .logo {
+                position: absolute;
+                top:20px;
+                left: 40px;
+            }
         }
 
         .right {

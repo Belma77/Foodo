@@ -20,10 +20,7 @@
 
 <!--                <h2 *ngIf="!isLoggedIn" class="sign-in"><a [routerLink]="['/login']" >Sign in</a></h2>-->
               <button *ngIf="!isLoggedIn" class="prijavi" (click)="prijaviSe()">Prijavi se</button>
-
-
-              <h2 *ngIf="isLoggedIn" class="sign-in" (click)="odjaviSe()"><a [routerLink]="['/login']">Odjavi se</a></h2>
-
+              
                <!-- <h2 *ngIf="!isLoggedIn" class="sign-in"><a [routerLink]="['/login']" >Sign in</a></h2>
               <h2 *ngIf="isLoggedIn" class="sign-in" (click)="odjaviSe()">Logout</h2>-->
 
@@ -90,7 +87,7 @@
         </div>
     </div>
     <div *ngIf="isLoggedIn">
-        <div class="container" *ngIf = "getRestaurants().length">
+        <div class="container hranaUTvojojBlizini" *ngIf = "getRestaurants().length">
             <h1>Hrana u tvojoj blizini</h1>
             <div class="row">
                 <div *ngFor="let restaurant of getRestaurants()" class="col-md-4">
@@ -141,49 +138,4 @@
     <div class="divider"></div>
     </div>
 </main>
-<footer>
-    <!-- Todo: Create Footer component -->
-    <div class="container">
-        <h1>Foodo</h1>
-        <div class="row">
-            <div class="col-md-4">
-                <h3>Uradimo to zajedno</h3>
-                <ul>
-
-                    <li>
-                      <a [routerLink]="['/register/courier']" routerLinkActive="active">Foodo za dostavljače</a>
-                    </li>
-                    <li><a [routerLink]="['/register/business']">Foodo za biznis</a></li>
-                </ul>
-              <router-outlet></router-outlet>
-            </div>
-            <div class="col-md-4">
-                <h3>Vazni linkovi</h3>
-                <ul>
-                    <li><a href="#"></a>O nama</li>
-                    <li><a href="#"></a>Česta pitanja</li>
-                    <li><a href="#"></a>Blog</li>
-                    <li><a href="#"></a>Kontaktiraj nas</li>
-                    <li><a href="#"></a>Bezbjednost</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h3>Prati nas</h3>
-                <ul>
-                    <li><a href="#"></a>Facebook</li>
-                    <li><a href="#"></a>Twitter</li>
-                    <li><a href="#"></a>Instagram</li>
-
-                </ul>
-
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-
-
-
-<!-- ngif user is logged in show restaurants -->
-
+<app-footer></app-footer>

@@ -1,172 +1,173 @@
-
-<app-header></app-header>
 <main>
   <div class="form-wrapper">
-    <!--<div class="left">
-      <h1>Postanite Foodo dostavljač </h1>
-      <p>U par koraka, prijavite se i dostavite prvu nardužbu već u narednih 24 sata </p>
-    </div>-->
-    <div class="right">
-      <div class="container">
-        <div class="form-body">
-          <h1>Foodo</h1>
-          <p>Kreirajte svoj račun u svega par sekundi.  </p>
-          <form [formGroup]="registerForm" (ngSubmit)="save()">
-            <div class="form-group">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="firstName"
-                  formControlName="firstName"
-                  placeholder="Ime"
-                />
-                <span
-                  class="text-danger"
-                  *ngIf="
-                                        f.firstName.touched &&
-                                        f.firstName.errors?.required
-                                    "
-                >
-                                  Unesite ime
-                                </span>
-                <span
-                  class="text-danger"
-                  *ngIf="
-                                        f.firstName.touched &&
-                                        f.firstName.errors?.minlength
-                                    "
-                >
-                                Unesite ime
-                                </span>
-              </div>
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="lastName"
-                  formControlName="lastName"
-                  placeholder="Prezime"
-                />
-                <span
-                  class="text-danger"
-                  *ngIf="
-                                        f.lastName.touched &&
-                                        f.lastName.errors?.required
-                                    "
-                >
-                                Unesite prezime
-                                </span>
-                <span
-                  class="text-danger"
-                  *ngIf="
-                                        f.lastName.touched &&
-                                        f.lastName.errors?.minlength
-                                    "
-                >
-                                Unesite prezime
-                                </span>
-              </div>
-
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="email"
-                  required
-                  formControlName="email"
-                  name="email"
-                  placeholder="Email"
-                />
-                <span
-                  class="text-danger"
-                  *ngIf="
-                                        f.email.touched && f.email.errors?.required
-                                    "
-                >
-                                Unesite mail
-                                </span>
-                <span
-                  class="text-danger"
-                  *ngIf="
-                                        f.email.touched && f.email.errors?.pattern
-                                    "
-                >
-                                Unesite mail u ispravnom formatu
-                                </span>
-              </div>
-
-              <div class="form-group">
-                <input
-                  type="password"
-                  class="form-control"
-                  name="password"
-                  formControlName="password"
-                  placeholder="Password"
-                />
-                <span
-                  class="text-danger"
-                  *ngIf="
-                                        f.password.touched &&
-                                        f.password.errors?.required
-                                    "
-                >
-                                    Unesite password
-                                </span>
-                <span
-                  class="text-danger"
-                  *ngIf="
-                                        f.password.touched &&
-                                        f.password.errors?.minlength
-                                    "
-                >
-                                    Password mora imati najmanje 8 karaktera
-                                </span>
-              </div>
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="phone"
-                  required
-                  formControlName="phone"
-                  name="phone"
-                  placeholder="Broj telefona"
-                />
-                <span
-                  class="text-danger"
-                  *ngIf="
-                  f.phone.touched && f.phone.errors?.required"
-                >
-                Unesite mail
-                 </span>
-                <span
-                  class="text-danger"
-                  *ngIf=" f.phone.touched && f.phone.errors?.pattern ">
-               Unesite broj telefona u ispravnom formatu
-              </span>
-              </div>
-              <div class="form-group">
-                <button
-                  type="submit"
-                  class="btn w-100 btn-outline-secondary"
-                  id="submitButton"
-                >
-                  Registruj se
-                </button>
-              </div>
-              <div class="form-group">
-                <a [routerLink]="['/courier-login']">Imate račun? Prijavite se ovdje </a>
-              </div>
-              <div class="error">{{error}}</div>
-            </div>
-          </form>
-
-        </div>
+      <div class="left">
+          <a [routerLink]="['']"><h1 class="logo">FOODO</h1></a>
+          <h1>Postanite Foodo dostavljač.</h1>
+          <p>U par koraka, prijavite se i dostavite prvu nardužbu već u narednih 24 sata.</p>
       </div>
-    </div>
+      <div class="right">
+          <div class="container">
+              <div class="form-body">
+                  <h1>Počnite Zaradjivati putem Foode</h1>
+                  <p>Kreirajte svoj račun u svega par sekundi.</p>
+                  <form [formGroup]="registerForm" (ngSubmit)="save()">
+                    <div class="form-group">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="firstName"
+                          formControlName="firstName"
+                          placeholder="Ime"
+                        />
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                                                f.firstName.touched &&
+                                                f.firstName.errors?.required
+                                            "
+                        >
+                                          Unesite ime
+                                        </span>
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                                                f.firstName.touched &&
+                                                f.firstName.errors?.minlength
+                                            "
+                        >
+                                        Unesite ime
+                                        </span>
+                      </div>
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="lastName"
+                          formControlName="lastName"
+                          placeholder="Prezime"
+                        />
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                                                f.lastName.touched &&
+                                                f.lastName.errors?.required
+                                            "
+                        >
+                                        Unesite prezime
+                                        </span>
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                                                f.lastName.touched &&
+                                                f.lastName.errors?.minlength
+                                            "
+                        >
+                                        Unesite prezime
+                                        </span>
+                      </div>
+        
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="email"
+                          required
+                          formControlName="email"
+                          name="email"
+                          placeholder="Email"
+                        />
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                                                f.email.touched && f.email.errors?.required
+                                            "
+                        >
+                                        Unesite mail
+                                        </span>
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                                                f.email.touched && f.email.errors?.pattern
+                                            "
+                        >
+                                        Unesite mail u ispravnom formatu
+                                        </span>
+                      </div>
+        
+                      <div class="form-group">
+                        <input
+                          type="password"
+                          class="form-control"
+                          name="password"
+                          formControlName="password"
+                          placeholder="Password"
+                        />
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                                                f.password.touched &&
+                                                f.password.errors?.required
+                                            "
+                        >
+                                            Unesite password
+                                        </span>
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                                                f.password.touched &&
+                                                f.password.errors?.minlength
+                                            "
+                        >
+                                            Password mora imati najmanje 8 karaktera
+                                        </span>
+                      </div>
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="phone"
+                          required
+                          formControlName="phone"
+                          name="phone"
+                          placeholder="Broj telefona"
+                        />
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                          f.phone.touched && f.phone.errors?.required"
+                        >
+                        Unesite mail
+                         </span>
+                        <span
+                          class="text-danger"
+                          *ngIf=" f.phone.touched && f.phone.errors?.pattern ">
+                       Unesite broj telefona u ispravnom formatu
+                      </span>
+                      </div>
+                      <div class="form-group">
+                        <button
+                          type="submit"
+                          class="btn w-100 btn-outline-secondary"
+                          id="submitButton"
+                        >
+                          Registruj se
+                        </button>
+                      </div>
+                      <div class="form-group">
+                        <a [routerLink]="['/login/courier']">Imate račun? <span class="orange">Prijavite se ovdje</span></a>
+                      </div>
+                      <div class="error">{{error}}</div>
+                    </div>
+                  </form>
+              </div>
+          </div>
+      </div>
   </div>
 </main>
+
+
+
 
 
 

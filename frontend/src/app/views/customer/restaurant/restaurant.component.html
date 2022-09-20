@@ -1,7 +1,10 @@
 
 <div *ngIf="restaurant">
     <header>
-       <img *ngIf="restaurant.headerImage" src="{{imageUrl}}" alt="restaurant" class="restaurant-image">
+        <div class="container">
+            <a [routerLink]="['']"><h1 class="logo">FOODO</h1></a>
+        </div>
+        <img *ngIf="restaurant.headerImage" src="{{imageUrl}}" alt="restaurant" class="restaurant-image">
         <div class="image-overlay"></div>
     </header>
 
@@ -11,12 +14,18 @@
             <div class="container">
                 <h2>{{restaurant.name}}</h2>
                 <div class="rating">
-                    <i class="fas fa-thumbs-up me-2 rating-icon"></i>{{restaurant.rating}} ({{restaurant.numberOfReviews}})
-                    <i class="fas fa-bicycle"></i> {{restaurant.deliveryCost}} BAM
-                    <span class="fw-bold"> {{restaurant.avgDeliveryTime}} min</span>
-                </div>
-                <div class="price-and-time">
-
+                    <div>
+                        <i class="fas fa-thumbs-up me-2 rating-icon"></i>{{restaurant.rating}}% ({{restaurant.numberOfReviews}})
+                    </div>
+                    <div>
+                        <i class="fas fa-car-side"></i> {{restaurant.deliveryCost}} BAM
+                    </div>
+                    <div *ngIf = "restaurant.avgDeliveryTime">
+                        <i class="fas fa-clock"></i> {{restaurant.avgDeliveryTime}} min
+                    </div>  
+                    <div *ngIf = "!restaurant.avgDeliveryTime">
+                        <i class="fas fa-clock"></i> 20-30 min
+                    </div> 
                 </div>
             </div>
         </div>
