@@ -45,7 +45,7 @@ export class UserService {
 
   async courierRegister(user: Courier): Promise<any> {
     await this.requestService.post('/courier/register', user).then((data: any) => {
-      this.router.navigate(['/courier-login']);
+      this.router.navigate(['/login/courier']);
     }).catch(err => {
       throw err
     });
