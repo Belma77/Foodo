@@ -58,6 +58,7 @@ import { PendingOrdersComponent } from './views/courier/dashboard/pending-orders
 import { IncomingOrderComponent } from './views/restaurant/dashboard/incoming-order/incoming-order.component';
 import { ActivitiesComponent } from './views/courier/dashboard/activities/activities.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ PopUpComponent,
 PendingOrdersComponent,
 IncomingOrderComponent,
 ActivitiesComponent,
-HeaderComponent
+HeaderComponent,
+FooterComponent
 
 
 

@@ -1,7 +1,7 @@
-<app-header></app-header>
 <main>
     <div class="form-wrapper">
         <div class="left">
+            <a [routerLink]="['']"><h1 class="logo">FOODO</h1></a>
             <h1>Pridružite se Foodi i razvijajte svoje poslovanje s nama.</h1>
             <p>Korisnici danas naručuju online više nego ikad prije. Pratite ih, povećajte svoju prodaju za 40 %.</p>
         </div>
@@ -134,7 +134,7 @@
                             </button>
                         </div>
                       <div class="form-group">
-                        <a [routerLink]="['/restaurant-login']">Imate račun? Prijavite se ovdje </a>
+                        <a [routerLink]="['/login/business']">Imate račun? <span class="orange">Prijavite se ovdje</span> </a>
                       </div>
                       <div class="error">{{error}}</div>
                     </form>
@@ -144,7 +144,7 @@
     </div>
     <div class="divider"></div>
     <div class="why-foodo">
-        <h1>Why Foodo</h1>
+        <h1>Zasto Foodo</h1>
         <div class="divider"></div>
         <div class="container">
             <div class="article">
@@ -197,4 +197,4 @@
     </div>
     <div class="divider"></div>
 </main>
-<footer></footer>
+<app-footer></app-footer>
