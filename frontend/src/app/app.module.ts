@@ -103,7 +103,10 @@ FooterComponent,
 LocationWrapperComponent,
 ReviewsComponent,
 LocationPickerComponent,
+PickLocationComponent,
+ReviewsComponent,
 PickLocationComponent
+
   ],
   imports: [
     BrowserModule,
