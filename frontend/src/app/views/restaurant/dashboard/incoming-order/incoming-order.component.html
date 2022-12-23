@@ -8,10 +8,12 @@
   <p>Broj narudžbe: {{data.id}}</p>
   <p>Kupac No: {{data.customer.id}}</p>
   <p>Stavke: </p>
-  <p *ngFor="let item of data.orderRecords | keyvalue">
-   {{item.value.product}}
-    {{item.value.quanity}}
-  </p>
+  <h3 *ngFor="let item of data.orderRecords | keyvalue"> <br>
+    {{item.key}} : {{item.value}}
+    <h2 *ngFor="let orderRecord of item.value|keyvalue">{{orderRecord.key}}:{{orderRecord.value}}
+<p *ngFor="let p of orderRecord|keyvalue">{{p.key}}:{{p.value}}</p>
+    </h2>
+</h3>
   <p>Status: {{data.orderStatus}}</p>
 </div>
 <div class="modal-footer">

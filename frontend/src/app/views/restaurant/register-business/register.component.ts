@@ -25,7 +25,7 @@ export class RestaurantRegisterComponent implements OnInit {
             email: ['', [Validators.required, Validators.pattern(regex.email)]],
             password: ['', [Validators.required, Validators.minLength(8)]],
             name:['', [Validators.required]],
-            phone:['', [Validators.required]],
+            phoneNumber:['', [Validators.required]],
         });
     }
 
@@ -41,6 +41,7 @@ export class RestaurantRegisterComponent implements OnInit {
                 .register(this.registerForm.value)
                 .then(() => {
                     console.log("registrovan");
+
                 }).catch(err => {
               console.log(err)
               this.error = err;

@@ -10,7 +10,7 @@ namespace Data.Models.ViewModels
     public class RestaurantVM
     {
         public string name { get; set; }
-        public string phone { get; set; }
+        public string phoneNumber { get; set; }
         public string email { get; set; }
         public string password { get; set; }
        

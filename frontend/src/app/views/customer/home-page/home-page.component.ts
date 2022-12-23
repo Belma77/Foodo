@@ -8,6 +8,11 @@ import {AuthService} from "../../../services/auth.service";
 import {UserService} from "../../../services/user.service";
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import {Router} from "@angular/router";
+import { ReviewsService } from 'src/app/services/reviews.service';
+import { OrderService } from 'src/app/services/order.service';
+import { Order } from 'src/app/models/order';
+import { X } from '@angular/cdk/keycodes';
+import { OrderStatus } from 'src/app/models/enums/order-status';
 
 @Component({
   selector: 'app-home-page',
@@ -17,19 +22,37 @@ import {Router} from "@angular/router";
 export class HomePageComponent implements OnInit {
   restaurants:Restaurant[]=[]
   naziv:string="";
-
+  order!: Order;
   constructor(
-private authService:AuthService, private userService:UserService, private restaurantService:RestaurantService, private router:Router) {
-
+private authService:AuthService, private userService:UserService, private restaurantService:RestaurantService, private router:Router, 
+private reviewService:ReviewsService,
+private orderService:OrderService){
+  
    }
 
   ngOnInit(): void {
     this.restaurantService.getRestaurants().then(data => {
-      console.log(data);
       this.restaurants = data;
     });
+    this.orderService.getLatestOrder();
+    this.ShowModal();
   }
 
+  ShowModal(){
+
+    var order = localStorage.getItem('order');
+    this.orderService.getLatestOrder().then((x:Order)=>{
+      this.order=x;    
+      console.log(this.order);
+      if(this.order.rated==false&&this.order.orderStatus==5&&order!=JSON.stringify(this.order.id)){
+        this.reviewService.openModal();
+      }  
+    })
+      
+       
+
+    
+  }
 
   odjaviSe(){
     this.userService.logout();
@@ -38,12 +61,13 @@ private authService:AuthService, private userService:UserService, private restau
   get isLoggedIn() {
     return this.authService.isLoggedIn;
   }
+
   prijaviSe() {
     this.router.navigateByUrl('login');
   }
 
   getRestaurants() {
-
+    
    return this.restaurants.filter((x:any)=>x.name.toLowerCase().startsWith(this.naziv.toLowerCase()) || x.name.length==0);
   }
 }

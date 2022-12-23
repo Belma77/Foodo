@@ -31,6 +31,10 @@ namespace Data
 
         public DbSet<OrderRecord> orderRecords { get; set; }
 
+        public DbSet<Reviews> reviews { get; set; }
+        public DbSet<Location> locations { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

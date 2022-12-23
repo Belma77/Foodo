@@ -27,7 +27,6 @@ using Newtonsoft.Json;
 namespace backend.Controllers
 {
     [Route("customer")]
-   
     [ApiController]
     [Authorize(UserRole.Customer)]
     public class CustomerController : ControllerBase
@@ -75,6 +74,7 @@ namespace backend.Controllers
             orderService.createOrder(order, userId);
             return Ok();
         }
+
         [HttpPost]
         [Route("session/create")]
         [AllowAnonymous]
@@ -105,6 +105,7 @@ namespace backend.Controllers
             }
 
         }
+
         [HttpGet]
         [Route("order/{id}")]
         //[AllowAnonymous]

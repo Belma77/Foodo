@@ -65,7 +65,6 @@ namespace backend.Controllers
             //Todo get courier from jwt
             string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
             int courierId = int.Parse(userId);
-            Console.WriteLine(courierId);
             _courierService.setStatus(courierId, CourierWorkingStatus.ACTIVE);
             return Ok();
         }

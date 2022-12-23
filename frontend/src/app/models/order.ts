@@ -15,7 +15,7 @@ export class Order {
     requestTime!:string;
     orderStatus?:OrderStatus;
     price!:number;
-
+    rated!:boolean;
 }
 
 export class OrderForm {

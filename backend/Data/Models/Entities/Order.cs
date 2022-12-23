@@ -38,7 +38,7 @@ namespace Data.Models.Entities
 
         //Todo: Change this to Payment object
         public double price { get; set; }
-
+        public bool Rated { get; set; }
         public Order()
         {
             orderStatus = OrderStatus.CREATED;

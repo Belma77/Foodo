@@ -19,5 +19,7 @@ namespace Data.Models.Entities
         public string firstName { get; set; }
 
         public string lastname { get; set; }
+
+        public Location? Location { get; set; }
     }
 }

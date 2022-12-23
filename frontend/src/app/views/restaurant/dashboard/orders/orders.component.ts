@@ -4,6 +4,9 @@ import {OrderService} from "../../../../services/order.service";
 import {Product} from "../../../../models/product";
 import {Order} from "../../../../models/order";
 import { OrderRecord} from "../../../../models/order-line";
+import {KeyValue} from "@angular/common";
+import {P} from "@angular/cdk/keycodes";
+//import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-orders',
@@ -13,7 +16,7 @@ import { OrderRecord} from "../../../../models/order-line";
 export class OrdersComponent implements OnInit {
   orders: Order[]=[];
   newOrder: boolean=false;
-
+  orderRecords!: Record<string, OrderRecord>;
   constructor(private orderService:OrderService) { }
 
   ngOnInit(): void {
@@ -22,10 +25,12 @@ export class OrdersComponent implements OnInit {
   }
 
     get pendingOrders() {
-      console.log("getting pending orders");
-      return this.orderService.pendingOrders;
+      
+      console.log("getting pending orders");     
+     return this.orders;
 
   }
+
 
 
 }

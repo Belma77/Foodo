@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
-import { DtoComponent } from './models/dto/dto.component';
 import { DashboardComponent } from './views/restaurant/dashboard/dashboard.component';
 import { MenuComponent } from './views/restaurant/dashboard/menu/menu.component';
 import { OrdersComponent } from './views/restaurant/dashboard/orders/orders.component';
@@ -54,11 +53,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {PopUpComponent} from "./views/courier/dashboard/start-page/pop-up/pop-up.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import { PendingOrdersComponent } from './views/courier/dashboard/pending-orders/pending-orders.component';
-
 import { IncomingOrderComponent } from './views/restaurant/dashboard/incoming-order/incoming-order.component';
 import { ActivitiesComponent } from './views/courier/dashboard/activities/activities.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ReviewsComponent } from './views/customer/reviews/reviews.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PickLocationComponent } from './views/customer/pick-location/pick-location.component';
 
 
 @NgModule({
@@ -66,7 +67,6 @@ import { FooterComponent } from './components/footer/footer.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DtoComponent,
     DashboardComponent,
     MenuComponent,
     OrdersComponent,
@@ -95,14 +95,17 @@ import { FooterComponent } from './components/footer/footer.component';
     CancelComponent,
     CustomerOderTrackerComponent,
 PopUpComponent,
-
 PendingOrdersComponent,
 IncomingOrderComponent,
 ActivitiesComponent,
 HeaderComponent,
-FooterComponent
-
-
+FooterComponent,
+LocationWrapperComponent,
+ReviewsComponent,
+LocationPickerComponent,
+PickLocationComponent,
+ReviewsComponent,
+PickLocationComponent
 
   ],
   imports: [
@@ -114,7 +117,7 @@ FooterComponent
     NgxDropzoneModule,
     NgSelectModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyB1J_YHQhrv9OmDWFm43_8koYgycCzeEh4',
+      apiKey: 'AIzaSyBegM_iSWWCdKWbNY2SFp8SMUlWcRGRlYk',
       libraries: ['places']
     }),
     AgmDirectionModule,
@@ -126,20 +129,21 @@ FooterComponent
     //meDemoComponent,
     StripeModule.forRoot("pk_test_51Kw0aQKRuZYR6PFuWr7T06KwduEmYLRK07ovV0aGsKLAe41y8Tq8FfVTCxyULkyn2p2SSWNkv5qWBMqM04D6DoKf005ruX3VcY"),
       BrowserAnimationsModule,
-    MatDialogModule
-
+    MatDialogModule,
+    NgbModule
+    
   ],
-  entryComponents:[
+  /*entryComponents:[
     PopUpComponent
-  ],
+  ],*/
   providers: [
        AuthService,
        UserService,
        RestaurantService,
        CoreRequestService,
-    AlertService,
-NotificationService,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+       AlertService,
+       NotificationService,
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

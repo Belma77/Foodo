@@ -25,7 +25,8 @@ export class PopUpComponent implements OnInit {
 
   AcceptOrder(order:Order)
   {
-    //this.courierService.courierAcceptOrder(order);
+    console.log(order);
+    this.courierService.courierAcceptOrder(order);
     this.modal.close();
     this.router.navigateByUrl('/courier/dashboard/order/offer');
 

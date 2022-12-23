@@ -1,11 +1,11 @@
 <div class="container content">
-    <div class="inactive" *ngIf="courierIsActive == 1">
+    <div class="inactive" *ngIf="courierIsActive==1">
       Trenutni status: neaktivan, nećeš primati nadolazeće narudžbe.
         <button class="change-to-active" (click)="setActive()">
             Počni dostavljati  <i class="fas fa-car-side"></i>
         </button>
     </div>
-    <div class="active" *ngIf="courierIsActive == 0">
+    <div class="active" *ngIf="courierIsActive==0">
       Trenutni status: aktivan, budi spreman za nadolazeće narudžbe.
       <button class="change-to-inactive" (click)="setInactive()">
         Završi dostavljanje <i class="fas fa-car-side"></i>

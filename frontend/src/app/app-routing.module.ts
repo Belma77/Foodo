@@ -27,97 +27,137 @@ import {PendingOrdersComponent} from "./views/courier/dashboard/pending-orders/p
 import {OrderTrackingComponent} from "./views/courier/dashboard/order-tracking/order-tracking.component";
 
 import {ActivitiesComponent} from "./views/courier/dashboard/activities/activities.component";
+import { ReviewsComponent } from './views/customer/reviews/reviews.component';
+import { PickLocationComponent } from './views/customer/pick-location/pick-location.component';
+import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
 
 
 const routes: Routes = [
   {path:'',
-   component: HomePageComponent,
+   component: LoginComponent,
+   // canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf(), UserRole.COURIER.valueOf(), UserRole.RESTAURANT.valueOf() ]}
   },
   {path:'login', component:LoginComponent},
   {path: 'register', component: RegisterComponent},
 
   { path:'customer/home-page',
     component:HomePageComponent,
-   // canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf(), UserRole.COURIER.valueOf()]}
+   // canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf(), UserRole.COURIER.valueOf(), UserRole.RESTAURANT.valueOf() ]}
   },
+  {path:'pick-location', component:PickLocationComponent},
+  {path:'marker-picker', component:MapDragablePickerComponent},
   {path:'register/courier', component:CourierRegisterComponent},
   {path:'login/courier', component:CourierLoginComponent},
   {path:'login/business', component:LoginComponentRestaurant},
   {path:'register/business', component:RestaurantRegisterComponent},
-  {path:'checkout', component:CheckoutComponent},
-  {path:'restaurant/:slug', component:RestaurantComponent},
-  {path:'restaurantOrders', component:OrdersComponent},
+  {path:'checkout', component:CheckoutComponent,
+    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf()]}
+  },
+  {path:'rateOrders', component:ReviewsComponent},
+  {path:'restaurant/:slug', component:RestaurantComponent,
+    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf()]}
+  },
 
   // Restaurant dashboard links
-  {path:'customer-order-tracking', component:CustomerOderTrackerComponent},
+  {path:'customer-order-tracking', component:CustomerOderTrackerComponent,
+    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf()]}
+
+  },
   {
     path:'restaurant/admin/dashboard',
     component:DashboardComponent,
-    children:[
-      {
-        path:"",
-        component:OrdersComponent
-      },
-      {
-        path:"orders",
-        component:OrdersComponent
-      },
-      {
-        path:"menu",
-        component:MenuComponent
-      },
-      {
-        path:"statistics",
-        component:StatisticsComponent
-      },
-      {
-        path:"profile",
-        component:ProfileComponent
-      },
-      {
-        path:'new-product',
-        component:NewProductComponent,
-      },
-      {
-        path:'edit-product/:id',
-        component:NewProductComponent,
-      },
 
-    ]
+      children: [
+        {
+          path: "",
+          component: OrdersComponent,
+          /*canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.RESTAURANT.valueOf()]},*/
+        },
+        {
+          path: "orders",
+          component: OrdersComponent,
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.RESTAURANT.valueOf()]},
+        },
+        {
+          path: "menu",
+          component: MenuComponent
+        },
+        {
+          path: "statistics",
+          component: StatisticsComponent,
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.RESTAURANT.valueOf()]},
+        },
+        {
+          path: "profile",
+          component: ProfileComponent,
+          /*canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.RESTAURANT.valueOf()]},*/
+        },
+        {
+          path: 'new-product',
+          component: NewProductComponent,
+          /*canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.RESTAURANT.valueOf()]},*/
+        },
+        {
+          path: 'edit-product/:id',
+          component: NewProductComponent,
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.RESTAURANT.valueOf()]},
+        },
+
+      ]
+
   },
-
 
   //Courier dashboard routes
   {
     path:'courier/dashboard',
     component:CourierDashboardComponent,
-    children:[
-      {
-        path:"",
-        component:StartPageComponent
-      },
-      {
-        path:"home",
-        component:StartPageComponent
-      },
-      {
-        path:"order/offer",
-        component:OrderOfferComponent
-      },
-      {
-        path:"pending/orders",
-        component:PendingOrdersComponent
-      },
-      {
-        path:"order/tracking",
-        component:OrderTrackingComponent
-      },
 
-      {
-        path:"activities",
-        component:ActivitiesComponent
-      },
-    ]
+      children: [
+        {
+          path: "",
+          component: StartPageComponent,
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.COURIER.valueOf()]},
+        },
+        {
+          path: "home",
+          component: StartPageComponent,
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.COURIER.valueOf()]},
+        },
+        {
+          path: "order/offer",
+          component: OrderOfferComponent,
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.COURIER.valueOf()]},
+        },
+        {
+          path: "pending/orders",
+          component: PendingOrdersComponent,
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.COURIER.valueOf()]},
+        },
+        {
+          path: "order/tracking",
+          component: OrderTrackingComponent,
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.COURIER.valueOf()]},
+        },
+
+        {
+          path: "activities",
+          component: ActivitiesComponent,
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole.COURIER.valueOf()]},
+        },
+      ]
+
   },
 
 ];

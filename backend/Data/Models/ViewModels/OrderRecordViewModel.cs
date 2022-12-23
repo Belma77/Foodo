@@ -8,8 +8,8 @@ namespace Data.Models.ViewModels
 {
     public class OrderRecordViewModel
     {
+        public ProductViewModel Product { get; set; }
         public int productId { get; set; }  
-
         public int quanity { get; set; }
 
     }

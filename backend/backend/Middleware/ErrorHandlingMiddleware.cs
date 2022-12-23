@@ -29,6 +29,16 @@ namespace backend.ErrorHandler
                 context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                 await context.Response.WriteAsync(e.Message);
             }
+            catch (DomainInvalidCast e)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                await context.Response.WriteAsync(e.Message);
+            }
+            catch (DomainNotFound e)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                await context.Response.WriteAsync(e.Message);
+            }
             catch (Exception e)
             {
                 context.Response.StatusCode = 500;

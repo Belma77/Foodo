@@ -23,7 +23,6 @@ export class OrderTrackingComponent implements OnInit {
 
   constructor(private router:Router) {
     this.setCurrentLocation();
-    this.order = data;
     this.resLocation = {lat: this.order.restaurant.location.latitude, lng: this.order.restaurant.location.longitude};
     this.cusLocation = {lat: this.order.customer.location.latitude, lng: this.order.customer.location.longitude};
     this.order.orderStatus = OrderStatus.IN_PREPARATION;
@@ -41,6 +40,9 @@ export class OrderTrackingComponent implements OnInit {
     if ('geolocation' in navigator) {
       navigator.geolocation.watchPosition((position) => {
         this.courierLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
+       // this.courierLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
+        this.courierLocation = {lat: 43.345834, lng: 17.8111036};
+
       });
     }
     else {

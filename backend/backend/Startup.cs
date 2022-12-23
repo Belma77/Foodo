@@ -31,6 +31,8 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Stripe;
 using System.Web.Http;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 //using AutoMapper.Configuration;
 
 namespace backend
@@ -51,11 +53,21 @@ namespace backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddNewtonsoftJson();
+            services.AddMvc().AddNewtonsoftJson(
+                options => options.SerializerSettings.ReferenceLoopHandling =
+        Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddTransient<ErrorHandlingMiddleware>();
 
-            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.IgnoreNullValues = true;
 
+
+            });
+           
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend", Version = "v1" });
@@ -162,9 +174,10 @@ namespace backend
             services.AddScoped<IProductService, Services.Impl.ProductService>();
             services.AddScoped<Services.Impl.CustomerService, Services.Impl.CustomerService>();
             services.AddScoped<CourierService, CourierService>();
-            services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
-
+            services.AddScoped<ReviewsService, ReviewsService>();
+            services.AddScoped<ReviewsRepository, ReviewsRepository>();
+            services.AddHttpContextAccessor();
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             //{
             //    options.TokenValidationParameters = new TokenValidationParameters

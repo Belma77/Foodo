@@ -3,18 +3,37 @@
 
   <div class="activity">
     <div class="info">
-      <h2>#35</h2>
-      <h3>Kaldrma</h3>
+      <h2>{{pendingOrder.id}}</h2>
+      <h3>{{pendingOrder.restaurant.name}}</h3>
       <button *ngIf="!opened" (click)="open()">+</button>
       <button *ngIf="opened" (click)="open()">-</button>
 
     </div>
-    <p class="price">23.5 KM</p>
+    <p class="price">{{pendingOrder.price}}</p>
   </div>
   <div *ngIf="opened"   class="sidebar" [ngClass]="{'sidebar-open' : opened}">
-    <h3>Adresa restorana: Kurluk 1</h3><hr>
-    <h3>Adresa dostave:  Braće Fejića, 23  </h3><hr>
+    <h3>Adresa restorana: Lacina 5, Mostar 88000</h3><hr>
+    <h3>Adresa dostave:  Mazoljice, Mostar 88000  </h3><hr>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 29ae16d (fixed bug with pending orders)
     <h3>Detalji narudzbe: Hamburger x 2, Cheeseburger</h3><hr>
+=======
+>>>>>>> f283bf2 (fixed bug with pending orders)
+    <h3>Detalji narudzbe</h3>
+    <h3 *ngFor="let order of pendingOrder.orderRecords|keyvalue">{{order.key}}:{{order.value}}</h3><hr>
+<<<<<<< HEAD
+=======
+>>>>>>> lost
+=======
+    <h3>Detalji narudzbe</h3>
+    <h3 *ngFor="let order of pendingOrder.orderRecords|keyvalue">{{order.key}}:{{order.value}}</h3><hr>
+>>>>>>> 058a7b9 (task-27 implemented exception handling)
+>>>>>>> 2068ae6 (task-27 implemented exception handling)
   </div>
 
 </div>

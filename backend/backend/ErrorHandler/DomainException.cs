@@ -22,4 +22,12 @@ namespace backend.ErrorHandler
     {
         public DomainForbiddenException(string message) : base(message){}
     }
+    public class DomainInvalidCast : DomainException
+    {
+        public DomainInvalidCast(string message) : base(message) { }
+    }
+    public class DomainNotFound : DomainException
+    {
+        public DomainNotFound(string message) : base(message) { }
+    }
 }

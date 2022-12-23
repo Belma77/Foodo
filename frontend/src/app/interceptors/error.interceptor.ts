@@ -34,6 +34,9 @@ export class ErrorInterceptor implements HttpInterceptor {
               case 409:{
                 errorMessage = "Racun s unijetom e-mail adresom vec postoji";
                 break;}
+              case 404:{
+                errorMessage = "Korisnik ne postoji s unesenom e-mail adresom";
+                break;}
               default:errorMessage = "Nepoznat error";
             }
 
