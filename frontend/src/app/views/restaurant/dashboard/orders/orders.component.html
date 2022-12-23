@@ -1,40 +1,41 @@
+<!-- <!-- <table>
+  <th>Broj narudzbe</th>
+  <th>Stavke</th>
+  <th>Ukupna cijena</th>
+  <th>Status narudzbe</th>
 
-<div class="table">
-  <div class="header">
-    <div class="left">
-      <div class="cell">Order ID</div>
-    </div>
-    <div class="right">
-      <div class="order-row">
-        <div class="cell">Product Name</div>
-        <div class="cell">Product Quanity</div>
-        <div class="cell">Price</div>
-        <div class="cell">Status</div>
-      </div>
-    </div>
-    <div class="left">
-      <div class="cell">Total Price</div>
-    </div>
-  </div>
+  <tr *ngFor="let s of pendingOrders">
+    <td>{{ s.id }}</td>
+    <td *ngFor="let order of orderRecords|keyvalue">{{order.value.product.name}}>    
+    <h3 *ngFor="let o of order|keyvalue">
+    <p *ngFor="let p of o|keyvalue">{{p.value}}</p>
+    </h3>
+    </td>
+    
 
-  <div class="table-body">
-    <div *ngFor="let s of pendingOrders" class="order-row">
-      <div class="left">
-        <div class="cell">{{s.id}}</div>
-      </div>
-      <div class="right">
-        <div *ngFor="let orderRecord of s.orderRecords | keyvalue" class="order-row">
-          <div class="cell">{{orderRecord.value.product.name}}</div>
-          <div class="cell">{{orderRecord.value.quanity}}</div>
-          <div class="cell">{{orderRecord.value.product.price * orderRecord.value.quanity}}</div>
-        </div>
-        <div class="cell">{{s.orderStatus}}</div>
-      </div>
-      <div class="left">
-        <div class="cell">{{s.price}}</div>
-      </div>
-    </div>
-  </div>
-</div>
+    <td>{{ s.orderStatus}}</td>
 
-
+  </tr>
+</table>
+ -->
+<table class="table table-hover">
+  <thead class="table-group-divider">
+    <tr>
+      <th scope="col">Broj narudzbe</th>
+      <th scope="col">Stavke</th>
+      <th scope="col">Ukupna cijena</th>
+      <th scope="col">Status narudzbe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let s of pendingOrders">
+      <!-- <th scope="row">1</th> -->
+      <td>{{ s.id }}</td>
+      <td *ngFor="let order of orderRecords|keyvalue">{{order.key}}:{{order.value.product.name}}
+      </td>
+      <td>{{ s.price}}</td>
+      <td>{{ s.orderStatus}}</td>
+    </tr>
+   
+  </tbody>
+</table> 

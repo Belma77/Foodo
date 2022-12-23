@@ -1,0 +1,19 @@
+<div  class="modal-header">
+    <h3 class="modal-title">Svidja vam se Foodo?</h3><br>
+    <h3>Ocijenite svoju prethodnu narudzbu!</h3>
+
+    <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"> -->
+      <button type="button" class="close" aria-label="Close" (click)="Close()">
+
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+     <p>Restoran : {{order.restaurant.name}}</p> 
+     <!-- <p>Kurir: {{order.courier.firstName}}</p>    -->
+    <ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false"></ngb-rating>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="RateOrder()">Potvrdi</button>
+  
+  </div>

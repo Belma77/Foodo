@@ -50,12 +50,14 @@ export class SignalRService {
     this.hubConnection.on('orderOffer', (data:Order) => {
       console.log(data)
       console.log("stigla");
-     // this.orderService.sendToRestaurant(data);
+      this.newOrder=data;
+      //this.orderService.sendToRestaurant(data);
       //this.orderService.addPendingOrder(data);
-      this.orderService.sendToCourier(data);
       console.log("signalR sending data");
 
    })
+   //this.orderService.sendToCourier(this.newOrder);
+
   }
 
   public registerListeners() {

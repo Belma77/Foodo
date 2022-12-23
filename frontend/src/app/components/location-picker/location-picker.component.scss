@@ -37,7 +37,11 @@ agm-map {
         display: flex;
         justify-content: center;
         align-content: center;
-
+          
+        a{
+          text-decoration: none;
+          color:black;
+        }
         span {
             font-size: 18px;
             font-weight: bold;

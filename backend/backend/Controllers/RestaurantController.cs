@@ -61,6 +61,7 @@ namespace backend.Controllers
         [AllowAnonymous]
         public IActionResult getRestaurants()
         {
+            var res = _restaurantService.GetRestaurants();
             return Ok(_restaurantService.GetRestaurants());
         }
 
@@ -81,6 +82,7 @@ namespace backend.Controllers
             _restaurantService.editProfile(int.Parse(userId), file, r);
             return Ok();
         }
+
         [HttpPatch]
         [Route("accept/order")]
         [AllowAnonymous]

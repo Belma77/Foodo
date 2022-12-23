@@ -15,7 +15,7 @@ export class OrderOfferComponent implements OnInit {
 
   counter = 15;
   inter = interval(1000);
-  order:Order | undefined;
+  order!:Order;
 
   lat = 17.8078;
   long = 43.3438;
@@ -30,9 +30,10 @@ export class OrderOfferComponent implements OnInit {
   ngOnInit(): void {
       this.inter.subscribe(() => {
         this.counter--;
-        if(this.counter == 0)
-          this.rejectOrder();
-      })
+        /* if(this.counter == 0)
+          // this.rejectOrder();*/
+      }) 
+      this.getOrder();
   }
 
 getOrder()
@@ -41,7 +42,6 @@ getOrder()
   return this.order;
 }
 
-
   acceptOrder () {
     console.log("accept order");
   }
@@ -49,8 +49,5 @@ getOrder()
   rejectOrder () {
     console.log("reject order")
   }
-
-
-
 
 }

@@ -21,7 +21,7 @@ using Order = Data.Models.Entities.Order;
 namespace backend.Services.Impl
 {
 
-    public class CourierService 
+    public class CourierService
     {
         private IHubContext<CustomHub> _hub;
         UserRepository _UserRepository;
@@ -29,11 +29,13 @@ namespace backend.Services.Impl
         string token;
         OrderRepository _orderRepository;
         OrderService _orderService;
+
         public CourierService(IHubContext<CustomHub> hub,
-        UserRepository UserRepository, 
+        UserRepository UserRepository,
         IMapper mapper,
         OrderRepository orderRepository,
-        OrderService orderService) 
+        OrderService orderService)
+
         {
             this._hub = hub;
             this._UserRepository = UserRepository;
@@ -41,6 +43,7 @@ namespace backend.Services.Impl
             this._orderRepository = orderRepository;
             this._orderService = orderService;
         }
+
         public void Register([FromBody] Courier courier)
         {
             var email = _UserRepository.findByEmail(courier.email);
@@ -70,6 +73,7 @@ namespace backend.Services.Impl
                 _UserRepository.create(courier);
             }
         }
+
         public ResponseToken Login(UserVM u)
         {
             try
@@ -81,17 +85,18 @@ namespace backend.Services.Impl
                     throw new DomainUnauthorizedException("Incorrect password");
                 else
                 {
-                    token = JwtUtil.generateToken(_mapper.Map<UserDto>(courier)); 
+                    token = JwtUtil.generateToken(_mapper.Map<UserDto>(courier));
                     return new ResponseToken(token);
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new DomainUnauthorizedException("User not found");
             }
-            
-            
+
+
         }
+
         public void sendOrderOffer(int orderId) {
             //receive courier id and 
             Order order = _orderRepository.findById(orderId);
@@ -100,16 +105,19 @@ namespace backend.Services.Impl
 
         public void setStatus(int courierId, CourierWorkingStatus status)
         {
-            Courier courier = (Courier) _UserRepository.findById(courierId);
+            Courier courier = (Courier)_UserRepository.findById(courierId);
             courier.status = status;
             _UserRepository.update(courier);
         }
+
         public void courierAcceptOrder(Order order)
         {
-            _orderRepository.findById(order.Id).orderStatus = OrderStatus.IN_PREPARATION;
-            order.orderStatus = OrderStatus.IN_PREPARATION;
-            order.Courier.Id = _orderService.findCourier(order).Id;
+            Order Order = _orderRepository.findById(order.Id);
+            Order.orderStatus = OrderStatus.IN_PREPARATION;
+            Order.Courier = _orderService.findCourier(order);
+            _orderRepository.update(Order);
         }
+        
 
     }
 }

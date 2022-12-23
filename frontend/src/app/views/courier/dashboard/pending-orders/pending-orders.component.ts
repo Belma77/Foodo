@@ -8,19 +8,23 @@ import {Order} from "../../../../models/order";
   styleUrls: ['./pending-orders.component.scss']
 })
 export class PendingOrdersComponent implements OnInit {
-pendingOrders:Order[]=[];
-opened:boolean=false;
-  constructor(private courierService:CourierService) {
 
-  }
+pendingOrder!:Order;
+opened:boolean=false;
+
+  constructor(private courierService:CourierService) {}
 
   ngOnInit(): void {
+    this.getPendingOrder();
   }
+
   getPendingOrder()
   {
-     this.pendingOrders=this.courierService.pendingOrders;
-     return this.pendingOrders;
+     this.pendingOrder=this.courierService.activeOrder;
+     console.log(this.pendingOrder);
+     return this.pendingOrder;
   }
+
   open()
   {
     this.opened=!this.opened;

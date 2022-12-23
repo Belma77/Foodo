@@ -7,30 +7,30 @@ main {
       display: flex;
       height:100vh;
 
-      .left {
+     /* .left {
           width: 50%;
           background-color: rgb(241, 241, 241);
           display: flex;
           flex-direction: column;
           padding: 150px 40px;
-          position: relative;
+          position: relative;*/
 
           .logo {
               position: absolute;
               top:20px;
               left: 40px;
           }
-      }
+
 
       .right {
-          width: 50%;
+          width: 100%;
           background-color: #FA9269;
 
           .form-body {
               width: 80%;
 
               margin: 40px auto;
-              margin-top:150px;
+              margin-top:50px;
               background-color: white;
               padding: 20px;
               border-radius: 8px;
@@ -48,9 +48,14 @@ main {
 .form-control {
   border: none;
   border-bottom: 2px solid lightgrey;
-  padding: 5px 20px 20px 20px;
+  padding: 5px 20px 5px 20px;
 }
 a {
-  color:black;
+  color:#FA9269;
   text-decoration: none;
+}
+@media only screen and (max-width: 750px) {
+
+
+
 }

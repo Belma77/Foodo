@@ -9,6 +9,7 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
 import { environment } from 'src/environments/environment';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PopUpComponent} from "../../courier/dashboard/start-page/pop-up/pop-up.component";
+import { ReviewsComponent } from '../reviews/reviews.component';
 
 @Component({
   selector: 'app-restaurant',
@@ -35,7 +36,6 @@ export class RestaurantComponent implements OnInit {
       console.log(slug)
       this.restaurantService.getRestaurant(slug)
       .then((res:Restaurant) => {
-        console.log(res)
         if(!res || res === undefined)
           this.router.navigateByUrl("");
         else {

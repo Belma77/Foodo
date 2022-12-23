@@ -99,16 +99,16 @@
                             <input
                                 type="tel"
                                 class="form-control"
-                                id="phone"
+                                id="phoneNumber"
                                 required
-                                formControlName="phone"
-                                name="phone"
+                                formControlName="phoneNumber"
+                                name="phoneNumber"
                                 placeholder="Telefon"
                             />
                             <span
                                 class="text-danger"
                                 *ngIf="
-                                    f.phone.touched && f.phone.errors?.required
+                                    f.phoneNumber.touched && f.phoneNumber.errors?.required
                                 "
                             >
                                 Unos telefona je obavezan
@@ -116,7 +116,7 @@
                             <span
                                 class="text-danger"
                                 *ngIf="
-                                    f.phone.touched && f.phone.errors?.pattern
+                                    f.phoneNumber.touched && f.phoneNumber.errors?.pattern
                                 "
                             >
 

@@ -1,10 +1,12 @@
-﻿using backend.Controllers;
+﻿using AutoMapper;
+using backend.Controllers;
 using backend.Repositories;
 using backend.Repositories.Impl;
 using backend.Utils;
 using Data.Models.Entities;
 using Data.Models.Enums;
 using Data.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Stripe;
 using Stripe.Checkout;
@@ -27,13 +29,20 @@ namespace backend.Services.Impl
         private IUserRepository _userRepository;
         private IProductRepository _productRepository;
         private OrderService _orderService;
+        private IMapper _mapper;
 
-        public OrderService(IHubContext<CustomHub> hub, IProductRepository productRepository, OrderRepository orderRepository, IUserRepository userRepository)
+        public OrderService(IHubContext<CustomHub> hub, 
+            IProductRepository productRepository, 
+            OrderRepository orderRepository, 
+            IUserRepository userRepository, 
+            IMapper mapper
+            )
         {
             _hub = hub;
             _productRepository = productRepository;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public void createOrder(OrderViewModel o, int userId)
@@ -61,12 +70,10 @@ namespace backend.Services.Impl
             _orderRepository.create(order);
 
             //sendOfferToRestaurant(order.Id);
-            //sendOfferToCourier(order.Id);
+            sendOfferToCourier(order.Id);
            
         }
       
-
-
         public string CreateSession(OrderViewModel o)
         {
 
@@ -169,11 +176,26 @@ namespace backend.Services.Impl
         {
             return ConnectionMapping.GetConnections(id).First();
         }
+
         public void restaurantAcceptOrder(Order order)
         {
-            _orderRepository.findById(order.Id).orderStatus = OrderStatus.IN_PREPARATION;
-            order.orderStatus = OrderStatus.IN_PREPARATION;
-            
+           Order Order=_orderRepository.findById(order.Id);
+            Order.orderStatus = OrderStatus.IN_PREPARATION;
+            _orderRepository.update(Order);
+        }
+
+        public GetLatestOrderVM GetLatestOrder()
+        {
+            var order = _orderRepository.GetLatest();
+            Console.WriteLine(order.orderStatus);
+            var mapped = _mapper.Map<GetLatestOrderVM>(order);
+            Console.WriteLine(mapped.orderStatus);
+            return mapped;
+
+        }
+        public List<GetOrdersVM> GetCompletedOrders(int courierId)
+        {
+            return _mapper.Map<List<GetOrdersVM>>(_orderRepository.GetCompletedOrders(courierId));
         }
     }
 }

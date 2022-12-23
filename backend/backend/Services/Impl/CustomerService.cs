@@ -71,26 +71,25 @@ namespace backend.Services.Impl
             try
             {
                 Customer customer = (Customer)_userRepository.findByEmail(u.email);
-                if (customer == null)
-                {
-                    throw new DomainUnauthorizedException("User not found");
+                
+                    if (!UserPasswordUtil.verifyUserPassword(u.password, customer.password, customer.StoredSalt))
+                        throw new DomainUnauthorizedException("Incorrect password");
+                    else
+                    {
+                        string token = JwtUtil.generateToken(_mapper.Map<UserDto>(customer));
+                        return new ResponseToken(token);
+                    }
+
                 }
-                if (!UserPasswordUtil.verifyUserPassword(u.password, customer.password, customer.StoredSalt))
-                    throw new DomainUnauthorizedException("Incorrect password");
-                else
-                {
-                    string token = JwtUtil.generateToken(_mapper.Map<UserDto>(customer));
-                    return new ResponseToken(token);
-                }
-            }
-            catch (DomainUnauthorizedException)
-            {
-                throw new DomainUnauthorizedException("User not found");
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+             catch (DomainInvalidCast)
+             {
+                throw new DomainInvalidCast("User not found");
+             }
+            
+            
+            
+
+
         }
       
 

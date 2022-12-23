@@ -24,6 +24,7 @@ namespace backend.Repositories.Impl
                                     .Include(o => o.OrderRecords)
                                         .ThenInclude(or => or.Product)
                                     .Include(o => o.Customer)
+                                    .Include(o=>o.Restaurant)
                                     .FirstOrDefault(); ;
         }
 
@@ -38,6 +39,26 @@ namespace backend.Repositories.Impl
         {
             _dbContext.orders.Update(order);
             _dbContext.SaveChanges();
+        }
+        public Order GetLatest()
+        {
+            int userId = 1;
+            return _dbContext.orders
+                .Where(x => x.Customer.Id == userId)
+                .Include(x=>x.Restaurant)
+                .Include(x=>x.Courier)
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault();
+        }
+        public IQueryable<Order> GetCompletedOrders(int courierId)
+        {
+            return _dbContext.orders
+                .Where(x => x.orderStatus == Data.Models.Enums.OrderStatus.COMPLETED)
+                .Include(x => x.OrderRecords).ThenInclude(x=>x.Product)
+                .Include(x => x.Restaurant)
+                .Include(x => x.Customer)
+                .Include(x => x.Courier).Where(x => x.Courier.Id == courierId)
+                .AsQueryable();
         }
     }
 }

@@ -36,14 +36,10 @@ export class StartPageComponent implements OnInit {
       location.reload();
     });
   }
-  setInactive() {
+ async setInactive() {
     this.courierService.setStatusInactive().then(res => {
       location.reload();
     });
   }
-
-
-
-
 
 }

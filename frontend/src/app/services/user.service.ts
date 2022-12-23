@@ -92,7 +92,6 @@ getRole()
         await this.requestService
             .get('/user/doMe')
             .then((res: User) => {
-                console.log(res)
                 this.user = res;
             })
             .catch((err: any) => {

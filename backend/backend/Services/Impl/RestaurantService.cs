@@ -37,6 +37,7 @@ namespace backend.Services.Impl
 
         public void register(Restaurant res)
         {
+            Console.WriteLine(res.phoneNumber);
             var email = _UserRepository.findByEmail(res.email);
             if (email != null)
                 throw new DomainConflictException("User already exists");
@@ -59,7 +60,7 @@ namespace backend.Services.Impl
                 res.password = hashedPassword;
                 res.StoredSalt = salt;
                 res.role = UserRole.Restaurant;
-                res.phoneNumber = res.phoneNumber;
+
                 res.headerImage = res.headerImage;
 
                 _UserRepository.create(res);
@@ -90,7 +91,8 @@ namespace backend.Services.Impl
 
         public List<User> GetRestaurants()
         {
-            return _UserRepository.getAll(UserRole.Restaurant);
+            var restaurants = _UserRepository.getAll(UserRole.Restaurant);
+            return restaurants;
         }
 
         public User GetRestaurant(int id)

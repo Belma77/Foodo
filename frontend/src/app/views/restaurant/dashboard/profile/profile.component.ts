@@ -4,6 +4,8 @@ import { Restaurant } from 'src/app/models/restaurant';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment} from 'src/environments/environment';
+import {AuthService} from "../../../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +19,9 @@ export class ProfileComponent implements OnInit {
 
   profileForm: FormGroup;
 
-  constructor(private userService:UserService, private restaurantServie: RestaurantService, private fb: FormBuilder) { 
+  constructor(private userService:UserService, private restaurantServie: RestaurantService, private fb: FormBuilder,
+              private authService:AuthService,
+              private router:Router) {
     if (this.user.headerImage)
       this.selectedImg = environment.api + "/download?fileUrl=" + this.user.headerImage;
 
@@ -25,7 +29,7 @@ export class ProfileComponent implements OnInit {
       name: ['', [Validators.required]]
     });
 
-    if(this.user) 
+    if(this.user)
       this.profileForm.patchValue(this.user);
 
       console.log(this.profileForm.value)
@@ -51,7 +55,12 @@ export class ProfileComponent implements OnInit {
         reader.readAsDataURL(file);
     }
   }
+  logout()
+  {
+    this.authService.logout();
+    this.router.navigateByUrl('login/business');
 
+  }
   save() {
       let formData = new FormData();
       formData.append('body', JSON.stringify(this.profileForm.value));

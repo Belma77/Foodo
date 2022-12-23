@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Restaurant } from 'src/app/models/restaurant';
+import { ReviewsService } from 'src/app/services/reviews.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,16 +10,18 @@ import { environment } from 'src/environments/environment';
 })
 export class RestaurantCardComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
-    console.log("test")
+    
   }
 
   @Input() restaurant!: Restaurant;
 
   imageUrl() {
-    console.log(environment.api + "/download?fileUrl=" + this.restaurant.headerImage)
+    //console.log(environment.api + "/download?fileUrl=" + this.restaurant.headerImage)
     return environment.api + "/download?fileUrl=" + this.restaurant.headerImage;
   }
 

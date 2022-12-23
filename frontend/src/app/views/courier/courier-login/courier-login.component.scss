@@ -2,32 +2,32 @@
 main {
   margin-top: 0px;
   height:100%;
-
+  width:100%;
   .form-wrapper {
       display: flex;
       height:100vh;
-
-      .left {
+    witdh:100%;
+      /*.left {
           width: 50%;
           background-color: rgb(241, 241, 241);
           display: flex;
           flex-direction: column;
           padding: 150px 40px;
-          position: relative;
+          position: relative;*/
 
           .logo {
               position: absolute;
               top:20px;
               left: 40px;
           }
-      }
+
 
       .right {
-          width: 50%;
+          width: 100%;
           background-color: #FA9269;
 
           .form-body {
-              width: 80%;
+              width: 90%;
 
               margin: 40px auto;
               margin-top:150px;
@@ -48,9 +48,14 @@ main {
 .form-control {
   border: none;
   border-bottom: 2px solid lightgrey;
-  padding: 5px 20px 20px 20px;
+  padding: 5px 20px 5px 20px;
 }
 a {
   color:black;
   text-decoration: none;
+}
+@media only screen and (max-width: 750px) {
+  .right{
+    width:100%;
+  }
 }

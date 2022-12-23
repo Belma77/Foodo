@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models.Entities
 {
-    class Menu
+    public class Menu
     {
         [Key]
         public int id { get; set; }
