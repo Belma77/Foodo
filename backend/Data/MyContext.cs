@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Data
 {
@@ -32,8 +33,8 @@ namespace Data
         public DbSet<OrderRecord> orderRecords { get; set; }
 
         public DbSet<Reviews> reviews { get; set; }
+         
         public DbSet<Location> locations { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -61,85 +62,85 @@ namespace Data
                    new { Id = 3, name = "Pizza" }
                 );
 
-            //byte[] salt = new byte[128 / 8];
+            byte[] salt = new byte[128 / 8];
 
-            //builder.Entity<Customer>().HasData(
-            //    new Customer
-            //    {
-            //        email = "john@doe",
-            //        firstName = "John",
-            //        lastname = "Doe",
-            //        password = generateHashedPassword(salt, "password"),
-            //        Id = 3,
-            //        role = UserRole.Customer,
-            //        StoredSalt = salt,
-            //    });
+            builder.Entity<Customer>().HasData(
+                new Customer
+                {
+                    email = "john@doe",
+                    firstName = "John",
+                    lastname = "Doe",
+                    password = generateHashedPassword(salt, "password"),
+                    Id = 3,
+                    role = UserRole.Customer,
+                    StoredSalt = salt,
+                });
 
 
-            //builder.Entity<Restaurant>().HasData(
-            //new Restaurant
-            //{
-            //    email = "slatko@slano",
-            //    Id = 1,
-            //    deliveryCost = 3,
-            //    password = "test",
-            //    rating = 10,
-            //    avgDeliveryTime = "15-25",
-            //    name = "Slatko i Slano",
-            //    numberOfReviews = 2,
-            //    role = UserRole.RESTAURANT,
-            //    slug = "slatko-i-slano",
-            //    headerImage = "Resources/Images/slatkoislano"
-            //},
-            // new Restaurant
-            // {
-            //     email = "mostar@lic",
-            //     Id = 2,
-            //     deliveryCost = 3,
-            //     password = "test",
-            //     rating = 163,
-            //     avgDeliveryTime = "15-25",
-            //     name = "Mostarlic",
-            //     numberOfReviews = 10,
-            //     role = UserRole.RESTAURANT,
-            //     slug = "mostarlic",
-            //     headerImage = "Resources/images/mostarlic"
-            // }
-            //);
+            builder.Entity<Restaurant>().HasData(
+            new Restaurant
+            {
+                email = "slatko@slano",
+                Id = 1,
+                deliveryCost = 3,
+                password = "test",
+                rating = 10,
+                avgDeliveryTime = "15-25",
+                name = "Slatko i Slano",
+                numberOfReviews = 2,
+                role = UserRole.Restaurant,
+                slug = "slatko-i-slano",
+                headerImage = "Resources/Images/slatkoislano"
+            },
+             new Restaurant
+             {
+                 email = "mostar@lic",
+                 Id = 2,
+                 deliveryCost = 3,
+                 password = "test",
+                 rating = 163,
+                 avgDeliveryTime = "15-25",
+                 name = "Mostarlic",
+                 numberOfReviews = 10,
+                 role = UserRole.Restaurant,
+                 slug = "mostarlic",
+                 headerImage = "Resources/images/mostarlic"
+             }
+            );
 
-            //builder.Entity<Product>()
-            //   .HasData
-            //   (
-            //      new
-            //      {
-            //          Id = 1,
-            //          name = "Cury Wok",
-            //          description = "Pileći rezanci u curry sosu",
-            //          price = 10.0,
-            //          Categoryid = 1,
-            //          RestaurantId = 1,
-            //          image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
-            //      },
-            //    new
-            //    {
-            //        Id = 2,
-            //        name = "Omlet sa gljivama",
-            //        description = "Jaja, gljive, puter, pavlaka, ajvar",
-            //        price = 6.0,
-            //        Categoryid = 1,
-            //        RestaurantId = 1, 
-            //        image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
-            //    },
-            //    new
-            //    {
-            //        Id = 3,
-            //        name = "Pizza Margharita",
-            //        description = "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
-            //        price = 7.0,
-            //        Categoryid = 1,
-            //        RestaurantId = 1,
-            //        image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
-            //    });
+            builder.Entity<Product>()
+               .HasData
+               (
+                  new
+                  {
+                      Id = 1,
+                      name = "Cury Wok",
+                      description = "Pileći rezanci u curry sosu",
+                      price = 10.0,
+                      Categoryid = 1,
+                      RestaurantId = 1,
+                      image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
+                  },
+                new
+                {
+                    Id = 2,
+                    name = "Omlet sa gljivama",
+                    description = "Jaja, gljive, puter, pavlaka, ajvar",
+                    price = 6.0,
+                    Categoryid = 1,
+                    RestaurantId = 1,
+                    image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
+                },
+                new
+                {
+                    Id = 3,
+                    name = "Pizza Margharita",
+                    description = "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
+                    price = 7.0,
+                    Categoryid = 1,
+                    RestaurantId = 1,
+                    image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
+                });
 
         }
 

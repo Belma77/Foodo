@@ -1,20 +1,23 @@
 <div class="container">
-    <h1>Unesi Adresu za dostavu</h1>
+    <h1>Unesi adresu za dostavu</h1>
     <div class="wrapper">
        <div class="form">
             <div class="form-group">
                 <i class="fas fa-map-marker-alt"></i>
-                <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-            </div>
+                <input *ngIf="!adressExists" type="text" class="form-control" id="search" (keydown.enter)="$event.preventDefault()" placeholder="Potrazi lokaciju" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" required #search>
+                <input *ngIf="adressExists" type="text" class="form-control" id="search" (keydown.enter)="$event.preventDefault()" placeholder={{location.formatedAdress}} autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
 
+            </div>
+           
             <div *ngIf="adressExists" class="form-group">
                 <i class="fas fa-home"></i>
-                <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Sprat, Stan, Napomena" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
+                <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Sprat" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" [(ngModel)]="floor">
+                <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Stan" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" [(ngModel)]="apartment">
+                <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Napomena" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" [(ngModel)]="note">
+
             </div>
 
-            <div class="postavi-na-mapi">
-                <a [routerLink]="['marker-picker']" >Postavi Lokaciju na mapi</a>
-            </div>    
+           
        </div>
     
        <div class="map-wrapper">
@@ -26,6 +29,12 @@
                 </agm-map>
             </div>
        </div>
-    
     </div>
-  </div>
+    <div>
+        <button type="button" class="btn btn-dark" (click)="saveLocation()">Spasi</button>
+     <p class="text-danger" *ngIf="f.search.touched && f.search.errors?.required">Unesite lokaciju</p>   
+     <p class="text-danger" *ngIf="!adressExists">Unesite lokaciju</p>   
+
+   </div>
+    </div>
+  

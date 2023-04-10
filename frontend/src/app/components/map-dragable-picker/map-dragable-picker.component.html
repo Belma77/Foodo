@@ -1,5 +1,5 @@
 <div class="container wrapper">
-    <h1>Oznaci svoju adresi na mapi</h1>
+    <h1>Oznaci svoju adresu na mapi</h1>
     <div class="map">
         <agm-map *ngIf="adressExists" [latitude]="location?.latitude!" [longitude]="location?.longitude!" [zoom]="zoom">
             <agm-marker [latitude]="location?.latitude!" [longitude]="location?.longitude!" [markerDraggable]="true"
@@ -8,5 +8,7 @@
     </div>
 
     <h3 *ngIf="location?.formatedAdress">{{location?.formatedAdress}}</h3>
+ <!-- <button type="button" class="btn btn-dark" (click)="SaveLocation(location)">Spasi</button>  -->
+<!-- <button type="button" class="btn btn-dark" (click)="setCurrentLocation()">Spasi</button>   -->
 
 </div>

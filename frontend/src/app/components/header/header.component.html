@@ -7,12 +7,11 @@
                     <div class="authButtons" *ngIf = "!isLoggedIn">
                         <a class="loginButton" [routerLink]="['/login']" routerLinkActive="active">Prijava</a>
                         <a class="registerButton" [routerLink]="['/register']" routerLinkActive="active">Registracija</a>
-                       
 
                     </div>
                     <div class="authButtons" *ngIf = "isLoggedIn">
-                        <a class="SetLocation" [routerLink]="['/pick-location']" routerLinkActive="active">Postavi lokaciju</a>
-
+                        <!-- <a class="SetLocation" [routerLink]="['/used-adresses']" routerLinkActive="active">Postavi lokaciju</a> -->
+                        <button class="SetLocation" (click) = "setLocation()">Postavi lokaciju </button>
                         <button class="registerButton" (click) = "logout()">Odjava</button>
 
                     </div>

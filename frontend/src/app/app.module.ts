@@ -60,6 +60,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ReviewsComponent } from './views/customer/reviews/reviews.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PickLocationComponent } from './views/customer/pick-location/pick-location.component';
+import { LocationService } from './services/location.service';
+import { UsedAdressesComponent } from './views/customer/used-adresses/used-adresses.component';
 
 
 @NgModule({
@@ -105,7 +107,8 @@ ReviewsComponent,
 LocationPickerComponent,
 PickLocationComponent,
 ReviewsComponent,
-PickLocationComponent
+PickLocationComponent,
+UsedAdressesComponent,
 
   ],
   imports: [
@@ -143,7 +146,7 @@ PickLocationComponent
        CoreRequestService,
        AlertService,
        NotificationService,
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+           // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

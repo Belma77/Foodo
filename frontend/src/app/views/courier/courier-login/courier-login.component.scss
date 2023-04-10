@@ -2,39 +2,10 @@
 main {
   margin-top: 0px;
   height:100%;
-<<<<<<< HEAD
-
-  .form-wrapper {
-      display: flex;
-      height:100vh;
-
-      .left {
-          width: 50%;
-          background-color: rgb(241, 241, 241);
-          display: flex;
-          flex-direction: column;
-          padding: 150px 40px;
-          position: relative;
-
-          .logo {
-              position: absolute;
-              top:20px;
-              left: 40px;
-          }
-      }
-
-      .right {
-          width: 50%;
-          background-color: #FA9269;
-
-          .form-body {
-              width: 80%;
-=======
   width:100%;
   .form-wrapper {
       display: flex;
       height:100vh;
-    witdh:100%;
       /*.left {
           width: 50%;
           background-color: rgb(241, 241, 241);
@@ -56,7 +27,6 @@ main {
 
           .form-body {
               width: 90%;
->>>>>>> task-8
 
               margin: 40px auto;
               margin-top:150px;
@@ -83,11 +53,8 @@ a {
   color:black;
   text-decoration: none;
 }
-<<<<<<< HEAD
-=======
 @media only screen and (max-width: 750px) {
   .right{
     width:100%;
   }
 }
->>>>>>> task-8
