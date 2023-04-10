@@ -3,7 +3,7 @@
     <div class="col-mid-12">
         <app-location-picker [location] = "location" (newLocationEvent) = "changeLocation($event)" *ngIf="!isMapDragable"></app-location-picker>
         <app-map-dragable-picker [location] = "location" (newLocationEvent) = "changeLocation($event)" *ngIf="isMapDragable"></app-map-dragable-picker>    
-        <button class="btn btn-dark"(click) = "setMap()">Promijeni</button>
     </div>
-   
+    <a [routerLink]="" *ngIf="!isMapDragable" (click) ="setMap()">Postavi na mapi lokaciju</a> 
+    <button *ngIf="isMapDragable" class="btn btn-dark"(click) = "setMap()">Potvrdi</button> 
 </div>

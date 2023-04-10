@@ -33,6 +33,7 @@ namespace Data.Profiles
             CreateMap<OrderRecord, OrderRecordViewModel>();
             CreateMap<Product, ProductViewModel>();
 
+            CreateMap<Location, GetFormattedAdress>();
         }
     }
 }

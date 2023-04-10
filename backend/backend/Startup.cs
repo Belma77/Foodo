@@ -71,6 +71,7 @@ namespace backend
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend", Version = "v1" });
+
                 c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
                 {
                     Scheme = "bearer",
@@ -115,7 +116,7 @@ namespace backend
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(o =>
             {
-                var Key = Encoding.UTF8.GetBytes(Configuration["JWT:Key"]);
+                var Key = Encoding.UTF8.GetBytes(Configuration["jwt:Key"]);
                 o.SaveToken = true;
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -172,6 +173,8 @@ namespace backend
             services.AddScoped<UserService, UserService>();
 
             services.AddScoped<IProductService, Services.Impl.ProductService>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<LocationService, LocationService>();
             services.AddScoped<Services.Impl.CustomerService, Services.Impl.CustomerService>();
             services.AddScoped<CourierService, CourierService>();
             services.AddScoped<UserService, UserService>();
@@ -187,7 +190,7 @@ namespace backend
             //        IssuerSigningKey = new
             //        SymmetricSecurityKey
             //        (Encoding.UTF8.GetBytes
-            //        (Configuration["Jwt:Key"]))
+            //        (Configuration["jwt:Key"]))
             //    };
 
             //});

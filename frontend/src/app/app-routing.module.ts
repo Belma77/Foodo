@@ -30,6 +30,9 @@ import {ActivitiesComponent} from "./views/courier/dashboard/activities/activiti
 import { ReviewsComponent } from './views/customer/reviews/reviews.component';
 import { PickLocationComponent } from './views/customer/pick-location/pick-location.component';
 import { MapDragablePickerComponent } from './components/map-dragable-picker/map-dragable-picker.component';
+import { UsedAdressesComponent } from './views/customer/used-adresses/used-adresses.component';
+import { LocationPickerComponent } from './components/location-picker/location-picker.component';
+import { LocationWrapperComponent } from './components/location-wrapper/location-wrapper.component';
 
 
 const routes: Routes = [
@@ -45,7 +48,14 @@ const routes: Routes = [
    // canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf(), UserRole.COURIER.valueOf(), UserRole.RESTAURANT.valueOf() ]}
   },
   {path:'pick-location', component:PickLocationComponent},
-  {path:'marker-picker', component:MapDragablePickerComponent},
+  {path:'location-picker', component:LocationPickerComponent,
+  children:[
+  ]
+},
+{path:'marker-picker', component:MapDragablePickerComponent},
+{path:'location-wrapper', component:LocationWrapperComponent},
+{path:'used-adresses', component:UsedAdressesComponent},
+
   {path:'register/courier', component:CourierRegisterComponent},
   {path:'login/courier', component:CourierLoginComponent},
   {path:'login/business', component:LoginComponentRestaurant},

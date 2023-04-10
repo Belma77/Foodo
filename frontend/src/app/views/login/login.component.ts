@@ -57,18 +57,15 @@ export class LoginComponent implements OnInit {
             this.userService
                 .login(this.loginForm.value)
                 .then((response:any) => {
-
-                    // this.loginForm.reset();
-                    console.log("logiran");
                 })
                 .catch((err:any) => {
-                    console.log("greska");
                     this.error=err;
                 });
         } else {
             this.validateAllFields(this.loginForm);
         }
      }
+     
      validateAllFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach((field) => {
             const control = formGroup.get(field);
@@ -79,15 +76,6 @@ export class LoginComponent implements OnInit {
             }
         });
      }
-
-
-    // signInWithGoogle(): void {
-    //     this.userService.googlePopupLogin()
-    //     .finally(() => {
-    //         this.loginForm.reset();
-    //     })
-    // }
-
 
       signOut(): void {
          this.authService.signOut();

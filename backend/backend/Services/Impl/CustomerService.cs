@@ -9,6 +9,7 @@ using Data.Models.Enums;
 using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-
+using Customer = Data.Models.Entities.Customer;
 
 namespace backend.Services.Impl
 {
@@ -71,7 +72,10 @@ namespace backend.Services.Impl
             try
             {
                 Customer customer = (Customer)_userRepository.findByEmail(u.email);
-                
+
+                if (customer == null)
+                    throw new DomainNotFound("User not found");
+
                     if (!UserPasswordUtil.verifyUserPassword(u.password, customer.password, customer.StoredSalt))
                         throw new DomainUnauthorizedException("Incorrect password");
                     else
@@ -85,14 +89,12 @@ namespace backend.Services.Impl
              {
                 throw new DomainInvalidCast("User not found");
              }
-            
-            
-            
+        }
 
+        public void UpdateCustomerLocation(UpdateLocation update)
+        {
 
         }
-      
-
     }
 
     }

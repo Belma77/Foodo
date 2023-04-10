@@ -25,11 +25,8 @@ namespace Data.Models.Entities
 
         public ICollection<OrderRecord> OrderRecords { get; set; }  = new List<OrderRecord>();  
 
-        [NotMapped]
-        public Location startLocation { get; set; }
-
-        [NotMapped]
-        public Location endLocation { get; set; }
+        public Location restaurantLocation { get; set; }
+        public Location customerLocation { get; set; }
 
         public DateTime requestTime { get; set; }
         

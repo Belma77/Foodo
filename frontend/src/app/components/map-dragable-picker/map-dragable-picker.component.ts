@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone, Input, Output } from 
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { EventEmitter } from '@angular/core';
 import { Location } from 'src/app/models/location';
+import { LocationService } from 'src/app/services/location.service';
+import { Router } from '@angular/router';
+import { LocationWrapperComponent } from '../location-wrapper/location-wrapper.component';
 
 @Component({
   selector: 'app-map-dragable-picker',
@@ -16,11 +19,15 @@ export class MapDragablePickerComponent implements OnInit {
   @Input() location!: Location | null;
 
   @Output() newLocationEvent: EventEmitter<Location> = new EventEmitter();
+  @Output() isMapDragable = true; 
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
-  ) { }
+    private ngZone: NgZone,
+    private locationService:LocationService,
+    private router:Router,
+    private wrapper:LocationWrapperComponent
+    ) { }
 
 
   ngOnInit() {
@@ -33,7 +40,7 @@ export class MapDragablePickerComponent implements OnInit {
   }
 
   // Get Current Location Coordinates
-  private setCurrentLocation() {
+   setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         if(!this.location)
@@ -54,6 +61,7 @@ export class MapDragablePickerComponent implements OnInit {
     this.location.latitude = $event.coords.lat;
     this.location.longitude = $event.coords.lng;
     this.getAddress(this.location.latitude, this.location.longitude);
+    
   }
 
   getAddress(latitude:any, longitude:any) {
@@ -78,5 +86,6 @@ export class MapDragablePickerComponent implements OnInit {
   get adressExists() {
     return this.location && this.location.latitude && this.location.longitude;
   }
+
 
 }

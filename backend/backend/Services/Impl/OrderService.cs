@@ -187,10 +187,14 @@ namespace backend.Services.Impl
         public GetLatestOrderVM GetLatestOrder()
         {
             var order = _orderRepository.GetLatest();
-            Console.WriteLine(order.orderStatus);
-            var mapped = _mapper.Map<GetLatestOrderVM>(order);
-            Console.WriteLine(mapped.orderStatus);
-            return mapped;
+            if(order!=null)
+            {
+                var mapped = _mapper.Map<GetLatestOrderVM>(order);
+                Console.WriteLine(mapped.orderStatus);
+                return mapped;
+            }
+            return null;
+            
 
         }
         public List<GetOrdersVM> GetCompletedOrders(int courierId)
