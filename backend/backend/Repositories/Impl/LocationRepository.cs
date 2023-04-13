@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend.Utils;
 using Data;
 using Data.Models.Entities;
 using Data.Models.ViewModels;
@@ -28,7 +29,8 @@ namespace backend.Repositories.Impl
 
         public List<Location> GetByCustomer(int customerId)
         {
-            var location = _db.locations.Where(x=>x.CustomerId==customerId).OrderByDescending(x=>x.Id).Take(3).ToList();
+            var location = _db.locations.Where(x=>x.CustomerId==customerId).DistinctBy(y=>y.formatedAdress)
+           .OrderByDescending(x => x.Id).Take(3).ToList();
             return location;
         }
 

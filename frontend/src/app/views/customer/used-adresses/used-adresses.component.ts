@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Restaurant } from 'src/app/models/restaurant';
 import { CoreRequestService } from 'src/app/services/core-request.service';
 import { LocationService } from 'src/app/services/location.service';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-used-adresses',
@@ -10,11 +12,21 @@ import { LocationService } from 'src/app/services/location.service';
   styleUrls: ['./used-adresses.component.scss']
 })
 
+@Injectable({
+  providedIn: 'root',
+})
 export class UsedAdressesComponent implements OnInit {
-adresses!:any;
+adresses:any;
+adress:boolean=false;
+@Output() onSelected = new EventEmitter<any>();
+@Input() restaurant:any=null;
+ res:any=null;
 
-
-  constructor(private locationService:LocationService, public modal:NgbActiveModal, private router:Router) { }
+  constructor(private locationService:LocationService,
+     public modal:NgbModal, 
+     private router:Router,
+     private orderService:OrderService
+     ) { }
 
   ngOnInit(): void {
     this.UsedAdresses();
@@ -31,14 +43,28 @@ adresses!:any;
 
    AddAdress()
    {
+      this.adress=true;
+      this.orderService.restaurant=this.restaurant;
       this.router.navigate(['/pick-location']);
-      this.modal.close();
+      this.modal.dismissAll();
+      
    }
 
    ChooseAdress(adress:any)
    {   
-       console.log(adress);  
+       this.adress=true;
        this.locationService.UpdateLocation(adress);
-       this.modal.close();
+       this.modal.dismissAll();
+       if(this.restaurant!=null)
+       {
+        this.orderService.makeOrder(this.restaurant);
+       }
+       
    }
+
+   closeModal()
+   {
+       this.modal.dismissAll();
+   }
+
 }

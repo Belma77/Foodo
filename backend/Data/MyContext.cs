@@ -71,7 +71,7 @@ namespace Data
                     firstName = "John",
                     lastname = "Doe",
                     password = generateHashedPassword(salt, "password"),
-                    Id = 3,
+                    Id = 5,
                     role = UserRole.Customer,
                     StoredSalt = salt,
                 });
@@ -81,9 +81,9 @@ namespace Data
             new Restaurant
             {
                 email = "slatko@slano",
-                Id = 1,
+                Id = 6,
                 deliveryCost = 3,
-                password = "test",
+                password = generateHashedPassword(salt, "password"),
                 rating = 10,
                 avgDeliveryTime = "15-25",
                 name = "Slatko i Slano",
@@ -95,9 +95,9 @@ namespace Data
              new Restaurant
              {
                  email = "mostar@lic",
-                 Id = 2,
+                 Id = 7,
                  deliveryCost = 3,
-                 password = "test",
+                 password = generateHashedPassword(salt, "password"),
                  rating = 163,
                  avgDeliveryTime = "15-25",
                  name = "Mostarlic",
@@ -117,8 +117,8 @@ namespace Data
                       name = "Cury Wok",
                       description = "Pileći rezanci u curry sosu",
                       price = 10.0,
-                      Categoryid = 1,
-                      RestaurantId = 1,
+                      CategoryId = 1,
+                      RestaurantId = 3,
                       image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
                   },
                 new
@@ -127,8 +127,8 @@ namespace Data
                     name = "Omlet sa gljivama",
                     description = "Jaja, gljive, puter, pavlaka, ajvar",
                     price = 6.0,
-                    Categoryid = 1,
-                    RestaurantId = 1,
+                    CategoryId = 1,
+                    RestaurantId = 3,
                     image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
                 },
                 new
@@ -137,8 +137,8 @@ namespace Data
                     name = "Pizza Margharita",
                     description = "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
                     price = 7.0,
-                    Categoryid = 1,
-                    RestaurantId = 1,
+                    CategoryId = 1,
+                    RestaurantId = 3,
                     image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
                 });
 

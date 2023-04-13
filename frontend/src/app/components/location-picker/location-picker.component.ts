@@ -5,6 +5,7 @@ import { LocationService } from 'src/app/services/location.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsedAdressesComponent } from 'src/app/views/customer/used-adresses/used-adresses.component';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-location-picker',
@@ -26,13 +27,14 @@ export class LocationPickerComponent implements OnInit {
   @Output() newLocationEvent: EventEmitter<Location> = new EventEmitter();
 
   @Input() location!: Location;
-   
+  @Input() res:any=null;
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private locationService:LocationService,
     private router:Router,
     private fb: FormBuilder,
+    private orderService:OrderService
 
     
   ) {
@@ -147,10 +149,23 @@ export class LocationPickerComponent implements OnInit {
   this.location.apartmentNo =this.apartment;
   this.location.floor=this.floor;
   this.location.note=this.note;
-  console.log(this.location);
   this.locationService.AddLocation(this.location!);
+  
+  if(this.orderService.currentOrder!=null)
+  {
+    this.orderService.makeOrder(null);
+  }
+
+  else{
   this.router.navigate(['/customer/home-page'])
   }
+
+  }
+
+  else{
+    this.validateAllFields(this.form);
+  }
+  
  
  }
 

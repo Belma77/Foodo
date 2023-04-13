@@ -33,5 +33,18 @@ namespace Data.Models.Entities
             this.longitude = longitude;
            
         }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null) return false;
+            var location=obj as Location;   
+            return location.formatedAdress == formatedAdress;
+        }
+        public override int GetHashCode()
+        {
+            int formatedAdresshash = formatedAdress.GetHashCode();
+
+            return formatedAdresshash;
+        }
     }
 }

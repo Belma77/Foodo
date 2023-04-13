@@ -54,14 +54,11 @@ adressExists:boolean=false;
 
     else
     {
-
      const ModalRef=this.modal.open(UsedAdressesComponent);
     }
 
     })
-      
-
-    
+   
   }
 
   @HostListener('window:scroll', [])
