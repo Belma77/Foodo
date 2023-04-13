@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
@@ -7,9 +7,11 @@ import { Restaurant } from 'src/app/models/restaurant';
 import { OrderService } from 'src/app/services/order.service';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { environment } from 'src/environments/environment';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PopUpComponent} from "../../courier/dashboard/start-page/pop-up/pop-up.component";
 import { ReviewsComponent } from '../reviews/reviews.component';
+import { UsedAdressesComponent } from '../used-adresses/used-adresses.component';
+import { LocationService } from 'src/app/services/location.service';
 
 @Component({
   selector: 'app-restaurant',
@@ -17,15 +19,18 @@ import { ReviewsComponent } from '../reviews/reviews.component';
   styleUrls: ['./restaurant.component.scss']
 })
 export class RestaurantComponent implements OnInit {
+  @Input() adress!:boolean;
   restaurant!:Restaurant;
   groupedProducts!:Map<string,Product[]>;
-
+  currentAdress:any;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private orderService:OrderService,
               private restaurantService:RestaurantService,
               private viewportScroller: ViewportScroller,
-              private modal: NgbModal) {
+              private modal: NgbModal,
+              private locationService:LocationService,
+              ) {
 
    }
 
@@ -77,10 +82,35 @@ export class RestaurantComponent implements OnInit {
   get order() {
     return this.orderService.currentOrder;
   }
-  makeOrder() {
-    this.orderService.makeOrder(this.restaurant);
 
+  makeOrder() { 
+     this.orderService.makeOrder(this.restaurant);
   }
+
+  selected(selected:boolean)
+  {
+    this.adress=selected;
+  }
+
+  setLocation()
+  {
+    this.locationService.GetLocation().then(x=>{
+      this.currentAdress=x;
+
+    if(this.currentAdress === null)
+    {
+      this.router.navigate(['/pick-location']);
+    } 
+
+    else
+    {
+     const ModalRef=this.modal.open(UsedAdressesComponent);
+     ModalRef.componentInstance.restaurant=this.restaurant;
+    }
+
+    })
+  }
+
   get imageUrl() {
     return environment.api + "/download?fileUrl=" + this.restaurant.headerImage;
   }

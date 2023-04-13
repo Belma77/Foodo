@@ -70,7 +70,7 @@ namespace backend.Services.Impl
             _orderRepository.create(order);
 
             //sendOfferToRestaurant(order.Id);
-            sendOfferToCourier(order.Id);
+           // sendOfferToCourier(order.Id);
            
         }
       

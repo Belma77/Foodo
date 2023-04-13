@@ -66,10 +66,11 @@
                 </app-order-line>
             </div>
 
-            <button type="submit" id="checkout-button" (click)="makeOrder()"  class="make-order-btn btn w-100">Naruci za {{order.price}} BAM</button>
+            <button type="submit" id="checkout-button" (click)="setLocation()"  class="make-order-btn btn w-100">Naruci za {{order.price}} BAM</button>
         </div>
         <ng-template #emptyOrder>
             <p>Još uvijek nisi dodao/la nijedan proizvod. Kad to uradiš, vidjet ćeš ih ovdje!</p>
           </ng-template>
     </div>
 </div>
+

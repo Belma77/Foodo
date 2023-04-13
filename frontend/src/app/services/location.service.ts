@@ -8,14 +8,15 @@ import { CoreRequestService } from "./core-request.service";
 
 export class LocationService{
 locaton:Location=new Location();
-    constructor(private requestService:CoreRequestService)
-    {
+choosen:boolean=false;
+  constructor(private requestService:CoreRequestService)
+  {
       
-    }
+  }
 
     AddLocation(location:Location)
     {
-
+      this.choosen=true;
        this.requestService.post('/Location', location).then(x=>{
         console.log(x);
        }).catch(err=>{
@@ -32,6 +33,7 @@ locaton:Location=new Location();
 
     UpdateLocation(location:Location)
     {
+      this.choosen=true;
       this.requestService.put('/Location', location);
     }
 }

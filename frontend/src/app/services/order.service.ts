@@ -23,7 +23,8 @@ export class OrderService {
   currentOrder:OrderForm | null = null;
   pendingOrders:Order[] = [];
   newOrder: any;
-
+  success:boolean=false;
+  restaurant:Restaurant|null=null;
   constructor(private requestService:CoreRequestService, private courierService: CourierService, private modal:NgbModal) {
       //this.pendingOrders.push(order);
    }
@@ -71,9 +72,16 @@ export class OrderService {
     this.currentOrder!.price = totalPrice;
   }
 
-   async makeOrder(retraurant: Restaurant) {
+   async makeOrder(retraurant: Restaurant|null) {
+
+    if(retraurant==null)
+    {
+      console.log(this.restaurant);
+      retraurant=this.restaurant;
+    }
+
     let order = new OrderPost;
-    order.restaurantId = retraurant.id!;
+    order.restaurantId = retraurant!.id!;
     Object.keys(this.currentOrder!.orderRecords).map((key: string) => {
       let value = this.currentOrder!.orderRecords[key];
       let orderRecords = new OrderRecordForm();
@@ -82,19 +90,29 @@ export class OrderService {
       order.orderRecords.push(orderRecords);
     })
     console.log(order.orderRecords)
-     await this.requestService.post('/customer/order/create', order)
-      .then(data => {
-        console.log(data)
-      })
-      .catch(e => console.log(e))
-     await this.Pay(order);
+    await this.Pay(order);
+    if(this.success)
+    {
+      await this.createOrder(order);
 
+    }
+    
   }
+
+async createOrder(order:any)
+{
+  await this.requestService.post('/customer/order/create', order)
+  .then(data => {
+    console.log(data)
+  })
+  .catch(e => console.log(e));
+}
 
  async Pay(order:any)
 {
+  this.success=false;
   var stripe=Stripe('pk_test_51Kw0aQKRuZYR6PFuWr7T06KwduEmYLRK07ovV0aGsKLAe41y8Tq8FfVTCxyULkyn2p2SSWNkv5qWBMqM04D6DoKf005ruX3VcY');
-
+  
   this.requestService.post('/customer/session/create', order)
     .then(function(response) {
       window.location.href=response;
