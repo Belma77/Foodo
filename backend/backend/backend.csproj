@@ -48,6 +48,7 @@
 
   <ItemGroup>
    <Folder Include="Resources\Images\" />
+   <Folder Include="Resources\NewFolder1\" />
 
 <Folder Include="Resources\NewFolder\" />
 
