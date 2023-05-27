@@ -33,6 +33,7 @@ private orderService:OrderService){
   ngOnInit(): void {
     this.restaurantService.getRestaurants().then(data => {
       this.restaurants = data;
+      console.log(data);
     });
     this.orderService.getLatestOrder();
     this.ShowModal();
@@ -43,8 +44,7 @@ private orderService:OrderService){
     var order = localStorage.getItem('order');
     this.orderService.getLatestOrder().then((x:Order)=>{
       this.order=x;    
-      console.log(this.order);
-      if(this.order.rated==false&&this.order.orderStatus==5&&order!=JSON.stringify(this.order.id)){
+      if(this.order.rated==false&&this.order.orderStatus==OrderStatus.COMPLETED.valueOf()&&order!=JSON.stringify(this.order.id)){
         this.reviewService.openModal();
       }  
     })

@@ -9,7 +9,7 @@ import {Order} from "../../../../models/order";
 })
 export class PendingOrdersComponent implements OnInit {
 
-pendingOrder!:Order;
+pendingOrder?:Order;
 opened:boolean=false;
 
   constructor(private courierService:CourierService) {}
@@ -21,7 +21,6 @@ opened:boolean=false;
   getPendingOrder()
   {
      this.pendingOrder=this.courierService.activeOrder;
-     console.log(this.pendingOrder);
      return this.pendingOrder;
   }
 

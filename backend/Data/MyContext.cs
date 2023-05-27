@@ -118,7 +118,7 @@ namespace Data
                       description = "Pileći rezanci u curry sosu",
                       price = 10.0,
                       CategoryId = 1,
-                      RestaurantId = 3,
+                      RestaurantId = 6,
                       image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
                   },
                 new
@@ -128,7 +128,7 @@ namespace Data
                     description = "Jaja, gljive, puter, pavlaka, ajvar",
                     price = 6.0,
                     CategoryId = 1,
-                    RestaurantId = 3,
+                    RestaurantId = 6,
                     image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
                 },
                 new
@@ -138,7 +138,7 @@ namespace Data
                     description = "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
                     price = 7.0,
                     CategoryId = 1,
-                    RestaurantId = 3,
+                    RestaurantId = 6,
                     image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
                 });
 

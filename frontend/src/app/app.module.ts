@@ -129,16 +129,13 @@ UsedAdressesComponent,
     ToastrModule.forRoot({
       positionClass :'toast-bottom-right'
     }),
-    //meDemoComponent,
+
     StripeModule.forRoot("pk_test_51Kw0aQKRuZYR6PFuWr7T06KwduEmYLRK07ovV0aGsKLAe41y8Tq8FfVTCxyULkyn2p2SSWNkv5qWBMqM04D6DoKf005ruX3VcY"),
       BrowserAnimationsModule,
     MatDialogModule,
     NgbModule
     
   ],
-  /*entryComponents:[
-    PopUpComponent
-  ],*/
   providers: [
        AuthService,
        UserService,
@@ -146,7 +143,7 @@ UsedAdressesComponent,
        CoreRequestService,
        AlertService,
        NotificationService,
-           // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

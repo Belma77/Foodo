@@ -9,7 +9,7 @@ export class Courier extends User {
         lastName!: string
         phoneNumber!: string
         status!: number
-        role!:UserRole
+        role!:string
 
     constructor(
         id: number,
@@ -23,7 +23,7 @@ export class Courier extends User {
         verified: boolean,
         token:string,
         status: number,
-        role:UserRole,
+        role:string,
     ) {
        super(id,email, role);
 

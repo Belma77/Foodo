@@ -4,7 +4,7 @@ import { Location } from "./location";
 
 export class Customer extends User {
     firstName!: string;
-    lastName!: string;
+    lastname!: string;
     location!:Location;
   }
 

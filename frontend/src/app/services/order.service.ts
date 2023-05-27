@@ -35,12 +35,10 @@ export class OrderService {
       this.currentOrder = new OrderForm();
       this.currentOrder.orderRecords = {};
     }
-    console.log("test")
     if(this.currentOrder.orderRecords && this.currentOrder.orderRecords[product.id])
     {
       var ol = this.currentOrder.orderRecords[product.id];
       ol!.quanity++;
-      console.log("test")
     }
     else {
       ol = new OrderRecord();
@@ -91,12 +89,7 @@ export class OrderService {
     })
     console.log(order.orderRecords)
     await this.Pay(order);
-    if(this.success)
-    {
       await this.createOrder(order);
-
-    }
-    
   }
 
 async createOrder(order:any)
@@ -118,6 +111,7 @@ async createOrder(order:any)
       window.location.href=response;
     })
     .then((session: any) => {
+      this.success=true;
       return stripe.redirectToCheckout({sessionId:session.id})
     })
     .catch((error:any)=> {})

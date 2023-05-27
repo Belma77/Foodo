@@ -19,6 +19,8 @@ namespace Data.Profiles
 
             CreateMap<Courier, UserDto>();
             CreateMap<Customer, UserDto>();
+            CreateMap<Customer, CustomerVM>();
+
             CreateMap<Restaurant, User>();
             CreateMap<RestaurantVM, Restaurant>();
             CreateMap<Restaurant, RestaurantVM>();
@@ -34,6 +36,7 @@ namespace Data.Profiles
             CreateMap<Product, ProductViewModel>();
 
             CreateMap<Location, GetFormattedAdress>();
+            CreateMap<Location, LocationDto>();
         }
     }
 }

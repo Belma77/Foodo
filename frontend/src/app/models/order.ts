@@ -16,6 +16,7 @@ export class Order {
     orderStatus?:OrderStatus;
     price!:number;
     rated!:boolean;
+    customerLocation!:any;
 }
 
 export class OrderForm {

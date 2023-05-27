@@ -4,6 +4,7 @@ import { OrderStatus } from 'src/app/models/enums/order-status';
 import { Location } from 'src/app/models/location';
 import { Order } from 'src/app/models/order';
 import data from '../../../../mock/order.json'
+import { CourierService } from 'src/app/services/courier.service';
 
 @Component({
   selector: 'app-order-tracking',
@@ -21,10 +22,18 @@ export class OrderTrackingComponent implements OnInit {
   data:string="U pripremi";
 
 
-  constructor(private router:Router) {
+  constructor(private router:Router, private courierService:CourierService) {
+    this.getOrder();
     this.setCurrentLocation();
-    this.resLocation = {lat: this.order.restaurant.location.latitude, lng: this.order.restaurant.location.longitude};
-    this.cusLocation = {lat: this.order.customer.location.latitude, lng: this.order.customer.location.longitude};
+    //this.resLocation = {lat: this.order.restaurant.location.latitude, lng: this.order.restaurant.location.longitude};
+    this.cusLocation = {lat: this.order.customerLocation.latitude, lng: this.order.customerLocation.longitude};
+    this.resLocation= new Location();
+    this.resLocation.latitude=43.345845;
+    this.resLocation.longitude=17.8221036;
+    console.log(this.cusLocation)
+    console.log(this.resLocation);
+    console.log(this.courierLocation);
+
     this.order.orderStatus = OrderStatus.IN_PREPARATION;
   }
 
@@ -32,6 +41,10 @@ export class OrderTrackingComponent implements OnInit {
     this.order!.orderStatus = OrderStatus[status as keyof typeof OrderStatus];
   }
 
+  getOrder()
+{
+  this.order=this.courierService.activeOrder;
+}
   completeOrder() {
     this.router.navigateByUrl("courier/dashboard")
   }
@@ -41,7 +54,7 @@ export class OrderTrackingComponent implements OnInit {
       navigator.geolocation.watchPosition((position) => {
         this.courierLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
        // this.courierLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
-        this.courierLocation = {lat: 43.345834, lng: 17.8111036};
+       // this.courierLocation = {lat: 43.345834, lng: 17.8111036};
 
       });
     }
@@ -55,8 +68,6 @@ export class OrderTrackingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.resLocation);
-    console.log(this.cusLocation)
   }
 
 public renderOptions = {

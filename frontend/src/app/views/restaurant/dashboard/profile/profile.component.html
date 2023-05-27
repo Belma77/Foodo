@@ -1,45 +1,45 @@
 <div class="container">
-  <div class="btn-logout">
-    <div class="btn btn-save" (click) = "logout()">Odjavi se</div>
+    <div class="btn-logout">
+      <div class="btn btn-save" (click) = "logout()">Odjavi se</div>
+    </div>
+  <h2>Profil</h2>
+  
+  <form [formGroup] = "profileForm">
+      <div class="row">
+          <div class="col-md-3">
+              <div class="profile-image-container">
+                  <img *ngIf="selectedImg"
+                      [src]="selectedImg"
+                      alt="Profile image"
+                      id="profile-image"
+                  />
+                  <input
+                      type="file"
+                      id="file-input"
+                      class="hidden"
+                      (change)="onFileChange($event)"
+                  />
+                  <label
+                      class="change-photo-label"
+                      for="file-input"
+                      >Promijeni sliku</label
+                  >
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+  
+                  <label for="name">Naziv</label>
+                  <input type="text" name="name" formControlName="name" class="form-control">
+              </div>
+  
+          </div>
+      </div>
+      <div class="row mt-3">
+          <div class="col-md-9 btn-wrapper">
+              <div class="btn btn-save" (click) = "save()">Uredi</div>
+          </div>
+      </div>
+  
+  </form>
   </div>
-<h2>Profil</h2>
-
-<form [formGroup] = "profileForm">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="profile-image-container">
-                <img *ngIf="selectedImg"
-                    [src]="selectedImg"
-                    alt="Profile image"
-                    id="profile-image"
-                />
-                <input
-                    type="file"
-                    id="file-input"
-                    class="hidden"
-                    (change)="onFileChange($event)"
-                />
-                <label
-                    class="change-photo-label"
-                    for="file-input"
-                    >Promijeni sliku</label
-                >
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-
-                <label for="name">Naziv</label>
-                <input type="text" name="name" formControlName="name" class="form-control">
-            </div>
-
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-md-9 btn-wrapper">
-            <div class="btn btn-save" (click) = "save()">Uredi</div>
-        </div>
-    </div>
-
-</form>
-</div>

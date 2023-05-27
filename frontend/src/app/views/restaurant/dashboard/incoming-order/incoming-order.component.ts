@@ -14,7 +14,7 @@ export class IncomingOrderComponent {
   
   
   @Input()
-  data: Order | undefined;
+  data: Order = new Order();;
   @Input() title!:string;
   constructor(public modal:NgbActiveModal, private router:Router, private orderService:OrderService) {
 
@@ -22,6 +22,7 @@ export class IncomingOrderComponent {
 
   AcceptOrder(data:Order) {
     this.orderService.restaurantAcceptOrder(data);
+    console.log("ovo je modal data");
     console.log(data);
     this.modal.close();
     this.router.navigateByUrl('/restaurant/admin/dashboard/orders');

@@ -34,7 +34,7 @@ export class CourierRegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   save() {
-    if (this.registerForm.valid) {
+    // if (this.registerForm.valid) {
       this.userService
         .courierRegister(this.registerForm.value)
         .then(() => {
@@ -43,9 +43,9 @@ export class CourierRegisterComponent implements OnInit {
         .catch((err) => {
           this.error=err;
         });
-    } else {
-      this.validateAllFields(this.registerForm);
-    }
+    // } else {
+    //   this.validateAllFields(this.registerForm);
+    
   }
   
   validateAllFields(formGroup: FormGroup) {
