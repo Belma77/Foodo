@@ -1,4 +1,5 @@
-﻿using backend.ErrorHandler;
+﻿using AutoMapper;
+using backend.ErrorHandler;
 using backend.Repositories;
 using backend.Utils;
 using Data;
@@ -17,10 +18,12 @@ namespace backend.Services.Impl
     {
         private MyContext _dbContext;
         private UserRepository userRepository;
-        public UserService(MyContext _dbContext, UserRepository us)
+        private IMapper _mapper;
+        public UserService(MyContext _dbContext, UserRepository us, IMapper mapper)
         {
             this._dbContext = _dbContext;
             this.userRepository = us;
+            _mapper = mapper;   
         }
 
 
@@ -30,12 +33,12 @@ namespace backend.Services.Impl
         }
 
 
-        public User doMe(int userId)
+        public UserDto doMe(int userId)
         {
             try
             {
                 var user = userRepository.findById(userId);
-                return user;
+                return _mapper.Map<UserDto>(user);
             }
             catch(Exception)
             {

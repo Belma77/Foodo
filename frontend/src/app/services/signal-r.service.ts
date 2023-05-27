@@ -51,12 +51,13 @@ export class SignalRService {
       console.log(data)
       console.log("stigla");
       this.newOrder=data;
-      //this.orderService.sendToRestaurant(data);
-      //this.orderService.addPendingOrder(data);
+      this.orderService.sendToRestaurant(this.newOrder);
+     // this.orderService.addPendingOrder(data);
+      this.orderService.sendToCourier(this.newOrder);
+
       console.log("signalR sending data");
 
    })
-   //this.orderService.sendToCourier(this.newOrder);
 
   }
 

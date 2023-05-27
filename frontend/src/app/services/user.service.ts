@@ -1,22 +1,21 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-// import { Notification } from '../models/notification.model';
 import {User} from '../models/user.model';
 import {AuthService} from './auth.service';
 import {CoreRequestService} from './core-request.service';
 import {UserRole} from "../models/enums/user-role";
-import {Courier} from "../models/courier";
+import {Courier} from "../models/courier.model";
 import {AlertService} from "./alert.service";
 import {SignalRService} from "./signal-r.service";
+import { OrderService } from './order.service';
+import { CourierService } from './courier.service';
 
-// import { NotificationService } from './notification.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserService {
     user! : User;
-    notifications: Notification[] = [];
     error: string | undefined;
 
     constructor(
@@ -24,15 +23,10 @@ export class UserService {
         private authService: AuthService,
         private router: Router,
         private alert:AlertService,
-        private signalR: SignalRService
-        // private notifcationService: NotificationService,
-        // private socialAuthService:SocialAuthService
-     ) {
-        // this.getNotifications();
-        // setInterval(() => {
-        //     this.getNotifications();
-        // }, 5000);
-    }
+        private signalR: SignalRService,
+        private courierService:CourierService
+     ) 
+     { }
 
     async register(user: User): Promise<any> {
         await this.requestService.post('/customer/register', user).then( (data: any) => {
@@ -70,6 +64,7 @@ export class UserService {
   async courierLogin(user: Courier): Promise<any> {
     await this.requestService.post('/courier/login', user).then(async (data: { token: string; }) => {
       localStorage.setItem('token', data.token);
+      await this.courierService.setStatusActive();
       this.signalR.startConnection();
       await this.doMe().then((response:any) => {
         this.router.navigate(['/courier/dashboard']);
@@ -83,7 +78,9 @@ export class UserService {
 
 getRole()
 {
-   var role=this.user.role;
+  // var role=this.user.role;
+   var role=localStorage.getItem('role');
+   console.log(role);
    return role!=null?role:null;
 }
 
@@ -92,10 +89,14 @@ getRole()
         await this.requestService
             .get('/user/doMe')
             .then((res: User) => {
-                this.user = res;
+              console.log(res);
+              var role=localStorage.setItem('role', res.role);
+              console.log(res.role);
+              this.user = res;
             })
             .catch((err: any) => {
-              this.logout();
+              console.log(err);
+              //this.logout();
             });
     }
 
@@ -104,7 +105,4 @@ getRole()
         this.authService.logout();
 
     }
-
-
-
 }

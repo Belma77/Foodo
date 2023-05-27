@@ -21,7 +21,7 @@ export class OrderOfferComponent implements OnInit {
   long = 43.3438;
 
   origin = { lat: 43.3438, lng: 17.8078 };
-  destination = { lat: 43.3538, lng: 17.8178 };
+  destination? : any;
 
   constructor(public courierService: CourierService ) {
 
@@ -39,6 +39,7 @@ export class OrderOfferComponent implements OnInit {
 getOrder()
 {
   this.order=this.courierService.activeOrder;
+  this.destination=this.order.customerLocation;
   return this.order;
 }
 

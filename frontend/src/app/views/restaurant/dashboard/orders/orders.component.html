@@ -1,49 +1,3 @@
-<<<<<<< HEAD
-=======
-<!-- <!-- <table>
-  <th>Broj narudzbe</th>
-  <th>Stavke</th>
-  <th>Ukupna cijena</th>
-  <th>Status narudzbe</th>
-
-  <tr *ngFor="let s of pendingOrders">
-    <td>{{ s.id }}</td>
-    <td *ngFor="let order of orderRecords|keyvalue">{{order.value.product.name}}>    
-    <h3 *ngFor="let o of order|keyvalue">
-    <p *ngFor="let p of o|keyvalue">{{p.value}}</p>
-    </h3>
-    </td>
-    
->>>>>>> task-8
-
-    <td>{{ s.orderStatus}}</td>
-
-<<<<<<< HEAD
-  <div class="table-body">
-    <div *ngFor="let s of pendingOrders" class="order-row">
-      <div class="left">
-        <div class="cell">{{s.id}}</div>
-      </div>
-      <div class="right">
-        <div *ngFor="let orderRecord of s.orderRecords | keyvalue" class="order-row">
-          <div class="cell">{{orderRecord.value.product.name}}</div>
-          <div class="cell">{{orderRecord.value.quanity}}</div>
-          <div class="cell">{{orderRecord.value.product.price * orderRecord.value.quanity}}</div>
-        </div>
-        <div class="cell">{{s.orderStatus}}</div>
-      </div>
-      <div class="left">
-        <div class="cell">{{s.price}}</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-=======
-  </tr>
-</table>
- -->
 <table class="table table-hover">
   <thead class="table-group-divider">
     <tr>
@@ -55,7 +9,6 @@
   </thead>
   <tbody>
     <tr *ngFor="let s of pendingOrders">
-      <!-- <th scope="row">1</th> -->
       <td>{{ s.id }}</td>
       <td *ngFor="let order of orderRecords|keyvalue">{{order.key}}:{{order.value.product.name}}
       </td>
@@ -65,4 +18,6 @@
    
   </tbody>
 </table> 
->>>>>>> task-8
+
+
+

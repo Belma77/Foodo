@@ -45,7 +45,7 @@ const routes: Routes = [
 
   { path:'customer/home-page',
     component:HomePageComponent,
-   // canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf(), UserRole.COURIER.valueOf(), UserRole.RESTAURANT.valueOf() ]}
+    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole[UserRole.Customer], UserRole[UserRole.Courier], UserRole[UserRole.Restaurant] ]}
   },
   {path:'pick-location', component:PickLocationComponent},
   {path:'location-picker', component:LocationPickerComponent,
@@ -55,22 +55,24 @@ const routes: Routes = [
 {path:'marker-picker', component:MapDragablePickerComponent},
 {path:'location-wrapper', component:LocationWrapperComponent},
 {path:'used-adresses', component:UsedAdressesComponent},
+{path:'checkout', component:CheckoutComponent},
+{path:'cancel', component:CancelComponent},
 
   {path:'register/courier', component:CourierRegisterComponent},
   {path:'login/courier', component:CourierLoginComponent},
   {path:'login/business', component:LoginComponentRestaurant},
   {path:'register/business', component:RestaurantRegisterComponent},
   {path:'checkout', component:CheckoutComponent,
-    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf()]}
+    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole[UserRole.Customer]]}
   },
   {path:'rateOrders', component:ReviewsComponent},
   {path:'restaurant/:slug', component:RestaurantComponent,
-    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf()]}
+    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole[UserRole.Customer]]}
   },
 
   // Restaurant dashboard links
   {path:'customer-order-tracking', component:CustomerOderTrackerComponent,
-    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole.CUSTOMER.valueOf()]}
+    canActivate:[AuthGuard, RoleGuard], data: { roles: [UserRole[UserRole.Customer]]}
 
   },
   {
@@ -81,14 +83,14 @@ const routes: Routes = [
         {
           path: "",
           component: OrdersComponent,
-          /*canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.RESTAURANT.valueOf()]},*/
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole[UserRole.Restaurant]]}
         },
         {
           path: "orders",
           component: OrdersComponent,
           canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.RESTAURANT.valueOf()]},
+            roles:[UserRole[UserRole.Restaurant]]},
         },
         {
           path: "menu",
@@ -98,25 +100,25 @@ const routes: Routes = [
           path: "statistics",
           component: StatisticsComponent,
           canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.RESTAURANT.valueOf()]},
+            roles: [UserRole[UserRole.Restaurant]]},
         },
         {
           path: "profile",
           component: ProfileComponent,
-          /*canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.RESTAURANT.valueOf()]},*/
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole[UserRole.Restaurant]]},
         },
         {
           path: 'new-product',
           component: NewProductComponent,
-          /*canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.RESTAURANT.valueOf()]},*/
+          canActivate:[AuthGuard, RoleGuard], data: {
+            roles: [UserRole[UserRole.Restaurant]]},
         },
         {
           path: 'edit-product/:id',
           component: NewProductComponent,
           canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.RESTAURANT.valueOf()]},
+            roles: [UserRole[UserRole.Restaurant]]},
         },
 
       ]
@@ -132,39 +134,40 @@ const routes: Routes = [
         {
           path: "",
           component: StartPageComponent,
-          canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.COURIER.valueOf()]},
+          canActivate:[AuthGuard, RoleGuard], 
+          data: {
+            roles: [UserRole[UserRole.Courier]]}  
         },
         {
           path: "home",
           component: StartPageComponent,
           canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.COURIER.valueOf()]},
+            roles: [UserRole[UserRole.Courier]]},
         },
         {
           path: "order/offer",
           component: OrderOfferComponent,
           canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.COURIER.valueOf()]},
+            roles: [UserRole[UserRole.Courier]]},
         },
         {
           path: "pending/orders",
           component: PendingOrdersComponent,
           canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.COURIER.valueOf()]},
+            roles: [UserRole[UserRole.Courier]]},
         },
         {
           path: "order/tracking",
           component: OrderTrackingComponent,
           canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.COURIER.valueOf()]},
+            roles: [UserRole[UserRole.Courier]]},
         },
 
         {
           path: "activities",
           component: ActivitiesComponent,
           canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole.COURIER.valueOf()]},
+            roles: [UserRole[UserRole.Courier]]},
         },
       ]
 

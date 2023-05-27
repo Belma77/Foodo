@@ -1,5 +1,8 @@
-
-<div class="container-activity" *ngFor="let item of orders;let i=index">
+<div class="noActivity" *ngIf="orders.length==0">
+  <p>Nema prethodnih aktivnosti</p>
+</div>
+<div *ngIf="orders.length>0">
+<div class="container-activity"  *ngFor="let item of orders;let i=index">
       <div class="activity" >
         <div class="info" >
        <h2>#{{item.id}}</h2>
@@ -7,22 +10,22 @@
           <button (click)="open(i)">
             {{opened[i]?'-':'+'}}
           </button>
-          <p class="price">{{item.price}} KM</p>
+          <p class="price">{{item.price}} BAM</p>
         </div>
       </div>
         <div *ngIf="opened[i]"   class="sidebar" [ngClass]="{'sidebar-open' : opened}" >
           <h3>Adresa restorana: </h3>
           <p>Kraljice Katarine 11a, Mostar 88000</p><hr>
           <h3>Adresa dostave:   </h3>
-          <p>Jusovina, Mostar 88000 </p><hr>
+          <p>{{item.customerLocation.formatedAdress}}</p><hr>
           <h3>Detalji narudzbe: </h3>
-          <p *ngFor="let order of item.orderRecords|keyvalue">{{order.value.product.name}} {{order.value.product.price}}</p>
+          <p *ngFor="let order of item.orderRecords|keyvalue">{{order.value.product.name}}</p>
          
           </div>
       
       </div>
       
-  
+    </div>
 
 
 

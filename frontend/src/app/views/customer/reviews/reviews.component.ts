@@ -18,6 +18,7 @@ export class ReviewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderService.getLatestOrder().then((x:Order)=>{
+      console.log(x);
       this.order=x;   
     })
   }

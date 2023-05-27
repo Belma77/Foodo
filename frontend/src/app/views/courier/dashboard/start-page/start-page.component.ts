@@ -33,12 +33,13 @@ export class StartPageComponent implements OnInit {
 
   
   async setActive() {
-    this.courierService.setStatusActive().then(res => {
+    await this.courierService.setStatusActive().then(res => {
       location.reload();
     });
   }
+
  async setInactive() {
-    this.courierService.setStatusInactive().then(res => {
+   await this.courierService.setStatusInactive().then(res => {
       location.reload();
     });
   }

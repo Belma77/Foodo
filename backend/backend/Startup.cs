@@ -152,6 +152,10 @@ namespace backend
             {
                 o.PayloadSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
             });
+            services.AddSignalR(o =>
+            {
+                o.EnableDetailedErrors = true;
+            });
 
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("db")));
 

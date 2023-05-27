@@ -25,6 +25,7 @@ namespace backend.Repositories.Impl
                                         .ThenInclude(or => or.Product)
                                     .Include(o => o.Customer)
                                     .Include(o=>o.Restaurant)
+                                    .Include(o=>o.customerLocation)
                                     .FirstOrDefault(); ;
         }
 
@@ -42,7 +43,7 @@ namespace backend.Repositories.Impl
         }
         public Order GetLatest()
         {
-            int userId = 1;
+            int userId = 4;
             return _dbContext.orders
                 .Where(x => x.Customer.Id == userId)
                 .Include(x=>x.Restaurant)
@@ -58,6 +59,7 @@ namespace backend.Repositories.Impl
                 .Include(x => x.Restaurant)
                 .Include(x => x.Customer)
                 .Include(x => x.Courier).Where(x => x.Courier.Id == courierId)
+                .Include(x=>x.customerLocation)
                 .AsQueryable();
         }
     }

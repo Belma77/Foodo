@@ -17,7 +17,7 @@ pendingOrders:Order[]=[];
   constructor(private requestService: CoreRequestService, private router:Router) { }
 
   async setStatusActive() {
-    this.requestService.patch('/courier/status/active', {});
+     this.requestService.patch('/courier/status/active', {});
   }
 
   async setStatusInactive() {

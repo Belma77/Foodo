@@ -14,13 +14,7 @@ namespace Data.Models.ViewModels
         public GetRestaurantVM Restaurant { get; set; }
         public  GetCourierVM Courier { get; set; }
         public ICollection<OrderRecordViewModel> OrderRecords { get; set; }
-        
-        [NotMapped]
-        public Location startLocation { get; set; }
-
-        [NotMapped]
-        public Location endLocation { get; set; }
-        public DateTime requestTime { get; set; }
+        public LocationDto customerLocation { get; set; }
         public double price { get; set; }
     }
 }

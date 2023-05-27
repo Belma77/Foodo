@@ -33,7 +33,6 @@ namespace Data.Models.Entities
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public OrderStatus orderStatus { get; set; }
 
-        //Todo: Change this to Payment object
         public double price { get; set; }
         public bool Rated { get; set; }
         public Order()

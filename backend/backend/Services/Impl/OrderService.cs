@@ -30,12 +30,15 @@ namespace backend.Services.Impl
         private IProductRepository _productRepository;
         private OrderService _orderService;
         private IMapper _mapper;
+        ILocationRepository _locationRepository;
 
         public OrderService(IHubContext<CustomHub> hub, 
             IProductRepository productRepository, 
             OrderRepository orderRepository, 
             IUserRepository userRepository, 
-            IMapper mapper
+            IMapper mapper,
+            ILocationRepository locationRepository
+
             )
         {
             _hub = hub;
@@ -43,6 +46,7 @@ namespace backend.Services.Impl
             _orderRepository = orderRepository;
             _userRepository = userRepository;
             _mapper = mapper;
+            _locationRepository = locationRepository;
         }
 
         public void createOrder(OrderViewModel o, int userId)
@@ -55,6 +59,7 @@ namespace backend.Services.Impl
             Customer customer = (Customer) _userRepository.findById(userId);
             order.Customer = customer;
 
+            var location=_locationRepository.GetCurrent(userId);
             order.orderStatus = OrderStatus.CREATED;
             foreach (OrderRecordViewModel or in o.orderRecords)
             {
@@ -65,12 +70,13 @@ namespace backend.Services.Impl
                 orderRecord.price = or.quanity * product.price;
                 order.OrderRecords.Add(orderRecord);
                 order.price += orderRecord.price;
+                order.customerLocation = location;
             }
             
             _orderRepository.create(order);
 
             //sendOfferToRestaurant(order.Id);
-           // sendOfferToCourier(order.Id);
+           sendOfferToCourier(order.Id);
            
         }
       
@@ -129,7 +135,6 @@ namespace backend.Services.Impl
             _hub.Clients.Client(connectionId).SendAsync("orderOffer", order);
             Console.WriteLine("poslano restoranu");
 
-            Console.WriteLine(order.OrderRecords);
         }
         public void sendOfferToCourier(int orderId)
 
