@@ -35,6 +35,7 @@ namespace Data
         public DbSet<Reviews> reviews { get; set; }
          
         public DbSet<Location> locations { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -67,23 +68,33 @@ namespace Data
             builder.Entity<Customer>().HasData(
                 new Customer
                 {
-                    email = "john@doe",
-                    firstName = "John",
-                    lastname = "Doe",
-                    password = generateHashedPassword(salt, "password"),
+                    email = "customer@gmail.com",
+                    firstName = "Customer",
+                    lastname = "Customer",
+                    password = generateHashedPassword(salt, "test"),
                     Id = 5,
                     role = UserRole.Customer,
                     StoredSalt = salt,
                 });
 
+            builder.Entity<Courier>().HasData(
+                new Courier
+                {
+                    firstName="Courier", 
+                    lastName="Courier",
+                    email="courier@gmail.com",
+                    role=UserRole.Courier,
+                    password=generateHashedPassword(salt, "test"),
 
+
+                });
             builder.Entity<Restaurant>().HasData(
             new Restaurant
             {
                 email = "slatko@slano",
                 Id = 6,
                 deliveryCost = 3,
-                password = generateHashedPassword(salt, "password"),
+                password = generateHashedPassword(salt, "test"),
                 rating = 10,
                 avgDeliveryTime = "15-25",
                 name = "Slatko i Slano",
