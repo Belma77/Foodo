@@ -33,17 +33,20 @@ using Stripe;
 using System.Web.Http;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
-//using AutoMapper.Configuration;
+using Middlewares;
+using System.Diagnostics;
+using CorrelationId;
 
 namespace backend
 {
     public class Startup
     {
         public static IConfiguration Configuration { get; set; }
-
-        public Startup(IConfiguration configuration)
+        public readonly ILogger<Startup> _logger;
+        public Startup(/*ILogger<Startup> logger,*/IConfiguration configuration)
         {
             Configuration = configuration;
+            //_logger = logger;
         }
         public static void Register(HttpConfiguration config)
         {
@@ -57,7 +60,7 @@ namespace backend
                 options => options.SerializerSettings.ReferenceLoopHandling =
         Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
-            services.AddTransient<ErrorHandlingMiddleware>();
+            //services.AddTransient<ErrorHandlingMiddleware>();
 
             services.AddControllers()
             .AddJsonOptions(options =>
@@ -160,10 +163,14 @@ namespace backend
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("db")));
 
             services.AddAutoMapper(typeof(Startup));
-
+            services.AddLogging(builder =>
+            {
+                builder.AddConsole();
+                builder.AddDebug();
+            });
             services.AddScoped<CustomHub, CustomHub>();
             services.AddScoped<CourierService, CourierService>();
-
+          
             services.AddScoped<OrderRepository, OrderRepository>();
             services.AddScoped<Services.Impl.OrderService, Services.Impl.OrderService>();
 
@@ -175,7 +182,6 @@ namespace backend
             services.AddScoped<CourierService, CourierService>();
             services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
-
             services.AddScoped<IProductService, Services.Impl.ProductService>();
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<LocationService, LocationService>();
@@ -184,7 +190,10 @@ namespace backend
             services.AddScoped<UserService, UserService>();
             services.AddScoped<ReviewsService, ReviewsService>();
             services.AddScoped<ReviewsRepository, ReviewsRepository>();
+            services.AddScoped<ErrorHandlingMiddleware>();
             services.AddHttpContextAccessor();
+
+
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             //{
             //    options.TokenValidationParameters = new TokenValidationParameters
@@ -203,7 +212,7 @@ namespace backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             StripeConfiguration.ApiKey = "sk_test_51Kw0aQKRuZYR6PFus0Cn01uZYmWxF3IL34UpJnQ5U6hzDOTz4yfP3G8tvnix1sfmShOEPDXBi8ZNALIJdumNl05l00CKD7fURm";
 
@@ -227,13 +236,14 @@ namespace backend
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
                 RequestPath = new PathString("/Resources")
             });
-
-
+            
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseMiddleware<JwtMiddleware>();
+           //app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<ErrorHandlingMiddleware>();
+          //app.UseExceptionHandler(GlobalExceptionHandler.BuildExceptionHandler());
+          //app.UseMiddleware<CorrelationIdMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<CustomHub>("/hub");
