@@ -80,6 +80,7 @@ namespace Data
             builder.Entity<Courier>().HasData(
                 new Courier
                 {
+                    Id=1,
                     firstName="Courier", 
                     lastName="Courier",
                     email="courier@gmail.com",

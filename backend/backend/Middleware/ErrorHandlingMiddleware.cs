@@ -1,5 +1,8 @@
-﻿using Data;
+﻿using backend.Services;
+using backend.Services.Interfaces;
+using Data;
 using Data.Models.Entities;
+using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,12 +15,14 @@ namespace backend.ErrorHandler
 {
     public class ErrorHandlingMiddleware:IMiddleware
     {
-        ILogger<ErrorHandlingMiddleware> _logger;
-        MyContext _db;
-        public ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger, MyContext db)
+        private ILogger<ErrorHandlingMiddleware> _logger;
+        private MyContext _db;
+        private IEmailService _emailService;
+        public ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger, MyContext db, IEmailService emailService)
         {
             _logger=logger;
             _db=db; 
+            _emailService=emailService;
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next )
         {
@@ -29,44 +34,49 @@ namespace backend.ErrorHandler
             catch(DomainUnauthorizedException e)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                //await context.Response.WriteAsync(e.Message);
-                await HandleExceptionAsync(context, e); 
+                await HandleExceptionAsync(context, e);
+               
             }
 
             catch (DomainConflictException e)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Conflict;
-                await context.Response.WriteAsync(e.Message);
+                await HandleExceptionAsync(context, e);
             }
 
             catch (DomainForbiddenException e)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                await context.Response.WriteAsync(e.Message);
+                await HandleExceptionAsync(context, e);
             }
 
             catch (DomainInvalidCast e)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                await context.Response.WriteAsync(e.Message);
+                await HandleExceptionAsync(context, e);
             }
 
             catch (DomainNotFound e)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                await context.Response.WriteAsync(e.Message);
+                await HandleExceptionAsync(context, e);
+               
             }
 
             catch (Exception e)
             {
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsync(e.Message);
+                await HandleExceptionAsync(context, e);
+                string message = $"Hello ,\n following exception has ocurred: {e.Message}.\n Date/Time:{DateTime.Now}. \n Your Foodo Team";
+
+                await _emailService.SendEmail("An exception has occured", message);
             }
         }
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             _logger.LogError(exception.Message);
+
             context.Response.ContentType = "application/json";
             var log= new Log()
             {
@@ -74,9 +84,15 @@ namespace backend.ErrorHandler
                 ExceptionMessage = exception.Message,
                 logDate = DateTime.Now,
             };
-            await context.Response.WriteAsync(log.ToString());  
+            await context.Response.WriteAsync(new ExceptionResponse() { 
+                ExceptionMessage=exception.Message,
+                StatusCode=context.Response.StatusCode,
+            }.ToString());  
             _db.Logs.Add(log);
             _db.SaveChanges();
+            string message = $"Hello ,\n following exception has ocurred: {exception.Message}.\n Date/Time:{DateTime.Now}. \n Your Foodo Team";
+
+            await _emailService.SendEmail("An exception has occured", message);
         }
     }
 }
