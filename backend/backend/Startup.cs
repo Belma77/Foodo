@@ -36,6 +36,7 @@ using Newtonsoft.Json;
 using Middlewares;
 using System.Diagnostics;
 using CorrelationId;
+using backend.Services.Interfaces;
 
 namespace backend
 {
@@ -43,10 +44,9 @@ namespace backend
     {
         public static IConfiguration Configuration { get; set; }
         public readonly ILogger<Startup> _logger;
-        public Startup(/*ILogger<Startup> logger,*/IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //_logger = logger;
         }
         public static void Register(HttpConfiguration config)
         {
@@ -60,8 +60,7 @@ namespace backend
                 options => options.SerializerSettings.ReferenceLoopHandling =
         Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
-            //services.AddTransient<ErrorHandlingMiddleware>();
-
+            
             services.AddControllers()
             .AddJsonOptions(options =>
             {
@@ -190,7 +189,8 @@ namespace backend
             services.AddScoped<UserService, UserService>();
             services.AddScoped<ReviewsService, ReviewsService>();
             services.AddScoped<ReviewsRepository, ReviewsRepository>();
-            services.AddScoped<ErrorHandlingMiddleware>();
+            services.AddTransient<ErrorHandlingMiddleware>();
+            services.AddTransient<IEmailService, EmailService>();
             services.AddHttpContextAccessor();
 
 
@@ -215,7 +215,7 @@ namespace backend
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             StripeConfiguration.ApiKey = "sk_test_51Kw0aQKRuZYR6PFus0Cn01uZYmWxF3IL34UpJnQ5U6hzDOTz4yfP3G8tvnix1sfmShOEPDXBi8ZNALIJdumNl05l00CKD7fURm";
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -240,10 +240,8 @@ namespace backend
             app.UseAuthentication();
             app.UseAuthorization();
 
-           //app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<ErrorHandlingMiddleware>();
-          //app.UseExceptionHandler(GlobalExceptionHandler.BuildExceptionHandler());
-          //app.UseMiddleware<CorrelationIdMiddleware>();
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<CustomHub>("/hub");
