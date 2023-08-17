@@ -1,4 +1,4 @@
- using Data;
+using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,11 +33,11 @@ using Stripe;
 using System.Web.Http;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
-using Middlewares;
 using System.Diagnostics;
 using CorrelationId;
 using backend.Services.Interfaces;
-
+using System.Collections.Specialized;
+using Quartz;
 namespace backend
 {
     public class Startup
@@ -167,31 +167,41 @@ namespace backend
                 builder.AddConsole();
                 builder.AddDebug();
             });
+
+            //services.AddQuartz(q =>
+            //{
+            //    q.UseMicrosoftDependencyInjectionScopedJobFactory();
+
+            //    var updateProductsFileJobKey = new JobKey(nameof(JobSchedulerService));
+            //    q.AddJob<JobSchedulerService>(opt => opt.WithIdentity(updateProductsFileJobKey));
+
+            //    q.AddTrigger(cfg => cfg.ForJob(updateProductsFileJobKey)
+            //    .WithIdentity("UpdateProductsFileJob-Trigger")
+            //    .WithSimpleSchedule(x => x.WithIntervalInMinutes(2).RepeatForever()));
+            //});
+
+            //services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
             services.AddScoped<CustomHub, CustomHub>();
-            services.AddScoped<CourierService, CourierService>();
-          
-            services.AddScoped<OrderRepository, OrderRepository>();
-            services.AddScoped<Services.Impl.OrderService, Services.Impl.OrderService>();
-
+           
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<UserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IReviewsRepository, ReviewsRepository>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<IRestaurantRepository, RestaurantRepository>();
 
-            services.AddScoped<ImageService, ImageService>();
             services.AddScoped<CourierService, CourierService>();
+            services.AddScoped<Services.Impl.OrderService, Services.Impl.OrderService>();
+            services.AddScoped<ImageService, ImageService>();
             services.AddScoped<RestaurantService, RestaurantService>();
             services.AddScoped<UserService, UserService>();
-            services.AddScoped<IProductService, Services.Impl.ProductService>();
-            services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<LocationService, LocationService>();
             services.AddScoped<Services.Impl.CustomerService, Services.Impl.CustomerService>();
-            services.AddScoped<CourierService, CourierService>();
-            services.AddScoped<UserService, UserService>();
             services.AddScoped<ReviewsService, ReviewsService>();
-            services.AddScoped<ReviewsRepository, ReviewsRepository>();
-            services.AddTransient<ErrorHandlingMiddleware>();
             services.AddTransient<IEmailService, EmailService>();
+
             services.AddHttpContextAccessor();
+            services.AddTransient<ErrorHandlingMiddleware>();
 
 
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -207,14 +217,16 @@ namespace backend
             //    };
 
             //});
+            var properties = new NameValueCollection();
 
+           
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
-            StripeConfiguration.ApiKey = "sk_test_51Kw0aQKRuZYR6PFus0Cn01uZYmWxF3IL34UpJnQ5U6hzDOTz4yfP3G8tvnix1sfmShOEPDXBi8ZNALIJdumNl05l00CKD7fURm";
+            StripeConfiguration.ApiKey = Configuration.GetValue<string>("Stripe:SecretKey");
             
             if (env.IsDevelopment())
             {

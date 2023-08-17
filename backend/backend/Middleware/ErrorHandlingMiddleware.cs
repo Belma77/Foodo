@@ -69,7 +69,7 @@ namespace backend.ErrorHandler
                 await HandleExceptionAsync(context, e);
                 string message = $"Hello ,\n following exception has ocurred: {e.Message}.\n Date/Time:{DateTime.Now}. \n Your Foodo Team";
 
-                await _emailService.SendEmail("An exception has occured", message);
+                await _emailService.SendEmailToDevelopers("An exception has occured", message);
             }
         }
 
@@ -91,8 +91,7 @@ namespace backend.ErrorHandler
             _db.Logs.Add(log);
             _db.SaveChanges();
             string message = $"Hello ,\n following exception has ocurred: {exception.Message}.\n Date/Time:{DateTime.Now}. \n Your Foodo Team";
-
-            await _emailService.SendEmail("An exception has occured", message);
+            await _emailService.SendEmailToDevelopers("An exception has occured", message);//for testing purposes
         }
     }
 }

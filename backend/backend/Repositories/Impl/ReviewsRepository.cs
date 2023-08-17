@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace backend.Repositories.Impl
 {
-    public class ReviewsRepository
+    public class ReviewsRepository:IReviewsRepository
     {
         private  MyContext _context;
         public ReviewsRepository(MyContext context)

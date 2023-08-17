@@ -25,16 +25,16 @@ namespace backend.Services.Impl
     public class OrderService
     {
         private IHubContext<CustomHub> _hub;
-        private OrderRepository _orderRepository;
+        private IOrderRepository _orderRepository;
         private IUserRepository _userRepository;
         private IProductRepository _productRepository;
         private OrderService _orderService;
         private IMapper _mapper;
-        ILocationRepository _locationRepository;
+        private ILocationRepository _locationRepository;
 
         public OrderService(IHubContext<CustomHub> hub, 
             IProductRepository productRepository, 
-            OrderRepository orderRepository, 
+            IOrderRepository orderRepository, 
             IUserRepository userRepository, 
             IMapper mapper,
             ILocationRepository locationRepository

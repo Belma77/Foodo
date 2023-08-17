@@ -76,6 +76,17 @@ namespace Data
                     role = UserRole.Customer,
                     StoredSalt = salt,
                 });
+            builder.Entity<Customer>().HasData(
+                new Customer
+                {
+                    email = "rs1seminarski2023@gmail.com",
+                    firstName = "test",
+                    lastname = "test",
+                    password = generateHashedPassword(salt, "test"),
+                    Id = 13,
+                    role = UserRole.Customer,
+                    StoredSalt = salt,
+                });
 
             builder.Entity<Courier>().HasData(
                 new Courier
