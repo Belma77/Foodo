@@ -24,16 +24,16 @@ namespace backend.Services.Impl
     public class CourierService
     {
         private IHubContext<CustomHub> _hub;
-        UserRepository _UserRepository;
+        IUserRepository _UserRepository;
         IMapper _mapper;
         string token;
-        OrderRepository _orderRepository;
+        IOrderRepository _orderRepository;
         OrderService _orderService;
 
         public CourierService(IHubContext<CustomHub> hub,
-        UserRepository UserRepository,
+        IUserRepository UserRepository,
         IMapper mapper,
-        OrderRepository orderRepository,
+        IOrderRepository orderRepository,
         OrderService orderService)
 
         {

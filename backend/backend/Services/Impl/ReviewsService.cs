@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using backend.ErrorHandler;
+using backend.Repositories;
 using backend.Repositories.Impl;
 using Data.Models.Entities;
 using Data.Models.ViewModels;
@@ -9,10 +10,10 @@ namespace backend.Services.Impl
 {
     public class ReviewsService
     {
-        private ReviewsRepository _reviewsRepo;
+        private IReviewsRepository _reviewsRepo;
         private IMapper _mapper;
-        private OrderRepository _orderRepository;
-        public ReviewsService(ReviewsRepository reviewsRepo, IMapper mapper, OrderRepository orderRepository)
+        private IOrderRepository _orderRepository;
+        public ReviewsService(IReviewsRepository reviewsRepo, IMapper mapper, IOrderRepository orderRepository)
         {
             this._reviewsRepo = reviewsRepo;   
             this._mapper = mapper;

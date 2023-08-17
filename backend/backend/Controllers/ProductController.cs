@@ -1,5 +1,4 @@
 ﻿using backend.Filters;
-using backend.Services;
 using Data.Models.Entities;
 using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +8,8 @@ using static backend.Utils.AuthConstants;
 using System;
 using AuthorizeAttribute = backend.Filters.CustomAuthorizeAttribute;
 using Data.Models.Enums;
+using backend.Services.Impl;
+using backend.Services.Interfaces;
 
 namespace backend.Controllers
 {

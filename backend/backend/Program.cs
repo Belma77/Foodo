@@ -6,6 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SendGrid;
+using SendGrid.Extensions.DependencyInjection;
+using SendGrid.Helpers.Mail;
+using backend.Services.Impl;
+using Stripe;
+using Quartz;
+using backend.Services.Interfaces;
 
 namespace backend
 {
@@ -13,6 +20,7 @@ namespace backend
     {
         public static void Main(string[] args)
         {
+            
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -24,12 +32,30 @@ namespace backend
                   loggingBuilder
                       .AddDebug()
                       .AddEventLog();
-              })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
+              }).ConfigureServices((hostContext, services) =>
+              {
+                  // Add the required Quartz.NET services
+                  services.AddQuartz(q =>
+                  {
+                      // Use a Scoped container to create jobs. I'll touch on this later
+                      q.UseMicrosoftDependencyInjectionJobFactory();
+                      var jobKey = new JobKey("EmailSchedulerService");
 
-                });
-         
+                      q.AddJobAndTrigger<EmailSchedulerService>(hostContext.Configuration);
+                  });
+                  
+
+                  services.AddQuartzHostedService(
+                      q => q.WaitForJobsToComplete = true);
+
+                  // other config
+              })
+              .ConfigureWebHostDefaults(webBuilder =>
+              {
+                  webBuilder.UseStartup<Startup>();
+
+              });
+
+
     }
 }

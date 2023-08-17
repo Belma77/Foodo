@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace backend.Repositories.Impl
 {
-    public class OrderRepository
+    public class OrderRepository:IOrderRepository
     {
         private MyContext _dbContext;
 

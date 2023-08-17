@@ -23,11 +23,11 @@ namespace backend.Services.Impl
 {
     public class RestaurantService
     {
-        private UserRepository _UserRepository;
+        private IUserRepository _UserRepository;
         private readonly IMapper _mapper;
         private ImageService _imageService;
        
-        public RestaurantService(UserRepository userRepository, IMapper mapper, ImageService imageService)
+        public RestaurantService(IUserRepository userRepository, IMapper mapper, ImageService imageService)
         {
             _UserRepository = userRepository;
             _mapper = mapper;

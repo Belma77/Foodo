@@ -3,7 +3,7 @@ using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
-namespace backend.Services
+namespace backend.Services.Interfaces
 {
     public interface IProductService
     {

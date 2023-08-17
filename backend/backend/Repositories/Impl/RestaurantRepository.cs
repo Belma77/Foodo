@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace backend.Repositories.Impl
 {
-    public class RestaurantRepository
+    public class RestaurantRepository:IRestaurantRepository
     {
         private MyContext dbContext;
         public void create(Restaurant restaurant)

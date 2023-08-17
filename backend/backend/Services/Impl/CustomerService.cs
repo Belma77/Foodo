@@ -23,10 +23,10 @@ namespace backend.Services.Impl
 {
     public class CustomerService
     {
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private readonly IMapper _mapper;
         
-        public CustomerService(UserRepository _UserRepository, IMapper mapper)
+        public CustomerService(IUserRepository _UserRepository, IMapper mapper)
         {
             _userRepository = _UserRepository;
             _mapper = mapper;

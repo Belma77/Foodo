@@ -4,6 +4,7 @@ namespace backend.Services.Interfaces
 {
     public interface IEmailService
     {
-        Task SendEmail(string subject, string message);
+        Task SendEmailToDevelopers(string subject, string message);
+        Task SendEmailToCustomers();
     }
 }

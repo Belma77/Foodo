@@ -17,9 +17,9 @@ namespace backend.Services.Impl
     public class UserService
     {
         private MyContext _dbContext;
-        private UserRepository userRepository;
+        private IUserRepository userRepository;
         private IMapper _mapper;
-        public UserService(MyContext _dbContext, UserRepository us, IMapper mapper)
+        public UserService(MyContext _dbContext, IUserRepository us, IMapper mapper)
         {
             this._dbContext = _dbContext;
             this.userRepository = us;
