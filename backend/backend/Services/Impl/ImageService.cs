@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using backend.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
 using System.Net.Http.Headers;
 
 namespace backend.Services.Impl
 {
-    public class ImageService
+    public class ImageService:IImageService
     {
         public string saveImage(IFormFile file)
         {

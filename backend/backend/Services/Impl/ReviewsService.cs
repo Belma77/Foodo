@@ -2,13 +2,14 @@
 using backend.ErrorHandler;
 using backend.Repositories;
 using backend.Repositories.Impl;
+using backend.Services.Interfaces;
 using Data.Models.Entities;
 using Data.Models.ViewModels;
 using Stripe;
 
 namespace backend.Services.Impl
 {
-    public class ReviewsService
+    public class ReviewsService:IReviewsService
     {
         private IReviewsRepository _reviewsRepo;
         private IMapper _mapper;

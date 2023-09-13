@@ -1,4 +1,5 @@
 ﻿using backend.Services.Impl;
+using backend.Services.Interfaces;
 using backend.Utils;
 using Data.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -18,11 +19,9 @@ namespace backend.middlewares
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private UserService _userService;
-        public JwtMiddleware(RequestDelegate next, UserService userService)
+        public JwtMiddleware(RequestDelegate next)
         {
             _next = next;
-            _userService = userService;
             
         }
 

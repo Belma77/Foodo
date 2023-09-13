@@ -3,14 +3,17 @@
     <tr>
       <th scope="col">Broj narudzbe</th>
       <th scope="col">Stavke</th>
-      <th scope="col">Ukupna cijena</th>
+      <th scope="col">Ukupna cijena (KM)</th>
       <th scope="col">Status narudzbe</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let s of pendingOrders">
       <td>{{ s.id }}</td>
-      <td *ngFor="let order of orderRecords|keyvalue">{{order.key}}:{{order.value.product.name}}
+      <td> 
+        <p  *ngFor="let order of s.orderRecords|keyvalue">
+       {{order.value.quanity}} {{order.value.product.name}}
+        </p>
       </td>
       <td>{{ s.price}}</td>
       <td>{{ s.orderStatus}}</td>

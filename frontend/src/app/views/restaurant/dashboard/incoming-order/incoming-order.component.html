@@ -9,12 +9,11 @@
   <p>Kupac No: {{data.customer.id}}</p>
   <p>Stavke: </p>
   <h3 *ngFor="let item of data.orderRecords | keyvalue"> <br>
-    {{item.key}} : {{item.value}}
-    <h2 *ngFor="let orderRecord of item.value|keyvalue">{{orderRecord.key}}:{{orderRecord.value}}
-<p *ngFor="let p of orderRecord|keyvalue">{{p.key}}:{{p.value}}</p>
-    </h2>
+    <h2>Kolicina: {{item.value.quanity}}</h2><br>
+   <h2>Stavka: {{item.value.product.name}}</h2> 
+    
 </h3>
-  <p>Status: {{data.orderStatus}}</p>
+  <p>Status:{{data.orderStatus}}</p>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" (click)="AcceptOrder(data)">Prihvati narudžbu</button>

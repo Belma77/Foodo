@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using backend.Services;
 using backend.Services.Impl;
+using backend.Services.Interfaces;
 using Data;
 using Data.Models.Dtos;
 using Data.Models.Entities;
@@ -26,11 +27,11 @@ namespace backend.Controllers
     [Authorize(UserRole.Restaurant)]
     public class RestaurantController : ControllerBase
     {
-        private RestaurantService _restaurantService;
+        private IRestaurantService _restaurantService;
         private readonly IMapper _mapper;
-        private OrderService orderService;
+        private IOrderService orderService;
         
-        public RestaurantController(RestaurantService restaurantService, IMapper _mapper, OrderService orderService)
+        public RestaurantController(IRestaurantService restaurantService, IMapper _mapper, IOrderService orderService)
         {
             _restaurantService = restaurantService;
             this._mapper = _mapper;
@@ -53,7 +54,6 @@ namespace backend.Controllers
         {
             _restaurantService.Login(res);
             ResponseToken token = _restaurantService.Login(res);
-            Console.WriteLine($"Logiran { res.email}");
             return token;
         }
 

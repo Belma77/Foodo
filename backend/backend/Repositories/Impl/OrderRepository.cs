@@ -21,8 +21,10 @@ namespace backend.Repositories.Impl
         {
             _dbContext.ChangeTracker.Clear();
             return _dbContext.orders.Where(o => o.Id == id)
+                                    
                                     .Include(o => o.OrderRecords)
                                         .ThenInclude(or => or.Product)
+                                        .ThenInclude(c=>c.Category)
                                     .Include(o => o.Customer)
                                     .Include(o=>o.Restaurant)
                                     .Include(o=>o.customerLocation)
@@ -41,9 +43,8 @@ namespace backend.Repositories.Impl
             _dbContext.orders.Update(order);
             _dbContext.SaveChanges();
         }
-        public Order GetLatest()
+        public Order GetLatest(int userId)
         {
-            int userId = 4;
             return _dbContext.orders
                 .Where(x => x.Customer.Id == userId)
                 .Include(x=>x.Restaurant)

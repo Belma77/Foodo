@@ -4,6 +4,7 @@ import {Order, OrderForm} from "../../../../models/order";
 import {Router} from "@angular/router";
 import {OrderService} from "../../../../services/order.service";
 import {OrderRecord} from "../../../../models/order-line";
+import { OrderStatus } from 'src/app/models/enums/order-status';
 
  @Component({
   selector: 'app-incoming-order',
@@ -16,9 +17,12 @@ export class IncomingOrderComponent {
   @Input()
   data: Order = new Order();;
   @Input() title!:string;
+  status?:String;
   constructor(public modal:NgbActiveModal, private router:Router, private orderService:OrderService) {
-
+   
   }
+
+  
 
   AcceptOrder(data:Order) {
     this.orderService.restaurantAcceptOrder(data);

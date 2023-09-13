@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using backend.Services;
 using backend.Services.Impl;
+using backend.Services.Interfaces;
 using backend.Utils;
 using Data.Models.Entities;
 using Data.Models.Enums;
@@ -24,11 +25,11 @@ namespace backend.Controllers
     public class CourierController : ControllerBase
     {
 
-        private readonly CourierService _courierService;
+        private readonly ICourierService _courierService;
         private IMapper mapper;
-        private UserService _userService;
-        private OrderService _orderService;
-        public CourierController(CourierService courierService, IMapper mapper, UserService userService,OrderService orderService)
+        private IUserService _userService;
+        private IOrderService _orderService;
+        public CourierController(ICourierService courierService, IMapper mapper, IUserService userService,IOrderService orderService)
         {
             this._courierService = courierService;
             this.mapper = mapper;
@@ -51,7 +52,7 @@ namespace backend.Controllers
         [AllowAnonymous]
         public ResponseToken Login([FromBody] UserVM courier)
         {
-            _courierService.Login(courier);
+            //_courierService.Login(courier);
             ResponseToken token = _courierService.Login(courier);
             Console.WriteLine($"Logiran { courier.email}");
             return token;
@@ -84,7 +85,7 @@ namespace backend.Controllers
         [HttpPatch]
         [Route("acceptOrder")]
         [AllowAnonymous]
-        public IActionResult CourierAcceptOrder([FromBody] Order order)
+        public IActionResult CourierAcceptOrder([FromBody] OrderViewModel order)
         {
             _courierService.courierAcceptOrder(order);
             return Ok();

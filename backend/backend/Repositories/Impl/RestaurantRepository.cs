@@ -9,11 +9,20 @@ namespace backend.Repositories.Impl
 {
     public class RestaurantRepository:IRestaurantRepository
     {
-        private MyContext dbContext;
+        private MyContext _dbContext;
+        public RestaurantRepository(MyContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public void create(Restaurant restaurant)
         {
-            this.dbContext.restaurants.Add(restaurant);
-            this.dbContext.SaveChanges();
+            this._dbContext.restaurants.Add(restaurant);
+            this._dbContext.SaveChanges();
+        }
+
+        public List<Restaurant> GetAll()
+        {
+            return _dbContext.restaurants.ToList();
         }
     }
 }

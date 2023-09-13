@@ -2,6 +2,7 @@
 using backend.ErrorHandler;
 using backend.Repositories;
 using backend.Repositories.Impl;
+using backend.Services.Interfaces;
 using backend.Utils;
 using Data.Models.Dtos;
 using Data.Models.Entities;
@@ -21,7 +22,7 @@ using Customer = Data.Models.Entities.Customer;
 
 namespace backend.Services.Impl
 {
-    public class CustomerService
+    public class CustomerService:ICustomerService
     {
         private IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -91,10 +92,6 @@ namespace backend.Services.Impl
              }
         }
 
-        public void UpdateCustomerLocation(UpdateLocation update)
-        {
-
-        }
     }
 
     }

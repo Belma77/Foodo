@@ -15,6 +15,21 @@ th{
       margin-left: 0px;
     }
 }*/
+
+.noOrder{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+ 
+  h3{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    font-weight: bold;
+  }
+}
 .container-activity {
   margin-top:8px;
 

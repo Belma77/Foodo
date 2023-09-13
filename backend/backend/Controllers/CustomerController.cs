@@ -23,6 +23,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Cors;
 using Stripe.Checkout;
 using Newtonsoft.Json;
+using backend.Services.Interfaces;
 
 namespace backend.Controllers
 {
@@ -31,16 +32,14 @@ namespace backend.Controllers
     [Authorize(UserRole.Customer)]
     public class CustomerController : ControllerBase
     {
-        private CustomerService _customerService;
-        private readonly OrderService orderService;
-        private UserRepository us;
+        private ICustomerService _customerService;
+        private readonly IOrderService orderService;
         
 
-        public CustomerController(CustomerService customerService, OrderService orderService, UserRepository us,   IMapper _mapper)
+        public CustomerController(ICustomerService customerService, IOrderService orderService, IMapper _mapper)
         {
             _customerService = customerService;
             this.orderService = orderService;
-            this.us = us;
            
         }
 
@@ -63,17 +62,7 @@ namespace backend.Controllers
             return token;
         }
 
-        [HttpPost]
-        [Route("order/create")]
-        //[Authorize(UserRole.Customer)]
-        [AllowAnonymous]
-        public IActionResult createOrder([FromBody] OrderViewModel order)
-        {
-            //int userId = int.Parse(HttpContext.User.Identity.Name);
-            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value);
-            orderService.createOrder(order, userId);
-            return Ok();
-        }
+        
 
         [HttpPost]
         [Route("session/create")]
@@ -82,6 +71,8 @@ namespace backend.Controllers
         public void CreateSession([FromBody] OrderViewModel order)
         {
             var url = "localhost:4200";
+            string userId = HttpContext.User.Identity.Name;
+            int customerId = int.Parse(userId);
             try
             {
                 var options = new SessionCreateOptions
@@ -97,25 +88,16 @@ namespace backend.Controllers
                 Session session = service.Create(options);
                 Response.Headers.Add("Location", session.Url);
                 Response.WriteAsJsonAsync(session.Url);
-                
+               
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-              throw new Exception();
+                throw ex;
             }
 
         }
 
-        [HttpGet]
-        [Route("order/{id}")]
-        //[AllowAnonymous]
-        [Authorize]
-        public IActionResult getOrder([FromRoute] int id)
-        {
-            Order order = orderService.GetOrder(id);
-            return Ok(order);
-            //return Ok(JsonSerializer.Serialize());
-        }
+        
         
     }
 

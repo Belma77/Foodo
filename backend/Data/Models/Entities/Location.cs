@@ -12,11 +12,8 @@ namespace Data.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-
         public double latitude { get; set; }
-
         public double longitude { get; set; }
-
         public string formatedAdress { get; set; }
         public int? floor { get; set; }
         public string? apartmentNo { get; set; }

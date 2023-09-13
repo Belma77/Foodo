@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using backend.ErrorHandler;
 using backend.Repositories;
+using backend.Services.Interfaces;
 using Data.Models.Entities;
 using Data.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace backend.Services.Impl
 {
-    public class LocationService
+    public class LocationService:ILocationService
     {
         public ILocationRepository _locationRepository;
         private IMapper _mapper;
@@ -17,7 +18,7 @@ namespace backend.Services.Impl
             _mapper = mapper;
         }
 
-        public void AddCustomerLocation(Location location, int customerId)
+        public void AddCustomerLocation(LocationDto location, int customerId)
         {
             var current=_locationRepository.GetCurrent(customerId);
             if (current != null)
@@ -25,17 +26,18 @@ namespace backend.Services.Impl
                 current.isCurrent = false;
                 _locationRepository.Update(current);
             }
-            _locationRepository.Add(location);
+            var _location=_mapper.Map<Location>(location);   
+            _locationRepository.Add(_location);
         }
 
-        public List<Location> Get(int CustomerId)
+        public List<LocationDto> Get(int CustomerId)
         {
-            var location = _locationRepository.GetByCustomer(CustomerId);
-            return location;
+            var locations = _locationRepository.GetByCustomer(CustomerId);
+            return _mapper.Map<List<LocationDto>>(locations);
           
         }
 
-        public void Update(Location update, int CustomerId)
+        public void Update(LocationDto update, int CustomerId)
         {
             var current = _locationRepository.GetCurrent(CustomerId);
             if(current != null)
@@ -43,11 +45,9 @@ namespace backend.Services.Impl
                 current.isCurrent = false;
                 _locationRepository.Update(current);
             }
-            var location = _locationRepository.Get(update, CustomerId);
+            var _location = _mapper.Map<Location>(update);
+            var location = _locationRepository.Get(_location, CustomerId);
             location.isCurrent = true;  
-            //location.latitude=update.latitude;
-            //location.longitude = update.longitude;
-            //location.formatedAdress = update.formatedAdress;
             _locationRepository.Update(location);
            
         }

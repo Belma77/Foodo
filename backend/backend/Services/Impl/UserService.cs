@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using backend.ErrorHandler;
 using backend.Repositories;
+using backend.Services.Interfaces;
 using backend.Utils;
 using Data;
 using Data.Models.Dtos;
@@ -14,31 +15,23 @@ using System.Threading.Tasks;
 
 namespace backend.Services.Impl
 {
-    public class UserService
+    public class UserService:IUserService
     {
-        private MyContext _dbContext;
         private IUserRepository userRepository;
         private IMapper _mapper;
-        public UserService(MyContext _dbContext, IUserRepository us, IMapper mapper)
+        public UserService( IUserRepository us, IMapper mapper)
         {
-            this._dbContext = _dbContext;
             this.userRepository = us;
             _mapper = mapper;   
         }
-
-
-        public IEnumerable<User> GetAll()
-        {
-            return _dbContext.users;
-        }
-
 
         public UserDto doMe(int userId)
         {
             try
             {
                 var user = userRepository.findById(userId);
-                return _mapper.Map<UserDto>(user);
+                var dto= _mapper.Map<UserDto>(user);
+                return dto;
             }
             catch(Exception)
             {

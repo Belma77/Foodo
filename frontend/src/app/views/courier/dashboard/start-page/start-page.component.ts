@@ -28,6 +28,7 @@ export class StartPageComponent implements OnInit {
   }
 
   get courierIsActive() {
+    console.log((this.userService.user as Courier).status);
     return (this.userService.user as Courier).status;
   }
 

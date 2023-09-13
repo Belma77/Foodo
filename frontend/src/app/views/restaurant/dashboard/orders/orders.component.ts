@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {OrderService} from "../../../../services/order.service";
 import {Order} from "../../../../models/order";
 import { OrderRecord} from "../../../../models/order-line";
+import { OrderStatus } from 'src/app/models/enums/order-status';
 
 @Component({
   selector: 'app-orders',
@@ -15,13 +16,11 @@ export class OrdersComponent implements OnInit {
   constructor(private orderService:OrderService) { }
 
   ngOnInit(): void {
-
-
   }
 
+  
     get pendingOrders() {
-    this.orders=this.orderService.pendingOrders;
-    console.log("getting pending orders");     
+    this.orders=this.orderService.pendingOrders;   
      return this.orders;
 
   }

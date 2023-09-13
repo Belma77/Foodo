@@ -9,5 +9,6 @@ namespace backend.Repositories
     public interface IRestaurantRepository
     {
         public void create(Restaurant restaurant);
+        List<Restaurant> GetAll();
     }
 }

@@ -13,13 +13,12 @@ namespace Data.Models.Dtos
     public class UserDto
     {
         public int Id { get; set; }
-        public string FirstName{ get; set; }
-        public string LastName { get; set; }
         public string email { get; set; }
-        public string name { get; set; }
-        public CourierWorkingStatus Status { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public UserRole role { get; set; }
+        public CourierWorkingStatus? Status { get; set; }
+        public int ConnectioId{ get; set; }
+        public string name { get; set; }
 
         public static explicit operator UserDto(Customer v)
         {

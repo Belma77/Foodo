@@ -16,27 +16,42 @@ namespace Data.Profiles
         {
             CreateMap<User, UserDto>();
             CreateMap<User, Restaurant>();
+            CreateMap<UserDto, RestaurantVM>();
 
             CreateMap<Courier, UserDto>();
+            CreateMap<CourierVM, Courier>();
+            CreateMap<Courier, CourierVM>();
+            CreateMap<Courier, GetCourierVM>();
+
             CreateMap<Customer, UserDto>();
             CreateMap<Customer, CustomerVM>();
+            CreateMap<Customer, GetCustomerVM>();
 
             CreateMap<Restaurant, User>();
+            CreateMap<Restaurant, UserDto>();
             CreateMap<RestaurantVM, Restaurant>();
             CreateMap<Restaurant, RestaurantVM>();
+            CreateMap<Restaurant, GetRestaurantVM>();
 
-            CreateMap<CourierVM, Courier>();
-            CreateMap<CourierVM, Courier>();
+            
             CreateMap<ReviewsVM, Reviews>();
+
             CreateMap<Order, GetLatestOrderVM>();
             CreateMap<Order, GetOrdersVM>();
-            CreateMap<Restaurant, GetRestaurantVM>();
-            CreateMap<Courier, GetCourierVM>();
+            CreateMap<Order, OrderViewModel>();
+            CreateMap<OrderViewModel, Order>();
             CreateMap<OrderRecord, OrderRecordViewModel>();
+            CreateMap<OrderRecordViewModel, OrderRecord>();
+
             CreateMap<Product, ProductViewModel>();
+            CreateMap<ProductViewModel, Product>();
+
+            CreateMap<Category, CategoryVM>();
+            CreateMap<CategoryVM, Category>();
 
             CreateMap<Location, GetFormattedAdress>();
             CreateMap<Location, LocationDto>();
+            CreateMap<LocationDto, Location>();
         }
     }
 }

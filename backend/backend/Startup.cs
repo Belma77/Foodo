@@ -43,7 +43,6 @@ namespace backend
     public class Startup
     {
         public static IConfiguration Configuration { get; set; }
-        public readonly ILogger<Startup> _logger;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -190,15 +189,16 @@ namespace backend
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<IRestaurantRepository, RestaurantRepository>();
 
-            services.AddScoped<CourierService, CourierService>();
-            services.AddScoped<Services.Impl.OrderService, Services.Impl.OrderService>();
-            services.AddScoped<ImageService, ImageService>();
-            services.AddScoped<RestaurantService, RestaurantService>();
-            services.AddScoped<UserService, UserService>();
-            services.AddScoped<LocationService, LocationService>();
-            services.AddScoped<Services.Impl.CustomerService, Services.Impl.CustomerService>();
-            services.AddScoped<ReviewsService, ReviewsService>();
+            services.AddScoped<ICourierService, CourierService>();
+            services.AddScoped<IOrderService, Services.Impl.OrderService>();
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IRestaurantService, RestaurantService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<ICustomerService, Services.Impl.CustomerService>();
+            services.AddScoped<IReviewsService, ReviewsService>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IProductService, Services.Impl.ProductService>();
 
             services.AddHttpContextAccessor();
             services.AddTransient<ErrorHandlingMiddleware>();

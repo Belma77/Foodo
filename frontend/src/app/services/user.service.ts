@@ -5,10 +5,10 @@ import {AuthService} from './auth.service';
 import {CoreRequestService} from './core-request.service';
 import {UserRole} from "../models/enums/user-role";
 import {Courier} from "../models/courier.model";
-import {AlertService} from "./alert.service";
 import {SignalRService} from "./signal-r.service";
 import { OrderService } from './order.service';
 import { CourierService } from './courier.service';
+import { async } from 'rxjs';
 
 
 @Injectable({
@@ -22,7 +22,6 @@ export class UserService {
         private requestService: CoreRequestService,
         private authService: AuthService,
         private router: Router,
-        private alert:AlertService,
         private signalR: SignalRService,
         private courierService:CourierService
      ) 
@@ -61,26 +60,25 @@ export class UserService {
     }
 
 
-  async courierLogin(user: Courier): Promise<any> {
-    await this.requestService.post('/courier/login', user).then(async (data: { token: string; }) => {
-      localStorage.setItem('token', data.token);
-      await this.courierService.setStatusActive();
-      this.signalR.startConnection();
-      await this.doMe().then((response:any) => {
-        this.router.navigate(['/courier/dashboard']);
-      }).catch((err: any) => {
-        console.log(err);
-      }).catch((err: any) => {
-        console.log(err);
+    async courierLogin(user: Courier): Promise<any> {
+      await this.requestService.post('/courier/login', user).then(async (data: { token: string; }) => {
+        localStorage.setItem('token', data.token);
+        await this.courierService.setStatusActive();
+        this.signalR.startConnection();
+        await this.doMe().then((response:any) => {
+          this.router.navigate(['/courier/dashboard']);
+        }).catch((err: any) => {
+          console.log(err);
+        }).catch((err: any) => {
+          console.log(err);
+        });
       });
-    });
-  }
+    }
 
 getRole()
 {
-  // var role=this.user.role;
+  
    var role=localStorage.getItem('role');
-   console.log(role);
    return role!=null?role:null;
 }
 
@@ -89,20 +87,21 @@ getRole()
         await this.requestService
             .get('/user/doMe')
             .then((res: User) => {
-              console.log(res);
+              
               var role=localStorage.setItem('role', res.role);
-              console.log(res.role);
+              console.log("res"+res);
               this.user = res;
+              console.log(this.user);
             })
             .catch((err: any) => {
               console.log(err);
-              //this.logout();
+              
             });
     }
 
     logout() {
-        location.reload();
-        this.authService.logout();
-
+      this.authService.logout();
+      //location.reload();
+        
     }
 }

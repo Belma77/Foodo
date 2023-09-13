@@ -16,6 +16,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AuthorizeAttribute = backend.Filters.CustomAuthorizeAttribute;
 using static backend.Utils.AuthConstants;
+using backend.Services.Interfaces;
+
 namespace backend.Controllers
 {
     
@@ -23,9 +25,9 @@ namespace backend.Controllers
         [Route("user")]
         public class UsersController : ControllerBase
         {
-            private UserService _userService;
+            private IUserService _userService;
 
-            public UsersController(UserService userService)
+            public UsersController(IUserService userService)
             {
                 _userService = userService;
             }

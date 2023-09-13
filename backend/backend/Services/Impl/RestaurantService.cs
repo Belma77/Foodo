@@ -2,6 +2,7 @@ using AutoMapper;
 using backend.ErrorHandler;
 using backend.Repositories;
 using backend.Repositories.Impl;
+using backend.Services.Interfaces;
 using backend.Utils;
 using Data.Models.Dtos;
 using Data.Models.Entities;
@@ -21,17 +22,19 @@ using Order = Data.Models.Entities.Order;
 
 namespace backend.Services.Impl
 {
-    public class RestaurantService
+    public class RestaurantService:IRestaurantService
     {
         private IUserRepository _UserRepository;
         private readonly IMapper _mapper;
-        private ImageService _imageService;
+        private IRestaurantRepository _restaurantRepo;
+        private IImageService _imageService;
        
-        public RestaurantService(IUserRepository userRepository, IMapper mapper, ImageService imageService)
+        public RestaurantService(IUserRepository userRepository, IMapper mapper, IImageService imageService, IRestaurantRepository restaurantRepos)
         {
             _UserRepository = userRepository;
             _mapper = mapper;
             _imageService = imageService;
+            _restaurantRepo = restaurantRepos;
 
         }
 
@@ -89,16 +92,16 @@ namespace backend.Services.Impl
             
         }
 
-        public List<User> GetRestaurants()
+        public List<RestaurantVM> GetRestaurants()
         {
-            var restaurants = _UserRepository.getAll(UserRole.Restaurant);
-            return restaurants;
+            var restaurants = _restaurantRepo.GetAll();
+            return _mapper.Map<List<RestaurantVM>>(restaurants);
         }
 
-        public User GetRestaurant(int id)
+        public RestaurantVM GetRestaurant(int id)
         {
             Restaurant restaurant = _UserRepository.findRestaurantById(id);
-            return restaurant;
+            return _mapper.Map<RestaurantVM>(restaurant);
         }
 
         public void editProfile(int userId, IFormFile file, Restaurant r)

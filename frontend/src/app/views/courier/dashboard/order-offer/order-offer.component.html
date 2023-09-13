@@ -1,4 +1,8 @@
-<div class="container">
+<div *ngIf="!isOrder" class="noOrder">
+    <h3>Nema trenutno aktivnih narudzbi</h3>
+</div>
+
+<div *ngIf="isOrder"  class="container">
     <div class="wrapper-order">
         <div class="map-wrapper">
             <h2>Mapa</h2>
@@ -16,7 +20,7 @@
             <h2>Status</h2>
             <h4>{{this.order.orderStatus}}</h4>
             <h2>Stavke</h2>
-            <div *ngFor="let orderRecords of this.order.orderRecords | keyvalue">{{orderRecords.key}} {{orderRecords.value}}</div>
+            <div *ngFor="let orderRecords of this.order.orderRecords | keyvalue"> {{orderRecords.value.product}}</div>
         </div>
       </div>
     </div>

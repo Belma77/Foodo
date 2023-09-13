@@ -1,5 +1,7 @@
 ﻿using backend.Services.Impl;
+using backend.Services.Interfaces;
 using Data.Models.Entities;
+using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -10,15 +12,15 @@ namespace backend.Controllers
     [ApiController]
     public class LocationController : ControllerBase
     {
-        private LocationService _locationService;
+        private ILocationService _locationService;
 
-        public LocationController(LocationService service)
+        public LocationController(ILocationService service)
         {
             _locationService = service;
         }
 
         [HttpPost]
-        public void Add(Location location)
+        public void Add(LocationDto location)
         {
             string userId = HttpContext.User.Identity.Name;
             int customerId = int.Parse(userId);
@@ -36,7 +38,7 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public void Update(Location location)
+        public void Update(LocationDto location)
         {
             string userId = HttpContext.User.Identity.Name;
             int customerId = int.Parse(userId);

@@ -44,7 +44,8 @@ private orderService:OrderService){
     var order = localStorage.getItem('order');
     this.orderService.getLatestOrder().then((x:Order)=>{
       this.order=x;    
-      if(this.order.rated==false&&this.order.orderStatus==OrderStatus.COMPLETED.valueOf()&&order!=JSON.stringify(this.order.id)){
+      
+      if(this.order.rated==false&&this.order.orderStatus==OrderStatus.COMPLETED.valueOf()&&(order!=JSON.stringify(this.order.id))){
         this.reviewService.openModal();
       }  
     })

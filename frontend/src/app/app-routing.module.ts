@@ -8,7 +8,6 @@ import {LoginComponent} from './views/login/login.component';
 import {DashboardComponent} from './views/restaurant/dashboard/dashboard.component';
 import {MenuComponent} from './views/restaurant/dashboard/menu/menu.component';
 import {OrdersComponent} from './views/restaurant/dashboard/orders/orders.component';
-import {StatisticsComponent} from './views/restaurant/dashboard/statistics/statistics.component';
 import {NgModule} from '@angular/core';
 import {RegisterComponent} from './views/register/register.component';
 import {LoginComponentRestaurant} from './views/login-restaurant/login-restaurant.component';
@@ -96,12 +95,7 @@ const routes: Routes = [
           path: "menu",
           component: MenuComponent
         },
-        {
-          path: "statistics",
-          component: StatisticsComponent,
-          canActivate:[AuthGuard, RoleGuard], data: {
-            roles: [UserRole[UserRole.Restaurant]]},
-        },
+        
         {
           path: "profile",
           component: ProfileComponent,

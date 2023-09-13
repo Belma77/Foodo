@@ -1,10 +1,11 @@
 ﻿using Data.Models.Entities;
 using Data.Models.Enums;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Data.Models.ViewModels
@@ -16,7 +17,7 @@ namespace Data.Models.ViewModels
         public GetCourierVM Courier { get; set; }
         public bool Rated { get; set; }
        
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonConverter(typeof(StringEnumConverter))]
         public OrderStatus orderStatus { get; set; }
 
 

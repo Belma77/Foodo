@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import  { LogLevel, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { Order } from '../models/order';
 import { CourierService } from './courier.service';
@@ -7,16 +7,19 @@ import {OrderService} from "./order.service";
 import {PopUpComponent} from "../views/courier/dashboard/start-page/pop-up/pop-up.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {IncomingOrderComponent} from "../views/restaurant/dashboard/incoming-order/incoming-order.component";
+import { UserService } from './user.service';
+import { UserRole } from '../models/enums/user-role';
+import { OrderStatus } from '../models/enums/order-status';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService {
-  newOrder:any;
+  newOrder!:Order;
   private hubConnection!:HubConnection;
 
-  constructor(private orderService:OrderService, private modal:NgbModal) {
+  constructor(private orderService:OrderService, private modal:NgbModal, private injector: Injector) {
 
   }
 
@@ -50,12 +53,20 @@ export class SignalRService {
     this.hubConnection.on('orderOffer', (data:Order) => {
       console.log(data)
       console.log("stigla");
-      this.newOrder=data;
-      this.orderService.sendToRestaurant(this.newOrder);
-     // this.orderService.addPendingOrder(data);
-      this.orderService.sendToCourier(this.newOrder);
+      var role=this.injector.get(UserService).getRole();
+      
+      if(role!=null&&role.valueOf()==UserRole.Restaurant.valueOf())
+      {
+      this.orderService.sendToRestaurant(data);
+      console.log("signalR sending data restaurant");
+      }
+      if(role!=null&&role==UserRole.Courier.valueOf())
+      {
+      this.orderService.sendToCourier(data);
+      console.log("signalR sending data courier");
+      }
 
-      console.log("signalR sending data");
+      
 
    })
 

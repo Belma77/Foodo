@@ -23,7 +23,7 @@ id!:number;
     this.orderService.getCompletedOrders().then((response:Order[])=>{
       this.orders=response;
     })
-    console.log(this.orders);
+    
    }
 
   open(index:number) {

@@ -8,7 +8,7 @@ namespace backend.Repositories
         Order findById(int id);
         Order create(Order order);
         void update(Order order);
-        public Order GetLatest();
+        public Order GetLatest(int userId);
         IQueryable<Order> GetCompletedOrders(int courierId);
 
 

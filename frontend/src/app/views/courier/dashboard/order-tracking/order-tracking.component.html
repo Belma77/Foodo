@@ -1,4 +1,8 @@
-<div *ngIf="order" class="container mt-3">
+<div *ngIf="!isOrder" class="noOrder">
+    <h3>Nema trenutno aktivnih narudzbi</h3>
+</div>
+
+<div *ngIf="isOrder" class="container mt-3">
     <agm-map [latitude]="order.customerLocation.latitude" [longitude]="order.customerLocation.longitude">
         <agm-direction
             *ngIf = "directionToRestaurant()"
