@@ -12,10 +12,11 @@ import { CourierService } from 'src/app/services/courier.service';
 export class CourierDashboardComponent implements OnInit {
   opened: boolean = false;
   profil:boolean=false;
-  constructor(private authService:AuthService,
+  constructor(
      private router: Router, 
      private userService:UserService,
-     private courierService:CourierService) { }
+     private courierService:CourierService
+    ) { }
 
   get user() {
     return this.userService.user;
@@ -25,7 +26,7 @@ export class CourierDashboardComponent implements OnInit {
   }
 
   onMenuClick() {
-    console.log("test")
+    
     this.opened = !this.opened;
   }
 
@@ -34,8 +35,11 @@ export class CourierDashboardComponent implements OnInit {
   }
 
   Odjava() {
-    this.courierService.setStatusInactive();
-    this.authService.logout();
+    this.courierService.setStatusInactive().then(()=>{
+      console.log("neaktivan");
+    })
+    this.userService.logout();
     this.router.navigateByUrl('login/courier');
+   
   }
 }

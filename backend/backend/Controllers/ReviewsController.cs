@@ -1,4 +1,5 @@
 ﻿using backend.Services.Impl;
+using backend.Services.Interfaces;
 using Data.Models.Entities;
 using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -10,8 +11,8 @@ namespace backend.Controllers
     [ApiController]
     public class ReviewsController : ControllerBase
     {
-        private ReviewsService _reviewService;
-        public ReviewsController(ReviewsService reviewsService)
+        private IReviewsService _reviewService;
+        public ReviewsController(IReviewsService reviewsService)
         {
             _reviewService = reviewsService;
         }

@@ -17,24 +17,25 @@ using Data.Models.ViewModels;
 using backend.ErrorHandler;
 using Stripe;
 using Order = Data.Models.Entities.Order;
+using backend.Services.Interfaces;
 
 namespace backend.Services.Impl
 {
 
-    public class CourierService
+    public class CourierService:ICourierService
     {
         private IHubContext<CustomHub> _hub;
         IUserRepository _UserRepository;
         IMapper _mapper;
         string token;
         IOrderRepository _orderRepository;
-        OrderService _orderService;
+        IOrderService _orderService;
 
         public CourierService(IHubContext<CustomHub> hub,
         IUserRepository UserRepository,
         IMapper mapper,
         IOrderRepository orderRepository,
-        OrderService orderService)
+        IOrderService orderService)
 
         {
             this._hub = hub;
@@ -110,11 +111,12 @@ namespace backend.Services.Impl
             _UserRepository.update(courier);
         }
 
-        public void courierAcceptOrder(Order order)
+        public void courierAcceptOrder(OrderViewModel order)
         {
             Order Order = _orderRepository.findById(order.Id);
             Order.orderStatus = OrderStatus.IN_PREPARATION;
-            Order.Courier = _orderService.findCourier(order);
+            var courier= _orderService.findCourier(Order);
+            Order.Courier = _mapper.Map<Courier>(courier);
             _orderRepository.update(Order);
         }
         

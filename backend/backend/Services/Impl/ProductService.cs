@@ -1,4 +1,5 @@
-﻿using backend.Repositories;
+﻿using AutoMapper;
+using backend.Repositories;
 using backend.Services.Interfaces;
 using Data.Models.Entities;
 using Data.Models.ViewModels;
@@ -14,24 +15,26 @@ namespace backend.Services.Impl
     {
         private IProductRepository _productRepository;
         private IUserRepository _userRepository;
-        private ImageService imageService;
-
-        public ProductService(IProductRepository productRepository, IUserRepository userRepository, ImageService imageService)
+        private IImageService imageService;
+        private IMapper _mapper;
+        public ProductService(IProductRepository productRepository, IUserRepository userRepository, IImageService imageService, IMapper mapper)
         {
             this._productRepository = productRepository;
             this._userRepository = userRepository;
             this.imageService = imageService;
+            _mapper = mapper;
         }
 
-        public List<Category> getCategories()
+        public List<CategoryVM> getCategories()
         {
-            return this._productRepository.GetCategories();
+            var categories=this._productRepository.GetCategories();
+            return _mapper.Map<List<CategoryVM>>(categories);
         }
 
         public void create(ProductViewModel p, int restaurantId, IFormFile file)
         {
             Product product = new Product();
-            Category category = _productRepository.findCategoryById(p.category);
+            Category category = _productRepository.findCategoryById(p.Category.Id);
             product.Category = category;
             product.name = p.name;
             product.description = p.description;
@@ -56,7 +59,7 @@ namespace backend.Services.Impl
             product.name = p.name;
             product.price = p.price;
             product.description = p.description;
-            Category category = _productRepository.findCategoryById(p.category);
+            Category category = _productRepository.findCategoryById(p.categoryId);
             product.Category = category;
             _productRepository.update(product);
         }
@@ -67,14 +70,17 @@ namespace backend.Services.Impl
             _productRepository.delete(product);
         }
 
-        public List<Product> getMenu(int restaurantId)
+        public List<ProductViewModel> getMenu(int restaurantId)
         {
-            return _productRepository.getMenu(restaurantId);
+            var products=_productRepository.getMenu(restaurantId);
+            return _mapper.Map<List<ProductViewModel>>(products);
         }
 
-        public Product GetProduct(int id)
+        public ProductViewModel GetProduct(int id)
         {
-            return _productRepository.find(id);
+
+            var product=_productRepository.find(id);
+            return _mapper.Map<ProductViewModel>(product);
         }
     }
 }

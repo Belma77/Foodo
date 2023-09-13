@@ -2,10 +2,12 @@
 using backend.Controllers;
 using backend.Repositories;
 using backend.Repositories.Impl;
+using backend.Services.Interfaces;
 using backend.Utils;
 using Data.Models.Entities;
 using Data.Models.Enums;
 using Data.Models.ViewModels;
+using EllipticCurve.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Stripe;
@@ -22,13 +24,12 @@ using Product = Data.Models.Entities.Product;
 
 namespace backend.Services.Impl
 {
-    public class OrderService
+    public class OrderService:IOrderService
     {
         private IHubContext<CustomHub> _hub;
         private IOrderRepository _orderRepository;
         private IUserRepository _userRepository;
         private IProductRepository _productRepository;
-        private OrderService _orderService;
         private IMapper _mapper;
         private ILocationRepository _locationRepository;
 
@@ -74,30 +75,12 @@ namespace backend.Services.Impl
             }
             
             _orderRepository.create(order);
-
-            //sendOfferToRestaurant(order.Id);
+            
+           sendOfferToRestaurant(order.Id);
            sendOfferToCourier(order.Id);
            
         }
       
-        public string CreateSession(OrderViewModel o)
-        {
-
-            var options = new SessionCreateOptions
-            {
-                 LineItems=CreatesessionLineItemOptions(o),
-
-            Mode = "payment",
-                SuccessUrl = "https://example.com/success",
-                CancelUrl = "https://example.com/cancel",
-            };
-
-        var service = new SessionService();
-        Session session = service.Create(options);
-           
-            return   session.Url;
-            
-        }
 
         public List<SessionLineItemOptions> CreatesessionLineItemOptions(OrderViewModel o)
         {
@@ -122,17 +105,19 @@ namespace backend.Services.Impl
              }
             return LineItems;
         }
-        public Order GetOrder(int id)
+        public OrderViewModel GetOrder(int id)
         {
-            Order o = _orderRepository.findById(id);
-            return o;
+            Order order = _orderRepository.findById(id);
+            return _mapper.Map<OrderViewModel>(order);
         }
 
         private void sendOfferToRestaurant(int orderId)
         {
             Order order = _orderRepository.findById(orderId);
+            var o = _mapper.Map<OrderViewModel>(order);
             string connectionId = ConnectionMapping.GetConnections(order.RestaurantId.ToString()).FirstOrDefault();
-            _hub.Clients.Client(connectionId).SendAsync("orderOffer", order);
+            _hub.Clients.Client(connectionId).SendAsync("orderOffer", o);
+            Console.WriteLine(o.orderStatus);
             Console.WriteLine("poslano restoranu");
 
         }
@@ -141,25 +126,27 @@ namespace backend.Services.Impl
         {
             Order o = _orderRepository.findById(orderId);
             Courier courier = _userRepository.findActiveCourier();
+            var order = _mapper.Map<OrderViewModel>(o);
             string connectionId = ConnectionMapping.GetConnections(courier.Id.ToString()).FirstOrDefault();
-            _hub.Clients.Client(connectionId).SendAsync("orderOffer", o);
+            _hub.Clients.Client(connectionId).SendAsync("orderOffer", order );
+            //createOrderChannel(o);
             Console.WriteLine("poslano kuriru");
         }
 
         private void createOrderChannel(Order order)
         {
-            //addToGroup(order, order.customer);
-            //addToGroup(order, order.Restaurant);
+            addToGroup(order, order.Courier);
+            addToGroup(order, order.Restaurant);
         }
 
         private void addToGroup(Order order, User user)
         {
             string chanellName = "order" + order.Id.ToString();
-            _hub.Groups.AddToGroupAsync(getConnectionId(user.Id.ToString()), chanellName);
+             _hub.Groups.AddToGroupAsync(getConnectionId(user.Id.ToString()), chanellName);
         }
 
         
-        public Courier findCourier (Order order)
+        public CourierVM findCourier (Order order)
         {
             //Todo: Find closest courier(implement some algorithm)
             Courier courier = _userRepository.findActiveCourier();
@@ -168,7 +155,7 @@ namespace backend.Services.Impl
             //_hub.Clients.Client(connectionid).SendAsync("orderOffer", JsonSerializer.Serialize(order));
             //Console.WriteLine("after hub call to courier");
             //courierAcceptedOffer(order);
-            return courier;
+            return _mapper.Map<CourierVM>(courier);
         }
 
         private void courierAcceptedOffer(Order order)
@@ -189,9 +176,9 @@ namespace backend.Services.Impl
             _orderRepository.update(Order);
         }
 
-        public GetLatestOrderVM GetLatestOrder()
+        public GetLatestOrderVM GetLatestOrder(int userId)
         {
-            var order = _orderRepository.GetLatest();
+            var order = _orderRepository.GetLatest(userId);
             if(order!=null)
             {
                 var mapped = _mapper.Map<GetLatestOrderVM>(order);

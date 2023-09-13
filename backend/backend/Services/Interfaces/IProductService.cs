@@ -7,7 +7,7 @@ namespace backend.Services.Interfaces
 {
     public interface IProductService
     {
-        public List<Category> getCategories();
+        public List<CategoryVM> getCategories();
 
         public void create(ProductViewModel product, int restaurantId, IFormFile file);
 
@@ -15,8 +15,8 @@ namespace backend.Services.Interfaces
 
         public void delete(int id);
 
-        public List<Product> getMenu(int restaurantId);
+        public List<ProductViewModel> getMenu(int restaurantId);
 
-        public Product GetProduct(int id);
+        public ProductViewModel GetProduct(int id);
     }
 }

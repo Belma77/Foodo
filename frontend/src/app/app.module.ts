@@ -9,7 +9,6 @@ import { RegisterComponent } from './views/register/register.component';
 import { DashboardComponent } from './views/restaurant/dashboard/dashboard.component';
 import { MenuComponent } from './views/restaurant/dashboard/menu/menu.component';
 import { OrdersComponent } from './views/restaurant/dashboard/orders/orders.component';
-import { StatisticsComponent } from './views/restaurant/dashboard/statistics/statistics.component';
 import { ProductComponent } from './components/product/product.component';
 import { RestaurantComponent } from './views/customer/restaurant/restaurant.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -29,7 +28,6 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { RestaurantService } from './services/restaurant.service';
-import { AlertComponent } from './alert/alert.component';
 import { LoginComponentRestaurant } from './views/login-restaurant/login-restaurant.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { CourierDashboardComponent } from './views/courier/dashboard/courier-dashboard.component';
@@ -37,9 +35,7 @@ import { StartPageComponent } from './views/courier/dashboard/start-page/start-p
 import { OrderOfferComponent } from './views/courier/dashboard/order-offer/order-offer.component';
 import { CourierRegisterComponent } from './views/courier/courier-register/courier-register.component';
 import { CourierLoginComponent } from './views/courier/courier-login/courier-login.component';
-import {AlertService} from "./services/alert.service";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
-import {NotificationService} from "./services/notificationService";
 import {ToastrModule} from "ngx-toastr";
 import { OrderTrackingComponent } from './views/courier/dashboard/order-tracking/order-tracking.component';
 import { NewProductComponent } from './views/restaurant/new-product/new-product.component';
@@ -72,7 +68,6 @@ import { UsedAdressesComponent } from './views/customer/used-adresses/used-adres
     DashboardComponent,
     MenuComponent,
     OrdersComponent,
-    StatisticsComponent,
     ProductComponent,
     RestaurantCardComponent,
     RestaurantRegisterComponent,
@@ -86,7 +81,6 @@ import { UsedAdressesComponent } from './views/customer/used-adresses/used-adres
     LocationWrapperComponent,
     OrderLineComponent,
     LoginComponentRestaurant,
-    AlertComponent,
     HomePageComponent,
     CourierRegisterComponent,
     CourierLoginComponent,
@@ -141,8 +135,6 @@ UsedAdressesComponent,
        UserService,
        RestaurantService,
        CoreRequestService,
-       AlertService,
-       NotificationService,
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

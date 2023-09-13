@@ -64,26 +64,26 @@ namespace Data
                 );
 
             byte[] salt = new byte[128 / 8];
-
+            var pass = "password";
             builder.Entity<Customer>().HasData(
                 new Customer
                 {
+                    Id = 1,
                     email = "customer@gmail.com",
                     firstName = "Customer",
                     lastname = "Customer",
-                    password = generateHashedPassword(salt, "test"),
-                    Id = 5,
+                    password = generateHashedPassword(salt, pass),
                     role = UserRole.Customer,
                     StoredSalt = salt,
                 });
             builder.Entity<Customer>().HasData(
                 new Customer
                 {
+                    Id = 2,
                     email = "rs1seminarski2023@gmail.com",
                     firstName = "test",
                     lastname = "test",
-                    password = generateHashedPassword(salt, "test"),
-                    Id = 13,
+                    password = generateHashedPassword(salt, pass),
                     role = UserRole.Customer,
                     StoredSalt = salt,
                 });
@@ -91,43 +91,45 @@ namespace Data
             builder.Entity<Courier>().HasData(
                 new Courier
                 {
-                    Id=1,
+                    Id=3,
                     firstName="Courier", 
                     lastName="Courier",
                     email="courier@gmail.com",
                     role=UserRole.Courier,
-                    password=generateHashedPassword(salt, "test"),
-
+                    password=generateHashedPassword(salt, pass),
+                    StoredSalt=salt,
 
                 });
             builder.Entity<Restaurant>().HasData(
             new Restaurant
             {
-                email = "slatko@slano",
-                Id = 6,
+                Id = 4,
+                email = "slatkoSlano@gmail.com",
                 deliveryCost = 3,
-                password = generateHashedPassword(salt, "test"),
+                password = generateHashedPassword(salt, pass),
                 rating = 10,
                 avgDeliveryTime = "15-25",
                 name = "Slatko i Slano",
                 numberOfReviews = 2,
                 role = UserRole.Restaurant,
                 slug = "slatko-i-slano",
-                headerImage = "Resources/Images/slatkoislano"
+                headerImage = "Resources/Images/slatkoislano",
+                StoredSalt=salt,
             },
              new Restaurant
              {
-                 email = "mostar@lic",
-                 Id = 7,
+                 Id = 5,
+                 email = "mostarlic@gmail.com",
                  deliveryCost = 3,
-                 password = generateHashedPassword(salt, "password"),
+                 password = generateHashedPassword(salt, pass),
                  rating = 163,
                  avgDeliveryTime = "15-25",
                  name = "Mostarlic",
                  numberOfReviews = 10,
                  role = UserRole.Restaurant,
                  slug = "mostarlic",
-                 headerImage = "Resources/images/mostarlic"
+                 headerImage = "Resources/images/mostarlic",
+                 StoredSalt=salt
              }
             );
 
@@ -141,7 +143,7 @@ namespace Data
                       description = "Pileći rezanci u curry sosu",
                       price = 10.0,
                       CategoryId = 1,
-                      RestaurantId = 6,
+                      RestaurantId = 5,
                       image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/xrlekpen0sx6mezcpdiy"
                   },
                 new
@@ -151,7 +153,7 @@ namespace Data
                     description = "Jaja, gljive, puter, pavlaka, ajvar",
                     price = 6.0,
                     CategoryId = 1,
-                    RestaurantId = 6,
+                    RestaurantId = 5,
                     image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/ic5sxbyseterecbv1jzf"
                 },
                 new
@@ -161,7 +163,7 @@ namespace Data
                     description = "Sir edamer, gljive, pureća prsa, paradajz sos, začini",
                     price = 7.0,
                     CategoryId = 1,
-                    RestaurantId = 6,
+                    RestaurantId = 5,
                     image = "https://res.cloudinary.com/glovoapp/w_600,f_auto,q_auto/Products/amvq5gefoirp0qf8hljp"
                 });
 

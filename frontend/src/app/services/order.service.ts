@@ -74,7 +74,7 @@ export class OrderService {
 
     if(retraurant==null)
     {
-      console.log(this.restaurant);
+      
       retraurant=this.restaurant;
     }
 
@@ -87,14 +87,13 @@ export class OrderService {
       orderRecords.quanity = value.quanity;
       order.orderRecords.push(orderRecords);
     })
-    console.log(order.orderRecords)
     await this.Pay(order);
-      await this.createOrder(order);
+   
   }
 
 async createOrder(order:any)
 {
-  await this.requestService.post('/customer/order/create', order)
+  await this.requestService.post('/Orders', order)
   .then(data => {
     console.log(data)
   })
@@ -107,17 +106,25 @@ async createOrder(order:any)
   var stripe=Stripe('pk_test_51Kw0aQKRuZYR6PFuWr7T06KwduEmYLRK07ovV0aGsKLAe41y8Tq8FfVTCxyULkyn2p2SSWNkv5qWBMqM04D6DoKf005ruX3VcY');
   
   this.requestService.post('/customer/session/create', order)
-    .then(function(response) {
+    .then(async (response) => {
+      
       window.location.href=response;
-    })
-    .then((session: any) => {
       this.success=true;
-      return stripe.redirectToCheckout({sessionId:session.id})
+      await this.createOrder(order);
+
+    })
+    .then(async (session: any) => {
+      
+      
+      stripe.redirectToCheckout({sessionId:session.id});
+
     })
     .catch((error:any)=> {})
+    
 }
 
   sendToCourier(order:Order) {
+    console.log(order);
     const modalRef = this.modal.open(PopUpComponent);
     modalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
     //order.orderStatus=this.makeOrderStatus(order);
@@ -142,7 +149,6 @@ async createOrder(order:any)
   {
     const ModalRef = this.modal.open(IncomingOrderComponent);
     ModalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
-    //order.orderStatus=this.makeOrderStatus(order);
     ModalRef.componentInstance.data = order;
     console.log("send to res");
     console.log(order);

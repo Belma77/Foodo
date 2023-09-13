@@ -1,5 +1,5 @@
-<div class="noActivity" *ngIf="orders.length==0">
-  <p>Nema prethodnih aktivnosti</p>
+<div class="noActivity" *ngIf="orders==null||orders.length==0">
+  <h3>Nema prethodnih aktivnosti</h3>
 </div>
 <div *ngIf="orders.length>0">
 <div class="container-activity"  *ngFor="let item of orders;let i=index">

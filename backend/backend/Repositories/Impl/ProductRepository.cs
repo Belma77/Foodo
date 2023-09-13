@@ -51,7 +51,7 @@ namespace backend.Repositories.Impl
 
         public List<Product> getMenu(int restaurantId)
         {
-            return dbContext.products.Where(p => p.Restaurant.Id == restaurantId).ToList(); 
+            return dbContext.products.Where(p => p.Restaurant.Id == restaurantId).Include(x=>x.Category).ToList(); 
         }
     }
 }

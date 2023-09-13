@@ -43,7 +43,7 @@ export class NewProductComponent implements OnInit {
           name: ['', [Validators.required]],
           description: ['', [Validators.required]],
           price: ['', [Validators.required]],
-          category: new FormControl(null, [Validators.required]),
+          categoryId: new FormControl(null, [Validators.required]),
       });
 
         //Todo: 21.12.2021 (Faris) - Add guard to load product before page loads (or conditional rendenring)
@@ -52,7 +52,7 @@ export class NewProductComponent implements OnInit {
             .then(data=> {
                 console.log(data)
                 this.productForm.patchValue(data)
-                this.productForm.controls['category'].setValue(data.category.id)
+                this.productForm.controls['categoryId'].setValue(data.category.id)
                 this.image = data.image;
             })
         }

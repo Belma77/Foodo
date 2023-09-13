@@ -5,6 +5,7 @@ import { Location } from 'src/app/models/location';
 import { Order } from 'src/app/models/order';
 import data from '../../../../mock/order.json'
 import { CourierService } from 'src/app/services/courier.service';
+import { SignalRService } from 'src/app/services/signal-r.service';
 
 @Component({
   selector: 'app-order-tracking',
@@ -20,12 +21,14 @@ export class OrderTrackingComponent implements OnInit {
   courierLocation: any;
   zoom: number = 20;
   data:string="U pripremi";
-
+  isOrder:boolean=false;
 
   constructor(private router:Router, private courierService:CourierService) {
     this.getOrder();
     this.setCurrentLocation();
     //this.resLocation = {lat: this.order.restaurant.location.latitude, lng: this.order.restaurant.location.longitude};
+    if(this.order!=null&&this.order!=undefined)
+    {
     this.cusLocation = {lat: this.order.customerLocation.latitude, lng: this.order.customerLocation.longitude};
     this.resLocation= new Location();
     this.resLocation.latitude=43.345845;
@@ -33,17 +36,33 @@ export class OrderTrackingComponent implements OnInit {
     console.log(this.cusLocation)
     console.log(this.resLocation);
     console.log(this.courierLocation);
+    this.order!.orderStatus = OrderStatus.IN_PREPARATION;
+    
+    }
 
-    this.order.orderStatus = OrderStatus.IN_PREPARATION;
+   
   }
 
   updateStatus(status: String) {
-    this.order!.orderStatus = OrderStatus[status as keyof typeof OrderStatus];
+    if(this.order!=null&&this.order!=undefined)
+    {
+      this.order!.orderStatus = OrderStatus[status as keyof typeof OrderStatus];
+
+    }
   }
 
   getOrder()
 {
-  this.order=this.courierService.activeOrder;
+  this.isOrder=false;
+  var data=localStorage.getItem('order');
+  var obj=JSON.parse(data!);
+  if(obj!=null&&obj!=undefined)
+  {
+  this.order=obj;
+  //this.order=this.courierService.activeOrder;
+  
+  this.isOrder=true;
+  }
 }
   completeOrder() {
     this.router.navigateByUrl("courier/dashboard")
@@ -64,7 +83,7 @@ export class OrderTrackingComponent implements OnInit {
   }
 
   directionToRestaurant() {
-    return this.order.orderStatus === OrderStatus.IN_PREPARATION;
+    return this.order!.orderStatus === OrderStatus.IN_PREPARATION;
   }
 
   ngOnInit(): void {
