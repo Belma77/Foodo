@@ -130,7 +130,6 @@ async createOrder(order:any)
     modalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
     //order.orderStatus=this.makeOrderStatus(order);
     modalRef.componentInstance.data = order;
-   console.log("send to courier");
   }
 
   makeOrderStatus(order:Order)
@@ -148,11 +147,10 @@ async createOrder(order:any)
 
   sendToRestaurant(order:Order)
   {
+    console.log("send to restaurant")
     const ModalRef = this.modal.open(IncomingOrderComponent);
     ModalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
     ModalRef.componentInstance.data = order;
-    console.log("send to res");
-    console.log(order);
   }
 
   async restaurantAcceptOrder(order:Order) {
@@ -161,7 +159,6 @@ async createOrder(order:any)
     this.requestService.patch('/restaurant/accept/order', order)
       .then(() => {
         this.getActiveAndPendingOrders();
-        console.log("update status u pripremi");
       })
       .catch(e => {
         console.log(e)

@@ -47,13 +47,8 @@ namespace backend.Controllers
         public IActionResult GetActiveOrder()
         {
             string userId = HttpContext.User.Identity.Name;
-<<<<<<< HEAD
-            int customerId = int.Parse(userId);
-            return Ok(_orderService.GetLatestOrder(customerId));
-=======
             int courierId = int.Parse(userId);
             return Ok(_orderService.GetActiveOrder(courierId));
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
         }
 
         [HttpGet("Completed")]

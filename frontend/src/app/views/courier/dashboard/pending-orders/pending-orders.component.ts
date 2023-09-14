@@ -9,7 +9,7 @@ import {Order} from "../../../../models/order";
 })
 export class PendingOrdersComponent implements OnInit {
 
-pendingOrder?:Order;
+pendingOrder?:Order | null;
 opened:boolean=false;
 order:boolean=false;
   constructor(private courierService:CourierService) {}
@@ -22,7 +22,7 @@ order:boolean=false;
   {
     this.order=false;
      this.pendingOrder=this.courierService.activeOrder;
-     if(this.pendingOrder.customerLocation!=null && this.pendingOrder.customerLocation!=undefined)
+     if(this.pendingOrder?.customerLocation!=null && this.pendingOrder.customerLocation!=undefined)
      {
       this.order=true;
       

@@ -24,8 +24,6 @@ export class SignalRService {
   }
 
   public startConnection = () => {
-    console.log("test test")
-
     let token:string | null = localStorage.getItem('token');
     if(!token) {
       return;
@@ -51,19 +49,18 @@ export class SignalRService {
 
   public orderOfferListener = () => {
     this.hubConnection.on('orderOffer', (data:Order) => {
-      console.log(data)
-      console.log("stigla");
       var role=this.injector.get(UserService).getRole();
-      
+      console.log("role", role)
+
       if(role!=null&&role.valueOf()==UserRole.Restaurant.valueOf())
       {
-      this.orderService.sendToRestaurant(data);
-      console.log("signalR sending data restaurant");
+        console.log("order offer listener for restaurant")
+        this.orderService.sendToRestaurant(data);
       }
       if(role!=null&&role==UserRole.Courier.valueOf())
       {
-      this.orderService.sendToCourier(data);
-      console.log("signalR sending data courier");
+        console.log("order offer listener for courier")
+        this.orderService.sendToCourier(data);
       }
 
       

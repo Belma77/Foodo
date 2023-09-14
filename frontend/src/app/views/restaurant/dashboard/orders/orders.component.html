@@ -1,29 +1,3 @@
-<<<<<<< HEAD
-<table class="table table-hover">
-  <thead class="table-group-divider">
-    <tr>
-      <th scope="col">Broj narudzbe</th>
-      <th scope="col">Stavke</th>
-      <th scope="col">Ukupna cijena (KM)</th>
-      <th scope="col">Status narudzbe</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let s of pendingOrders">
-      <td>{{ s.id }}</td>
-      <td> 
-        <p  *ngFor="let order of s.orderRecords|keyvalue">
-       {{order.value.quanity}} {{order.value.product.name}}
-        </p>
-      </td>
-      <td>{{ s.price}}</td>
-      <td>{{ s.orderStatus}}</td>
-    </tr>
-   
-  </tbody>
-</table> 
-
-=======
 <div *ngIf="!async">
   <h2>Narudzbe na cekanju</h2>
   <table class="table table-hover">
@@ -39,9 +13,13 @@
     <tbody>
       <tr *ngFor="let s of pendingOrders">
         <td>#{{ s.id }}</td>
-        <td *ngFor="let order of s.orderRecords|keyvalue">{{ order.value && order.value.product && order.value.product.name }}</td>
+        <td>
+          <span *ngFor="let order of s.orderRecords|keyvalue">
+            {{ order.value && order.value.product && order.value.product.name }} X {{order.value.quanity}}
+          </span>
+        </td>
         <td>{{ s.price}} KM</td>
-        <td>{{ getStatusText(s.orderStatus) }}</td>
+        <td>{{getStatusText(s.orderStatus)}}</td>
         <td style="text-align: center;"><button (click)="acceptOrder(s)" type="button" class="acceptOrderBtn">Prihvati</button></td>
       </tr>
     
@@ -63,15 +41,17 @@
     <tbody>
       <tr *ngFor="let s of activeOrders">
         <td>#{{ s.id }}</td>
-        <td *ngFor="let order of s.orderRecords|keyvalue">{{ order.value && order.value.product && order.value.product.name }}
+        <td>
+          <span *ngFor="let order of s.orderRecords|keyvalue">
+            {{ order.value && order.value.product && order.value.product.name }} X {{order.value.quanity}}<br/>
+          </span>
         </td>
         <td>{{ s.price}} KM</td>
-        <td>{{ getStatusText(s.orderStatus) }}</td>
+        <td>{{getStatusText(s.orderStatus)}}</td>
       </tr>
     
     </tbody>
   </table> 
 </div>
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
 
 

@@ -72,14 +72,12 @@ export class RestaurantService {
   async register(restaurant: Restaurant): Promise<any> {
     await this.requestService.post('/restaurant/register', restaurant).then((data: any) => {
         this.router.navigate(['/login/business']);
-        console.log(restaurant);
     }).catch((err:any)=>{throw err});
  }
 
   async login(user: User): Promise<any> {
     await this.requestService.post('/restaurant/Login', user).then(async (data: { token: string; }) => {
       localStorage.setItem('token', data.token);
-      console.log(data.token)
       this.signalRservice.startConnection();
       await this.userService.doMe().then((data) => {
 

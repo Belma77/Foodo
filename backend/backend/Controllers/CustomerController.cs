@@ -32,20 +32,11 @@ namespace backend.Controllers
     [Authorize(UserRole.Customer)]
     public class CustomerController : ControllerBase
     {
-<<<<<<< HEAD
         private ICustomerService _customerService;
         private readonly IOrderService orderService;
         
 
         public CustomerController(ICustomerService customerService, IOrderService orderService, IMapper _mapper)
-=======
-        private CustomerService _customerService;
-        private readonly OrderService orderService;
-        private IUserRepository us;
-        
-
-        public CustomerController(CustomerService customerService, OrderService orderService, IUserRepository us,   IMapper _mapper)
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
         {
             _customerService = customerService;
             this.orderService = orderService;

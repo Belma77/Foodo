@@ -56,6 +56,7 @@ namespace backend.Repositories
         }
         public Courier findActiveCourier()
         {
+            // TODO check if he can accept order, if he is not already bussy
             return (Courier)dbContext.couriers.Where(s => s.status == CourierWorkingStatus.ACTIVE).FirstOrDefault();
         }
     }

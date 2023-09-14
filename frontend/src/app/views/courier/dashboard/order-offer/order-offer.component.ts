@@ -14,26 +14,12 @@ import { SignalRService } from 'src/app/services/signal-r.service';
 })
 export class OrderOfferComponent implements OnInit {
 
-<<<<<<< HEAD
-  counter = 15;
-  inter = interval(1000);
-  order!: Order;
-  data!:string;
-  lat = 17.8078;
-  long = 43.3438;
-
-  origin = { lat: 43.3438, lng: 17.8078 };
-  destination? : any;
-  isOrder:boolean=false;
-  constructor(public courierService: CourierService, private signalRservice:SignalRService ) {
-=======
   order:Order | null = null;
   async! : Boolean;
-  origin!: any;
-  destination!:any;
+  origin = { lat: 43.3438, lng: 17.8078 };
+  destination = { lat: 43.3538, lng: 17.8178 };
 
   constructor(public courierService: CourierService ) {
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
 
   }
 
@@ -41,32 +27,15 @@ export class OrderOfferComponent implements OnInit {
     this.getActiveOrder();
   }
 
-<<<<<<< HEAD
-getOrder()
-{
- // this.order=this.courierService.activeOrder;
- this.data=localStorage.getItem('order')!;
- this.order=JSON.parse(this.data);
- console.log("courier order"+this.order);
-  this.isOrder=false;
-  if(this.order.customerLocation!=null&&this.order.customerLocation!=undefined)
-  {
-    this.destination=this.order.customerLocation;
-    this.isOrder=true;
-  }
-  
-  return this.order;
-}
-=======
   async getActiveOrder() {
     this.async = true;
     await this.courierService.getActiveOrder().then(order => {
-      console.log("order", order);
+      console.log("order offer", order)
       this.order = order;
-      if (order) {
-        this.origin=order.restaurant.location;
-        this.destination==order.customerLocation;
-      }
+      // if (order) {
+      //   this.origin=order.restaurant.location;
+      //   this.destination==order.customerLocation;
+      // }
       this.async = false;
     }).catch(err => {
       console.log(err);
@@ -81,7 +50,6 @@ getOrder()
 //   this.destination=this.order.customerLocation;
 //   return this.order;
 // }
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
 
   acceptOrder () {
     console.log("accept order");

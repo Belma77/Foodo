@@ -1,6 +1,7 @@
 ﻿using Data;
 using Data.Models.Entities;
 using Data.Models.Enums;
+using Data.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,20 +45,26 @@ namespace backend.Repositories.Impl
             _dbContext.orders.Update(order);
             _dbContext.SaveChanges();
         }
-<<<<<<< HEAD
         public Order GetLatest(int userId)
         {
-=======
+            return _dbContext.orders
+               .Where(x => x.Customer.Id == userId)
+               .Include(x => x.Restaurant)
+               .Include(x => x.Courier)
+               .Include(x => x.OrderRecords)
+               .FirstOrDefault();
+        }
+
         public Order GetActive(int courierId)
         {
-            // TODO make the where condition nicer and remove CREATED status as courier shoulodn't be aware of order until it is in preparation
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
-            return _dbContext.orders
-                .Where(x => x.Courier.Id == courierId && (x.orderStatus == OrderStatus.IN_PREPARATION || x.orderStatus == OrderStatus.CREATED || x.orderStatus == OrderStatus.PICKED_UP || x.orderStatus == OrderStatus.DELIVERING))
-                .Include(x=>x.Restaurant)
-                .Include(x=>x.Courier)
-                .Include(x=>x.OrderRecords)
+            var order = _dbContext.orders
+                .Where(x => x.Courier.Id == courierId && (x.orderStatus == OrderStatus.IN_PREPARATION || x.orderStatus == OrderStatus.PICKED_UP || x.orderStatus == OrderStatus.DELIVERING))
+                .Include(x => x.Restaurant)
+                .Include(x => x.Courier)
+                .Include(x => x.Customer)
+                .Include(x => x.OrderRecords)
                 .FirstOrDefault();
+            return order;
         }
         public IQueryable<Order> GetCompletedOrders(int courierId)
         {

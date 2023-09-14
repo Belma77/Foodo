@@ -55,7 +55,6 @@ export class MapDragablePickerComponent implements OnInit {
 
 
   markerDragEnd($event: MouseEvent) {
-    console.log($event);
     if(!this.location)
       this.location = new Location();
     this.location.latitude = $event.coords.lat;
@@ -66,8 +65,6 @@ export class MapDragablePickerComponent implements OnInit {
 
   getAddress(latitude:any, longitude:any) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results:any, status:any) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;

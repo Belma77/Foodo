@@ -72,31 +72,18 @@ namespace Data
                     email = "customer@gmail.com",
                     firstName = "Customer",
                     lastname = "Customer",
-<<<<<<< HEAD
                     password = generateHashedPassword(salt, pass),
-=======
-                    password = generateHashedPassword(salt, "password"),
-                    Id = 5,
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
                     role = UserRole.Customer,
                     StoredSalt = salt,
                 });
             builder.Entity<Customer>().HasData(
                 new Customer
                 {
-<<<<<<< HEAD
                     Id = 2,
                     email = "rs1seminarski2023@gmail.com",
                     firstName = "test",
                     lastname = "test",
                     password = generateHashedPassword(salt, pass),
-=======
-                    email = "john@doe.com",
-                    firstName = "john",
-                    lastname = "doe",
-                    password = generateHashedPassword(salt, "password"),
-                    Id = 13,
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
                     role = UserRole.Customer,
                     StoredSalt = salt,
                 });
@@ -109,14 +96,8 @@ namespace Data
                     lastName="Courier",
                     email="courier@gmail.com",
                     role=UserRole.Courier,
-<<<<<<< HEAD
                     password=generateHashedPassword(salt, pass),
                     StoredSalt=salt,
-=======
-                    password=generateHashedPassword(salt, "password"),
-                    StoredSalt=salt,
-
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
 
                 });
             builder.Entity<Restaurant>().HasData(
@@ -125,11 +106,7 @@ namespace Data
                 Id = 4,
                 email = "slatkoSlano@gmail.com",
                 deliveryCost = 3,
-<<<<<<< HEAD
                 password = generateHashedPassword(salt, pass),
-=======
-                password = generateHashedPassword(salt, "password"),
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
                 rating = 10,
                 avgDeliveryTime = "15-25",
                 name = "Slatko i Slano",
@@ -137,11 +114,7 @@ namespace Data
                 role = UserRole.Restaurant,
                 slug = "slatko-i-slano",
                 headerImage = "Resources/Images/slatkoislano",
-<<<<<<< HEAD
                 StoredSalt=salt,
-=======
-                StoredSalt = salt
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
             },
              new Restaurant
              {
@@ -156,11 +129,7 @@ namespace Data
                  role = UserRole.Restaurant,
                  slug = "mostarlic",
                  headerImage = "Resources/images/mostarlic",
-<<<<<<< HEAD
                  StoredSalt=salt
-=======
-                 StoredSalt = salt
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
              }
             );
 

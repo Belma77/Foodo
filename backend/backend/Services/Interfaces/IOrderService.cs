@@ -14,5 +14,9 @@ namespace backend.Services.Interfaces
         void restaurantAcceptOrder(Order order);
         GetLatestOrderVM GetLatestOrder(int userId);
         List<GetOrdersVM> GetCompletedOrders(int courierId);
+
+        List<Order> getPendingAndActiveOrders(int restaurantId);
+
+        Order GetActiveOrder(int courierId);
     }
 }

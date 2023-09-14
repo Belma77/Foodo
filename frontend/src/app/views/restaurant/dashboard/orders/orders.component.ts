@@ -17,15 +17,6 @@ export class OrdersComponent implements OnInit {
   constructor(private orderService:OrderService) { }
 
   ngOnInit(): void {
-<<<<<<< HEAD
-  }
-
-  
-    get pendingOrders() {
-    this.orders=this.orderService.pendingOrders;   
-     return this.orders;
-
-=======
     this.getPendingAndActiveOrders();
   }
 
@@ -33,33 +24,24 @@ export class OrdersComponent implements OnInit {
     this.async = true;
     await this.orderService.getActiveAndPendingOrders();
     this.async = false;
->>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
   }
 
   get pendingOrders() : Order[]  {
-      return this.orderService.orders.filter(o => this.mapStatusToEnum(o.orderStatus) == OrderStatus.CREATED);
+      return this.orderService.orders.filter(o => o.orderStatus == OrderStatus.CREATED);
   }
 
   get activeOrders() : Order[] {
-    return this.orderService.orders.filter(o => this.mapStatusToEnum(o.orderStatus) == OrderStatus.IN_PREPARATION);
+    return this.orderService.orders.filter(o => o.orderStatus == OrderStatus.IN_PREPARATION);
 }
 
   acceptOrder(order: Order) {
     this.orderService.restaurantAcceptOrder(order);
   }
 
-  mapStatusToEnum(status:any) {
+  getStatusText(status:string) {
     switch (status) {
-      case 0: return OrderStatus.CREATED;
-      case 2: return OrderStatus.IN_PREPARATION;
-      default: return null;
-    }
-  }
-
-  getStatusText(status:any) {
-    switch (status) {
-      case 0: return "Kreirana";
-      case 2: return "U pripremi";
+      case "CREATED": return "Kreirana";
+      case "IN_PREPARATION": return "U pripremi";
       default: return "Nepoznat status";
     }
   }

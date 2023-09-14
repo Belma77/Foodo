@@ -25,9 +25,9 @@ export class IncomingOrderComponent {
   
 
   AcceptOrder(data:Order) {
+    console.log("accepting order")
     this.orderService.restaurantAcceptOrder(data);
-    console.log("ovo je modal data");
-    console.log(data);
+    console.log("closing modal")
     this.modal.close();
     this.router.navigateByUrl('/restaurant/admin/dashboard/orders');
   }

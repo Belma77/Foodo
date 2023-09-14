@@ -6,14 +6,10 @@
 </div>
 <div class="modal-body">
   <p>Broj narudžbe: {{data.id}}</p>
-  <p>Kupac No: {{data.customer.id}}</p>
-  <p>Stavke: </p>
-  <h3 *ngFor="let item of data.orderRecords | keyvalue"> <br>
-    <h2>Kolicina: {{item.value.quanity}}</h2><br>
-   <h2>Stavka: {{item.value.product.name}}</h2> 
-    
-</h3>
-  <p>Status:{{data.orderStatus}}</p>
+  <h3>Stavke: </h3>
+  <div *ngFor="let item of data.orderRecords | keyvalue">
+      <span>{{item.value.product.name}}   X {{item.value.quanity}}</span>
+  </div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" (click)="AcceptOrder(data)">Prihvati narudžbu</button>
