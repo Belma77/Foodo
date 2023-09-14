@@ -11,9 +11,7 @@ import { UserService } from './user.service';
 })
 export class CourierService {
 
-activeOrder: Order = new Order();
-order:Order | null = null;
-pendingOrders:Order[]=[];
+activeOrder: Order | null = null;
 
   constructor(private requestService: CoreRequestService, private router:Router) { }
 
@@ -36,10 +34,17 @@ pendingOrders:Order[]=[];
       console.log(err);
     });
     this.activeOrder=order;
+<<<<<<< HEAD
     //this.pendingOrders.push(order);
+=======
+>>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
     this.router.navigateByUrl('/courier/dashboard/order/offer');
   }
 
  
+
+  getActiveOrder() :Promise<any> {
+    return this.requestService.get('/order/active');
+  }
 
 }

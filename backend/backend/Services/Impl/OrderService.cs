@@ -176,9 +176,9 @@ namespace backend.Services.Impl
             _orderRepository.update(Order);
         }
 
-        public GetLatestOrderVM GetLatestOrder(int userId)
+        public GetLatestOrderVM GetActiveOrder(int courierId)
         {
-            var order = _orderRepository.GetLatest(userId);
+            var order = _orderRepository.GetActive(courierId);
             if(order!=null)
             {
                 var mapped = _mapper.Map<GetLatestOrderVM>(order);
@@ -186,12 +186,30 @@ namespace backend.Services.Impl
                 return mapped;
             }
             return null;
-            
+        }
+
+        public GetLatestOrderVM GetLatestOrder(int userId)
+        {
+            var order = _orderRepository.GetLatest(userId);
+            if (order != null)
+            {
+                var mapped = _mapper.Map<GetLatestOrderVM>(order);
+                Console.WriteLine(mapped.orderStatus);
+                return mapped;
+            }
+            return null;
+
 
         }
+
         public List<GetOrdersVM> GetCompletedOrders(int courierId)
         {
             return _mapper.Map<List<GetOrdersVM>>(_orderRepository.GetCompletedOrders(courierId));
+        }
+
+        public List<Order> getPendingAndActiveOrders(int restaurantId)
+        {
+            return _orderRepository.getPendingAndActive(restaurantId);
         }
     }
 }

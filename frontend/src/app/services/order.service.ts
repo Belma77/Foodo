@@ -22,6 +22,7 @@ export class OrderService {
   subject = webSocket('ws://localhost:4200/');
   currentOrder:OrderForm | null = null;
   pendingOrders:Order[] = [];
+  orders:Order[] = [];
   newOrder: any;
   success:boolean=false;
   restaurant:Restaurant|null=null;
@@ -154,10 +155,12 @@ async createOrder(order:any)
     console.log(order);
   }
 
-  restaurantAcceptOrder(order:Order) {
-    this.addPendingOrder(order);
+  async restaurantAcceptOrder(order:Order) {
+    // TODO check if this is needed
+    // this.addPendingOrder(order);
     this.requestService.patch('/restaurant/accept/order', order)
       .then(() => {
+        this.getActiveAndPendingOrders();
         console.log("update status u pripremi");
       })
       .catch(e => {
@@ -189,5 +192,14 @@ async createOrder(order:any)
     return this.requestService.get('/Orders/Completed').catch(err=>{
       console.log(err);
     })
+  }
+
+  async getActiveAndPendingOrders() : Promise<any> {
+      this.requestService.get("/Orders/pendingAndActive").then(data => {
+        console.log(data);
+        this.orders = data;
+      }).catch(err => {
+        console.log(err)
+      })
   }
 }

@@ -198,7 +198,12 @@ namespace backend
             services.AddScoped<ICustomerService, Services.Impl.CustomerService>();
             services.AddScoped<IReviewsService, ReviewsService>();
             services.AddTransient<IEmailService, EmailService>();
+<<<<<<< HEAD
             services.AddTransient<IProductService, Services.Impl.ProductService>();
+=======
+            services.AddScoped<IProductService, Services.Impl.ProductService>();
+
+>>>>>>> 97f3f1d (fix restaurant order listing, lots of smaller fixes)
 
             services.AddHttpContextAccessor();
             services.AddTransient<ErrorHandlingMiddleware>();

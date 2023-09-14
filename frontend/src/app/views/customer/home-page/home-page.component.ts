@@ -42,6 +42,7 @@ private orderService:OrderService){
   ShowModal(){
 
     var order = localStorage.getItem('order');
+    // TODO change name of the method, move if condition to backend and check if rated is null, move functions on backend from order controller to customer
     this.orderService.getLatestOrder().then((x:Order)=>{
       this.order=x;    
       
