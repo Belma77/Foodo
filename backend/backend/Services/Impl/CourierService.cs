@@ -114,9 +114,8 @@ namespace backend.Services.Impl
         public void courierAcceptOrder(OrderViewModel order)
         {
             Order Order = _orderRepository.findById(order.Id);
-            Order.orderStatus = OrderStatus.IN_PREPARATION;
-            var courier= _orderService.findCourier(Order);
-            Order.Courier = _mapper.Map<Courier>(courier);
+            Courier courier = _UserRepository.findActiveCourier();
+            Order.Courier = courier;
             _orderRepository.update(Order);
         }
         

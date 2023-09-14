@@ -11,9 +11,7 @@ import { UserService } from './user.service';
 })
 export class CourierService {
 
-activeOrder: Order = new Order();
-order:Order | null = null;
-pendingOrders:Order[]=[];
+activeOrder: Order | null = null;
 
   constructor(private requestService: CoreRequestService, private router:Router) { }
 
@@ -27,19 +25,19 @@ pendingOrders:Order[]=[];
 
   courierAcceptOrder(order:Order)
   {
-    console.log(order);
-    console.log("courier accepted order");
-    this.requestService.patch('/courier/acceptOrder', order).then((x:Order)=>{
+      this.requestService.patch('/courier/acceptOrder', order).then((x:Order)=>{
       console.log(x);
     }).
     catch(err=>{
       console.log(err);
     });
     this.activeOrder=order;
-    //this.pendingOrders.push(order);
     this.router.navigateByUrl('/courier/dashboard/order/offer');
   }
 
- 
+
+  getActiveOrder() :Promise<any> {
+    return this.requestService.get('/Orders/active');
+  }
 
 }

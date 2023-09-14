@@ -17,7 +17,6 @@ export class ProductComponent implements OnInit {
   }
 
   deleteProduct(id:number) {
-    console.log(id)
     this.restaurantService.deleteProduct(id);
   }
 

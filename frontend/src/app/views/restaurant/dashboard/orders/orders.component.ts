@@ -13,18 +13,37 @@ export class OrdersComponent implements OnInit {
   orders: Order[]=[];
   newOrder: boolean=false;
   orderRecords!: Record<string, OrderRecord>;
+  async!: Boolean;
   constructor(private orderService:OrderService) { }
 
   ngOnInit(): void {
+    this.getPendingAndActiveOrders();
   }
 
-  
-    get pendingOrders() {
-    this.orders=this.orderService.pendingOrders;   
-     return this.orders;
-
+  async getPendingAndActiveOrders() {
+    this.async = true;
+    await this.orderService.getActiveAndPendingOrders();
+    this.async = false;
   }
 
+  get pendingOrders() : Order[]  {
+      return this.orderService.orders.filter(o => o.orderStatus == OrderStatus.CREATED);
+  }
 
+  get activeOrders() : Order[] {
+    return this.orderService.orders.filter(o => o.orderStatus == OrderStatus.IN_PREPARATION);
+}
+
+  acceptOrder(order: Order) {
+    this.orderService.restaurantAcceptOrder(order);
+  }
+
+  getStatusText(status:string) {
+    switch (status) {
+      case "CREATED": return "Kreirana";
+      case "IN_PREPARATION": return "U pripremi";
+      default: return "Nepoznat status";
+    }
+  }
 
 }

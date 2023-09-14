@@ -44,7 +44,6 @@ adressExists:boolean=false;
   setLocation()
   {
     this.locationService.GetLocation().then(x=>{
-      console.log(x);
       this.currentAdress=x;
 
     if(this.currentAdress === null)

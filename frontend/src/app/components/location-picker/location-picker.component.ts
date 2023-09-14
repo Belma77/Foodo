@@ -99,7 +99,6 @@ export class LocationPickerComponent implements OnInit {
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
-          console.log(results[0])
           this.location!.formatedAdress = results[0].formatted_address;
         } else {
           window.alert('No results found');
@@ -116,7 +115,6 @@ export class LocationPickerComponent implements OnInit {
   }
 
   setMap(location:Location) {
-    console.log(location);
     if(this.form.valid)
     {
     this.locationService.AddLocation(location);

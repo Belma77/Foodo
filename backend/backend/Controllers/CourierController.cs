@@ -54,7 +54,6 @@ namespace backend.Controllers
         {
             //_courierService.Login(courier);
             ResponseToken token = _courierService.Login(courier);
-            Console.WriteLine($"Logiran { courier.email}");
             return token;
         }
 

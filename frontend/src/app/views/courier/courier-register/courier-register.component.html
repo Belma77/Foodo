@@ -1,6 +1,5 @@
 <main>
   <div class="form-wrapper">
-
     <!--<div class="left">
       <h1>Postanite Foodo dostavljač </h1>
       <p>U par koraka, prijavite se i dostavite prvu nardužbu već u narednih 24 sata </p>
@@ -9,7 +8,7 @@
       <div class="container">
         <div class="form-body">
           <h1>Foodo</h1>
-          <p>Kreirajte svoj račun u svega par sekundi.  </p>
+          <p>Kreirajte svoj račun u svega par sekundi.</p>
           <form [formGroup]="registerForm" (ngSubmit)="save()">
             <div class="form-group">
               <div class="form-group">
@@ -22,22 +21,16 @@
                 />
                 <span
                   class="text-danger"
-                  *ngIf="
-                                        f.firstName.touched &&
-                                        f.firstName.errors?.required
-                                    "
+                  *ngIf="f.firstName.touched && f.firstName.errors?.required"
                 >
-                                  Unesite ime
-                                </span>
+                  Unesite ime
+                </span>
                 <span
                   class="text-danger"
-                  *ngIf="
-                                        f.firstName.touched &&
-                                        f.firstName.errors?.minlength
-                                    "
+                  *ngIf="f.firstName.touched && f.firstName.errors?.minlength"
                 >
-                                Unesite ime
-                                </span>
+                  Unesite ime
+                </span>
               </div>
               <div class="form-group">
                 <input
@@ -49,22 +42,16 @@
                 />
                 <span
                   class="text-danger"
-                  *ngIf="
-                                        f.lastName.touched &&
-                                        f.lastName.errors?.required
-                                    "
+                  *ngIf="f.lastName.touched && f.lastName.errors?.required"
                 >
-                                Unesite prezime
-                                </span>
+                  Unesite prezime
+                </span>
                 <span
                   class="text-danger"
-                  *ngIf="
-                                        f.lastName.touched &&
-                                        f.lastName.errors?.minlength
-                                    "
+                  *ngIf="f.lastName.touched && f.lastName.errors?.minlength"
                 >
-                                Unesite prezime
-                                </span>
+                  Unesite prezime
+                </span>
               </div>
 
               <div class="form-group">
@@ -79,20 +66,16 @@
                 />
                 <span
                   class="text-danger"
-                  *ngIf="
-                                        f.email.touched && f.email.errors?.required
-                                    "
+                  *ngIf="f.email.touched && f.email.errors?.required"
                 >
-                                Unesite mail
-                                </span>
+                  Unesite mail
+                </span>
                 <span
                   class="text-danger"
-                  *ngIf="
-                                        f.email.touched && f.email.errors?.pattern
-                                    "
+                  *ngIf="f.email.touched && f.email.errors?.pattern"
                 >
-                                Unesite mail u ispravnom formatu
-                                </span>
+                  Unesite mail u ispravnom formatu
+                </span>
               </div>
 
               <div class="form-group">
@@ -105,22 +88,16 @@
                 />
                 <span
                   class="text-danger"
-                  *ngIf="
-                                        f.password.touched &&
-                                        f.password.errors?.required
-                                    "
+                  *ngIf="f.password.touched && f.password.errors?.required"
                 >
-                                    Unesite password
-                                </span>
+                  Unesite password
+                </span>
                 <span
                   class="text-danger"
-                  *ngIf="
-                                        f.password.touched &&
-                                        f.password.errors?.minlength
-                                    "
+                  *ngIf="f.password.touched && f.password.errors?.minlength"
                 >
-                                    Password mora imati najmanje 8 karaktera
-                                </span>
+                  Password mora imati najmanje 8 karaktera
+                </span>
               </div>
               <div class="form-group">
                 <input
@@ -134,16 +111,16 @@
                 />
                 <span
                   class="text-danger"
-                  *ngIf="
-                  f.phone.touched && f.phone.errors?.required"
+                  *ngIf="f.phone.touched && f.phone.errors?.required"
                 >
-                Unesite mail
-                 </span>
+                  Unesite mail
+                </span>
                 <span
                   class="text-danger"
-                  *ngIf=" f.phone.touched && f.phone.errors?.pattern ">
-               Unesite broj telefona u ispravnom formatu
-              </span>
+                  *ngIf="f.phone.touched && f.phone.errors?.pattern"
+                >
+                  Unesite broj telefona u ispravnom formatu
+                </span>
               </div>
               <div class="form-group">
                 <button
@@ -156,23 +133,15 @@
                 </button>
               </div>
               <div class="form-group">
-                <a [routerLink]="['/login/courier']">Imate račun? Prijavite se ovdje </a>
+                <a [routerLink]="['/login/courier']"
+                  >Imate račun? Prijavite se ovdje
+                </a>
               </div>
-              <div class="error">{{error}}</div>
+              <div class="error">{{ error }}</div>
             </div>
           </form>
-
         </div>
-
       </div>
-  </div>
+    </div>
   </div>
 </main>
-
-
-
-
-
-
-
-

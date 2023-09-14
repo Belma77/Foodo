@@ -141,17 +141,16 @@ header {
     color: #000000;
     box-sizing: border-box;
     -webkit-box-pack: justify;
-    justify-content: space-between;
+    // justify-content: space-between;
     -webkit-box-align: center;
     align-items: center;
     position: absolute;
-    max-width: 1920px;
-    min-width: 1024px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 10%;
     height: 96px;
     transition: background 200ms ease;
     background: transparent;
+    backface-visibility: hidden;
     right: 0;
     z-index: 1;
 }
@@ -170,14 +169,12 @@ header {
     color: #000000;
     box-sizing: border-box;
     -webkit-box-pack: justify;
-    justify-content: space-between;
+    // justify-content: space-around;
     -webkit-box-align: center;
     align-items: center;
     position: absolute;
-    max-width: 1920px;
-    min-width: 1024px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 10%;
     height: 96px;
     transition: background 200ms ease;
     right: 0;

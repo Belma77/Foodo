@@ -8,7 +8,7 @@ import {Courier} from "../models/courier.model";
 import {SignalRService} from "./signal-r.service";
 import { OrderService } from './order.service';
 import { CourierService } from './courier.service';
-import { async } from 'rxjs';
+import { tokenName } from '@angular/compiler';
 
 
 @Injectable({
@@ -89,9 +89,7 @@ getRole()
             .then((res: User) => {
               
               var role=localStorage.setItem('role', res.role);
-              console.log("res"+res);
               this.user = res;
-              console.log(this.user);
             })
             .catch((err: any) => {
               console.log(err);

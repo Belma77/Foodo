@@ -1,5 +1,7 @@
 ﻿using Data;
 using Data.Models.Entities;
+using Data.Models.Enums;
+using Data.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -46,11 +48,23 @@ namespace backend.Repositories.Impl
         public Order GetLatest(int userId)
         {
             return _dbContext.orders
-                .Where(x => x.Customer.Id == userId)
-                .Include(x=>x.Restaurant)
-                .Include(x=>x.Courier)
-                .OrderByDescending(x => x.Id)
+               .Where(x => x.Customer.Id == userId)
+               .Include(x => x.Restaurant)
+               .Include(x => x.Courier)
+               .Include(x => x.OrderRecords)
+               .FirstOrDefault();
+        }
+
+        public Order GetActive(int courierId)
+        {
+            var order = _dbContext.orders
+                .Where(x => x.Courier.Id == courierId && (x.orderStatus == OrderStatus.IN_PREPARATION || x.orderStatus == OrderStatus.PICKED_UP || x.orderStatus == OrderStatus.DELIVERING))
+                .Include(x => x.Restaurant)
+                .Include(x => x.Courier)
+                .Include(x => x.Customer)
+                .Include(x => x.OrderRecords)
                 .FirstOrDefault();
+            return order;
         }
         public IQueryable<Order> GetCompletedOrders(int courierId)
         {
@@ -62,6 +76,15 @@ namespace backend.Repositories.Impl
                 .Include(x => x.Courier).Where(x => x.Courier.Id == courierId)
                 .Include(x=>x.customerLocation)
                 .AsQueryable();
+        }
+
+        public List<Order> getPendingAndActive(int resturantId)
+        {
+            return _dbContext.orders
+                .Where(o => o.orderStatus==OrderStatus.CREATED || o.orderStatus == OrderStatus.IN_PREPARATION && o.Restaurant.Id==resturantId)
+                .Include(o => o.OrderRecords)
+                    .ThenInclude(o => o.Product)
+                .ToList();
         }
     }
 }

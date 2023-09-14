@@ -77,7 +77,7 @@ namespace backend.Services.Impl
             _orderRepository.create(order);
             
            sendOfferToRestaurant(order.Id);
-           sendOfferToCourier(order.Id);
+           //sendOfferToCourier(order.Id);
            
         }
       
@@ -115,11 +115,12 @@ namespace backend.Services.Impl
         {
             Order order = _orderRepository.findById(orderId);
             var o = _mapper.Map<OrderViewModel>(order);
-            string connectionId = ConnectionMapping.GetConnections(order.RestaurantId.ToString()).FirstOrDefault();
-            _hub.Clients.Client(connectionId).SendAsync("orderOffer", o);
-            Console.WriteLine(o.orderStatus);
-            Console.WriteLine("poslano restoranu");
+            string connectionId = ConnectionMapping.GetConnections(order.RestaurantId.ToString()).LastOrDefault();
+            if (connectionId != null)
+            {
+                _hub.Clients.Client(connectionId).SendAsync("orderOffer", o);
 
+            }
         }
         public void sendOfferToCourier(int orderId)
 
@@ -127,7 +128,11 @@ namespace backend.Services.Impl
             Order o = _orderRepository.findById(orderId);
             Courier courier = _userRepository.findActiveCourier();
             var order = _mapper.Map<OrderViewModel>(o);
-            string connectionId = ConnectionMapping.GetConnections(courier.Id.ToString()).FirstOrDefault();
+            string connectionId = ConnectionMapping.GetConnections(courier.Id.ToString()).LastOrDefault();
+            if (connectionId == null)
+            {
+                return;
+            }
             _hub.Clients.Client(connectionId).SendAsync("orderOffer", order );
             //createOrderChannel(o);
             Console.WriteLine("poslano kuriru");
@@ -166,7 +171,7 @@ namespace backend.Services.Impl
 
         private string getConnectionId (string id)
         {
-            return ConnectionMapping.GetConnections(id).First();
+            return ConnectionMapping.GetConnections(id).Last();
         }
 
         public void restaurantAcceptOrder(Order order)
@@ -174,24 +179,44 @@ namespace backend.Services.Impl
            Order Order=_orderRepository.findById(order.Id);
             Order.orderStatus = OrderStatus.IN_PREPARATION;
             _orderRepository.update(Order);
+            sendOfferToCourier(order.Id);
+        }
+
+        public Order GetActiveOrder(int courierId)
+        {
+            var order = _orderRepository.GetActive(courierId);
+            return order;
+            //if(order!=null)
+            //{
+            //    var mapped = _mapper.Map<GetLatestOrderVM>(order);
+            //    Console.WriteLine(mapped.orderStatus);
+            //    return mapped;
+            //}
+            //return null;
         }
 
         public GetLatestOrderVM GetLatestOrder(int userId)
         {
             var order = _orderRepository.GetLatest(userId);
-            if(order!=null)
+            if (order != null)
             {
                 var mapped = _mapper.Map<GetLatestOrderVM>(order);
                 Console.WriteLine(mapped.orderStatus);
                 return mapped;
             }
             return null;
-            
+
 
         }
+
         public List<GetOrdersVM> GetCompletedOrders(int courierId)
         {
             return _mapper.Map<List<GetOrdersVM>>(_orderRepository.GetCompletedOrders(courierId));
+        }
+
+        public List<Order> getPendingAndActiveOrders(int restaurantId)
+        {
+            return _orderRepository.getPendingAndActive(restaurantId);
         }
     }
 }

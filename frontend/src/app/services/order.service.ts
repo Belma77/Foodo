@@ -22,6 +22,7 @@ export class OrderService {
   subject = webSocket('ws://localhost:4200/');
   currentOrder:OrderForm | null = null;
   pendingOrders:Order[] = [];
+  orders:Order[] = [];
   newOrder: any;
   success:boolean=false;
   restaurant:Restaurant|null=null;
@@ -129,7 +130,6 @@ async createOrder(order:any)
     modalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
     //order.orderStatus=this.makeOrderStatus(order);
     modalRef.componentInstance.data = order;
-   console.log("send to courier");
   }
 
   makeOrderStatus(order:Order)
@@ -147,18 +147,18 @@ async createOrder(order:any)
 
   sendToRestaurant(order:Order)
   {
+    console.log("send to restaurant")
     const ModalRef = this.modal.open(IncomingOrderComponent);
     ModalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
     ModalRef.componentInstance.data = order;
-    console.log("send to res");
-    console.log(order);
   }
 
-  restaurantAcceptOrder(order:Order) {
-    this.addPendingOrder(order);
+  async restaurantAcceptOrder(order:Order) {
+    // TODO check if this is needed
+    // this.addPendingOrder(order);
     this.requestService.patch('/restaurant/accept/order', order)
       .then(() => {
-        console.log("update status u pripremi");
+        this.getActiveAndPendingOrders();
       })
       .catch(e => {
         console.log(e)
@@ -189,5 +189,14 @@ async createOrder(order:any)
     return this.requestService.get('/Orders/Completed').catch(err=>{
       console.log(err);
     })
+  }
+
+  async getActiveAndPendingOrders() : Promise<any> {
+      this.requestService.get("/Orders/pendingAndActive").then(data => {
+        console.log(data);
+        this.orders = data;
+      }).catch(err => {
+        console.log(err)
+      })
   }
 }
