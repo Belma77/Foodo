@@ -7,7 +7,7 @@ namespace Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var path = @"C:\Users\user\Desktop\rs1\foodo\webapp\backend\Data\Script\scriptFoodo.sql";
+            var path = "../Data/Script/scriptFoodo.sql";
             var query = File.ReadAllText(path);
             migrationBuilder.Sql(query);
         }
