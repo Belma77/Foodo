@@ -34,7 +34,7 @@ namespace backend.Services.Impl
         public void create(ProductViewModel p, int restaurantId, IFormFile file)
         {
             Product product = new Product();
-            Category category = _productRepository.findCategoryById(p.Category.Id);
+            Category category = _productRepository.findCategoryById(p.categoryId);
             product.Category = category;
             product.name = p.name;
             product.description = p.description;

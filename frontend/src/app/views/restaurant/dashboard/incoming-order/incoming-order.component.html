@@ -8,7 +8,7 @@
   <p>Broj narudžbe: {{data.id}}</p>
   <h3>Stavke: </h3>
   <div *ngFor="let item of data.orderRecords | keyvalue">
-      <span>{{item.value.product.name}}   X {{item.value.quanity}}</span>
+      <span>{{item.value.product.name}} X {{item.value.quanity}}</span>
   </div>
 </div>
 <div class="modal-footer">

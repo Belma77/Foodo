@@ -49,7 +49,7 @@ export class UserService {
         await this.requestService.post('/customer/login', user).then(async (data: { token: string; }) => {
             localStorage.setItem('token', data.token);
           this.signalR.startConnection();
-             await this.doMe().then(() => {
+             this.doMe().then(() => {
                 this.router.navigate(['/customer/home-page']);
              }).catch((err: any) => {
                console.log(err);
@@ -65,7 +65,7 @@ export class UserService {
         localStorage.setItem('token', data.token);
         await this.courierService.setStatusActive();
         this.signalR.startConnection();
-        await this.doMe().then((response:any) => {
+        this.doMe().then(() => {
           this.router.navigate(['/courier/dashboard']);
         }).catch((err: any) => {
           console.log(err);
@@ -84,7 +84,7 @@ getRole()
 
 
     async doMe() {
-        await this.requestService
+         this.requestService
             .get('/user/doMe')
             .then((res: User) => {
               

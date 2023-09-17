@@ -36,6 +36,7 @@
         <th scope="col">Stavke</th>
         <th scope="col">Ukupna cijena</th>
         <th scope="col">Status narudzbe</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -48,6 +49,7 @@
         </td>
         <td>{{ s.price}} KM</td>
         <td>{{getStatusText(s.orderStatus)}}</td>
+        <td style="text-align: center;"><button (click)="FinishOrder(s)" type="button" class="acceptOrderBtn">Zavrseno</button></td>
       </tr>
     
     </tbody>

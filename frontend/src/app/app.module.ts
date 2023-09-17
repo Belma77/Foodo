@@ -44,7 +44,6 @@ import { ProfileComponent } from './views/restaurant/dashboard/profile/profile.c
 import {CheckoutComponent} from "./views/customer/checkout/checkout.component";
 import { StripeModule } from "stripe-angular";
 import {CancelComponent} from "./views/customer/checkout/cancel.component";
-import { CustomerOderTrackerComponent } from './views/customer/customer-oder-tracker/customer-oder-tracker.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {PopUpComponent} from "./views/courier/dashboard/start-page/pop-up/pop-up.component";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -89,7 +88,6 @@ import { UsedAdressesComponent } from './views/customer/used-adresses/used-adres
     ProfileComponent,
     CheckoutComponent,
     CancelComponent,
-    CustomerOderTrackerComponent,
 PopUpComponent,
 PendingOrdersComponent,
 IncomingOrderComponent,
@@ -135,7 +133,7 @@ UsedAdressesComponent,
        UserService,
        RestaurantService,
        CoreRequestService,
-      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

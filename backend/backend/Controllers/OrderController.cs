@@ -39,7 +39,7 @@ namespace backend.Controllers
         {
             OrderViewModel order = _orderService.GetOrder(id);
             return Ok(order);
-            //return Ok(JsonSerializer.Serialize());
+            
         }
 
         [HttpGet("active")]
@@ -69,6 +69,32 @@ namespace backend.Controllers
             return Ok(_orderService.getPendingAndActiveOrders(restaurantId));
         }
 
+        [HttpGet("pendingByCourier")]
+        [Authorize(UserRole.Courier)]
+        public IActionResult getPendingAndActiveByCourier()
+        {
+            string userId = HttpContext.User.Identity.Name;
+            int courierId = int.Parse(userId);
+            return Ok(_orderService.getPendingOrdersByCourier(courierId));
+        }
+
+        [HttpGet("GetUnrated")]
+        [Authorize(UserRole.Customer)]
+        public IActionResult getUnratedOrderByCustomer()
+        {
+            string userId = HttpContext.User.Identity.Name;
+            int customerId = int.Parse(userId);
+            return Ok(_orderService.GetUnratedOrder(customerId));
+        }
+
+        [HttpPut("updateStatus")]
+        [Authorize(UserRole.Courier, UserRole.Restaurant)]
+        public IActionResult UpdateOrderStatus(UpdateStatusDto dto)
+        {
+            
+           return Ok(_orderService.UpdateOrderStatus(dto));
+        }
+      
 
     }
 }

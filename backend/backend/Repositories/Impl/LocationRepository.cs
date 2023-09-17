@@ -40,6 +40,12 @@ namespace backend.Repositories.Impl
             return location;
         }
 
+        public Location GetById(int id)
+        {
+            var location = _db.locations.FirstOrDefault(x => x.Id == id);
+            return location;
+        }
+
         public Location Get(Location location, int customerId)
         {
             var find = _db.locations.FirstOrDefault(x => x.CustomerId == customerId && x.formatedAdress==location.formatedAdress);

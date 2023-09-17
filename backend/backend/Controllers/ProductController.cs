@@ -26,6 +26,7 @@ namespace backend.Controllers
 
         [HttpGet]
         [Route("categories")]
+        [Authorize(UserRole.Customer, UserRole.Restaurant)]
         public IActionResult getCategories()
         {
             return Ok(this._productService.getCategories());

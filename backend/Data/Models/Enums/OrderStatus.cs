@@ -15,5 +15,7 @@ namespace Data.Models.Enums
         PICKED_UP,
         DELIVERING,
         COMPLETED,
+        READY,
+        PENDING
     }
 }

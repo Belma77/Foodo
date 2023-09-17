@@ -34,7 +34,9 @@ namespace Data.Models.Entities
         public override bool Equals(Object obj)
         {
             if (obj == null) return false;
-            var location=obj as Location;   
+            var location=obj as Location;
+            if (location == null)
+                return false;
             return location.formatedAdress == formatedAdress;
         }
         public override int GetHashCode()

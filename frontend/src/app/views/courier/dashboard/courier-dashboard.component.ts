@@ -36,7 +36,6 @@ export class CourierDashboardComponent implements OnInit {
 
   Odjava() {
     this.courierService.setStatusInactive().then(()=>{
-      console.log("neaktivan");
     })
     this.userService.logout();
     this.router.navigateByUrl('login/courier');

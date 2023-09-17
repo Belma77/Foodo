@@ -21,7 +21,7 @@ namespace backend.Controllers
 {
     [Route("courier")]
     [ApiController]
-    [Authorize(UserRole.Courier)]
+   // [Authorize(UserRole.Courier)]
     public class CourierController : ControllerBase
     {
 
@@ -52,17 +52,16 @@ namespace backend.Controllers
         [AllowAnonymous]
         public ResponseToken Login([FromBody] UserVM courier)
         {
-            //_courierService.Login(courier);
             ResponseToken token = _courierService.Login(courier);
             return token;
         }
 
         [HttpPatch]
         [Route("status/active")]
-        [AllowAnonymous]
+        [Authorize(UserRole.Courier)]
         public IActionResult setStatusActive()
         {
-            //Todo get courier from jwt
+            
             string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
             int courierId = int.Parse(userId);
             _courierService.setStatus(courierId, CourierWorkingStatus.ACTIVE);
@@ -71,11 +70,10 @@ namespace backend.Controllers
 
         [HttpPatch]
         [Route("status/inactive")]
-        [AllowAnonymous]
+        [Authorize(UserRole.Courier)]
         public IActionResult setStatusInactive()
         {
-            //Todo get courier from jwt
-            //int courierId = 1;
+            
             string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
             int courierId = int.Parse(userId);
             _courierService.setStatus(courierId, CourierWorkingStatus.INACVTIVE);
@@ -83,7 +81,7 @@ namespace backend.Controllers
         }
         [HttpPatch]
         [Route("acceptOrder")]
-        [AllowAnonymous]
+        [Authorize(UserRole.Courier)]
         public IActionResult CourierAcceptOrder([FromBody] OrderViewModel order)
         {
             _courierService.courierAcceptOrder(order);

@@ -29,7 +29,7 @@ namespace backend.Controllers
 {
     [Route("customer")]
     [ApiController]
-    [Authorize(UserRole.Customer)]
+    //[Authorize(UserRole.Customer)]
     public class CustomerController : ControllerBase
     {
         private ICustomerService _customerService;
@@ -66,8 +66,7 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("session/create")]
-        [AllowAnonymous]
-        //[Authorize]
+        [Authorize(UserRole.Customer)]
         public void CreateSession([FromBody] OrderViewModel order)
         {
             var url = "localhost:4200";

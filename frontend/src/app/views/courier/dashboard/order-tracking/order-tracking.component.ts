@@ -6,6 +6,9 @@ import { Order } from 'src/app/models/order';
 import data from '../../../../mock/order.json'
 import { CourierService } from 'src/app/services/courier.service';
 import { SignalRService } from 'src/app/services/signal-r.service';
+import { OrderService } from 'src/app/services/order.service';
+import { UserService } from 'src/app/services/user.service';
+import { Courier } from 'src/app/models/courier.model';
 
 @Component({
   selector: 'app-order-tracking',
@@ -18,51 +21,58 @@ export class OrderTrackingComponent implements OnInit {
   OrderStatus = OrderStatus;
   resLocation:any;
   cusLocation:any;
-  courierLocation: any;
+  courierLocation!: any;
   zoom: number = 20;
   data:string="U pripremi";
   isOrder:boolean=false;
-
-  constructor(private router:Router, private courierService:CourierService) {
-    this.getOrder();
-    this.setCurrentLocation();
-    //this.resLocation = {lat: this.order.restaurant.location.latitude, lng: this.order.restaurant.location.longitude};
-    if(this.order!=null&&this.order!=undefined)
-    {
-    this.cusLocation = {lat: this.order.customerLocation.latitude, lng: this.order.customerLocation.longitude};
-    this.resLocation= new Location();
-    this.resLocation.latitude=43.345845;
-    this.resLocation.longitude=17.8221036;
-    console.log(this.cusLocation)
-    console.log(this.resLocation);
-    console.log(this.courierLocation);
-    this.order!.orderStatus = OrderStatus.IN_PREPARATION;
+  orderStatus?:OrderStatus;
+  courierStatus:boolean=false;
+  constructor(private router:Router, private courierService:CourierService, private orderService:OrderService, private userService:UserService) {
     
-    }
-
-   
+    
   }
 
-  updateStatus(status: String) {
+   updateStatus(status: String) {
+    console.log(this.order);
     if(this.order!=null&&this.order!=undefined)
     {
+      this.orderStatus= OrderStatus[status as keyof typeof OrderStatus];
       this.order!.orderStatus = OrderStatus[status as keyof typeof OrderStatus];
-
+      this.orderService.updateOrderStatus(this.order.id, this.orderStatus).then((x)=>{
+        
+      }).catch(err=>{
+        console.log(err);
+      })
     }
   }
 
-  getOrder()
+getOrder()
 {
   this.isOrder=false;
-  var data=localStorage.getItem('order');
-  var obj=JSON.parse(data!);
-  if(obj!=null&&obj!=undefined)
+  var courier=this.userService.user as Courier;
+  if(courier.status==0)
   {
-  this.order=obj;
-  //this.order=this.courierService.activeOrder;
-  
-  this.isOrder=true;
-  }
+  this.courierService.getActiveOrder().then((order:Order) => {
+    
+    this.order = order;
+    
+    if(order)
+    {
+      this.isOrder=true;
+      this.setCurrentLocation();
+   
+    this.cusLocation = {lat: this.order.customerLocation.latitude, lng: this.order.customerLocation.longitude};
+    this.resLocation={lat: this.order.restaurantLocation.latitude, lng: this.order.restaurantLocation.longitude};
+    this.order!.orderStatus = OrderStatus.IN_PREPARATION; 
+    }
+    
+  }).catch(err => {
+    console.log(err);
+   // this.order = null;
+    //this.async = false;
+  })
+}
+ 
 }
   completeOrder() {
     this.router.navigateByUrl("courier/dashboard")
@@ -71,10 +81,11 @@ export class OrderTrackingComponent implements OnInit {
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.watchPosition((position) => {
-        this.courierLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
-       // this.courierLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
-       // this.courierLocation = {lat: 43.345834, lng: 17.8111036};
-
+        
+       this.courierLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
+       (error:any) => {
+        console.error("Geolocation error:", error);
+      }
       });
     }
     else {
@@ -85,8 +96,11 @@ export class OrderTrackingComponent implements OnInit {
   directionToRestaurant() {
     return this.order!.orderStatus === OrderStatus.IN_PREPARATION;
   }
+  
+
 
   ngOnInit(): void {
+    this.getOrder();
   }
 
 public renderOptions = {
@@ -118,5 +132,7 @@ public customerMarkerOptions = {
 
   }
 }
+
+
 
 }

@@ -48,20 +48,20 @@ export class SignalRService {
   }
 
   public orderOfferListener = () => {
-    this.hubConnection.on('orderOffer', (data:Order) => {
+    this.hubConnection.on('orderOffer', (data:Order, userRole:string) => {
       var role=this.injector.get(UserService).getRole();
-      console.log("role", role)
-
-      if(role!=null&&role.valueOf()==UserRole.Restaurant.valueOf())
+      
+      
+      if(role!=null&&role.valueOf()==UserRole.Restaurant.valueOf()&&userRole==role&&data!=null)
       {
-        console.log("order offer listener for restaurant")
+        
         this.orderService.sendToRestaurant(data);
       }
-      if(role!=null&&role==UserRole.Courier.valueOf())
+       if(role!=null&&role==UserRole.Courier.valueOf()&&userRole==role&&data!=null)
       {
-        console.log("order offer listener for courier")
+      
         this.orderService.sendToCourier(data);
-      }
+      } 
 
       
 

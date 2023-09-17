@@ -35,7 +35,7 @@ namespace backend.Controllers
 
         [HttpGet]
         [Route("doMe")]
-        [AllowAnonymous]
+        [Authorize(UserRole.Customer, UserRole.Restaurant, UserRole.Courier)]
         public ActionResult<User> doMe()
         {
             try

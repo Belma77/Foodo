@@ -20,12 +20,12 @@ export class PopUpComponent implements OnInit {
   constructor(private courierService: CourierService,public modal:NgbActiveModal, public start: StartPageComponent, private router:Router) { }
 
   ngOnInit(): void {
-
+    
   }
 
   AcceptOrder(order:Order)
   {
-    console.log(order);
+    
     this.courierService.courierAcceptOrder(order);
     this.modal.close();
     this.router.navigateByUrl('/courier/dashboard/order/offer');

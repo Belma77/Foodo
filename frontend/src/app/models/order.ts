@@ -11,13 +11,13 @@ export class Order {
     customer!:Customer;
     restaurant!:Restaurant;
     courier!:Courier;
-   // orderRecords?:Record<string, OrderRecord>;
     orderRecords!:Record<string, OrderRecord>;
     requestTime!:string;
     orderStatus!:OrderStatus;
     price!:number;
     rated!:boolean;
     customerLocation!:any;
+    restaurantLocation!:any;
 }
 
 export class OrderForm {

@@ -9,10 +9,11 @@ namespace backend.Repositories
         Order findById(int id);
         Order create(Order order);
         void update(Order order);
-        public Order GetLatest(int userId);
+        public Order GetUnratedOrder(int userId);
         public Order GetActive(int courierId);
         IQueryable<Order> GetCompletedOrders(int courierId);
 
         List<Order> getPendingAndActive(int restaurntId);
+        List<Order> getPendingOrdersByCourier(int courierId);
     }
 }

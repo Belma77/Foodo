@@ -31,28 +31,32 @@ private orderService:OrderService){
    }
 
   ngOnInit(): void {
+    if(this.isLoggedIn)
+    {
     this.restaurantService.getRestaurants().then(data => {
       this.restaurants = data;
-      console.log(data);
     });
-    this.orderService.getLatestOrder();
+    this.orderService.getUnratedOrder();
     this.ShowModal();
+  }
   }
 
   ShowModal(){
-
+    
+    if(this.isLoggedIn)
+    {
     var order = localStorage.getItem('order');
-    // TODO change name of the method, move if condition to backend and check if rated is null, move functions on backend from order controller to customer
-    this.orderService.getLatestOrder().then((x:Order)=>{
+    
+    this.orderService.getUnratedOrder().then((x:Order)=>{
       this.order=x;    
       
-      if(this.order.rated==false&&this.order.orderStatus==OrderStatus.COMPLETED.valueOf()&&(order!=JSON.stringify(this.order.id))){
+      if(order!=JSON.stringify(this.order.id))
+      {
+        localStorage.setItem('order', this.order.id.toString());
         this.reviewService.openModal();
-      }  
+      }      
     })
-      
-       
-
+  }
     
   }
 
@@ -74,22 +78,6 @@ private orderService:OrderService){
   }
 }
 
-  // injectLocationPicker() {
-  //   this.modalService.insertComponentToModal(LocationPickerComponent)
-  // }
-
-//   injectLocationDragablePicker() {
-//     this.modalService.insertComponentToModal(MapDragablePickerComponent)
-//   }
-//   @HostListener('window:scroll', ['$event'])
-
-//   onWindowScroll() {
-//       let element = document.querySelector('header') as HTMLElement;
-//       if (window.pageYOffset > element.clientHeight / 3) {
-//         element.classList.add('header-inverse');
-//       } else {
-//         element.classList.remove('header-inverse');
-//       }
-//     }
+  
 
 

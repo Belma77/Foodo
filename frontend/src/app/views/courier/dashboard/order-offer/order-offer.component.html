@@ -3,7 +3,7 @@
         <div class="wrapper-order">
             <div class="map-wrapper">
                 <h2>Mapa</h2>
-                // TODO create origin and destination variables in ts file
+                
                 <agm-map [latitude]="origin.lat" [longitude]="origin.lng">
                     <agm-direction [origin]="origin" [destination]="destination"></agm-direction>
                 </agm-map>
@@ -15,13 +15,16 @@
                 <h4>Adresa kupca: {{this.order.customerLocation.formatedAdress}}</h4>        
                 <h2>Restoran</h2>
                 <h4>{{this.order.restaurant.name}}</h4>
+                <h4>Lokacija: {{this.order.restaurantLocation.formatedAdress}}</h4>
                 <h2>Status</h2>
-                <h4>{{this.order.orderStatus}}</h4>
+                <h4>{{getStatusText(this.order.orderStatus)}}</h4>
                 <h2>Stavke</h2>
-                <div *ngFor="let orderRecords of this.order.orderRecords | keyvalue">{{orderRecords.key}} {{orderRecords.value}}</div>
+                <div *ngFor="let orderRecords of this.order.orderRecords | keyvalue"> {{orderRecords.value.quanity}} x {{orderRecords.value.product.name}} </div>
             </div>
           </div>
         </div>
-    <div *ngIf="!order">Trenutno nemate aktivnih narudzbi</div>
+    <div class="noOrder" *ngIf="!order">
+        <h3>Trenutno nemate aktivnih narudzbi</h3>
+        </div>
 </div>
 

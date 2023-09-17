@@ -19,7 +19,7 @@
           <h3>Adresa dostave:   </h3>
           <p>{{item.customerLocation.formatedAdress}}</p><hr>
           <h3>Detalji narudzbe: </h3>
-          <p *ngFor="let order of item.orderRecords|keyvalue">{{order.value.product.name}}</p>
+          <p *ngFor="let order of item.orderRecords|keyvalue">{{order.value.quanity}} X {{order.value.product.name}}</p>
          
           </div>
       
