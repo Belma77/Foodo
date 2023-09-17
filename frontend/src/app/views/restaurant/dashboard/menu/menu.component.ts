@@ -18,7 +18,6 @@ export class MenuComponent implements OnInit {
     
     this.restaurantService.getMenu(this.userService.user.id!)
     .then(data => {
-      console.log(data);
       this.products = data
     });
   }

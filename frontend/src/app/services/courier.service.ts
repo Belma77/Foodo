@@ -40,4 +40,9 @@ activeOrder: Order | null = null;
     return this.requestService.get('/Orders/active');
   }
 
+   getPendingOrders()
+  {
+    return this.requestService.get('/Orders/pendingByCourier');
+  }
+
 }

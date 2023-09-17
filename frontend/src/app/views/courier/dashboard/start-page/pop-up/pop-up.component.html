@@ -7,10 +7,12 @@
 <div class="modal-body">
   <p>Broj narudžbe: {{data.id}}</p>
   <p>Restoran: {{data.restaurant.name}}</p>
-  <p>Kupac: {{data.customer.firstName}}</p>
+  <p>Lokacija restorana: </p>
   <p>Lokacija kupca: {{data.customerLocation.formatedAdress}}</p>
+  <p>Stavke:</p>
+  <span *ngFor="let item of data.orderRecords | keyvalue">
+    {{item.value.product.name}} X {{item.value.quanity}}</span>
 
-  <p *ngFor="let orderRecord of data.orderRecords|keyvalue">Stavke: {{orderRecord.value.product.id}}</p>
 
 </div>
 <div class="modal-footer">

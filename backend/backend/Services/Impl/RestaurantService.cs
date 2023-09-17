@@ -38,10 +38,9 @@ namespace backend.Services.Impl
 
         }
 
-        public void register(Restaurant res)
+        public void register(RestaurantRegisterDto dto)
         {
-            Console.WriteLine(res.phoneNumber);
-            var email = _UserRepository.findByEmail(res.email);
+            var email = _UserRepository.findByEmail(dto.email);
             if (email != null)
                 throw new DomainConflictException("User already exists");
             else
@@ -54,15 +53,21 @@ namespace backend.Services.Impl
 
                 //derive a 256 - bit subkey(use HMACSHA256 with 100, 000 iterations)
                 string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                    password: res.password,
+                    password: dto.password,
                     salt: salt,
                     prf: KeyDerivationPrf.HMACSHA256,
                     iterationCount: 100000,
                     numBytesRequested: 256 / 8));
 
+                var res = new Restaurant();
                 res.password = hashedPassword;
                 res.StoredSalt = salt;
                 res.role = UserRole.Restaurant;
+                res.email=dto.email;
+                res.phoneNumber = dto.phoneNumber;
+                res.name=dto.name;
+                res.deliveryCost = 2;
+                
 
                 res.headerImage = res.headerImage;
 

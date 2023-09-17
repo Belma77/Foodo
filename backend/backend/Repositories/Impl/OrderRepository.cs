@@ -45,10 +45,10 @@ namespace backend.Repositories.Impl
             _dbContext.orders.Update(order);
             _dbContext.SaveChanges();
         }
-        public Order GetLatest(int userId)
+        public Order GetUnratedOrder(int userId)
         {
             return _dbContext.orders
-               .Where(x => x.Customer.Id == userId)
+               .Where(x => x.Customer.Id == userId&&!x.Rated&&x.orderStatus==OrderStatus.COMPLETED)
                .Include(x => x.Restaurant)
                .Include(x => x.Courier)
                .Include(x => x.OrderRecords)
@@ -58,11 +58,15 @@ namespace backend.Repositories.Impl
         public Order GetActive(int courierId)
         {
             var order = _dbContext.orders
-                .Where(x => x.Courier.Id == courierId && (x.orderStatus == OrderStatus.IN_PREPARATION || x.orderStatus == OrderStatus.PICKED_UP || x.orderStatus == OrderStatus.DELIVERING))
+                
                 .Include(x => x.Restaurant)
                 .Include(x => x.Courier)
                 .Include(x => x.Customer)
                 .Include(x => x.OrderRecords)
+                .ThenInclude(y=>y.Product)
+                 .Include(y => y.customerLocation)
+                 .Include(x=>x.restaurantLocation)
+                 .Where(x => x.Courier.Id == courierId && (x.orderStatus == OrderStatus.IN_PREPARATION || x.orderStatus == OrderStatus.PICKED_UP || x.orderStatus == OrderStatus.DELIVERING || x.orderStatus==OrderStatus.READY))
                 .FirstOrDefault();
             return order;
         }
@@ -81,10 +85,24 @@ namespace backend.Repositories.Impl
         public List<Order> getPendingAndActive(int resturantId)
         {
             return _dbContext.orders
-                .Where(o => o.orderStatus==OrderStatus.CREATED || o.orderStatus == OrderStatus.IN_PREPARATION && o.Restaurant.Id==resturantId)
+                .Where(o => o.orderStatus==OrderStatus.CREATED || o.orderStatus == OrderStatus.IN_PREPARATION || o.orderStatus == OrderStatus.PENDING  && o.Restaurant.Id==resturantId)
                 .Include(o => o.OrderRecords)
                     .ThenInclude(o => o.Product)
                 .ToList();
         }
+
+        public List<Order> getPendingOrdersByCourier(int courierId)
+        {
+            return _dbContext.orders
+                .Where(o => o.orderStatus == OrderStatus.CREATED || o.orderStatus == OrderStatus.IN_PREPARATION|| o.orderStatus == OrderStatus.READY && o.Courier.Id == courierId )
+                    .Include(x=>x.Restaurant)
+                    .Include(x=>x.Customer)
+                    .Include(x=>x.customerLocation)
+                    .Include(o => o.OrderRecords)
+                    .ThenInclude(o => o.Product)
+                .ToList();
+        }
+
+        
     }
 }

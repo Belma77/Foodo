@@ -7,7 +7,7 @@ namespace backend.Services.Interfaces
 {
     public interface IRestaurantService
     {
-        void register(Restaurant res);
+        void register(RestaurantRegisterDto res);
         ResponseToken Login(UserVM u);
         List<RestaurantVM> GetRestaurants();
         RestaurantVM GetRestaurant(int id);

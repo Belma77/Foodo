@@ -26,7 +26,6 @@ export class CoreRequestService {
             })
             .catch((err) => {
                 this.spinerService.hide();
-                // this.handleError(err);
                 throw err;
             });
     }
@@ -41,7 +40,6 @@ export class CoreRequestService {
             })
             .catch((err) => {
                 this.spinerService.hide();
-                // this.handleError(err);
                 throw err;
             });
     }
@@ -57,12 +55,12 @@ export class CoreRequestService {
             })
             .catch((err) => {
                 this.spinerService.hide();
-                // this.handleError(err);
                 throw err;
             });
     }
     public put(path: string, body: any): Promise<any> {
         this.spinerService.show();
+        const url = `${environment.api}${path}`;
         return this.http
             .put(environment.api.concat(path), body)
             .toPromise()
@@ -72,7 +70,6 @@ export class CoreRequestService {
             })
             .catch((err) => {
                 this.spinerService.hide();
-                // this.handleError(err);
                 throw err;
             });
     }
@@ -83,7 +80,6 @@ export class CoreRequestService {
             .toPromise()
             .catch((err) => {
                 this.spinerService.hide();
-                // this.handleError(err);
                 throw err;
             });
     }

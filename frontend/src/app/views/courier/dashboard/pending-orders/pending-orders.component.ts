@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CourierService} from "../../../../services/courier.service";
 import {Order} from "../../../../models/order";
+import { UserService } from 'src/app/services/user.service';
+import { Courier } from 'src/app/models/courier.model';
 
 @Component({
   selector: 'app-pending-orders',
@@ -10,30 +12,46 @@ import {Order} from "../../../../models/order";
 export class PendingOrdersComponent implements OnInit {
 
 pendingOrder?:Order | null;
-opened:boolean=false;
+//opened:boolean=false;
+opened:boolean[]=[];
 order:boolean=false;
-  constructor(private courierService:CourierService) {}
+pendingOrders?:Order[];
+  constructor(private courierService:CourierService, private userService:UserService) {}
 
   ngOnInit(): void {
     this.getPendingOrder();
   }
 
+
+
   getPendingOrder()
   {
+    var user=this.userService.user as Courier;
     this.order=false;
-     this.pendingOrder=this.courierService.activeOrder;
-     if(this.pendingOrder?.customerLocation!=null && this.pendingOrder.customerLocation!=undefined)
-     {
-      this.order=true;
-      
-     }
+    if(user.status==0)
+    {
+    this.courierService.getPendingOrders().then((res:Order[])=>{
+    this.pendingOrders=res;
+    this.order=true;
+    return this.pendingOrders;
+    })
      
-     return this.pendingOrder;
   }
 
-  open()
-  {
-    this.opened=!this.opened;
   }
 
+  getStatusText(status:string) {
+    switch (status) {
+      case "CREATED": return "Kreirana";
+      case "IN_PREPARATION": return "U pripremi";
+      case "READY": return "Spremna za dostavu";
+      default: return "Nepoznat status";
+    }
+  }
+
+ 
+  open(index:number) {
+    this.opened[index]=!this.opened[index];
+
+  }
 }

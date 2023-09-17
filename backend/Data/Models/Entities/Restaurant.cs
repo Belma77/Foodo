@@ -34,6 +34,7 @@ namespace Data.Models.Entities
         public virtual ICollection<Order> Orders { get; set; }
 
         public string phoneNumber { get; set; }
+        public ICollection<Reviews> Reviews{ get; set; }
 
 
     }

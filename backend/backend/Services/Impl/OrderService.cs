@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using backend.Controllers;
+using backend.ErrorHandler;
 using backend.Repositories;
 using backend.Repositories.Impl;
 using backend.Services.Interfaces;
@@ -71,13 +72,14 @@ namespace backend.Services.Impl
                 orderRecord.price = or.quanity * product.price;
                 order.OrderRecords.Add(orderRecord);
                 order.price += orderRecord.price;
-                order.customerLocation = location;
+                
             }
-            
+            var resLocation = _locationRepository.GetById(1);
+            order.restaurantLocation=resLocation;
+            order.customerLocation = location;
             _orderRepository.create(order);
             
            sendOfferToRestaurant(order.Id);
-           //sendOfferToCourier(order.Id);
            
         }
       
@@ -118,7 +120,8 @@ namespace backend.Services.Impl
             string connectionId = ConnectionMapping.GetConnections(order.RestaurantId.ToString()).LastOrDefault();
             if (connectionId != null)
             {
-                _hub.Clients.Client(connectionId).SendAsync("orderOffer", o);
+                _hub.Clients.Client(connectionId).SendAsync("orderOffer", o, "Restaurant");
+                Console.WriteLine(UserRole.Restaurant);
 
             }
         }
@@ -127,14 +130,15 @@ namespace backend.Services.Impl
         {
             Order o = _orderRepository.findById(orderId);
             Courier courier = _userRepository.findActiveCourier();
+            o.Courier = courier;
+            _orderRepository.update(o);
             var order = _mapper.Map<OrderViewModel>(o);
             string connectionId = ConnectionMapping.GetConnections(courier.Id.ToString()).LastOrDefault();
             if (connectionId == null)
             {
                 return;
             }
-            _hub.Clients.Client(connectionId).SendAsync("orderOffer", order );
-            //createOrderChannel(o);
+            _hub.Clients.Client(connectionId).SendAsync("orderOffer", order, "Courier");
             Console.WriteLine("poslano kuriru");
         }
 
@@ -153,13 +157,7 @@ namespace backend.Services.Impl
         
         public CourierVM findCourier (Order order)
         {
-            //Todo: Find closest courier(implement some algorithm)
             Courier courier = _userRepository.findActiveCourier();
-            //string connectionid = ConnectionMapping.GetConnections(courier.connectiod).First();
-            //addToGroup(order, order.Courier);
-            //_hub.Clients.Client(connectionid).SendAsync("orderOffer", JsonSerializer.Serialize(order));
-            //Console.WriteLine("after hub call to courier");
-            //courierAcceptedOffer(order);
             return _mapper.Map<CourierVM>(courier);
         }
 
@@ -186,18 +184,12 @@ namespace backend.Services.Impl
         {
             var order = _orderRepository.GetActive(courierId);
             return order;
-            //if(order!=null)
-            //{
-            //    var mapped = _mapper.Map<GetLatestOrderVM>(order);
-            //    Console.WriteLine(mapped.orderStatus);
-            //    return mapped;
-            //}
-            //return null;
+            
         }
 
-        public GetLatestOrderVM GetLatestOrder(int userId)
+        public GetLatestOrderVM GetUnratedOrder(int userId)
         {
-            var order = _orderRepository.GetLatest(userId);
+            var order = _orderRepository.GetUnratedOrder(userId);
             if (order != null)
             {
                 var mapped = _mapper.Map<GetLatestOrderVM>(order);
@@ -217,6 +209,23 @@ namespace backend.Services.Impl
         public List<Order> getPendingAndActiveOrders(int restaurantId)
         {
             return _orderRepository.getPendingAndActive(restaurantId);
+        }
+
+        public List<Order> getPendingOrdersByCourier(int courierId)
+        {
+            var orders= _orderRepository.getPendingOrdersByCourier(courierId);
+            return orders;
+        }
+
+        public OrderViewModel UpdateOrderStatus(UpdateStatusDto dto)
+        {
+            var order = _orderRepository.findById(dto.orderId);
+            if (order == null)
+                throw new DomainNotFound("Not found");
+            order.orderStatus = dto.status;
+            _orderRepository.update(order);
+            return _mapper.Map<OrderViewModel>(order);
+
         }
     }
 }

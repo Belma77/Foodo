@@ -1,15 +1,18 @@
 ﻿using backend.Services.Impl;
 using backend.Services.Interfaces;
 using Data.Models.Entities;
+using Data.Models.Enums;
 using Data.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using AuthorizeAttribute = backend.Filters.CustomAuthorizeAttribute;
 
 namespace backend.Controllers
 {
     [Route("Location")]
     [ApiController]
+    [Authorize(UserRole.Customer)]
     public class LocationController : ControllerBase
     {
         private ILocationService _locationService;
@@ -20,6 +23,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
+        
         public void Add(LocationDto location)
         {
             string userId = HttpContext.User.Identity.Name;
@@ -30,6 +34,7 @@ namespace backend.Controllers
         }
 
         [HttpGet]
+        
         public IActionResult Get()
         {
             string userId = HttpContext.User.Identity.Name;
@@ -38,6 +43,7 @@ namespace backend.Controllers
         }
 
         [HttpPut]
+       
         public void Update(LocationDto location)
         {
             string userId = HttpContext.User.Identity.Name;

@@ -17,7 +17,7 @@ export class ReviewsComponent implements OnInit {
   starRating = 0; 
 
   ngOnInit(): void {
-    this.orderService.getLatestOrder().then((x:Order)=>{
+    this.orderService.getUnratedOrder().then((x:Order)=>{
       console.log(x);
       this.order=x;   
     })

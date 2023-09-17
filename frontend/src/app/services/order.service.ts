@@ -13,6 +13,7 @@ import {ModalDismissReasons, NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-b
 import {Router} from "@angular/router";
 import {OrderStatus} from "../models/enums/order-status";
 import Stripe = stripe.Stripe;
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -26,7 +27,7 @@ export class OrderService {
   newOrder: any;
   success:boolean=false;
   restaurant:Restaurant|null=null;
-  constructor(private requestService:CoreRequestService, private courierService: CourierService, private modal:NgbModal) {
+  constructor(private http:HttpClient, private requestService:CoreRequestService, private courierService: CourierService, private modal:NgbModal) {
       //this.pendingOrders.push(order);
    }
 
@@ -125,32 +126,24 @@ async createOrder(order:any)
 }
 
   sendToCourier(order:Order) {
-    console.log(order);
+    if(order!=null)
+    {
     const modalRef = this.modal.open(PopUpComponent);
     modalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
-    //order.orderStatus=this.makeOrderStatus(order);
     modalRef.componentInstance.data = order;
-  }
-
-  makeOrderStatus(order:Order)
-  {
-    if(order.orderStatus==OrderStatus.IN_PREPARATION)
-      return "U pripremi";
-    if(order.orderStatus==OrderStatus.CREATED)
-      return "Kreirana";
-    if(order.orderStatus==OrderStatus.COMPLETED)
-      return "Spremna za dostavu";
-    else {
-      return order.orderStatus?.valueOf();
     }
   }
 
+  
+
   sendToRestaurant(order:Order)
   {
-    console.log("send to restaurant")
+    if(order!=null)
+    {
     const ModalRef = this.modal.open(IncomingOrderComponent);
     ModalRef.componentInstance.title = 'Imate nadolazeću narudžbu';
     ModalRef.componentInstance.data = order;
+    }
   }
 
   async restaurantAcceptOrder(order:Order) {
@@ -178,8 +171,8 @@ async createOrder(order:any)
 
   }
   
-  getLatestOrder(){
-     return this.requestService.get('/Orders/GetLatest')
+  getUnratedOrder(){
+     return this.requestService.get('/Orders/GetUnrated')
      .catch(err=>{
          console.log(err);
     });
@@ -198,5 +191,12 @@ async createOrder(order:any)
       }).catch(err => {
         console.log(err)
       })
+  }
+
+  updateOrderStatus(orderId:number, status:OrderStatus):Promise<any>
+  {
+  var object={'orderId':orderId, 'status':status};
+   return this.requestService.put('/Orders/updateStatus', object);
+   
   }
 }

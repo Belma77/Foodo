@@ -1,23 +1,25 @@
-<div *ngIf="!order" class="noOrder">
+<div *ngIf="!order || pendingOrders.length==0" class="noOrder">
   <h3>Nema trenutno aktivnih narudzbi</h3>
 </div>
-<div  *ngIf="order"  class="container-activity">
+<div *ngIf="order">
+<div  class="container-activity" *ngFor="let item of pendingOrders; let i=index">
   <div class="activity">
     <div class="info">
-      <h2>#{{pendingOrder.id}}</h2>
-      <h3>{{pendingOrder.restaurant.name}}</h3>
-      <button *ngIf="!opened" (click)="open()">+</button>
-      <button *ngIf="opened" (click)="open()">-</button>
+      <h2>#{{item.id}}</h2>
+      <h3>{{item.restaurant.name}}</h3>
+      <button *ngIf="!opened[i]" (click)="open(i)">+</button>
+      <button *ngIf="opened[i]" (click)="open(i)">-</button>
 
     </div>
-    <p class="price">{{pendingOrder.price}}BAM</p>
+    <p class="price">{{item.price}}BAM</p>
   </div>
-  <div *ngIf="opened"   class="sidebar" [ngClass]="{'sidebar-open' : opened}">
+  <div *ngIf="opened[i]"   class="sidebar" [ngClass]="{'sidebar-open' : opened}">
     <h3>Adresa restorana: Lacina 5, Mostar 88000</h3><hr>
-    <h3>Adresa dostave:  {{pendingOrder.customerLocation.formatedAdress}}  </h3><hr>
+    <h3>Adresa dostave:  {{item.customerLocation.formatedAdress}}  </h3><hr>
+    <h3>Status narudzbe:  {{getStatusText(item.orderStatus)}}  </h3><hr>
     <h3>Detalji narudzbe</h3>
-    <h3 *ngFor="let order of pendingOrder.orderRecords|keyvalue">{{order.value.quanity}}</h3><hr>
+    <h3 *ngFor="let order of item.orderRecords|keyvalue">{{order.value.quanity}} x {{order.value.product.name}}</h3><hr>
   </div>
 
 </div>
-
+</div>

@@ -26,8 +26,11 @@ namespace backend.Services.Impl
                 current.isCurrent = false;
                 _locationRepository.Update(current);
             }
-            var _location=_mapper.Map<Location>(location);   
-            _locationRepository.Add(_location);
+           
+                var _location = _mapper.Map<Location>(location);
+                _location.isCurrent = true;
+                _locationRepository.Add(_location);
+            
         }
 
         public List<LocationDto> Get(int CustomerId)

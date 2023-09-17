@@ -24,7 +24,6 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("restaurant")]
-    [Authorize(UserRole.Restaurant)]
     public class RestaurantController : ControllerBase
     {
         private IRestaurantService _restaurantService;
@@ -41,9 +40,9 @@ namespace backend.Controllers
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public IActionResult Register([FromBody] RestaurantVM res)
+        public IActionResult Register([FromBody] RestaurantRegisterDto res)
         {
-            _restaurantService.register(_mapper.Map<Restaurant>(res));
+            _restaurantService.register((res));
             return Ok(res);
         }
 
@@ -58,7 +57,7 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(UserRole.Customer)]
         public IActionResult getRestaurants()
         {
             var res = _restaurantService.GetRestaurants();
@@ -67,7 +66,7 @@ namespace backend.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [AllowAnonymous]
+        [Authorize(UserRole.Customer)]
         public IActionResult getRestaurant(int id)
         {
             return Ok(_restaurantService.GetRestaurant(id));
@@ -75,6 +74,7 @@ namespace backend.Controllers
 
         [HttpPut]
         [Route("profile")]
+        [Authorize(UserRole.Restaurant)]
         public IActionResult editProfile([FromForm] IFormFile file, [FromForm] string body)
         {
             var userId = HttpContext.User.Identity.Name;
@@ -85,11 +85,10 @@ namespace backend.Controllers
 
         [HttpPatch]
         [Route("accept/order")]
-        [AllowAnonymous]
+        [Authorize(UserRole.Restaurant)]
         public IActionResult resAcceptOrder([FromBody] Order order)
         {
             orderService.restaurantAcceptOrder(order);
-            Console.WriteLine("restoran prihvatio narudzbu");
             return Ok();
         }
     }

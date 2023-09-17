@@ -24,10 +24,12 @@ export class IncomingOrderComponent {
 
   
 
-  AcceptOrder(data:Order) {
+  async AcceptOrder(data:Order) {
     console.log("accepting order")
-    this.orderService.restaurantAcceptOrder(data);
-    console.log("closing modal")
+    //this.orderService.restaurantAcceptOrder(data);
+    await this.orderService.updateOrderStatus(data.id, OrderStatus.PENDING).then(async (x)=>{
+     await this.orderService.getActiveAndPendingOrders();
+    })
     this.modal.close();
     this.router.navigateByUrl('/restaurant/admin/dashboard/orders');
   }

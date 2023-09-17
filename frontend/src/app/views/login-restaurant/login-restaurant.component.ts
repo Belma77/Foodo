@@ -65,13 +65,6 @@ export class LoginComponentRestaurant implements OnInit {
      }
 
 
-    // signInWithGoogle(): void {
-    //     this.resService.googlePopupLogin()
-    //     .finally(() => {
-    //         this.loginForm.reset();
-    //     })
-    // }
-
     validateAllFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach((field) => {
             const control = formGroup.get(field);

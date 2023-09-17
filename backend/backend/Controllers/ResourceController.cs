@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data.Models.Enums;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using System.IO;
 using System.Threading.Tasks;
+using AuthorizeAttribute = backend.Filters.CustomAuthorizeAttribute;
 
 namespace backend.Controllers
 {

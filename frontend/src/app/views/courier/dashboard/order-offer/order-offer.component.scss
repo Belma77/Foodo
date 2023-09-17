@@ -14,10 +14,10 @@
 }
 
 .wrapper-order {
-    display: flex;
+  display: flex;
   height: 100vh;
   margin-left:200px;
-
+  
     .map-wrapper {
         width: 50%;
 
@@ -26,6 +26,7 @@
 
     .order-info {
         width: 50%;
+        
     }
   agm-map{
     align-content: center;

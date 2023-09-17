@@ -167,19 +167,7 @@ namespace backend
                 builder.AddDebug();
             });
 
-            //services.AddQuartz(q =>
-            //{
-            //    q.UseMicrosoftDependencyInjectionScopedJobFactory();
-
-            //    var updateProductsFileJobKey = new JobKey(nameof(JobSchedulerService));
-            //    q.AddJob<JobSchedulerService>(opt => opt.WithIdentity(updateProductsFileJobKey));
-
-            //    q.AddTrigger(cfg => cfg.ForJob(updateProductsFileJobKey)
-            //    .WithIdentity("UpdateProductsFileJob-Trigger")
-            //    .WithSimpleSchedule(x => x.WithIntervalInMinutes(2).RepeatForever()));
-            //});
-
-            //services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+            
             services.AddScoped<CustomHub, CustomHub>();
            
             services.AddScoped<IOrderRepository, OrderRepository>();
@@ -252,6 +240,9 @@ namespace backend
             app.UseAuthentication();
             app.UseAuthorization();
 
+
+           
+
             app.UseMiddleware<ErrorHandlingMiddleware>();
           
             app.UseEndpoints(endpoints =>
@@ -259,8 +250,12 @@ namespace backend
                 endpoints.MapHub<CustomHub>("/hub");
                 endpoints.MapControllers();
             });
-              
 
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var dataContext = scope.ServiceProvider.GetService<MyContext>();
+                dataContext.Database.Migrate();
+            }
         }
     }
 }

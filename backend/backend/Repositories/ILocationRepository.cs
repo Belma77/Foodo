@@ -12,6 +12,7 @@ namespace backend.Repositories
          List<Location> GetByCustomer(int CustomerId);
          Location GetCurrent(int CustomerId);
          Location Get(Location location, int customerId);
+        Location GetById(int id);
 
     }
 }
