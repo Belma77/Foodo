@@ -91,7 +91,7 @@ namespace backend.ErrorHandler
             _db.Logs.Add(log);
             _db.SaveChanges();
             string message = $"Hello ,\n following exception has ocurred: {exception.Message}.\n Date/Time:{DateTime.Now}. \n Your Foodo Team";
-            //await _emailService.SendEmailToDevelopers("An exception has occured", message);//for testing purposes
+            await _emailService.SendEmailToDevelopers("An exception has occured", message);//for testing purposes
         }
     }
 }
