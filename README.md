@@ -4,9 +4,9 @@ Kupci imaju mogućnost pregleda restorana, odabira narudzbe, biranje lokacije na
 Restoran koristi aplikaciju za prihvatanje i pregleda trenutno aktivnih narudzbi, te da updateuje status narudzbe kada je spremna, pregleda menija, dodavanja/editovanja proizova kao i editovanja svog korisnickog profila.
 Kurir koristi aplikaciju za prihvatanje novih narudzbi, za pregled trenutno aktivnih naruzdbi koje je prihvatio, za pregled informacija o trenutnoj narudzbi kao i za pracenje iste na mapi i updateovanje njenog statusa, te pregled svojih prethodnih aktivnosti.
 
-Login podaci : Customer => customer@gmail.com
-                          Restaurant=> mostarlic@gmail.com
-                          Courier=>courier@gmail.com
+Login podaci : Customer => customer@gmail.com sifra:password  
+                          Restaurant=> mostarlic@gmail.com sifra:password  
+                          Courier=>courier@gmail.com sifra:password  
 
 
 Aplikacija ima 3 interfejsa za 3 vrste usera koji medjusbono komuniciraju, za testiranje flowa aplikacije potrebno je imati 1 prozor u Google Chrome pretrazivacu (na adresi http://localhost:4200/login/courier, 1 prozor incognito mode (ili neki drugi pretrazivac) na adresi http://localhost:4200/login/business te 3. prozor u drugom pretraživaču na adresi http://localhost:4200/login. 
